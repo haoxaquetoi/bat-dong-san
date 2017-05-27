@@ -1,0 +1,66 @@
+[2017-05-25 23:16:47] production.ERROR: InvalidArgumentException: The "" directory does not exist. in D:\Zend\www\bds\vendor\symfony\finder\Finder.php:546
+Stack trace:
+#0 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(86): Symfony\Component\Finder\Finder->in(false)
+#1 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(63): Illuminate\Foundation\Bootstrap\LoadConfiguration->getConfigurationFiles(Object(Illuminate\Foundation\Application))
+#2 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(39): Illuminate\Foundation\Bootstrap\LoadConfiguration->loadConfigurationFiles(Object(Illuminate\Foundation\Application), Object(Illuminate\Config\Repository))
+#3 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(208): Illuminate\Foundation\Bootstrap\LoadConfiguration->bootstrap(Object(Illuminate\Foundation\Application))
+#4 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(160): Illuminate\Foundation\Application->bootstrapWith(Array)
+#5 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(144): Illuminate\Foundation\Http\Kernel->bootstrap()
+#6 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#7 D:\Zend\www\bds\public\index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#8 {main}  
+[2017-05-25 23:16:53] production.ERROR: InvalidArgumentException: The "" directory does not exist. in D:\Zend\www\bds\vendor\symfony\finder\Finder.php:546
+Stack trace:
+#0 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(86): Symfony\Component\Finder\Finder->in(false)
+#1 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(63): Illuminate\Foundation\Bootstrap\LoadConfiguration->getConfigurationFiles(Object(Illuminate\Foundation\Application))
+#2 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(39): Illuminate\Foundation\Bootstrap\LoadConfiguration->loadConfigurationFiles(Object(Illuminate\Foundation\Application), Object(Illuminate\Config\Repository))
+#3 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(208): Illuminate\Foundation\Bootstrap\LoadConfiguration->bootstrap(Object(Illuminate\Foundation\Application))
+#4 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(160): Illuminate\Foundation\Application->bootstrapWith(Array)
+#5 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(144): Illuminate\Foundation\Http\Kernel->bootstrap()
+#6 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#7 D:\Zend\www\bds\public\index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#8 {main}  
+[2017-05-25 23:17:20] production.ERROR: InvalidArgumentException: The "" directory does not exist. in D:\Zend\www\bds\vendor\symfony\finder\Finder.php:546
+Stack trace:
+#0 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(86): Symfony\Component\Finder\Finder->in(false)
+#1 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(63): Illuminate\Foundation\Bootstrap\LoadConfiguration->getConfigurationFiles(Object(Illuminate\Foundation\Application))
+#2 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(39): Illuminate\Foundation\Bootstrap\LoadConfiguration->loadConfigurationFiles(Object(Illuminate\Foundation\Application), Object(Illuminate\Config\Repository))
+#3 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(208): Illuminate\Foundation\Bootstrap\LoadConfiguration->bootstrap(Object(Illuminate\Foundation\Application))
+#4 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(160): Illuminate\Foundation\Application->bootstrapWith(Array)
+#5 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(144): Illuminate\Foundation\Http\Kernel->bootstrap()
+#6 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#7 D:\Zend\www\bds\public\index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#8 {main}  
+[2017-05-25 23:17:21] production.ERROR: InvalidArgumentException: The "" directory does not exist. in D:\Zend\www\bds\vendor\symfony\finder\Finder.php:546
+Stack trace:
+#0 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(86): Symfony\Component\Finder\Finder->in(false)
+#1 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(63): Illuminate\Foundation\Bootstrap\LoadConfiguration->getConfigurationFiles(Object(Illuminate\Foundation\Application))
+#2 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(39): Illuminate\Foundation\Bootstrap\LoadConfiguration->loadConfigurationFiles(Object(Illuminate\Foundation\Application), Object(Illuminate\Config\Repository))
+#3 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(208): Illuminate\Foundation\Bootstrap\LoadConfiguration->bootstrap(Object(Illuminate\Foundation\Application))
+#4 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(160): Illuminate\Foundation\Application->bootstrapWith(Array)
+#5 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(144): Illuminate\Foundation\Http\Kernel->bootstrap()
+#6 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#7 D:\Zend\www\bds\public\index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#8 {main}  
+[2017-05-25 23:17:23] production.ERROR: InvalidArgumentException: The "" directory does not exist. in D:\Zend\www\bds\vendor\symfony\finder\Finder.php:546
+Stack trace:
+#0 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(86): Symfony\Component\Finder\Finder->in(false)
+#1 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(63): Illuminate\Foundation\Bootstrap\LoadConfiguration->getConfigurationFiles(Object(Illuminate\Foundation\Application))
+#2 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(39): Illuminate\Foundation\Bootstrap\LoadConfiguration->loadConfigurationFiles(Object(Illuminate\Foundation\Application), Object(Illuminate\Config\Repository))
+#3 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(208): Illuminate\Foundation\Bootstrap\LoadConfiguration->bootstrap(Object(Illuminate\Foundation\Application))
+#4 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(160): Illuminate\Foundation\Application->bootstrapWith(Array)
+#5 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(144): Illuminate\Foundation\Http\Kernel->bootstrap()
+#6 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#7 D:\Zend\www\bds\public\index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#8 {main}  
+[2017-05-25 23:17:30] production.ERROR: InvalidArgumentException: The "" directory does not exist. in D:\Zend\www\bds\vendor\symfony\finder\Finder.php:546
+Stack trace:
+#0 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(86): Symfony\Component\Finder\Finder->in(false)
+#1 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(63): Illuminate\Foundation\Bootstrap\LoadConfiguration->getConfigurationFiles(Object(Illuminate\Foundation\Application))
+#2 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\LoadConfiguration.php(39): Illuminate\Foundation\Bootstrap\LoadConfiguration->loadConfigurationFiles(Object(Illuminate\Foundation\Application), Object(Illuminate\Config\Repository))
+#3 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(208): Illuminate\Foundation\Bootstrap\LoadConfiguration->bootstrap(Object(Illuminate\Foundation\Application))
+#4 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(160): Illuminate\Foundation\Application->bootstrapWith(Array)
+#5 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(144): Illuminate\Foundation\Http\Kernel->bootstrap()
+#6 D:\Zend\www\bds\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#7 D:\Zend\www\bds\public\index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#8 {main}  
