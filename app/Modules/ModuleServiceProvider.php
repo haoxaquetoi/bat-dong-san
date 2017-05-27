@@ -25,18 +25,11 @@ class ModuleServiceProvider extends ServiceProvider
             $mod = $modules['backend'];
         }
         //Load routes 
-        $allFileRoutes = array_slice(scandir(__DIR__ . "/$mod/routes/"), 2);
-        foreach ($allFileRoutes as $routes)
+        if (file_exists(__DIR__ . "/$mod/routes.php"))
         {
-            $this->loadRoutesFrom(__DIR__ . "/$mod/routes/$routes");
+            $this->loadRoutesFrom(__DIR__ . "/$mod/routes.php");
         }
 
-
-        //load view
-        if (file_exists(__DIR__ . "/$mod/routes/routes.php"))
-        {
-            $this->loadRoutesFrom(__DIR__ . "/$mod/routes/routes.php");
-        }
         //load view
         if (is_dir(__DIR__ . "/$mod/Views"))
         {
