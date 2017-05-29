@@ -1,14 +1,5 @@
 <?php
 
-Route::get('/', function()
-{
-    echo 2;
-});
-
-Route::group(['prefix' => 'backend'], function()
-{
-
-    Route::get('login', 'Backend\AuthController@getLogin');
-
-    Route::post('login', 'Backend\AuthController@postLogin');
-});
+Auth::routes();
+require __DIR__ . '/Frontend/web.php';
+require __DIR__ . '/Backend/web.php';

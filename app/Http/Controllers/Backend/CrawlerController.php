@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 class CrawlerController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +16,7 @@ class CrawlerController extends Controller
      */
     public function index()
     {
-        //
+        return view('Backend.crawler');
     }
 
     /**
@@ -83,4 +84,5 @@ class CrawlerController extends Controller
     {
         //
     }
+
 }

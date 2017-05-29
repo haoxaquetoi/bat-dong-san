@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
@@ -13,9 +12,9 @@ class DashboardController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    function __construct()
     {
-//        $this->middleware('');
+        parent::__construct();
     }
 
     /**
@@ -25,7 +24,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('');
+        return view('Backend.dashboard');
     }
 
 }
