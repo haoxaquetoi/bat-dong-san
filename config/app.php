@@ -183,7 +183,6 @@ return [
         /**
          * My providers
          */
-        App\Modules\ModuleServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         
         
