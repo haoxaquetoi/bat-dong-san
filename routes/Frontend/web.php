@@ -1,8 +1,3 @@
 <?php
 
-Route::get('/', function()
-{
-    echo 2;
-});
-
-Route::get('/home', 'App\Http\Controllers\HomeController@index');
+Route::get('/', 'Frontend\HomePageController@index');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Auth;
 
 class DashboardController extends Controller
 {
@@ -15,6 +16,10 @@ class DashboardController extends Controller
     function __construct()
     {
         parent::__construct();
+        if (!Auth::check())
+        {
+            return redirect()->route('login');
+        }
     }
 
     /**
