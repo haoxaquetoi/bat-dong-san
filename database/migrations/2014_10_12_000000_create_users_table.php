@@ -24,6 +24,10 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('isAdmin')->default(0);
             $table->tinyInteger('active')->default(1);
             $table->tinyInteger('deleted')->default(0);
+            $table->string('Phone')->nullable();
+            $table->string('job_title')->nullable();
+            $table->integer('ou_id')->default(0);
+            $table->string('avatar', 500);
             $table->timestamps();
         });
     }
