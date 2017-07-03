@@ -18,16 +18,17 @@ class CreateUsersTable extends Migration
         {
             $table->increments('id');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email', 100)->unique();
             $table->string('password');
-            $table->string('remember_token')->nullable();
-            $table->tinyInteger('isAdmin')->default(0);
+            $table->tinyInteger('is_admin')->default(0);
             $table->tinyInteger('active')->default(1);
             $table->tinyInteger('deleted')->default(0);
-            $table->string('Phone')->nullable();
+            $table->string('phone')->nullable();
             $table->string('job_title')->nullable();
             $table->integer('ou_id')->default(0);
-            $table->string('avatar', 500);
+            $table->string('avatar', 500)->nullable();
+            $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

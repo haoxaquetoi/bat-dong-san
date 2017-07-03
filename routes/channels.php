@@ -11,11 +11,6 @@
 |
 */
 
-//Broadcast::channel('App.User.{id}', function ($user, $id) {
-//    return (int) $user->id === (int) $id;
-//});
-
-
-
-require __DIR__ . '/Frontend/channels.php';
-require __DIR__ . '/Backend/channels.php';
+Broadcast::channel('App.User.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+});

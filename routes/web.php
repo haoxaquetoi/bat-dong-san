@@ -1,5 +1,22 @@
 <?php
 
-Auth::routes();
-require __DIR__ . '/Frontend/web.php';
-require __DIR__ . '/Backend/web.php';
+/*
+  |--------------------------------------------------------------------------
+  | Web Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register web routes for your application. These
+  | routes are loaded by the RouteServiceProvider within a group which
+  | contains the "web" middleware group. Now create something great!
+  |
+ */
+
+Route::get('/', 'Backend\User\UserCtrl@index')->name('defaultPageAfterLogin')->middleware(['web', 'auth']);
+
+Route::group(['before' => 'auth'], function () {
+    Route::get('/laravel-manager', '\Unisharp\Laravelfilemanager\controllers\LfmController@show');
+    Route::post('/laravel-manager/upload', '\Unisharp\Laravelfilemanager\controllers\LfmController@upload');
+    // list all lfm routes here...
+});
+
+require 'backend/web.php';

@@ -5,8 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
 
     use Notifiable;
 
@@ -27,5 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    function filterFreeText($text) {
+        if (strlen($text) > 0) {
+            return $this->whereRaw("name like '%$text%' OR email like '%$text%'");
+        }
+
+        return $this->whereRaw('1>0');
+    }
 
 }
