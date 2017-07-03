@@ -1,1 +1,0 @@
-<a href="{{url('backend/dashboard')}}">Backend</a>
