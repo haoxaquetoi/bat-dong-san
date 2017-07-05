@@ -11,7 +11,9 @@
   |
  */
 
-Route::get('/', 'Backend\User\UserCtrl@index')->name('defaultPageAfterLogin')->middleware(['web', 'auth']);
+Route::get('/', 'Frontend\FrontendCtrl@homePage');
+Route::get('/tin-bai', 'Frontend\FrontendCtrl@singlePage');
+Route::get('/chuyen-muc', 'Frontend\FrontendCtrl@singleCategory');
 
 Route::group(['before' => 'auth'], function () {
     Route::get('/laravel-manager', '\Unisharp\Laravelfilemanager\controllers\LfmController@show');
@@ -19,4 +21,5 @@ Route::group(['before' => 'auth'], function () {
     // list all lfm routes here...
 });
 
-require 'backend/web.php';
+require 'Backend/web.php';
+require 'Frontend/web.php';
