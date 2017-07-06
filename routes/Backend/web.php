@@ -2,6 +2,7 @@
 
 //route for login
 Route::group(['prefix' => 'backend', 'middleware' => ['web']], function () {
+   
     Route::get('/login', 'Backend\User\loginCtrl@showLoginForm')->name('login')->middleware('guest');
     Route::post('/login', 'Backend\User\loginCtrl@login')->name('doLogin')->middleware('guest');
     Route::get('/logout', 'Backend\User\loginCtrl@logout')->name('doLogout');
