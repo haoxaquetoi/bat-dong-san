@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateArticleOtherTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('article_other', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('article_id');
+            $table->integer('facade')->nullable();
+            $table->integer('entry_width')->nullable();
+            $table->string('house_direction', 50)->nullable();
+            $table->string('balcony_direction', 50)->nullable();
+            $table->integer('number_of_storeys')->nullable();
+            $table->integer('number_of_wc')->nullable();
+            $table->integer('number_of_bedrooms')->nullable();
+            $table->tinyInteger('furniture')->default(0);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('article_other');
+    }
+}

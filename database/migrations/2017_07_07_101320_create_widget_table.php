@@ -4,9 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCrawlerConfigTable extends Migration
+class CreateWidgetTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -14,14 +13,13 @@ class CreateCrawlerConfigTable extends Migration
      */
     public function up()
     {
-        Schema::create('crawler_config', function (Blueprint $table)
+        Schema::create('widget', function (Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('crawler_id');
-            $table->integer('category_id');
-            $table->string('url', 500);
-            $table->string('column_name', 50);
-            $table->string('xpath', 500);
+            $table->string('position_code', 50);
+            $table->string('type', 50);
+            $table->text('value');
+            $table->integer('order')->default(0);
         });
     }
 
@@ -32,7 +30,6 @@ class CreateCrawlerConfigTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crawler_config');
+        Schema::dropIfExists('widget');
     }
-
 }

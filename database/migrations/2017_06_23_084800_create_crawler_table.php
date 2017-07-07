@@ -16,10 +16,12 @@ class CreateCrawlerTable extends Migration
     {
         Schema::create('crawler', function (Blueprint $table) {
         $table->increments('id');
-        $table->string('website_name');
-        $table->string('website_uri');
+        $table->string('website_name', 255);
+        $table->string('website_url', 255);
         $table->tinyInteger('deleted')->default(0);
-        $table->timestamps();
+        $table->datetime('deleted_at')->nullable();
+        $table->datetime('created_at');
+        $table->datetime('updated_at');
         });
     }
 
