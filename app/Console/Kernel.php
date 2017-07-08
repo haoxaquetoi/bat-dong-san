@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Console\Commands\crawlerCtrl;
+use App\Console\Commands\consoleCrawler;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
 //        \App\Console\Commands\ScrapeFunko::class,
-        \App\Console\Commands\crawlerCtrl::class,
+        \App\Console\Commands\consoleCrawler::class,
     ];
 
     /**

@@ -19,6 +19,8 @@ class CreateCrawlerConfigTable extends Migration
             $table->increments('id');
             $table->integer('crawler_id');
             $table->integer('category_id');
+            $table->string('category_xpath',500);
+            $table->string('detail_post_xpath',500);
             $table->string('url', 500);
             $table->string('column_name', 50);
             $table->string('xpath', 500);

@@ -18,7 +18,7 @@ class CreateCrawlerItemTable extends Migration
             $table->increments('id');
             $table->string('uri', 500);
             $table->string('column_name', 50);
-            $table->string('value', 500);
+            $table->longText('value');
         });
     }
 
