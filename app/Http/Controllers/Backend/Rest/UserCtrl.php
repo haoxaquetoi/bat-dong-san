@@ -5,11 +5,17 @@ namespace App\Http\Controllers\Backend\Rest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Backend\UserPermitModel;
+use App\Models\Backend\GroupUserModel;
+use App\Models\Backend\GroupModel;
 use App\User;
 use Validator;
+use App\Http\Controllers\Backend\Rest\PermitCtrl;
 
 class UserCtrl extends Controller {
-
+    
+    private $permitCtrl;
+    
     protected $rules = [
         'name' => 'required|max:255',
         'phone' => 'nullable|max:255',
@@ -26,6 +32,7 @@ class UserCtrl extends Controller {
 
     public function __construct() {
         header('Content-Type: application/json');
+        $this->permitCtrl = new PermitCtrl();
     }
 
     /**
@@ -55,10 +62,20 @@ class UserCtrl extends Controller {
         $limit = 10;
         $arrWhere = [];
         $ouID = isset($request['ou_id']) ? $request['ou_id'] : 0;
-        $users = \App\User::where('ou_id', '=', $ouID)->orderBy('id', 'desc')->get();
+        $permitCtrl = $this->permitCtrl;
+        
+        $users = User::where('ou_id', '=', $ouID)->orderBy('id', 'desc')->get()->map(function($item, $key) use ($permitCtrl)
+        {
+            $item->permit = $permitCtrl->__getListPermitOfUser($item->id);
+            $arrGroupID = GroupUserModel::select('group_id')->where('user_id', $item->id)->get();
+            $item->group = GroupModel::find($arrGroupID)->keyBy('id');
+            return $item;
+        });
+        
         return response()->json($users);
     }
-
+    
+    
     /**
      * Dem so user theo dieu kien
      * @param type $status
@@ -193,5 +210,66 @@ class UserCtrl extends Controller {
         $resData = $userModel->filterFreeText($reqData['freeText'])->paginate();
         return response()->json($resData);
     }
-
+    
+    /**
+     * cap nhat quyen cho nguoi su dung
+     * @param Request $request
+     * @param type $id
+     * @return type
+     */
+    function updatePermit(Request $request, $id)
+    {
+        
+        Validator::make($request->all(), [
+            'id' => 'required|exists:users,id'
+        ],
+        [
+            'id.require' => 'Bắt buộc phải có mã người dùng!',
+            'id.exists' => 'Mã người dùng không tồn tại!',
+        ])->validate();
+        
+        //xoa user permit
+        UserPermitModel::where('user_id', $id)->delete();
+        $reqData = $request->toArray();
+        $arrPermit = array_keys($reqData['arrPermit']);
+        $data = [];
+        foreach($arrPermit as $code)
+        {
+            $data[] = [
+                'user_id' => $id,
+                'permit' => $code,
+            ];
+        }
+        
+        UserPermitModel::insert($data);
+        
+        return response()->json($id);
+    }
+    
+    function updateGroup(Request $request, $id){
+        
+        Validator::make($request->all(), [
+            'id' => 'required|exists:users,id'
+        ],
+        [
+            'id.require' => 'Bắt buộc phải có mã người dùng!',
+            'id.exists' => 'Mã người dùng không tồn tại!',
+        ])->validate();
+        
+        //xoa group user
+        GroupUserModel::where('user_id', $id)->delete();
+        $reqData = $request->toArray();
+        $arrPermit = array_keys($reqData['arrGroup']);
+        $data = [];
+        foreach($arrPermit as $groupId)
+        {
+            $data[] = [
+                'user_id' => $id,
+                'group_id' => $groupId,
+            ];
+        }
+        GroupUserModel::insert($data);
+        
+        return response()->json($id);
+    }
 }

@@ -1,5 +1,5 @@
-ngApp.directive('chosseUserModal', function ($apply, $userService) {
-    var templateUrl = SiteUrl + '/admin/modal/chosseUserModal';
+ngApp.directive('chosseGroupModal', function ($apply, $groupService) {
+    var templateUrl = SiteUrl + '/admin/modal/chosseGroupModal';
     var restrict = 'E';
     var scope = {dom: '=', retFunc: '&', defaultData: '='};
     var link = function (scope) {
@@ -12,7 +12,7 @@ ngApp.directive('chosseUserModal', function ($apply, $userService) {
         scope.retVal = {};
         scope.data = {
             list: function () {
-                $userService.action.getUserPaginate(scope.page, scope.freeText).then(function (resp) {
+                $groupService.actions.list(scope.page, scope.freeText).then(function (resp) {
                     $apply(function () {
                         scope.total = resp.data.total;
                         scope.list = resp.data.data;
@@ -28,7 +28,7 @@ ngApp.directive('chosseUserModal', function ($apply, $userService) {
                 scope.page = 1;
                 scope.data.list();
             },
-            checkAllUser: function (value) {
+            checkAllGroup: function (value) {
                 $apply(function () {
                     for (var key in scope.list)
                     {
@@ -38,37 +38,34 @@ ngApp.directive('chosseUserModal', function ($apply, $userService) {
                 });
                 
             },
-            toggleUser: function(chk, userInfo){
+            toggleGroup: function(chk, groupInfo){
                 if(chk)
                 {
-                    scope.retVal[userInfo.id] = userInfo;
+                    scope.retVal[groupInfo.id] = groupInfo;
                 }
                 else
                 {
-                    delete scope.retVal[userInfo.id];
+                    delete scope.retVal[groupInfo.id];
                 }
             },
             updateRetVal: function(){
-                var userID;
+                var groupID;
                 for(var key in scope.list)
                 {
-                    userID = scope.list[key].id;
-                    if(scope.listChecked[userID])
+                    groupID = scope.list[key].id;
+                    if(scope.listChecked[groupID])
                     {
-                        scope.retVal[userID] = scope.list[key];
+                        scope.retVal[groupID] = scope.list[key];
                     }
                     else
                     {
-                        delete scope.retVal[userID];
+                        delete scope.retVal[groupID];
                     }
                 }
             },
             update: function(){
                 $(scope.dom).modal('hide');
                 scope.retFunc({retVal: scope.retVal});
-            },
-            updateDefaultData: function(){
-                
             }
         };
         

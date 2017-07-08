@@ -2,10 +2,18 @@
 @section('title', 'Quản lý người dùng')
 @section('content')
 
-@push('scripts')
+@section('myJs')
 <script src="{{url('backend')}}/js/factory/services/ouService.js"></script>
 <script src="{{url('backend')}}/js/user/userListCtrl.js"></script>
-@endpush
+
+<!--service-->
+<script src="{{ URL::asset('backend/js/factory/services/permitService.js') }}"></script>
+<script src="{{ URL::asset('backend/js/factory/services/groupService.js') }}"></script>
+<!--directive-->
+<script src="{{ URL::asset('backend/js/directive/chossePermitModal.js') }}"></script>
+<script src="{{ URL::asset('backend/js/directive/chosseGroupModal.js') }}"></script>
+
+@endsection
 <style>
     #list-user-left{
         background: white  ;
@@ -77,8 +85,8 @@
                                                     <div class="dropdown">
                                                         <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a href="javascript:;" ng-click="actions.singleOu('#modelSingleOu', ou)">Chi tiết</a></li>
-                                                            <li><a href="javascript:;" ng-click="actions.trashUser(ou.id)">Xóa</a></li>
+                                                            <li><a href="javascript:;" ng-click="actions.singleOu('#modelSingleOu', ou)"><i class="fa fa-edit"></i> Chi tiết</a></li>
+                                                            <li><a href="javascript:;" ng-click="actions.trashUser(ou.id)"><i class="fa fa-trash text-red"></i> Xóa</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
@@ -93,8 +101,10 @@
                                                     <div class="dropdown">
                                                         <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a href="javascript:;" ng-click="actions.showModalSingleUser('#modalEditUser', user)">Chi tiết</a></li>
-                                                            <li><a href="javascript:;" ng-click="actions.trashUser(user.id)">Xóa</a></li>
+                                                            <li><a href="javascript:;" ng-click="actions.showModalSingleUser('#modalEditUser', user)"><i class="fa fa-edit"></i> Chi tiết</a></li>
+                                                            <li><a href="javascript:;" ng-click="actions.showChossePermitModal(user)"><i class="fa fa-shield"></i> Phân quyền</a></li>
+                                                            <li><a href="javascript:;" ng-click="actions.showChosseGroupModal(user)"><i class="fa fa-group"></i> Nhóm</a></li>
+                                                            <li><a href="javascript:;" ng-click="actions.trashUser(user.id)"><i class="fa fa-trash text-red"></i> Xóa</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
@@ -121,6 +131,9 @@
     <!-- /.content -->
     @include('backend.user.modelSingleOu')
     @include('backend.user.modalEditUser')
+    
+    <chosse-permit-modal dom="chossePermitModal" default-data="data.singleUser.permit" ret-func="actions.doChossePermit(retVal)"></chosse-permit-modal>
+    <chosse-group-modal dom="chosseGroupModal" default-data="data.singleUser.group" ret-func="actions.doChosseGroup(retVal)"></chosse-group-modal>
 </angular>
 @endsection
 

@@ -35,5 +35,4 @@ class User extends Authenticatable {
 
         return $this->whereRaw('1>0');
     }
-
 }

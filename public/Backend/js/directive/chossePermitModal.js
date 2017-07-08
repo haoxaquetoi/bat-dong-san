@@ -1,5 +1,5 @@
 ngApp.directive('chossePermitModal', function ($apply, $permitService) {
-    var templateUrl = SiteUrl + '/backend/modal/chossePermitModal';
+    var templateUrl = SiteUrl + '/admin/modal/chossePermitModal';
     var restrict = 'E';
     var scope = {dom: '=', retFunc: '&', defaultData: '='};
     var link = function (scope) {
