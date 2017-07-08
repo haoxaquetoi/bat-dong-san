@@ -18,6 +18,9 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::put('/user/edit', 'Backend\rest\UserCtrl@editUser')->name('editUser');
     
     Route::get('/user/paginate', 'Backend\Rest\UserCtrl@paginateUser');
+    Route::put('/user/permit/{id}', 'Backend\Rest\UserCtrl@updatePermit')->where('id', '[\d]+');
+    Route::put('/user/group/{id}', 'Backend\Rest\UserCtrl@updateGroup')->where('id', '[\d]+');
+    
     
     //ou
     Route::get('/ou/getAllOu', 'Backend\Rest\OuCtrl@getAllOu');

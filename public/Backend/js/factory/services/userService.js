@@ -4,6 +4,16 @@ ngApp.factory('$userService', function ($rootScope, $http, $httpParamSerializer)
         data: {},
         action: {},
     };
+    
+    service.data.updatePermit = function(id, arrPermit){
+        this.id = id;
+        this.arrPermit = arrPermit;
+    }
+    
+    service.data.updateGroup = function(id, arrGroup){
+        this.id = id;
+        this.arrGroup = arrGroup;
+    }
 
     service.action.userInfo = function (id) {
         var url = SiteUrl + '/rest/user/' + id;
@@ -115,7 +125,13 @@ ngApp.factory('$userService', function ($rootScope, $http, $httpParamSerializer)
         var url = SiteUrl + '/rest/user/countUser';
         return $http.get(url);
     }
-
+    
+    /**
+     * lay danh sach user theo phan trang
+     * @param {type} page
+     * @param {type} freeText
+     * @returns {unresolved}
+     */
     service.action.getUserPaginate = function(page, freeText){
         var data = {
             page: page || 1,
@@ -123,6 +139,16 @@ ngApp.factory('$userService', function ($rootScope, $http, $httpParamSerializer)
         };
         var url = SiteUrl + '/rest/user/paginate?' + $httpParamSerializer(data);
         return $http.get(url);
+    }
+    
+    service.action.updatePermit = function(data){
+        var url = SiteUrl + '/rest/user/permit/' + data.id;
+        return $http.put(url, data);
+    }
+    
+    service.action.updateGroup = function(data){
+        var url = SiteUrl + '/rest/user/group/' + data.id;
+        return $http.put(url, data);
     }
     
     return service;

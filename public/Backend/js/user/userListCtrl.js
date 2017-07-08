@@ -1,15 +1,17 @@
 ngApp.controller('userListCtrl', function ($scope, $apply, $userService, $ouService, $location)
 {
+    $scope.chossePermitModal;
+    $scope.chosseGroupModal;
     $scope.data =
-            {
-                users: {},
-                ou: {},
-                singleOu: {},
-                ouChildren: {},
-                singleUser: {},
-                isEditUser: false,
-                isEditOu: false
-            };
+    {
+        users: {},
+        ou: {},
+        singleOu: {},
+        ouChildren: {},
+        singleUser: {},
+        isEditUser: false,
+        isEditOu: false
+    };
 
 
 
@@ -116,7 +118,6 @@ ngApp.controller('userListCtrl', function ($scope, $apply, $userService, $ouServ
             var parent_id = $scope.data.singleOu.id || '0';
             $ouService.actions.getAllOu(parent_id).then(function (resp) {
                 $apply(function () {
-                    console.log(resp)
                     $scope.data.ouChildren = resp.data;
                 });
             }, function (error) {
@@ -243,6 +244,39 @@ ngApp.controller('userListCtrl', function ($scope, $apply, $userService, $ouServ
                     $.notify(errors.data, "error");
                 });
             }
+        },
+        setSingleUser: function(userInfo){
+            $apply(function(){
+                $scope.data.singleUser = userInfo;
+            });
+        },
+        //modal chosse permit
+        showChossePermitModal: function(userInfo){
+            $($scope.chossePermitModal).modal('show');
+            $scope.actions.setSingleUser(userInfo);
+            
+        },
+        doChossePermit: function(retVal)
+        {
+            var data = new $userService.data.updatePermit($scope.data.singleUser.id, retVal);
+            $userService.action.updatePermit(data).then(function(resp){
+                 $.notify("Cập nhật thành công!", "success");
+            }, function(err){
+                console.log(err);
+            });
+        },
+        //modal chosse group
+        showChosseGroupModal: function(userInfo){
+            $($scope.chosseGroupModal).modal('show');
+            $scope.actions.setSingleUser(userInfo);
+        },
+        doChosseGroup: function(retVal){
+            var data = new $userService.data.updateGroup($scope.data.singleUser.id, retVal);
+            $userService.action.updateGroup(data).then(function(resp){
+                 $.notify("Cập nhật thành công!", "success");
+            }, function(err){
+                console.log(err);
+            });
         }
     };
     $scope.actions.getAllOu();
