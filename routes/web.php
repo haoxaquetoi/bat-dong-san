@@ -12,12 +12,13 @@
  */
 
 
-
 Route::group(['before' => 'auth'], function () {
     Route::get('/laravel-manager', '\Unisharp\Laravelfilemanager\controllers\LfmController@show');
     Route::post('/laravel-manager/upload', '\Unisharp\Laravelfilemanager\controllers\LfmController@upload');
     // list all lfm routes here...
 });
 
-require 'Backend/web.php';
+
 require 'Frontend/web.php';
+require 'Backend/web.php';
+
