@@ -1,8 +1,7 @@
 <?php
 
 //route for backend after login
-Route::group(['prefix' => 'backend', 'middleware' => ['web', 'auth']], function ()
-{
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function () {
     #Crawler
     Route::get('/crawler', 'Backend\Crawler\CrawlerCtrl@index')->name('crawler');
     Route::get('/crawler/config', 'Backend\Crawler\CrawlerCtrl@configCrawler');
@@ -19,8 +18,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['web', 'auth']], function 
 
 
 //rest route
-Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function ()
-{
+Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () {
     //user
     Route::get('/user/getAllUser', 'Backend\Rest\UserCtrl@getAllUser');
     Route::get('/user/countUser', 'Backend\Rest\UserCtrl@countUser');
@@ -43,8 +41,8 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function ()
     Route::put('/category', 'Backend\Rest\CategoryCtrl@updateCategory');
     Route::get('/category', 'Backend\Rest\CategoryCtrl@getAllCategory');
     Route::delete('/category/{id}', 'Backend\Rest\CategoryCtrl@deleteCategory');
-    
-    
+
+
     #media
     Route::post('/media/addnew', 'Backend\Rest\MediaCtrl@mediaAddNew');
 });

@@ -1,9 +1,9 @@
 <?php
 
 
-
 //route for login
-Route::group(['prefix' => 'backend', 'middleware' => ['web']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
+   Route::get('/', 'Backend\User\UserCtrl@index')->name('defaultPageAfterLogin')->middleware(['web', 'auth']);
     Route::get('/login', 'Backend\User\loginCtrl@showLoginForm')->name('login')->middleware('guest');
     Route::post('/login', 'Backend\User\loginCtrl@login')->name('doLogin')->middleware('guest');
     Route::get('/logout', 'Backend\User\loginCtrl@logout')->name('doLogout');
@@ -41,8 +41,8 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
 
 
 //route for backend after login
-Route::group(['prefix' => 'backend', 'middleware' => ['web', 'auth']], function ()
-{
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
+{ 
     //user
     Route::get('/user', 'Backend\User\UserCtrl@index')->name('user');
     

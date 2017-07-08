@@ -17,11 +17,11 @@ class CreateCrawlerConfigTable extends Migration
         Schema::create('crawler_config', function (Blueprint $table)
         {
             $table->increments('id');
-            $table->string('parent_id');
-            $table->string('description')->nullable();
-            $table->string('xpath')->nullable();
-            $table->string('type')->nullable();
-            $table->timestamps();
+            $table->integer('crawler_id');
+            $table->integer('category_id');
+            $table->string('url', 500);
+            $table->string('column_name', 50);
+            $table->string('xpath', 500);
         });
     }
 

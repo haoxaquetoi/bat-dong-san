@@ -17,13 +17,17 @@ class CreateCategoryTable extends Migration
         Schema::create('category', function (Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('parent_id')->default(0);
             $table->string('name');
             $table->string('slug',255);
-            $table->string('status')->default(1);
-            $table->string('type')->nullable();
-            $table->integer('order')->default(1);
-            $table->timestamps();
+            $table->integer('parent')->default(0);
+            $table->tinyInteger('status')->default(1);
+            $table->string('type', 50);
+            $table->integer('order')->default(0);
+            $table->string('depth', 255)->default('/');
+            $table->tinyInteger('deleted')->default(0);
+            $table->dateTime('deleted_at')->nullable();
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at');
         });
     }
 

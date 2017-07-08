@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UserCtrl extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('backend/user/user');
     }
 }
