@@ -2,7 +2,10 @@ ngApp.controller('crawlerCtrl', function ($scope, $apply, $crawlerService)
 {
     $scope.data = {
         crawler: {},
-        singleCrawler: {}
+        filter: {
+            keywork: ''
+        },
+        singleWebsite: {}
     };
 
     $scope.errors = {};
@@ -16,9 +19,9 @@ ngApp.controller('crawlerCtrl', function ($scope, $apply, $crawlerService)
         {
             return $scope.errors[code] ? $scope.errors[code][0] : '';
         },
-        getAllCrawler: function ()
+        getAllCrawler: function (filter)
         {
-            $crawlerService.actions.getAllCrawler().then(function (resp)
+            $crawlerService.actions.getAllCrawler(filter).then(function (resp)
             {
                 $apply(function ()
                 {
@@ -35,33 +38,58 @@ ngApp.controller('crawlerCtrl', function ($scope, $apply, $crawlerService)
             });
         }
         ,
-        singleModalCrawler: function (targetModal, crawlerInfo)
+        singleModalCrawler: function (targetModal, websiteInfo)
         {
             $(targetModal).modal('show');
-            $scope.data.singleCrawler = angular.copy(crawlerInfo);
+            $scope.data.singleWebsite = angular.copy(websiteInfo);
         },
-        addNewCrawler: function ()
+        addNewCrawler: function (targetModal)
         {
-
-
-
+            $crawlerService.actions.add($scope.data.singleWebsite).then(function (resp) {
+                $scope.actions.getAllCrawler();
+                $(targetModal).modal('hide');
+            }, function (error) {
+                $scope.errors = error.data;
+                $.notify("Xảy ra lỗi, bạn vui lòng tại lại trang sau đó thao tác lại", "error");
+            });
         },
-        editCrawler: function ()
+        editCrawler: function (targetModal)
         {
-
-
+            $crawlerService.actions.edit($scope.data.singleWebsite).then(function (resp) {
+                $scope.actions.getAllCrawler();
+                $(targetModal).modal('hide');
+            }, function (error) {
+                $scope.errors = error.data;
+                $.notify("Xảy ra lỗi, bạn vui lòng tại lại trang sau đó thao tác lại", "error");
+            });
         },
-        deleteCrawler: function ()
+        trashWebsite: function (id)
         {
             if (!confirm('Xác nhận xóa đối tượng đã chọn?'))
             {
                 return false;
             }
-
-
-
+            $crawlerService.actions.delete(id).then(function (resp) {
+                $scope.actions.getAllCrawler();
+            }, function (error) {
+                $scope.errors = error.data;
+                $.notify("Xảy ra lỗi, bạn vui lòng tại lại trang sau đó thao tác lại", "error");
+            });
+        },
+        publishWebsite: function (websiteInfo)
+        {
+            if (!confirm('Xác nhận khôi phục đối tượng đã chọn?'))
+            {
+                return false;
+            }
+            $crawlerService.actions.publish(websiteInfo).then(function (resp) {
+                $scope.actions.getAllCrawler();
+            }, function (error) {
+                $scope.errors = error.data;
+                $.notify("Xảy ra lỗi, bạn vui lòng tại lại trang sau đó thao tác lại", "error");
+            });
         }
     };
-    
+
     $scope.actions.getAllCrawler();
 });

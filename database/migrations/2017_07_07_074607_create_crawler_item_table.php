@@ -19,6 +19,8 @@ class CreateCrawlerItemTable extends Migration
             $table->string('uri', 500);
             $table->string('column_name', 50);
             $table->longText('value');
+            $table->integer('article_id');
+            $table->timestamps();
         });
     }
 

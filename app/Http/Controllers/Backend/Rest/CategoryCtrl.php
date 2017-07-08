@@ -21,7 +21,7 @@ class CategoryCtrl extends Controller
         'name.required' => 'Tên chuyên mục không được bỏ trống',
         'slug.required' => 'Đường dẫn slug không được bỏ trống',
         'name.max' => 'Tên chuyên mục không được dài quá 255 ký tự',
-        'slug.max' => 'Đường dẫn slug không hợp lệ',
+        'slug.max' => 'Đường dẫn slug không được dài quá 255 ký tự',
         'order.number' => 'Thứ tự hiển thị không hợp lệ'
     ];
 
