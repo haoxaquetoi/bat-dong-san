@@ -1,5 +1,7 @@
 <?php
 
+
+
 //route for login
 Route::group(['prefix' => 'backend', 'middleware' => ['web']], function () {
     Route::get('/login', 'Backend\User\loginCtrl@showLoginForm')->name('login')->middleware('guest');

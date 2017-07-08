@@ -182,6 +182,10 @@ return [
          */
         Intervention\Image\ImageServiceProvider::class,
         Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+        
+        
+        #crawler
+        Weidner\Goutte\GoutteServiceProvider::class,
     ],
 
     /*
@@ -235,7 +239,9 @@ return [
          * laravel-filemanager
          */
         'Image' => Intervention\Image\Facades\Image::class,
-
+        
+        #crawler
+        'Goutte' => Weidner\Goutte\GoutteFacade::class,
     ],
 
 ];
