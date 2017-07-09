@@ -186,6 +186,10 @@ return [
         
         #crawler
         Weidner\Goutte\GoutteServiceProvider::class,
+        
+        #Debugbar
+        Barryvdh\Debugbar\ServiceProvider::class,
+
     ],
 
     /*
@@ -242,6 +246,8 @@ return [
         
         #crawler
         'Goutte' => Weidner\Goutte\GoutteFacade::class,
+        #debugbar
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

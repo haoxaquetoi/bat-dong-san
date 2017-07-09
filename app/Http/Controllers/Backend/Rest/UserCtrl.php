@@ -30,9 +30,9 @@ class UserCtrl extends Controller {
         'email.email' => 'Địa chỉ email không hợp lệ'
     ];
 
-    public function __construct() {
+    public function __construct(PermitCtrl $permitCtrl) {
         header('Content-Type: application/json');
-        $this->permitCtrl = new PermitCtrl();
+        $this->permitCtrl = $permitCtrl;
     }
 
     /**
@@ -58,17 +58,17 @@ class UserCtrl extends Controller {
      * lay danh sach user
      * @param Request $request
      */
-    function getAllUser(Request $request) {
+    function getAllUser(Request $request, User $user) {
         $limit = 10;
         $arrWhere = [];
         $ouID = isset($request['ou_id']) ? $request['ou_id'] : 0;
         $permitCtrl = $this->permitCtrl;
         
-        $users = User::where('ou_id', '=', $ouID)->orderBy('id', 'desc')->get()->map(function($item, $key) use ($permitCtrl)
+        $users = $user->where('users.ou_id', '=', $ouID)->orderBy('id', 'desc')->get()->map(function($item, $key) use ($permitCtrl)
         {
             $item->permit = $permitCtrl->__getListPermitOfUser($item->id);
-            $arrGroupID = GroupUserModel::select('group_id')->where('user_id', $item->id)->get();
-            $item->group = GroupModel::find($arrGroupID)->keyBy('id');
+//            $arrGroupID = GroupUserModel::select('group_id')->where('user_id', $item->id)->get();
+            $item->group = $item->group($item->id);
             return $item;
         });
         

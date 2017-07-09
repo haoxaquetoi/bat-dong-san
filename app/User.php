@@ -35,4 +35,8 @@ class User extends Authenticatable {
 
         return $this->whereRaw('1>0');
     }
+    
+    function group($userId){
+        return $this->belongsToMany('App\Models\Backend\GroupModel', 'group_user', 'user_id', 'group_id')->wherePivot('user_id', $userId);
+    }
 }
