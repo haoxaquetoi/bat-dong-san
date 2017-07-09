@@ -2,10 +2,9 @@
 
 //route for backend after login
 Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function () {
-    #Crawler
-    Route::get('/crawler', 'Backend\Crawler\CrawlerCtrl@index')->name('crawler');
-    Route::get('/crawler/config', 'Backend\Crawler\CrawlerCtrl@configCrawler');
-    Route::get('/crawler/configFilter', 'Backend\Crawler\CrawlerCtrl@configFilter');
+
+
+
 
     #category
     Route::get('/category', 'Backend\Category\CategoryCtrl@index')->name('category');
@@ -13,6 +12,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     #media
     Route::get('/media', 'Backend\Media\MediaCtrl@index')->name('media');
     Route::get('/media/media-new', 'Backend\Media\MediaCtrl@addNew');
+
+
+    #Crawler
+    Route::get('/crawler', 'Backend\Crawler\CrawlerCtrl@index')->name('crawler');
+    Route::get('/crawler/configCrawler', 'Backend\Crawler\CrawlerCtrl@configCrawler');
+
 });
 
 
@@ -32,12 +37,12 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::post('/ou/addNewOu', 'Backend\Rest\OuCtrl@insert');
     Route::put('/ou/editOu', 'Backend\Rest\OuCtrl@editOu');
 
-    //crawler
-    Route::get('/crawler', 'Backend\Rest\CrawlerCtrl@getAllCrawler');
+
 
 
     #categories
     Route::post('/category', 'Backend\Rest\CategoryCtrl@insertCategory');
+    Route::put('/category', 'Backend\Rest\CategoryCtrl@updateCategory');
     Route::put('/category', 'Backend\Rest\CategoryCtrl@updateCategory');
     Route::get('/category', 'Backend\Rest\CategoryCtrl@getAllCategory');
     Route::delete('/category/{id}', 'Backend\Rest\CategoryCtrl@deleteCategory');
@@ -45,5 +50,14 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
 
     #media
     Route::post('/media/addnew', 'Backend\Rest\MediaCtrl@mediaAddNew');
+
+
+
+    //crawler
+    Route::get('/crawler', 'Backend\Rest\CrawlerCtrl@getAllCrawler');
+    Route::post('/crawler/addnew', 'Backend\Rest\CrawlerCtrl@addNew');
+    Route::put('/crawler/edit', 'Backend\Rest\CrawlerCtrl@edit');
+    Route::put('/crawler/publish', 'Backend\Rest\CrawlerCtrl@publish');
+    Route::delete('/crawler/{id}', 'Backend\Rest\CrawlerCtrl@delete');
 });
 

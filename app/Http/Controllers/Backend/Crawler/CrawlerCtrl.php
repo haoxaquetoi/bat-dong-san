@@ -21,7 +21,7 @@ class CrawlerCtrl extends Controller
      */
     function configCrawler()
     {
-        echo 'configCrawler';
+        return view('backend/crawler/single_config');
     }
 
     /**

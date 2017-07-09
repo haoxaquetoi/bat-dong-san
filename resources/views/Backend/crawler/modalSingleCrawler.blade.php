@@ -9,13 +9,13 @@
             <div class="modal-body" >
                 <div class="form-group" ng-class="actions.hasError('website_name') ? 'has-error' : ''">
                     <label for="name">Tên nguồn<span class="text-red">*</span></label>
-                    <input type="text" class="form-control" id="name" placeholder="Tên mô tả website cung cấp tin" ng-model="data.singleOu.website_name" >
+                    <input type="text" class="form-control" id="name" placeholder="Tên mô tả website cung cấp tin" ng-model="data.singleWebsite.website_name" >
                     <span class="help-block">@{{actions.showError('website_name')}}</span>
                 </div>
-                <div class="form-group" ng-class="actions.hasError('website_uri') ? 'has-error' : ''">
+                <div class="form-group" ng-class="actions.hasError('website_url') ? 'has-error' : ''">
                     <label for="job_title">Địa chỉ nguồn uri<span class="text-red">*</span></label>
-                    <input type="text" class="form-control" id="code" placeholder="Nhập đường dẫn Uri"  ng-model="data.singleOu.website_uri">
-                    <span class="help-block">@{{actions.showError('website_uri')}}</span>
+                    <input type="text" class="form-control" id="code" placeholder="Nhập đường dẫn Url"  ng-model="data.singleWebsite.website_url">
+                    <span class="help-block">@{{actions.showError('website_url')}}</span>
                 </div>
                  <div class="form-group text-center" ng-class="actions.hasError('other') ? 'has-error' : ''">
                     <span class="help-block">@{{actions.showError('other')}}</span>
@@ -23,8 +23,8 @@
                 <div class="clearfix"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" ng-show="!data.singleOu.id" ng-click="actions.addNewCrawler('#modalSingleCrawler')" ><i class="fa fa-save"></i>&nbsp;Thêm mới</button>
-                <button type="button" class="btn btn-primary" ng-show="data.singleOu.id" ng-click="actions.editCrawler('#modalSingleCrawler')" ><i class="fa fa-save"></i>&nbsp;Cập nhật</button>
+                <button type="button" class="btn btn-primary" ng-show="!data.singleWebsite.id" ng-click="actions.addNewCrawler('#modalSingleCrawler')" ><i class="fa fa-save"></i>&nbsp;Thêm mới</button>
+                <button type="button" class="btn btn-primary" ng-show="data.singleWebsite.id" ng-click="actions.editCrawler('#modalSingleCrawler')" ><i class="fa fa-save"></i>&nbsp;Cập nhật</button>
                 <button type="button" class="btn btn-default" class="close" data-dismiss="modal" aria-label="Close" ><i class="fa fa-close"></i>&nbsp;Đóng</button>
             </div>
         </div><!-- /.modal-content -->
