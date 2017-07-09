@@ -27,5 +27,9 @@ class CrawlerModel extends Model {
         }
         return $db->get();
     }
-
+    
+    
+    
+    
+    
 }

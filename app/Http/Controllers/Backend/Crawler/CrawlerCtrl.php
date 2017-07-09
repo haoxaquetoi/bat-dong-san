@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Crawler;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use  App\Models\Backend\CrawlerConfigModel;
 
 class CrawlerCtrl extends Controller
 {
