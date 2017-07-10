@@ -60,3 +60,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
 
 
 require 'huong.web.php';
+require 'minh.web.php';

@@ -32,6 +32,11 @@
                 <i class="fa fa-user-circle"></i> <span>Crawler</span>
             </a>
         </li>
+         <li>
+            <a href="{{route('advertising')}}">
+                <i class="fa fa-user-circle"></i> <span>Quảng cáo</span>
+            </a>
+        </li>
         
         <li class="treeview active">
           <a href="#">
