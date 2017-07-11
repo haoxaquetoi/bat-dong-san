@@ -10,13 +10,19 @@ use App\Models\Backend\ArticleBaseModel;
 class ArticleCtrl extends Controller {
 
     function main(ArticleMode $artMdl,ArticleBaseModel $artBaseMdl) {
-        $article = $artMdl::find(1)->articleBase()->get();
-        
-        echo "<hr/><pre>" . __FILE__ . "<br/>";
-        var_dump($article);
-        echo "<br/></pre>" . __LINE__ . "<hr/>";
+//        $article = $artMdl::find(1)->articleBase()->get();
+//        
+//        echo "<hr/><pre>" . __FILE__ . "<br/>";
+//        var_dump($article);
+//        echo "<br/></pre>" . __LINE__ . "<hr/>";
        
         return view('backend/article/main');
+    }
+    function singleArticle() {
+        return view('backend/article/single_article');
+    }
+    function singleArticleBDS() {
+        return view('backend/article/single_article_bds');
     }
 
 }

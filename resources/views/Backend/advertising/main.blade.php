@@ -60,7 +60,7 @@
                                         <tbody>
                                             <tr role="row">
                                                 <td >1</td>
-                                                <td class="tbl-actions center">
+                                                <td class="tbl-actions text-center">
                                                     <div class="dropdown">
                                                         <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
@@ -79,7 +79,7 @@
                                             </tr>
                                             <tr role="row">
                                                 <td >1</td>
-                                                <td class="tbl-actions center">
+                                                <td class="tbl-actions text-center">
                                                     <div class="dropdown">
                                                         <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
@@ -98,7 +98,7 @@
                                             </tr>
                                             <tr role="row">
                                                 <td >1</td>
-                                                <td class="tbl-actions center">
+                                                <td class="tbl-actions text-center">
                                                     <div class="dropdown">
                                                         <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">

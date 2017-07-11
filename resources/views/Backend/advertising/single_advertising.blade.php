@@ -66,7 +66,6 @@
 
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="exampleInputFile">File input</label>
                                 <input type="file" id="exampleInputFile">
                             </div>
                         </div>

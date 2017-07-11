@@ -5,5 +5,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     #quang cao
     Route::get('/advertising', 'Backend\Advertising\AdvertisingCtrl@main')->name('advertising');
     Route::get('/advertising/single', 'Backend\Advertising\AdvertisingCtrl@single')->name('singleAadvertising');
+    
+    Route::get('/article', 'Backend\Article\ArticleCtrl@main')->name('article');
+    Route::get('/article/singleArticle', 'Backend\Article\ArticleCtrl@singleArticle');
+    Route::get('/article/singleArticleBDS', 'Backend\Article\ArticleCtrl@singleArticleBDS');
 });
 
