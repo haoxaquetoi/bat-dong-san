@@ -5,7 +5,7 @@
 <section class="content-header">
     <h1>
         Danh sách tin đăng 
-        <a class="btn btn-primary btn-sm" href="{{url('admin/article/singleArticle')}}"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
+        <a class="btn btn-primary btn-sm" href="{{url('admin/article/singleArticle')}}"><i class="fa fa-plus"></i>&nbsp;Thêm mới tin đăng</a>
         <a class="btn btn-primary btn-sm" href="{{url('admin/article/singleArticleBDS')}}"><i class="fa fa-plus"></i>&nbsp;Thêm mới tin BDS</a>
     </h1>
 </section>
