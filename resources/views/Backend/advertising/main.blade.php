@@ -5,7 +5,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Danh sách quảng cáo <a class="btn btn-primary" href="{{url('admin/advertising/single')}}"><i class="fa fa-plus"></i>&nbsp;Thêm quảng cáo</a>
+            Danh sách quảng cáo <a class="btn btn-primary btn-sm" href="{{url('admin/advertising/single')}}"><i class="fa fa-plus"></i>&nbsp;Thêm quảng cáo</a>
         </h1>
     </section>
     <!-- Main content -->

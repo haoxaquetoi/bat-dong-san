@@ -14,7 +14,7 @@
             <li class="active">Thêm mới</li>
         </ol>
     </section>
-    <section class="content">
+    <section class="content  form-magic">
         <form role="form">
             <!-- Small boxes (Stat box) -->
             <div class="row">
@@ -43,14 +43,16 @@
                                 <input type="date" class="form-control" id="time-to-advertising" />
                             </div>
                             <div class="form-group">
-                                <label for="time-to-advertising">Trạng thái</label>
-                                <input type="checkbox" /> <span> Hoạt động</span>
-
+                                <input id="status" type="checkbox" name="status" checked="" class="magic-checkbox" />
+                                <label for="status" class="padding-right-20">
+                                    Hoạt động
+                                </label>
                             </div>
-
-
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                <button type="button" class="btn btn-default">hủy bỏ</button>
+                            </div>
                         </div>
-                        <!-- /.box-body -->
 
                     </div>
                 </div>
@@ -78,24 +80,22 @@
                         <!-- form start -->
 
                         <div class="box-body">
-                            <ul>
+                            <ul class="list-unstyled line-height-32  padding-bottom-15 padding-bottom-15">
                                 <li>
-                                    <label><input type="checkbox"> Bên phải trang chủ</label>
+                                    <input id="position-1" type="checkbox" name="position" class="magic-checkbox" checked="" />
+                                    <label for="position-1" class="padding-right-20">
+                                        Bên phải trang chủ
+                                    </label>
                                 </li>
                                 <li>
-                                    <label><input type="checkbox"> Bên phải trang chủ</label>
-                                </li>
-                                <li>
-                                    <label><input type="checkbox"> Bên phải trang chủ</label>
+                                    <input id="position-2" type="checkbox" name="position" class="magic-checkbox" />
+                                    <label for="position-2" class="padding-right-20">
+                                        Bên phải trang chủ
+                                    </label>
                                 </li>
                             </ul>
                         </div>
                         <!-- /.box-body -->
-
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Lưu</button>
-                            <button type="button" class="btn btn-default">hủy bỏ</button>
-                        </div>
 
                     </div>
                 </div>
