@@ -11,5 +11,9 @@ class AdvertisingCtrl extends Controller {
        
         return view('backend/advertising/main');
     }
+    function single() {
+       
+        return view('backend/advertising/single_advertising');
+    }
 
 }
