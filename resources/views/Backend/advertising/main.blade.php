@@ -1,38 +1,38 @@
 @extends('backend.layouts.default')
-@section('title', 'Quản lý quảng cáoc')
+@section('title', 'Quản lý quảng cáo')
 @section('content')
 <angular>
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Danh sách quảng cáo <button class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;Thêm quảng cáo</button>
+            Danh sách quảng cáo <a class="btn btn-primary btn-sm" href="{{url('admin/advertising/single')}}"><i class="fa fa-plus"></i>&nbsp;Thêm quảng cáo</a>
         </h1>
     </section>
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <div class="col-xs-9 padding-bottom-5">
-                <form class="form-inline" role="form">
-                    <label class="control-label" for="vi_tri">Vị trí:</label>
-                    <input type="email" class="form-control" id="vi_tri" placeholder="Vị trí">
-                    <label class="control-label" for="time_from">Thời gian đăng từ</label>
-                    <input type="date" class="form-control" id="time_from">
-                    <label class="control-label" for="time_to">Đến</label>
-                    <input type="date" class="form-control" id="time_to">
-                    <button type="button" class="btn btn-default">Lọc</button>
-                </form>
-            </div>
-            <div class="col-xs-3 text-right padding-bottom-5">
-                <div class="form-inline">
-                    <input type="email" class="form-control" placeholder="Từ khóa">
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-body">
                         <div class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="row">
+                                <div class="col-xs-9 padding-bottom-5">
+                                    <form class="form-inline" role="form">
+                                        <label class="control-label" for="vi_tri">Vị trí:</label>
+                                        <input type="email" class="form-control input-sm" id="vi_tri" placeholder="Vị trí">
+                                        <label class="control-label" for="time_from">Thời gian đăng từ</label>
+                                        <input type="date" class="form-control input-sm" id="time_from">
+                                        <label class="control-label" for="time_to">Đến</label>
+                                        <input type="date" class="form-control input-sm" id="time_to">
+                                        <button type="button" class="btn btn-default btn-sm">Lọc</button>
+                                    </form>
+                                </div>
+                                <div class="col-xs-3 text-right padding-bottom-5">
+                                    <div class="form-inline">
+                                        <input type="email" class="form-control input-sm" placeholder="Từ khóa">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <table  class="table table-bordered table-hover dataTable" role="grid" >
@@ -60,11 +60,11 @@
                                         <tbody>
                                             <tr role="row">
                                                 <td >1</td>
-                                                <td class="tbl-actions center">
+                                                <td class="tbl-actions text-center">
                                                     <div class="dropdown">
                                                         <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a href="javascript:;">Chi tiết</a></li>
+                                                            <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
                                                             <li><a href="javascript:;">Xóa</a></li>
                                                         </ul>
                                                     </div>
@@ -79,11 +79,11 @@
                                             </tr>
                                             <tr role="row">
                                                 <td >1</td>
-                                                <td class="tbl-actions center">
+                                                <td class="tbl-actions text-center">
                                                     <div class="dropdown">
                                                         <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a href="javascript:;">Chi tiết</a></li>
+                                                            <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
                                                             <li><a href="javascript:;">Xóa</a></li>
                                                         </ul>
                                                     </div>
@@ -98,11 +98,11 @@
                                             </tr>
                                             <tr role="row">
                                                 <td >1</td>
-                                                <td class="tbl-actions center">
+                                                <td class="tbl-actions text-center">
                                                     <div class="dropdown">
                                                         <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a href="javascript:;">Chi tiết</a></li>
+                                                            <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
                                                             <li><a href="javascript:;">Xóa</a></li>
                                                         </ul>
                                                     </div>
@@ -120,7 +120,25 @@
                                     </table>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Hiển thị 1 -> 10 của 57 bản ghi</div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li>
+                                            <li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li>
+                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li>
+                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li>
+                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a></li>
+                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a></li>
+                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a></li>
+                                            <li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

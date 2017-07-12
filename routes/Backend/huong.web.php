@@ -19,7 +19,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     Route::get('/crawler', 'Backend\Crawler\CrawlerCtrl@index')->name('crawler');
     Route::get('/crawler/configCrawler', 'Backend\Crawler\CrawlerCtrl@configCrawler');
     
-    Route::get('/article', 'Backend\Article\ArticleCtrl@main');
 });
 
 

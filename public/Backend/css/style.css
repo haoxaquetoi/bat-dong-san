@@ -152,3 +152,44 @@ a.link {color: #337ab7;}
 @media (min-width: 768px) {.col-sm-15 {width: 20%;float: left;}}
 @media (min-width: 992px) {.col-md-15 {width: 20%;float: left;}}
 @media (min-width: 1200px) {.col-lg-15 {width: 20%;float: left;}}
+
+.column-comments .comment-count-approved, .column-comments .comment-count-no-comments, .column-response .comment-count-approved, .column-response .comment-count-no-comments {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    padding: 0 8px;
+    min-width: 24px;
+    height: 2em;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #72777c;
+    color: #fff;
+    font-size: 11px;
+    line-height: 21px;
+    text-align: center;
+}
+.screen-reader-text, .screen-reader-text span, .ui-helper-hidden-accessible {
+    position: absolute;
+    margin: -1px;
+    padding: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+    word-wrap: normal!important;
+}
+.screen-reader-text:after ,.column-comments .post-com-count-approved:after, .column-comments .post-com-count-no-comments:after, .column-response .post-com-count-approved:after, .column-response .post-com-count-no-comments:after {
+    content: "";
+    display: block;
+    margin-left: 8px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid #72777c;
+    border-right: 5px solid transparent;
+}
+.column-comments .post-com-count, .column-response .post-com-count {
+    display: inline-block;
+    vertical-align: top;
+}

@@ -37,6 +37,11 @@
                 <i class="fa fa-user-circle"></i> <span>Quảng cáo</span>
             </a>
         </li>
+         <li>
+            <a href="{{route('article')}}">
+                <i class="fa fa-user-circle"></i> <span>Tin bài</span>
+            </a>
+        </li>
         
         <li class="treeview active">
           <a href="#">
