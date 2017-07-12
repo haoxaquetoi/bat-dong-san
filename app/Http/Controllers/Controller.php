@@ -13,6 +13,9 @@ class Controller extends BaseController {
         DispatchesJobs,
         ValidatesRequests;
 
+    function __construct() {
+    }
+
     function extendValidator() {
         \Validator::extend('not_exists', function($attribute, $value, $parameters) {
             return \DB::table($parameters[0])
