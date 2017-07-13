@@ -51,6 +51,7 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     //setting
     Route::get('/setting', 'Backend\Rest\SettingCtrl@listSetting');
     Route::put('/setting', 'Backend\Rest\SettingCtrl@updateSetting');
+    Route::get('/setting/:key', 'Backend\Rest\SettingCtrl@infoSetting')->where('key', '[\W]+');
     
     //menu
     Route::post('/menu/position', 'Backend\Rest\MenuCtrl@insertMenuPosition');
