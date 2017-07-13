@@ -14,6 +14,7 @@ class SettingCtrl extends Controller {
     function __construct() {
 
         $this->listSetting = ['EmailSetting', 'WebInfoSetting'];
+        header('Content-Type: application/json');
     }
 
     /**

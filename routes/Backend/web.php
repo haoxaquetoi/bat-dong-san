@@ -57,12 +57,12 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::post('/menu/position', 'Backend\Rest\MenuCtrl@insertMenuPosition');
     Route::put('/menu/position', 'Backend\Rest\MenuCtrl@updateMenuPosition');
     Route::delete('/menu/position/{id}', 'Backend\Rest\MenuCtrl@deleteMenuPosition')->where('id', '[\d]+');
-    Route::get('/menu/position', 'Backend\Rest\MenuCtrl@listeMenuPosition');
+    Route::get('/menu/position', 'Backend\Rest\MenuCtrl@listMenuPosition');
     
     Route::post('/menu', 'Backend\Rest\MenuCtrl@insertMenu');
     Route::put('/menu', 'Backend\Rest\MenuCtrl@updateMenu');
     Route::delete('/menu/{id}', 'Backend\Rest\MenuCtrl@deleteMenu')->where('id', '[\d]+');
-    Route::get('/menu', 'Backend\Rest\MenuCtrl@listMenu');
+    Route::get('/menu/{positionId}', 'Backend\Rest\MenuCtrl@listMenu')->where('id', '[\d]+');
     Route::get('/menu/{id}', 'Backend\Rest\MenuCtrl@infoMenu')->where('id', '[\d]+');
     Route::put('/menu/order', 'Backend\Rest\MenuCtrl@reOrderMenu');
     

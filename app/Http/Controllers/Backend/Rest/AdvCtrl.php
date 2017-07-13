@@ -9,6 +9,9 @@ use Validator;
 
 class AdvCtrl extends Controller {
 
+    function __construct() {
+        header('Content-Type: application/json');
+    }
     /**
      * lay danh sach quang cao theo pagging
      * @param Request $request
