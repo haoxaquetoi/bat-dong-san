@@ -22,7 +22,7 @@ class CreateMenuTable extends Migration
             $table->integer('parent')->default(0);
             $table->integer('order');
             $table->string('depth', 255)->default('/');
-            $table->text('value');
+            $table->string('value', 255);
         });
     }
 

@@ -65,6 +65,7 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::get('/menu/{positionId}', 'Backend\Rest\MenuCtrl@listMenu')->where('id', '[\d]+');
     Route::get('/menu/{id}', 'Backend\Rest\MenuCtrl@infoMenu')->where('id', '[\d]+');
     Route::put('/menu/order', 'Backend\Rest\MenuCtrl@reOrderMenu');
+    Route::get('/menu/type', 'Backend\Rest\MenuCtrl@listMenuType');
     
     //widget
     Route::get('/widget/type', 'Backend\Rest\WidgetCtrl@listWidgetType');
