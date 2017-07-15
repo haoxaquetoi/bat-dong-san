@@ -10,15 +10,8 @@ use Validator;
 
 class MenuCtrl extends Controller {
     
-    private $menuType;
-    
     public function __construct() {
         header('Content-Type: application/json');
-        $this->menuType = [
-            'url' => 'url',
-            'article' => 'Tin bài',
-            'category' => 'Chuyên mục',
-        ];
     }
 
     /**
@@ -182,7 +175,7 @@ class MenuCtrl extends Controller {
             ]
         )->validate();
         //validate type
-        if(!in_array($request->type, array_keys($this->menuType)))
+        if(!in_array($request->type, array_keys(app('MenuConfig')->getMenuType())))
         {
             return response()->json(array('type' => ['Loại menu không tồn tại']), 422);
         }
@@ -308,7 +301,7 @@ class MenuCtrl extends Controller {
     }
     
     function listMenuType(){
-        return response()->json($this->menuType);
+        return response()->json(app('MenuConfig')->getMenuType());
     }
 }
 
