@@ -26,7 +26,13 @@ class WidgetCtrl extends Controller {
      * @return type
      */
     function listWidgetPosition() {
-        return response()->json(app('ThemeConfig')->getWidgetPosition());
+        $respData = [];
+        $listPosition = app('ThemeConfig')->getWidgetPosition();
+        foreach($listPosition as $key => $name){
+            $respData[$key]['name'] = $name;
+            $respData[$key]['data'] = WidgetModel::where('position_code', $key)->oderBy('order')->get();
+        }
+        return response()->json($respData);
     }
 
     /**
