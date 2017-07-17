@@ -189,6 +189,9 @@ return [
         
         #Debugbar
         Barryvdh\Debugbar\ServiceProvider::class,
+        
+        #myAppConfigProvider
+        App\Providers\MyAppConfigProvider::class,
 
     ],
 

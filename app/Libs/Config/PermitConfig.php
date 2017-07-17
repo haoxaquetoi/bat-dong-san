@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Libs;
+namespace App\Libs\Config;
 
-class Permit {
+class PermitConfig {
 
     private $arrPermit;
 

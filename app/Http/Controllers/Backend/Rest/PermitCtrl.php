@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend\Rest;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Libs\Permit;
 use App\Models\Backend\GroupPermitModel;
 use App\Models\Backend\UserPermitModel;
 
@@ -17,7 +16,7 @@ class PermitCtrl extends Controller {
     private $permit;
 
     public function __construct() {
-        $this->permit = new Permit();
+        $this->permit = app('PermitConfig');
     }
 
     public function listPermit() {

@@ -40,6 +40,43 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     //permit
     Route::get('/permit', 'Backend\Rest\PermitCtrl@listPermit');
     Route::get('/permit/group/{id}', 'Backend\Rest\PermitCtrl@listPermitOfGroup')->where('id', '[\d]+');
+    
+    //adv
+    Route::get('/adv', 'Backend\Rest\AdvCtrl@listAdv');
+    Route::get('/adv/{id}', 'Backend\Rest\AdvCtrl@infoAdv')->where('id', '[\d]+');
+    Route::post('/adv', 'Backend\Rest\AdvCtrl@insertAdv');
+    Route::put('/adv', 'Backend\Rest\AdvCtrl@updateAdv');
+    Route::delete('/adv', 'Backend\Rest\AdvCtrl@deleteAdv');
+    
+    //setting
+    Route::get('/setting', 'Backend\Rest\SettingCtrl@listSetting');
+    Route::put('/setting', 'Backend\Rest\SettingCtrl@updateSetting');
+    Route::get('/setting/:key', 'Backend\Rest\SettingCtrl@infoSetting')->where('key', '[\W]+');
+    
+    //menu
+    Route::post('/menu/position', 'Backend\Rest\MenuCtrl@insertMenuPosition');
+    Route::put('/menu/position', 'Backend\Rest\MenuCtrl@updateMenuPosition');
+    Route::delete('/menu/position/{id}', 'Backend\Rest\MenuCtrl@deleteMenuPosition')->where('id', '[\d]+');
+    Route::get('/menu/position', 'Backend\Rest\MenuCtrl@listMenuPosition');
+    
+    Route::post('/menu', 'Backend\Rest\MenuCtrl@insertMenu');
+    Route::put('/menu', 'Backend\Rest\MenuCtrl@updateMenu');
+    Route::delete('/menu/{id}', 'Backend\Rest\MenuCtrl@deleteMenu')->where('id', '[\d]+');
+    Route::get('/menu/{positionId}', 'Backend\Rest\MenuCtrl@listMenu')->where('id', '[\d]+');
+    Route::get('/menu/info/{id}', 'Backend\Rest\MenuCtrl@infoMenu')->where('id', '[\d]+');
+    Route::put('/menu/order', 'Backend\Rest\MenuCtrl@reOrderMenu');
+    Route::get('/menu/type', 'Backend\Rest\MenuCtrl@listMenuType');
+    
+    //widget
+    Route::get('/widget/type', 'Backend\Rest\WidgetCtrl@listWidgetType');
+    Route::get('/widget/position', 'Backend\Rest\WidgetCtrl@listWidgetPosition');
+    
+    Route::post('/widget/item', 'Backend\Rest\WidgetCtrl@insertWidgetItem');
+    Route::put('/widget/item/{id}', 'Backend\Rest\WidgetCtrl@updateWidgetItem')->where('id', '[\d]+');
+    Route::delete('/widget/item/{id}', 'Backend\Rest\WidgetCtrl@deleteWidgetItem')->where('id', '[\d]+');
+    Route::put('/widget/item/order', 'Backend\Rest\WidgetCtrl@reOrderWidgetItem')->where('id', '[\d]+');
+    
+    Route::put('/widget/item/cache', 'Backend\Rest\WidgetCtrl@cacheWidget');
 });
 
 
@@ -60,3 +97,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
 
 
 require 'huong.web.php';
+require 'minh.web.php';

@@ -20,6 +20,7 @@ class CreateWidgetTable extends Migration
             $table->string('type', 50);
             $table->text('value');
             $table->integer('order')->default(0);
+            $table->text('cache')->nullable();
         });
     }
 
