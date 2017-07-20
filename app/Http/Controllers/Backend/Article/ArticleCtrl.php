@@ -11,20 +11,19 @@ class ArticleCtrl extends Controller {
 
 
     function main(ArticleMode $artMdl) {
-        $article = $artMdl::with('articleBase')->get();
-        
-        echo "<hr/><pre>" . __FILE__ . "<br/>";
-        var_dump($article->toArray());
-        echo "<br/></pre>" . __LINE__ . "<hr/>";
-
-       
-        //return view('backend/article/main');
+//        $article = $artMdl::with('articleBase')->get();
+        return view('backend/article/mainArticle');
     }
-    function singleArticle() {
-        return view('backend/article/single_article');
+    
+    function all() {
+        return view('backend/article/article');
     }
-    function singleArticleBDS() {
-        return view('backend/article/single_article_bds');
+    
+    function singleArticleNews() {
+        return view('backend/article/singleArticleNews');
+    }
+    function singleArticleProduct() {
+        return view('backend/article/singleArticleProduct');
     }
 
 }
