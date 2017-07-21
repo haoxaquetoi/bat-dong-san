@@ -22,6 +22,7 @@ class CreateArticleBaseTable extends Migration
             $table->integer('street_id');
             $table->text('address')->nullable();
             $table->double('price')->default(0);
+            $table->integer('myself')->default(0);
         });
     }
 

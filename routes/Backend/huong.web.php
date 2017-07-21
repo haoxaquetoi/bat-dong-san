@@ -19,6 +19,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     Route::get('/crawler', 'Backend\Crawler\CrawlerCtrl@index')->name('crawler');
     Route::get('/crawler/configCrawler', 'Backend\Crawler\CrawlerCtrl@configCrawler');
     
+    
 });
 
 
@@ -62,7 +63,8 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::delete('/crawler/{id}', 'Backend\Rest\CrawlerCtrl@delete');
     
     
-    
-    
+    #article
+    Route::post('/article', 'Backend\Rest\ArticleCtrl@addNew');
 });
 
+Route::get('/test', 'Controller@test');

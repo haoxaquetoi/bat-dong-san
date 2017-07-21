@@ -45,7 +45,7 @@ class CategoryCtrl extends Controller
                 ])->count();
         return $count > 0 ? TRUE : FALSE;
     }
-
+    
     function insertCategory(Request $request, CategoryModel $catModel)
     {
         Validator::make($request->all(), $this->rules, $this->message)->validate();
