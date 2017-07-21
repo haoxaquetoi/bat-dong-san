@@ -1,12 +1,8 @@
-@extends('backend.layouts.default')
-@section('title', 'Quản lý người dùng')
-@section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
         Danh sách tin đăng 
-        <a class="btn btn-primary btn-sm" href="{{url('admin/article/singleArticle')}}"><i class="fa fa-plus"></i>&nbsp;Thêm mới tin đăng</a>
-        <a class="btn btn-primary btn-sm" href="{{url('admin/article/singleArticleBDS')}}"><i class="fa fa-plus"></i>&nbsp;Thêm mới tin BDS</a>
+        <a class="btn btn-primary btn-sm" href="#!/singleNews/0"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
     </h1>
 </section>
 <!-- Main content -->
@@ -14,32 +10,40 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
-                <div class="box-body">
-                    <div class="dataTables_wrapper form-inline dt-bootstrap">
-                        <div class="row padding-bottom-10">
-                            <div class="col-xs-12">
-                                <a href="">Tất cả (20)</a> | <a href="" class="text-black">Lưu nháp (5)</a> | <a href="" class="text-black">Đã xóa (5)</a>
-                            </div>
+                <div class="box-header">
+                    <div class="row padding-bottom-10">
+                        <div class="col-xs-12">
+                            <a href="">Tất cả (20)</a> | <a href="" class="text-black">Lưu nháp (5)</a> | <a href="" class="text-black">Đã xóa (5)</a>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-9 padding-bottom-5">
-                                <form class="form-inline" role="form">
-                                    <select class="form-control input-sm">
-                                        <option>-- Tất cả chuyên mục --</option>
-                                        <option>-- Chuyên mục 1 --</option>
-                                        <option>-- Chuyên mục 2 --</option>
-                                    </select>
-                                    <input type="date" class="form-control input-sm" id="time_from">
-                                    <button type="button" class="btn btn-default btn-sm">Lọc</button>
-                                </form>
-                            </div>
-                            <div class="col-xs-3 text-right padding-bottom-5">
-                                <div class="form-inline">
-                                    <input type="email" class="form-control input-sm" placeholder="nhập từ khóa cần tìm">
-                                    <button type="button" class="btn btn-default btn-sm">Tìm</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7 col-xs-12 padding-bottom-5">
+                            <form class="form-inline" role="form">
+                                <select class="form-control input-sm">
+                                    <option>-- Tất cả chuyên mục --</option>
+                                    <option>-- Chuyên mục 1 --</option>
+                                    <option>-- Chuyên mục 2 --</option>
+                                </select>
+                                <input type="date" class="form-control input-sm" id="time_from">
+                                <button type="button" class="btn btn-default btn-sm">Lọc</button>
+                            </form>
+                        </div> 
+                        <div class="col-md-5 col-xs-12 padding-bottom-5">
+                            <div class="box-tools pull-right">
+                                <div class="input-group input-group-sm" style="width: 250px;">
+                                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm">
+
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                </div>
+                <div class="box-body">
+                    <div class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
                             <div class="col-sm-12">
                                 <table  class="table table-bordered table-hover dataTable" role="grid" id="example2" >
@@ -54,20 +58,18 @@
                                     </colgroup>
                                     <thead>
                                         <tr role="row">
-                                            <th>STT</th>
+                                            <th class="sorting_asc">STT</th>
                                             <th>#</th>
-                                            <th>Tiêu đề</th>
-                                            <th>
-                                                Nổi bật
-                                            </th>
-                                            <th class=" text-center">Đảm bảo</th>
-                                            <th class=" text-center">Phản hồi</th>
-                                            <th class=" text-center">Ngày đăng</th>
+                                            <th class="sorting">Tiêu đề</th>
+                                            <th class="sorting">Nổi bật</th>
+                                            <th class="sorting">Đảm bảo</th>
+                                            <th class="sorting">Phản hồi</th>
+                                            <th class="sorting">Ngày đăng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr role="row">
-                                            <td >1</td>
+                                        <tr>
+                                            <td class="text-center">1</td>
                                             <td class="tbl-actions text-center">
                                                 <div class="dropdown">
                                                     <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
@@ -81,7 +83,7 @@
                                                 <a href="javascript:;">Nhà đất bán tại việt nam</a>
                                             </td>
                                             <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                                            <td class=" text-center"><a href="#"><i class="fa fa-cog text-yellow" aria-hidden="true"></i></a></td>
+                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
                                             <td class="comments column-comments text-center" data-colname="Bình luận">		
                                                 <div class="post-com-count-wrapper">
                                                     <a href=""
@@ -92,8 +94,8 @@
                                                 </div>
                                             </td>
                                             <td>10:00:00 17/07/2017</td>
-                                        <tr role="row">
-                                            <td >1</td>
+                                        <tr>
+                                            <td class="text-center">1</td>
                                             <td class="tbl-actions text-center">
                                                 <div class="dropdown">
                                                     <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
@@ -107,34 +109,7 @@
                                                 <a href="javascript:;">Nhà đất bán tại việt nam</a>
                                             </td>
                                             <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class=" text-center"><a href="#"><i class="fa fa-cog text-black" aria-hidden="true"></i></a></td>
-                                            <td class="comments column-comments text-center" data-colname="Bình luận">		
-                                                <div class="post-com-count-wrapper">
-                                                    <a href=""
-                                                       class="post-com-count post-com-count-approved">
-                                                        <span class="comment-count-approved" aria-hidden="true">1</span>
-                                                        <span class="screen-reader-text">1 Bình luận</span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>10:00:00 17/07/2017</td>
-                                        </tr>
-                                        <tr role="row">
-                                            <td >1</td>
-                                            <td class="tbl-actions text-center">
-                                                <div class="dropdown">
-                                                    <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                        <li><a href="javascript:;">Xóa</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:;">Nhà đất bán tại việt nam</a>
-                                            </td>
                                             <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class=" text-center"><a href="#"><i class="fa fa-cog text-black" aria-hidden="true"></i></a></td>
                                             <td class="comments column-comments text-center" data-colname="Bình luận">		
                                                 <div class="post-com-count-wrapper">
                                                     <a href=""
@@ -146,8 +121,8 @@
                                             </td>
                                             <td>10:00:00 17/07/2017</td>
                                         </tr>
-                                        <tr role="row">
-                                            <td >1</td>
+                                        <tr>
+                                            <td class="text-center">1</td>
                                             <td class="tbl-actions text-center">
                                                 <div class="dropdown">
                                                     <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
@@ -161,7 +136,7 @@
                                                 <a href="javascript:;">Nhà đất bán tại việt nam</a>
                                             </td>
                                             <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class=" text-center"><a href="#"><i class="fa fa-cog text-black" aria-hidden="true"></i></a></td>
+                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
                                             <td class="comments column-comments text-center" data-colname="Bình luận">		
                                                 <div class="post-com-count-wrapper">
                                                     <a href=""
@@ -173,8 +148,8 @@
                                             </td>
                                             <td>10:00:00 17/07/2017</td>
                                         </tr>
-                                        <tr role="row">
-                                            <td >1</td>
+                                        <tr>
+                                            <td class="text-center">1</td>
                                             <td class="tbl-actions text-center">
                                                 <div class="dropdown">
                                                     <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
@@ -188,7 +163,34 @@
                                                 <a href="javascript:;">Nhà đất bán tại việt nam</a>
                                             </td>
                                             <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class=" text-center"><a href="#"><i class="fa fa-cog text-black" aria-hidden="true"></i></a></td>
+                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                                            <td class="comments column-comments text-center" data-colname="Bình luận">		
+                                                <div class="post-com-count-wrapper">
+                                                    <a href=""
+                                                       class="post-com-count post-com-count-approved">
+                                                        <span class="comment-count-approved" aria-hidden="true">1</span>
+                                                        <span class="screen-reader-text">1 Bình luận</span>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>10:00:00 17/07/2017</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="tbl-actions text-center">
+                                                <div class="dropdown">
+                                                    <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
+                                                        <li><a href="javascript:;">Xóa</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;">Nhà đất bán tại việt nam</a>
+                                            </td>
+                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
                                             <td class="comments column-comments text-center" data-colname="Bình luận">		
                                                 <div class="post-com-count-wrapper">
                                                     <a href=""
@@ -205,10 +207,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-5">
-                                <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Hiển thị 1 -> 10 của 57 bản ghi</div>
-                            </div>
-                            <div class="col-sm-7">
+                            <div class="col-xs-12">
                                 <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
                                     <ul class="pagination">
                                         <li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li>
@@ -238,6 +237,4 @@
     </div>
     <!-- /.row -->
 </section>
-
-@endsection
 

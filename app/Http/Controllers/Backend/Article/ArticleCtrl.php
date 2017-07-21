@@ -12,17 +12,20 @@ class ArticleCtrl extends Controller {
 
 
     function main(ArticleMode $artMdl) {
-        $article = $artMdl::with('articleBase')->get();
-   
+//        $article = $artMdl::with('articleBase')->get();
+        return view('backend/article/mainArticle');
+    }
+    
+    function all() {
+        return view('backend/article/article');
 
-       
-        return view('backend/article/main');
     }
-    function singleArticle() {
-        return view('backend/article/single_article');
+    
+    function singleArticleNews() {
+        return view('backend/article/singleArticleNews');
     }
-    function singleArticleBDS() {
-        return view('backend/article/single_article_bds');
+    function singleArticleProduct() {
+        return view('backend/article/singleArticleProduct');
     }
 
 }
