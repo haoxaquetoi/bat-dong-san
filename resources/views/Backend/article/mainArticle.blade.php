@@ -5,7 +5,6 @@
 <script src="{{ URL::asset('backend/js/article/articleListCtrl.js') }}"></script>
 <script src="{{ URL::asset('backend/js/article/articleSingleNewsCtrl.js') }}"></script>
 <script src="{{ URL::asset('backend/js/article/articleSingleProductCtrl.js') }}"></script>
-<!--service-->
 @endsection
 @section('content')
 <div ng-view></div>

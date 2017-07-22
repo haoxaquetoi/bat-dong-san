@@ -17,8 +17,7 @@ class ArticleCtrl extends Controller {
     }
     
     function all() {
-        return view('backend/article/article');
-
+        return view('backend/article/listArticle');
     }
     
     function singleArticleNews() {

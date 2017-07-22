@@ -32,7 +32,6 @@
                             <div class="box-tools pull-right">
                                 <div class="input-group input-group-sm" style="width: 250px;">
                                     <input type="text" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm">
-
                                     <div class="input-group-btn">
                                         <button type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
                                     </div>

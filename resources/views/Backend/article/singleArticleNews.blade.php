@@ -1,24 +1,3 @@
-@push('scripts')
-<link rel="shortcut icon" type="image/png" href="{{ asset('vendor/laravel-filemanager/img/folder.png')}}">
-<script>
-    var route_prefix = "{{ url(config('lfm.prefix')) }}";
-</script>
-
-<!-- CKEditor init -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/ckeditor.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/adapters/jquery.js"></script>
-<script>
-    $('textarea.useCkeditor').ckeditor({
-        height: 100,
-        filebrowserImageBrowseUrl: route_prefix + '?type=Images',
-        filebrowserImageUploadUrl: route_prefix + '/upload?type=Images&_token={{csrf_token()}}',
-        filebrowserBrowseUrl: route_prefix + '?type=Files',
-        filebrowserUploadUrl: route_prefix + '/upload?type=Files&_token={{csrf_token()}}'
-    });
-</script>
-@endpush
-
 <angular ng-cloak="">
 
     <section class="content-header">
@@ -68,7 +47,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Nội dung mô tả</label>
-                                        <textarea name="txtContent" class="form-control useCkeditor"></textarea>
+                                        <textarea name="txtContent" class="form-control my-ckeditor"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -231,7 +210,7 @@
                                 <div class="col-sm-12 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Mô tả nội thất</label>
-                                        <textarea name="txtContent" class="form-control useCkeditor"></textarea>
+                                        <textarea name="txtContent" class="form-control my-ckeditor"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -398,8 +377,13 @@
                         </div>
                         <div class="box-body">
                             <div class="form-group text-center">
-                                <button class="btn btn-default">Chọn ảnh</button>
-                                <button class="btn btn-default">Chọn video</button>
+                                <div>
+                                    <a data-input="thumbnail" data-preview="holder" class="btn btn-primary my-lfm">
+                                        <i class="fa fa-picture-o"></i> Chọn ảnh/video
+                                    </a>
+                                    <input id="thumbnail" class="form-control " type="hidden" name="filepath">
+                                </div>
+                                <img id="holder" class="img-responsive margin-top-15">
                             </div>
                         </div>
                     </div>
