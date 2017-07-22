@@ -1,21 +1,12 @@
-<!-- Content Header (Page header) -->
-<section class="content-header">
-    <h1>
-        Danh sách tin đăng 
-        <a class="btn btn-primary btn-sm" href="#!/singleNews/0"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
-    </h1>
-</section>
-<!-- Main content -->
-<section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
+<div class="modal fade" tabindex="-1" role="dialog" id="modalArticle">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Chọn tin bài</h4>
+            </div>
+            <div class="modal-body form-horizontal">
                 <div class="box-header">
-                    <div class="row padding-bottom-10">
-                        <div class="col-xs-12">
-                            <a href="">Tất cả (20)</a> | <a href="" class="text-black">Lưu nháp (5)</a> | <a href="" class="text-black">Đã xóa (5)</a>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-7 col-xs-12 padding-bottom-5">
                             <form class="form-inline" role="form">
@@ -46,19 +37,9 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <table  class="table table-bordered table-hover dataTable" role="grid" id="example2" >
-                                    <colgroup>
-                                        <col width='5%' />
-                                        <col width='5%' />
-                                        <col width='*' />
-                                        <col width='20%' />
-                                        <col width='17%' />
-                                        <col width='17%' />
-                                        <col width='15%' />
-                                    </colgroup>
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting_asc">STT</th>
-                                            <th>#</th>
                                             <th class="sorting">Tiêu đề</th>
                                             <th class="sorting">Nổi bật</th>
                                             <th class="sorting">Đảm bảo</th>
@@ -69,24 +50,14 @@
                                     <tbody>
                                         <tr>
                                             <td class="text-center">1</td>
-                                            <td class="tbl-actions text-center">
-                                                <div class="dropdown">
-                                                    <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                        <li><a href="javascript:void(0);">Xóa</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
                                             <td>
                                                 <a href="javascript:void(0);">Nhà đất bán tại việt nam</a>
                                             </td>
-                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
+                                            <td class="mailbox-star text-center"><i class="fa fa-star-o text-yellow"></i></td>
+                                            <td class="mailbox-star text-center"><i class="fa fa-star-o text-yellow"></i></td>
                                             <td class="comments column-comments text-center" data-colname="Bình luận">		
                                                 <div class="post-com-count-wrapper">
-                                                    <a href=""
-                                                       class="post-com-count post-com-count-approved">
+                                                    <a href="" class="post-com-count post-com-count-approved">
                                                         <span class="comment-count-approved" aria-hidden="true">1</span>
                                                         <span class="screen-reader-text">1 Bình luận</span>
                                                     </a>
@@ -95,15 +66,6 @@
                                             <td>10:00:00 17/07/2017</td>
                                         <tr>
                                             <td class="text-center">1</td>
-                                            <td class="tbl-actions text-center">
-                                                <div class="dropdown">
-                                                    <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                        <li><a href="javascript:void(0);">Xóa</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
                                             <td>
                                                 <a href="javascript:void(0);">Nhà đất bán tại việt nam</a>
                                             </td>
@@ -122,15 +84,6 @@
                                         </tr>
                                         <tr>
                                             <td class="text-center">1</td>
-                                            <td class="tbl-actions text-center">
-                                                <div class="dropdown">
-                                                    <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                        <li><a href="javascript:void(0);">Xóa</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
                                             <td>
                                                 <a href="javascript:void(0);">Nhà đất bán tại việt nam</a>
                                             </td>
@@ -149,15 +102,6 @@
                                         </tr>
                                         <tr>
                                             <td class="text-center">1</td>
-                                            <td class="tbl-actions text-center">
-                                                <div class="dropdown">
-                                                    <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                        <li><a href="javascript:void(0);">Xóa</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
                                             <td>
                                                 <a href="javascript:void(0);">Nhà đất bán tại việt nam</a>
                                             </td>
@@ -176,15 +120,6 @@
                                         </tr>
                                         <tr>
                                             <td class="text-center">1</td>
-                                            <td class="tbl-actions text-center">
-                                                <div class="dropdown">
-                                                    <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                        <li><a href="javascript:void(0);">Xóa</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
                                             <td>
                                                 <a href="javascript:void(0);">Nhà đất bán tại việt nam</a>
                                             </td>
@@ -221,19 +156,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <button type="button" class="btn btn-danger btn-sm">Xóa</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-            <!-- /.box -->
-
-        </div>
-        <!-- /.col -->
-    </div>
-    <!-- /.row -->
-</section>
-
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" class="close" data-dismiss="modal" aria-label="Close" ><i class="fa fa-close"></i>&nbsp;Đóng của sổ</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -6,6 +6,7 @@
 .padding-15{padding: 15px;}
 .padding-15-i{padding: 15px !important;}
 .padding-0-i{padding: 0px !important;}
+.padding-5 {padding: 7.5px;}
 .padding-7_5 {padding: 7.5px;}
 .padding-7_5-i {padding: 7.5px !important;}
 .padding-10-i {padding: 10px !important;}
@@ -22,6 +23,7 @@
 .margin-bottom-5{margin-bottom: 5px;}
 .margin-bottom-10{margin-bottom: 10px;}
 .margin-bottom-15{margin-bottom: 15px;}
+.padding-right-0{padding-right: 0px;}
 .padding-right-7_5{padding-right: 7.5px;}
 .padding-right-10{padding-right: 10px;}
 .padding-top-bot-0{padding-top: 0px;padding-bottom: 0px;}
@@ -62,7 +64,7 @@ a.link {color: #337ab7;}
 .text-black{color: #111;}
 .img-circle{border: 1px solid #dbdbdb;}
 .width-50{width: 50%;}
-
+ .text-danger{color: #ff2723;}
 /*magic-radio  and magic-checkbox */
 .magic-radio:checked+label:before {
     border: 1px solid #42a5f5;

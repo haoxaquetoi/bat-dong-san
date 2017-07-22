@@ -139,5 +139,4 @@
         </form>
     </section>
     <!-- /.content -->
-    @include('backend.crawler.modalSingleCrawler')
 </angular>

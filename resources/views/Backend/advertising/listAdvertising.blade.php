@@ -63,15 +63,15 @@
                                                 <td >1</td>
                                                 <td class="tbl-actions text-center">
                                                     <div class="dropdown">
-                                                        <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
+                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
                                                             <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                            <li><a href="javascript:;">Xóa</a></li>
+                                                            <li><a href="javascript:void(0);">Xóa</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="javascript:;">Quảng cáo mỹ phẩm</a>
+                                                    <a href="javascript:void(0);">Quảng cáo mỹ phẩm</a>
                                                 </td>
                                                 <td>09/07/2017</td>
                                                 <td>09/08/2017</td>
@@ -81,15 +81,15 @@
                                                 <td >1</td>
                                                 <td class="tbl-actions text-center">
                                                     <div class="dropdown">
-                                                        <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
+                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
                                                             <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                            <li><a href="javascript:;">Xóa</a></li>
+                                                            <li><a href="javascript:void(0);">Xóa</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="javascript:;">Quảng cáo mỹ phẩm</a>
+                                                    <a href="javascript:void(0);">Quảng cáo mỹ phẩm</a>
                                                 </td>
                                                 <td>09/07/2017</td>
                                                 <td>09/08/2017</td>
@@ -99,15 +99,15 @@
                                                 <td >1</td>
                                                 <td class="tbl-actions text-center">
                                                     <div class="dropdown">
-                                                        <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
+                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
                                                             <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                            <li><a href="javascript:;">Xóa</a></li>
+                                                            <li><a href="javascript:void(0);">Xóa</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="javascript:;">Quảng cáo nhà đất</a>
+                                                    <a href="javascript:void(0);">Quảng cáo nhà đất</a>
                                                 </td>
                                                 <td>09/05/2017</td>
                                                 <td>09/06/2017</td>
@@ -145,6 +145,5 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
-    @include('backend.category.modalCategory')
 </angular>
 

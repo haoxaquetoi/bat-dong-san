@@ -21,6 +21,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     #setting feedback
     Route::get('/settingFeedback', 'Backend\settingFeedback\settingFeedbackCtrl@main')->name('settingFeedback');
     Route::get('/settingFeedback/list', 'Backend\settingFeedback\settingFeedbackCtrl@all');
-    
+    #quang cao
+    Route::get('/menu', 'Backend\Menu\MenuCtrl@main')->name('menu');
+    Route::get('/menu/list', 'Backend\Menu\MenuCtrl@all');
+    Route::get('/menu/single', 'Backend\Menu\MenuCtrl@single');
 });
 
