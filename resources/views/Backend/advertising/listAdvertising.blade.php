@@ -49,12 +49,12 @@
                                         </colgroup>
                                         <thead>
                                             <tr role="row">
-                                                <th>STT</th>
+                                                <th class="sorting">STT</th>
                                                 <th>#</th>
-                                                <th>Tiêu đề</th>
-                                                <th>Ngày bắt đầu</th>
-                                                <th>Ngày kết thúc</th>
-                                                <th>Trạng thái</th>
+                                                <th class="sorting_asc">Tiêu đề</th>
+                                                <th class="sorting">Ngày bắt đầu</th>
+                                                <th class="sorting">Ngày kết thúc</th>
+                                                <th class="sorting">Trạng thái</th>
 
                                             </tr>
                                         </thead>

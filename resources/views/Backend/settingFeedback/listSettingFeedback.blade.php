@@ -2,7 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Danh sách góp ý
+            Danh sách câu hỏi góp ý <button class="btn btn-primary"  data-toggle="modal" data-target="#modalSettingFeedback">Thêm mới</button>
         </h1>
     </section>
     <!-- Main content -->
@@ -12,23 +12,13 @@
                 <div class="box">
                     <div class="box-body">
                         <div class="dataTables_wrapper dt-bootstrap">
-                            <div class="row padding-bottom-10">
-                                <div class="col-xs-12">
-                                    <a href="">Tất cả (20)</a> | <a href="" class="text-black">Đã đọc (5)</a> | <a href="" class="text-black">Chưa đọc (5)</a>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-xs-9 padding-bottom-5">
                                     <form class="form-inline" role="form">
                                         <select class="form-control">
-                                            <option value="">--Chọn loại bình luận--</option>
+                                            <option value="">--Tất cả--</option>
                                             <option value="">--feedback1--</option>
                                             <option value="">--feedback2--</option>
-                                        </select>
-                                        <select class="form-control">
-                                            <option value="">--Trạng thái--</option>
-                                            <option value="">Đã đọc</option>
-                                            <option value="">Chưa đọc</option>
                                         </select>
                                         <button type="button" class="btn btn-default btn-sm">Lọc</button>
                                     </form>
@@ -60,9 +50,7 @@
                                             <tr role="row">
                                                 <th class="sorting">STT</th>
                                                 <th>#</th>
-                                                <th class="sorting_asc">Nội dung</th>
-                                                <th class="sorting">Tiêu đề tin bài</th>
-                                                <th class="sorting">Ngày gửi</th>
+                                                <th class="sorting_asc">Tiêu đề</th>
                                                 <th class="sorting">Trạng thái</th>
 
                                             </tr>
@@ -80,10 +68,8 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modalFeedback">Nội dung 1</a>
+                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modalSettingFeedback">Tiêu đề 1</a>
                                                 </td>
-                                                <td>Tin bài 1</td>
-                                                <td>09/08/2017</td>
                                                 <td><a>Hoạt động</a></td>
                                             </tr>
                                             <tr role="row">
@@ -98,10 +84,8 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modalFeedback">Nội dung 1</a>
+                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modalSettingFeedback">Tiêu đề 1</a>
                                                 </td>
-                                                <td>Tin bài 1</td>
-                                                <td>09/08/2017</td>
                                                 <td><a>Hoạt động</a></td>
                                             </tr>
                                             <tr role="row">
@@ -116,10 +100,8 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modalFeedback">Nội dung 1</a>
+                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modalSettingFeedback">Tiêu đề 1</a>
                                                 </td>
-                                                <td>Tin bài 1</td>
-                                                <td>09/08/2017</td>
                                                 <td><a>Hoạt động</a></td>
                                             </tr>
                                             <tr role="row">
@@ -134,10 +116,8 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modalFeedback">Nội dung 1</a>
+                                                    <a href="javascript:void(0)0;" data-toggle="modal" data-target="#modalSettingFeedback">Tiêu đề 1</a>
                                                 </td>
-                                                <td>Tin bài 1</td>
-                                                <td>09/08/2017</td>
                                                 <td><a>Hoạt động</a></td>
                                             </tr>
                                         </tbody>
@@ -171,6 +151,6 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
-    @include('backend.feedback.modalFeedback')
+    @include('backend.settingFeedback.modalSettingFeedback')
 </angular>
 

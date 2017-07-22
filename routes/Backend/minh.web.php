@@ -18,5 +18,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     #feedback
     Route::get('/feedback', 'Backend\feedback\FeedbackCtrl@main')->name('feedback');
     Route::get('/feedback/list', 'Backend\feedback\FeedbackCtrl@all');
+    #setting feedback
+    Route::get('/settingFeedback', 'Backend\settingFeedback\settingFeedbackCtrl@main')->name('settingFeedback');
+    Route::get('/settingFeedback/list', 'Backend\settingFeedback\settingFeedbackCtrl@all');
+    
 });
 
