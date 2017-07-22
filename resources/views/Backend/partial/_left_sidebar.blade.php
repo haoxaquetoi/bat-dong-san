@@ -42,15 +42,15 @@
                 <i class="fa fa-user-circle"></i> <span>Tin bài</span>
             </a>
         </li>
-        
-        <li class="treeview active">
-          <a href="#">
-            <i class="fa fa-folder-o"></i> <span>Media</span>
+        <li class="treeview">
+          <a href="javascript:void(0)">
+            <i class="fa fa-folder-o"></i>
+            <span>Media</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu menu-open" style="display: block;">
+          <ul class="treeview-menu">
             <li>
                 <a href="{{URL::asset('')}}file-manager?type=image" target="_blank">
                     <i class="fa fa-image"></i> <span>Media-images</span>
@@ -59,6 +59,26 @@
             <li>
                 <a href="{{URL::asset('')}}file-manager?type=image" target="_blank">
                     <i class="fa fa-file"></i> <span>Media-files</span>
+                </a>
+            </li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="javascript:void(0)">
+            <i class="fa fa-cog"></i> <span>Cài đặt</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+                <a href="{{route('setting')}}">
+                    <i class="fa fa-info-circle"></i> <span>Thông tin chung</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('setting')}}#!/email">
+                    <i class="fa fa-envelope"></i> <span>Email</span>
                 </a>
             </li>
           </ul>
