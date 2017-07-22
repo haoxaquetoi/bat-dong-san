@@ -42,6 +42,11 @@
                 <i class="fa fa-user-circle"></i> <span>Tin bài</span>
             </a>
         </li>
+         <li>
+            <a href="{{route('feedback')}}">
+                <i class="fa fa-user-circle"></i> <span>Danh sách góp ý</span>
+            </a>
+        </li>
         <li class="treeview">
           <a href="javascript:void(0)">
             <i class="fa fa-folder-o"></i>

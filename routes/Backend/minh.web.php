@@ -11,9 +11,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     Route::get('/article/list', 'Backend\Article\ArticleCtrl@all');
     Route::get('/article/singleNews', 'Backend\Article\ArticleCtrl@singleArticleNews');
     Route::get('/article/singleProduct', 'Backend\Article\ArticleCtrl@singleArticleProduct');
-    #tin bài
+    #setting
     Route::get('/setting', 'Backend\Setting\SettingCtrl@main')->name('setting');
     Route::get('/setting/info', 'Backend\Setting\SettingCtrl@settingInfo');
     Route::get('/setting/email', 'Backend\Setting\SettingCtrl@settingEmail');
+    #feedback
+    Route::get('/feedback', 'Backend\feedback\FeedbackCtrl@main')->name('feedback');
+    Route::get('/feedback/list', 'Backend\feedback\FeedbackCtrl@all');
 });
 

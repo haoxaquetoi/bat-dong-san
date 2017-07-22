@@ -9,7 +9,7 @@
             <li class="active">Thêm mới tin đăng</li>
         </ol>
     </section>
-    <section class="content  form-magic">
+    <section class="content form-magic">
         <form role="form">
             <!-- Small boxes (Stat box) -->
             <div class="row">
