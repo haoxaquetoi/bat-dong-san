@@ -77,6 +77,13 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::put('/widget/item/order', 'Backend\Rest\WidgetCtrl@reOrderWidgetItem')->where('id', '[\d]+');
     
     Route::put('/widget/item/cache', 'Backend\Rest\WidgetCtrl@cacheWidget');
+    
+    //feedback
+    Route::post('/feedback', 'Backend\Rest\FeedbackCtrl@insertFeedback');
+    Route::get('/feedback/{id}', 'Backend\Rest\FeedbackCtrl@infoFeedback')->where('id', '[\d]+');
+    Route::get('/feedback', 'Backend\Rest\FeedbackCtrl@listFeedback');
+    Route::put('/feedback/{id}', 'Backend\Rest\FeedbackCtrl@updateFeedback')->where('id', '[\d]+');
+    Route::delete('/feedback/{id}', 'Backend\Rest\FeedbackCtrl@deleteFeedback')->where('id', '[\d]+');
 });
 
 
@@ -95,6 +102,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     Route::get('/modal/{name}', 'Backend\Modal\ModalCtrl@index')->name('getModal');
 });
 
+//route test
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
+{ 
+    Route::get('/test/{view}', 'TestCtrl@index');
+});
 
 require 'huong.web.php';
 require 'minh.web.php';

@@ -1,4 +1,4 @@
-ngApp.factory('$menuService', function ($rootScope, $http)
+ngApp.factory('$menuService', function ($rootScope, $http, $httpParamSerializer)
 {
     var service = {
         action: {},

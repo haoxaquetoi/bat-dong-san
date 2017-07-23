@@ -13,12 +13,12 @@ class ArticleCtrl extends Controller {
     function main(ArticleMode $artMdl) {
         $article = $artMdl::with('articleBase')->get();
         
-        echo "<hr/><pre>" . __FILE__ . "<br/>";
-        var_dump($article->toArray());
-        echo "<br/></pre>" . __LINE__ . "<hr/>";
+//        echo "<hr/><pre>" . __FILE__ . "<br/>";
+//        var_dump($article->toArray());
+//        echo "<br/></pre>" . __LINE__ . "<hr/>";
 
        
-        //return view('backend/article/main');
+        return view('backend/article/main');
     }
     function singleArticle() {
         return view('backend/article/single_article');
