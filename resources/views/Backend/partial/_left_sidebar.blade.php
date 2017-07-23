@@ -32,38 +32,73 @@
                 <i class="fa fa-user-circle"></i> <span>Crawler</span>
             </a>
         </li>
-         <li>
+        <li>
+            <a href="{{route('menu')}}">
+                <i class="fa fa-list"></i> <span>Menu</span>
+            </a>
+        </li>
+        <li>
             <a href="{{route('advertising')}}">
                 <i class="fa fa-user-circle"></i> <span>Quảng cáo</span>
             </a>
         </li>
-         <li>
+        <li>
             <a href="{{route('article')}}">
                 <i class="fa fa-user-circle"></i> <span>Tin bài</span>
             </a>
         </li>
-        
-        <li class="treeview active">
-          <a href="#">
-            <i class="fa fa-folder-o"></i> <span>Media</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu menu-open" style="display: block;">
-            <li>
-                <a href="{{URL::asset('')}}file-manager?type=image" target="_blank">
-                    <i class="fa fa-image"></i> <span>Media-images</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{URL::asset('')}}file-manager?type=image" target="_blank">
-                    <i class="fa fa-file"></i> <span>Media-files</span>
-                </a>
-            </li>
-          </ul>
+        <li>
+            <a href="{{route('feedback')}}">
+                <i class="fa fa-user-circle"></i> <span>Danh sách góp ý</span>
+            </a>
         </li>
-        
+        <li>
+            <a href="{{route('settingFeedback')}}">
+                <i class="fa fa-user-circle"></i> <span>Cấu hình câu hỏi góp ý</span>
+            </a>
+        </li>
+        <li class="treeview">
+            <a href="javascript:void(0)">
+                <i class="fa fa-folder-o"></i>
+                <span>Media</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="{{URL::asset('')}}file-manager?type=image" target="_blank">
+                        <i class="fa fa-image"></i> <span>Media-images</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{URL::asset('')}}file-manager?type=image" target="_blank">
+                        <i class="fa fa-file"></i> <span>Media-files</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="javascript:void(0)">
+                <i class="fa fa-cog"></i> <span>Cài đặt</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="{{route('setting')}}">
+                        <i class="fa fa-info-circle"></i> <span>Thông tin chung</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('setting')}}#!/email">
+                        <i class="fa fa-envelope"></i> <span>Email</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
     </ul>
 </section>
 <!-- /.sidebar -->

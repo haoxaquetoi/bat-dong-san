@@ -12,8 +12,6 @@
 <!--directive-->
 <script src="{{ URL::asset('backend/js/directive/chossePermitModal.js') }}"></script>
 <script src="{{ URL::asset('backend/js/directive/chosseUserModal.js') }}"></script>
-
-
 @endsection
 @section('content')
     <div ng-view></div>

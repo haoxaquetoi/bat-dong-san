@@ -27,7 +27,7 @@ class CreateCategoryTable extends Migration
             $table->tinyInteger('deleted')->default(0);
             $table->dateTime('deleted_at')->nullable();
             $table->dateTime('created_at');
-            $table->dateTime('updated_at');
+            $table->dateTime('updated_at')->nullable();
         });
     }
 

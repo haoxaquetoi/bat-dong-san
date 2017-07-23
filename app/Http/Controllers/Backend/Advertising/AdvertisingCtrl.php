@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Advertising;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class AdvertisingCtrl extends Controller {
@@ -11,9 +10,13 @@ class AdvertisingCtrl extends Controller {
        
         return view('backend/advertising/main');
     }
+    function all() {
+       
+        return view('backend/advertising/listAdvertising');
+    }
     function single() {
        
-        return view('backend/advertising/single_advertising');
+        return view('backend/advertising/singleAdvertising');
     }
 
 }

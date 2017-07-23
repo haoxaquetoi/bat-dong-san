@@ -59,15 +59,15 @@
                                                 <td >@{{$index + 1}}</td>
                                                 <td class="tbl-actions center">
                                                     <div class="dropdown">
-                                                        <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
+                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a href="javascript:;" ng-click="actions.singleModalCategory('#modalCategory', cat)">Chi tiết</a></li>
-                                                            <li><a href="javascript:;" ng-click="actions.deleteCategory(cat.id)">Xóa</a></li>
+                                                            <li><a href="javascript:void(0);" ng-click="actions.singleModalCategory('#modalCategory', cat)">Chi tiết</a></li>
+                                                            <li><a href="javascript:void(0);" ng-click="actions.deleteCategory(cat.id)">Xóa</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="javascript:;" ng-click="actions.singleModalCategory('#modalCategory', cat)">@{{cat.children}}&nbsp;@{{cat.name}}</a>
+                                                    <a href="javascript:void(0);" ng-click="actions.singleModalCategory('#modalCategory', cat)">@{{cat.children}}&nbsp;@{{cat.name}}</a>
                                                 </td>
                                                 <td>@{{(cat.status ==1) ? 'Hoạt động' :'Không hoạt động'}}</td>
                                                 <td>@{{(cat.order)}}</td>

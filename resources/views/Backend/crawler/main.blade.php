@@ -58,17 +58,17 @@
 
                                                 <td class="tbl-actions center">
                                                     <div class="dropdown">
-                                                        <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
+                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
                                                             <li><a href="{{URL::asset('/admin/crawler/configCrawler')}}" target="_blank" >Cấu hình chi tiết</a></li>
-                                                            <li><a href="javascript:;" ng-click="actions.singleModalCrawler('#modalSingleCrawler', crawlerInfo)">Chi tiết</a></li>
-                                                            <li ng-show="!crawlerInfo.deleted"><a href="javascript:;" ng-click="actions.trashWebsite(crawlerInfo.id)">Xóa</a></li>
-                                                            <li ng-show="crawlerInfo.deleted"><a href="javascript:;" ng-click="actions.publishWebsite(crawlerInfo)">Khôi phục</a></li>
+                                                            <li><a href="javascript:void(0);" ng-click="actions.singleModalCrawler('#modalSingleCrawler', crawlerInfo)">Chi tiết</a></li>
+                                                            <li ng-show="!crawlerInfo.deleted"><a href="javascript:void(0);" ng-click="actions.trashWebsite(crawlerInfo.id)">Xóa</a></li>
+                                                            <li ng-show="crawlerInfo.deleted"><a href="javascript:void(0);" ng-click="actions.publishWebsite(crawlerInfo)">Khôi phục</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="javascript:;" ng-click="actions.singleModalCrawler('#modalSingleCrawler', crawlerInfo)">&nbsp;@{{crawlerInfo.website_name}}</a>
+                                                    <a href="javascript:void(0);" ng-click="actions.singleModalCrawler('#modalSingleCrawler', crawlerInfo)">&nbsp;@{{crawlerInfo.website_name}}</a>
                                                 </td>
                                                 <td>
                                                     @{{crawlerInfo.website_url}}

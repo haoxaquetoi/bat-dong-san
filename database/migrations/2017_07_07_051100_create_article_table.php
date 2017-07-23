@@ -18,16 +18,17 @@ class CreateArticleTable extends Migration {
             $table->string('slug', 500);
             $table->text('summary')->nullable();
             $table->text('content')->nullable();
-            $table->datetime('begin_date');
-            $table->datetime('end_date');
-            $table->string('status', 50);
+            $table->datetime('begin_date')->nullable();
+            $table->datetime('end_date')->nullable();
+            $table->string('status', 7)->default('Trash');
             $table->tinyInteger('deleted')->default(0);
             $table->datetime('created_at');
-            $table->datetime('updated_at');
+            $table->datetime('updated_at')->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->tinyInteger('is_sticky')->default(0);
             $table->tinyInteger('is_censored')->default(0);
-            $table->string('thumbnail', 500);
+            $table->string('thumbnail', 500)->nullable();
+            $table->string('type', 7)->default('Product');
         });
     }
 

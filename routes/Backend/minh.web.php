@@ -4,10 +4,26 @@
 Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function () {
     #quang cao
     Route::get('/advertising', 'Backend\Advertising\AdvertisingCtrl@main')->name('advertising');
-    Route::get('/advertising/single', 'Backend\Advertising\AdvertisingCtrl@single')->name('singleAadvertising');
-    
+    Route::get('/advertising/list', 'Backend\Advertising\AdvertisingCtrl@all');
+    Route::get('/advertising/single', 'Backend\Advertising\AdvertisingCtrl@single');
+    #tin bài
     Route::get('/article', 'Backend\Article\ArticleCtrl@main')->name('article');
-    Route::get('/article/singleArticle', 'Backend\Article\ArticleCtrl@singleArticle');
-    Route::get('/article/singleArticleBDS', 'Backend\Article\ArticleCtrl@singleArticleBDS');
+    Route::get('/article/list', 'Backend\Article\ArticleCtrl@all');
+    Route::get('/article/singleNews', 'Backend\Article\ArticleCtrl@singleArticleNews');
+    Route::get('/article/singleProduct', 'Backend\Article\ArticleCtrl@singleArticleProduct');
+    #setting
+    Route::get('/setting', 'Backend\Setting\SettingCtrl@main')->name('setting');
+    Route::get('/setting/info', 'Backend\Setting\SettingCtrl@settingInfo');
+    Route::get('/setting/email', 'Backend\Setting\SettingCtrl@settingEmail');
+    #feedback
+    Route::get('/feedback', 'Backend\feedback\FeedbackCtrl@main')->name('feedback');
+    Route::get('/feedback/list', 'Backend\feedback\FeedbackCtrl@all');
+    #setting feedback
+    Route::get('/settingFeedback', 'Backend\settingFeedback\settingFeedbackCtrl@main')->name('settingFeedback');
+    Route::get('/settingFeedback/list', 'Backend\settingFeedback\settingFeedbackCtrl@all');
+    #quang cao
+    Route::get('/menu', 'Backend\Menu\MenuCtrl@main')->name('menu');
+    Route::get('/menu/list', 'Backend\Menu\MenuCtrl@all');
+    Route::get('/menu/single', 'Backend\Menu\MenuCtrl@single');
 });
 

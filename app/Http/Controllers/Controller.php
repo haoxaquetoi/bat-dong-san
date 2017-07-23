@@ -14,6 +14,7 @@ class Controller extends BaseController {
         ValidatesRequests;
 
     function __construct() {
+        
     }
 
     function extendValidator() {
@@ -21,6 +22,24 @@ class Controller extends BaseController {
             return \DB::table($parameters[0])
                             ->where($parameters[1], '=', $value)
                             ->count() < 1;
+        });
+    }
+
+    function test() {
+        return view('backend.test');
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator(&$validator, array $errors = array()) {
+        $validator->after(function ($validator) use ($errors) {
+            foreach ($errors as $key => $val) {
+                $validator->errors()->add($key, $val);
+            }
         });
     }
 

@@ -7,24 +7,25 @@ use App\Http\Controllers\Controller;
 use App\Models\Backend\ArticleMode;
 use App\Models\Backend\ArticleBaseModel;
 
+
 class ArticleCtrl extends Controller {
 
 
     function main(ArticleMode $artMdl) {
-        $article = $artMdl::with('articleBase')->get();
-        
-//        echo "<hr/><pre>" . __FILE__ . "<br/>";
-//        var_dump($article->toArray());
-//        echo "<br/></pre>" . __LINE__ . "<hr/>";
+//        $article = $artMdl::with('articleBase')->get();
+        return view('backend/article/mainArticle');
+    }
+    
+    function all() {
+        return view('backend/article/listArticle');
 
-       
-        return view('backend/article/main');
     }
-    function singleArticle() {
-        return view('backend/article/single_article');
+    
+    function singleArticleNews() {
+        return view('backend/article/singleArticleNews');
     }
-    function singleArticleBDS() {
-        return view('backend/article/single_article_bds');
+    function singleArticleProduct() {
+        return view('backend/article/singleArticleProduct');
     }
 
 }

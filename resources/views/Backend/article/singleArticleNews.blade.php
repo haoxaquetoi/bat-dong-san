@@ -1,40 +1,15 @@
-@extends('backend.layouts.default')
-@section('title', 'Chi tiết quảng cáo')
-@section('content')
-
-@push('scripts')
-<link rel="shortcut icon" type="image/png" href="{{ asset('vendor/laravel-filemanager/img/folder.png')}}">
-<script>
-    var route_prefix = "{{ url(config('lfm.prefix')) }}";
-</script>
-
-<!-- CKEditor init -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/ckeditor.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/adapters/jquery.js"></script>
-<script>
-    $('textarea.useCkeditor').ckeditor({
-        height: 100,
-        filebrowserImageBrowseUrl: route_prefix + '?type=Images',
-        filebrowserImageUploadUrl: route_prefix + '/upload?type=Images&_token={{csrf_token()}}',
-        filebrowserBrowseUrl: route_prefix + '?type=Files',
-        filebrowserUploadUrl: route_prefix + '/upload?type=Files&_token={{csrf_token()}}'
-    });
-</script>
-@endpush
-
 <angular ng-cloak="">
 
     <section class="content-header">
         <h1>
-            Thêm mới quảng cáo
+            Thêm mới tin đăng
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{url('admin/advertising')}}"><i class="fa fa-dashboard"></i> Quản lý quảng cáo</a></li>
-            <li class="active">Thêm mới</li>
+            <li><a href="{{url('admin/advertising')}}"><i class="fa fa-dashboard"></i> Quản lý tin bài</a></li>
+            <li class="active">Thêm mới tin đăng</li>
         </ol>
     </section>
-    <section class="content  form-magic">
+    <section class="content form-magic">
         <form role="form">
             <!-- Small boxes (Stat box) -->
             <div class="row">
@@ -42,6 +17,9 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Thông tin</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
@@ -50,9 +28,9 @@
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Loại tin</label>
-                                        <select class="form-control">
-                                            <option>Tin đăng</option>
-                                            <option>Tin bất động sản</option>
+                                        <select class="form-control" ng-model="typeArticle" ng-change="actions.changePage()">
+                                            <option value="news">Tin đăng</option>
+                                            <option value="product">Tin bất động sản</option>
                                         </select>
                                     </div>
                                 </div>
@@ -69,7 +47,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Nội dung mô tả</label>
-                                        <textarea name="txtContent" class="form-control useCkeditor"></textarea>
+                                        <textarea name="txtContent" class="form-control my-ckeditor"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -80,6 +58,9 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Thông tin cơ bản</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
@@ -162,6 +143,9 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Thông tin khác</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
@@ -226,7 +210,7 @@
                                 <div class="col-sm-12 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Mô tả nội thất</label>
-                                        <textarea name="txtContent" class="form-control useCkeditor"></textarea>
+                                        <textarea name="txtContent" class="form-control my-ckeditor"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -235,6 +219,9 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Thông tin liên hệ</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
@@ -292,6 +279,9 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Lịch đăng</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
                         </div>
                         <div class="box-body">
                             <div class="form-group">
@@ -333,6 +323,9 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Loại chuyên mục</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
                         </div>
                         <div class="box-body">
                             <div class="form-group">
@@ -362,6 +355,9 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Tag</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
                         </div>
                         <div class="box-body">
                             <div class="form-group">
@@ -375,11 +371,19 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Hình ảnh/Video</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
                         </div>
                         <div class="box-body">
                             <div class="form-group text-center">
-                                <button class="btn btn-default">Chọn ảnh</button>
-                                <button class="btn btn-default">Chọn video</button>
+                                <div>
+                                    <a data-input="thumbnail" data-preview="holder" class="btn btn-primary my-lfm">
+                                        <i class="fa fa-picture-o"></i> Chọn ảnh/video
+                                    </a>
+                                    <input id="thumbnail" class="form-control " type="hidden" name="filepath">
+                                </div>
+                                <img id="holder" class="img-responsive margin-top-15">
                             </div>
                         </div>
                     </div>
@@ -389,9 +393,7 @@
         </form>
     </section>
     <!-- /.content -->
-    @include('backend.crawler.modalSingleCrawler')
 </angular>
-@endsection
 
 
 
