@@ -5,7 +5,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     #quang cao
     Route::get('/advertising', 'Backend\Advertising\AdvertisingCtrl@main')->name('advertising');
     Route::get('/advertising/list', 'Backend\Advertising\AdvertisingCtrl@all');
-    Route::get('/advertising/single', 'Backend\Advertising\AdvertisingCtrl@single');
+    Route::get('/advertising/single', 'Backend\Advertising\AdvertisingCtrl@single');    
     #tin bài
     Route::get('/article', 'Backend\Article\ArticleCtrl@main')->name('article');
     Route::get('/article/list', 'Backend\Article\ArticleCtrl@all');
@@ -28,5 +28,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     #widget
     Route::get('/widget', 'Backend\Widget\WidgetCtrl@main')->name('widget');
     Route::get('/widget/list', 'Backend\Widget\WidgetCtrl@all');
+    #tỉnh/thành phố
+    Route::get('/city', 'Backend\City\CityCtrl@main')->name('city');
+    Route::get('/city/list', 'Backend\City\CityCtrl@all');
+    Route::get('/city/single', 'Backend\City\CityCtrl@single');    
+    #Quận/Huyện
+    Route::get('/district', 'Backend\District\DistrictCtrl@main')->name('district');
+    Route::get('/district/list', 'Backend\District\DistrictCtrl@all');
+    Route::get('/district/single', 'Backend\District\DistrictCtrl@single');    
+    #Phường/Xã
+    Route::get('/wards', 'Backend\Wards\WardsCtrl@main')->name('wards');
+    Route::get('/wards/list', 'Backend\Wards\WardsCtrl@all');
+    Route::get('/wards/single', 'Backend\Wards\WardsCtrl@single');    
+    #Đường phố
+    Route::get('/street', 'Backend\Street\StreetCtrl@main')->name('street');
+    Route::get('/street/list', 'Backend\Street\StreetCtrl@all');
+    Route::get('/street/single', 'Backend\Street\StreetCtrl@single');    
 });
 

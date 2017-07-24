@@ -53,14 +53,55 @@
             </a>
         </li>
         <li>
-            <a href="{{route('feedback')}}">
-                <i class="fa fa-user-circle"></i> <span>Danh sách góp ý</span>
+            <a href="javascript:void(0)">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>Quản lý địa chỉ</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
             </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="{{route('city')}}">
+                        <i class="fa fa-image"></i> <span>Tỉnh/Thành phố</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('district')}}">
+                        <i class="fa fa-image"></i> <span>Quận/Huyện</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('wards')}}">
+                        <i class="fa fa-image"></i> <span>Phường/Xã</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('street')}}">
+                        <i class="fa fa-image"></i> <span>Đường phố</span>
+                    </a>
+                </li>
+            </ul>
         </li>
-        <li>
-            <a href="{{route('settingFeedback')}}">
-                <i class="fa fa-user-circle"></i> <span>Cấu hình câu hỏi góp ý</span>
+        <li class="treeview">
+            <a href="javascript:void(0)">
+                <i class="fa fa-question-circle-o" aria-hidden="true"></i> <span>Góp ý</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
             </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="{{route('feedback')}}">
+                        <i class="fa fa-user-circle"></i> <span>Danh sách góp ý</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('settingFeedback')}}">
+                        <i class="fa fa-user-circle"></i> <span>Cấu hình câu hỏi góp ý</span>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="treeview">
             <a href="javascript:void(0)">
