@@ -21,10 +21,10 @@ class AdvCtrl extends Controller {
     function listAdv(Request $request, AdvertisingModel $advModel) {
         $reqData = $request->toArray();
         $freeText = (isset($reqData['freeText']) && !empty($reqData['freeText'])) ? $reqData['freeText'] : '';
-        $begin_date = (isset($reqData['begin_date']) && !empty($reqData['freeText'])) ? $reqData['begin_date'] : '';
-        $end_date = (isset($reqData['end_date']) && !empty($reqData['freeText'])) ? $reqData['end_date'] : '';
+        $beginDate = (isset($reqData['begin_date']) && !empty($reqData['freeText'])) ? $reqData['begin_date'] : '';
+        $endDate = (isset($reqData['end_date']) && !empty($reqData['freeText'])) ? $reqData['end_date'] : '';
 
-        $data = $advModel->filterFreeText($freeText)->filterBeginDate($begin_date, $end_date)->orderBy('begin_date', 'desc')->paginate();
+        $data = $advModel->filterFreeText($freeText)->filterBeginDate($beginDate)->filterEndDate($endDate)->orderBy('begin_date', 'desc')->paginate();
         return response()->json($data);
     }
 

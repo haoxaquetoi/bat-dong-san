@@ -22,7 +22,7 @@ class CreateFeedbackTable extends Migration
             $table->tinyInteger('deleted')->default(0);
             $table->datetime('deleted_at')->nullable();
             $table->datetime('created_at');
-            $table->datetime('update_at');
+            $table->datetime('updated_at');
         });
     }
 

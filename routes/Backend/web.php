@@ -77,6 +77,38 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::put('/widget/item/order', 'Backend\Rest\WidgetCtrl@reOrderWidgetItem')->where('id', '[\d]+');
     
     Route::put('/widget/item/cache', 'Backend\Rest\WidgetCtrl@cacheWidget');
+    
+    //feedback
+    Route::post('/feedback', 'Backend\Rest\AddressCtrl@insertFeedback');
+    Route::get('/feedback/{id}', 'Backend\Rest\AddressCtrl@infoFeedback')->where('id', '[\d]+');
+    Route::get('/feedback', 'Backend\Rest\AddressCtrl@listFeedback');
+    Route::put('/feedback/{id}', 'Backend\Rest\AddressCtrl@updateFeedback')->where('id', '[\d]+');
+    Route::delete('/feedback/{id}', 'Backend\Rest\AddressCtrl@deleteFeedback')->where('id', '[\d]+');
+    
+    //address
+    Route::post('/address_city', 'Backend\Rest\AddressCtrl@insertCity');
+    Route::get('/address_city/{id}', 'Backend\Rest\AddressCtrl@infoCity')->where('id', '[\d]+');
+    Route::get('/address_city', 'Backend\Rest\AddressCtrl@listCity');
+    Route::put('/address_city/{id}', 'Backend\Rest\AddressCtrl@updateCity')->where('id', '[\d]+');
+    Route::delete('/address_city/{id}', 'Backend\Rest\AddressCtrl@deleteCity')->where('id', '[\d]+');
+    
+    Route::post('/address_district', 'Backend\Rest\AddressCtrl@insertDistrict');
+    Route::get('/address_district/{id}', 'Backend\Rest\AddressCtrl@infoDistrict')->where('id', '[\d]+');
+    Route::get('/address_district', 'Backend\Rest\AddressCtrl@listDistrict');
+    Route::put('/address_district/{id}', 'Backend\Rest\AddressCtrl@updateDistrict')->where('id', '[\d]+');
+    Route::delete('/address_district/{id}', 'Backend\Rest\AddressCtrl@deleteDistrict')->where('id', '[\d]+');
+    
+    Route::post('/address_village', 'Backend\Rest\AddressCtrl@insertVillage');
+    Route::get('/address_village/{id}', 'Backend\Rest\AddressCtrl@infoVillage')->where('id', '[\d]+');
+    Route::get('/address_village', 'Backend\Rest\AddressCtrl@listVillage');
+    Route::put('/address_village/{id}', 'Backend\Rest\AddressCtrl@updateVillage')->where('id', '[\d]+');
+    Route::delete('/address_village/{id}', 'Backend\Rest\AddressCtrl@deleteVillage')->where('id', '[\d]+');
+    
+    Route::post('/address_street', 'Backend\Rest\AddressCtrl@insertStreet');
+    Route::get('/address_village/{id}', 'Backend\Rest\AddressCtrl@infoStreet')->where('id', '[\d]+');
+    Route::get('/address_village', 'Backend\Rest\AddressCtrl@listStreet');
+    Route::put('/address_village/{id}', 'Backend\Rest\AddressCtrl@updateStreet')->where('id', '[\d]+');
+    Route::delete('/address_village/{id}', 'Backend\Rest\AddressCtrl@deleteStreet')->where('id', '[\d]+');
 });
 
 
@@ -95,6 +127,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     Route::get('/modal/{name}', 'Backend\Modal\ModalCtrl@index')->name('getModal');
 });
 
+//route test
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
+{ 
+    Route::get('/test/{view}', 'TestCtrl@index');
+});
 
 require 'huong.web.php';
 require 'minh.web.php';

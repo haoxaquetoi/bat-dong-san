@@ -13,7 +13,7 @@ class MenuModel extends Model
         
         if(strlen($freeText) > 0)
         {
-            $this->whereRaw("name like ?", ["%$freeText%"]);
+            return $this->whereRaw("name like ?", ["%$freeText%"]);
         }
         return $this;
     }

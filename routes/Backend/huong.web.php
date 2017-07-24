@@ -65,6 +65,8 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     
     #article
     Route::post('/article', 'Backend\Rest\ArticleCtrl@addNew');
+    Route::put('/article', 'Backend\Rest\ArticleCtrl@edit');
+    Route::get('/article', 'Backend\Rest\ArticleCtrl@getAllArticle');
 });
 
 Route::get('/test', 'Controller@test');

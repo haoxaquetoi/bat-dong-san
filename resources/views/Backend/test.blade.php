@@ -14,7 +14,9 @@
         <button type="button" class="btn btn-primary" ng-click="actions.addnewNews()" >Thêm mới tin đăng</button>
         <button type="button" class="btn btn-primary" ng-click="actions.addnewProduct()" >Thêm mới tin BDS</button>
         <button type="button" class="btn btn-primary" ng-click="actions.delete()" >Xóa tin đăng</button>
-        <button type="button" class="btn btn-primary" ng-click="actions.edit()" >Sửa tin đăng</button>
+        <button type="button" class="btn btn-primary" ng-click="actions.editNews()" >Sửa tin đăng</button>
+        <button type="button" class="btn btn-primary" ng-click="actions.editProduct()" >Sửa tin BDS</button>
+        <button type="button" class="btn btn-primary" ng-click="actions.getAll()" >Danh sách tin</button>
     </div>
 </angular>
 @endsection
