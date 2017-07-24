@@ -3,6 +3,8 @@
 <script src="{{ URL::asset('js/angularjs/angular-route.js') }}"></script>
 <script src="{{ URL::asset('js/angularjs/paging.js') }}"></script>
 <script src="{{URL::asset('js/angularjs/angular-slugify.js') }}"></script>
+<script src="{{URL::asset('js/angularjs/ngDraggable.js') }}"></script>
+
 
 <!--required treeview-->
 <script type="text/javascript" src="{{ URL::asset('js/angularjs/treeview/angular.treeview.js') }}"></script>

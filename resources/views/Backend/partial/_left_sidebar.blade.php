@@ -38,6 +38,11 @@
             </a>
         </li>
         <li>
+            <a href="{{route('widget')}}">
+                <i class="fa fa-list"></i> <span>widget</span>
+            </a>
+        </li>
+        <li>
             <a href="{{route('advertising')}}">
                 <i class="fa fa-user-circle"></i> <span>Quảng cáo</span>
             </a>

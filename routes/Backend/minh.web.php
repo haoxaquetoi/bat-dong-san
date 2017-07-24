@@ -25,5 +25,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     Route::get('/menu', 'Backend\Menu\MenuCtrl@main')->name('menu');
     Route::get('/menu/list', 'Backend\Menu\MenuCtrl@all');
     Route::get('/menu/single', 'Backend\Menu\MenuCtrl@single');
+    #widget
+    Route::get('/widget', 'Backend\Widget\WidgetCtrl@main')->name('widget');
+    Route::get('/widget/list', 'Backend\Widget\WidgetCtrl@all');
 });
 
