@@ -30,7 +30,7 @@ class WidgetCtrl extends Controller {
         $listPosition = app('ThemeConfig')->getWidgetPosition();
         foreach($listPosition as $key => $name){
             $respData[$key]['name'] = $name;
-            $respData[$key]['data'] = WidgetModel::where('position_code', $key)->oderBy('order')->get();
+            $respData[$key]['data'] = WidgetModel::where('position_code', $key)->orderBy('order')->get();
         }
         return response()->json($respData);
     }
@@ -48,9 +48,13 @@ class WidgetCtrl extends Controller {
         $newId = WidgetModel::insertGetId([
             "position_code" => $request->position_code,
             "type" => $request->type,
-            "value" => $request->value,
+            "value" => json_encode(empty($request->value)? []: $request->value),
             "order" => $request->order
         ]);
+        
+        //thuc hien reorder
+        $this->_reOrder($newId, $request->position_code, $request->order);
+        
         return response()->json(['id' => $newId]);
     }
     
@@ -64,7 +68,7 @@ class WidgetCtrl extends Controller {
         $this->_validateId($id);
         
         $widget = WidgetModel::find($id);
-        $widget->value = $request->value;
+        $widget->value = json_encode(empty($request->value)? []: $request->value);
         $widget->save();
         return response()->json(['id' => $id]);
     }
@@ -96,7 +100,7 @@ class WidgetCtrl extends Controller {
             [
                 'position_code' => 'required',
                 'type' => 'required',
-                'value' => 'required',
+//                'value' => 'required',
                 'order' => 'required|numeric',
             ],
             [
@@ -180,11 +184,11 @@ class WidgetCtrl extends Controller {
      */
     private function _reOrder($id, $position_code, $order){
         $curWidget = WidgetModel::find($id);
-        $listWidgetOrder = WidgetModel::Where('id', '<>', $id)->where('position_code', $position_code)->get();
+        $listWidgetOrder = WidgetModel::where('id', '<>', $id)->where('position_code', $position_code)->orderBy('order')->get();
         $tmpOrder = $order;
         foreach($listWidgetOrder as $item)
         {
-            if((int)$item >= $tmpOrder)
+            if((int)$item->order >= $tmpOrder)
             {
                 $item->order = $tmpOrder + 1;
                 $tmpOrder = $item->order;
