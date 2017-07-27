@@ -17,7 +17,7 @@ ngApp.factory('$categoryService', function ($rootScope, $http)
     service.actions.getAllCategory = function (params)
     {
         var url = SiteUrl + '/rest/category';
-        return $http.get(url);
+        return $http.get(url,{params:params});
     }
     service.actions.deleteCategory = function (catID)
     {
