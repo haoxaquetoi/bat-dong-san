@@ -8,7 +8,7 @@ class WidgetConfig{
     
     function __construct() {
         $this->listType = [
-            'iamge' => 'Ảnh',
+            'image' => 'Ảnh',
             'freeText' => 'Free Text',
             'adv' => 'Quảng cáo',
             'menu' => 'Menu',

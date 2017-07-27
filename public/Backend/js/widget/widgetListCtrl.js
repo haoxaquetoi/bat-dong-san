@@ -42,6 +42,9 @@ ngApp.controller('widgetListCtrl', function ($scope, $apply, $widgetService)
             $apply(function () {
                 $scope.listWidgetPosition = data;
             });
+        },
+        getDirectiveClass: function(type, id){
+            return 'widget-type-image';
         }
     };
 
