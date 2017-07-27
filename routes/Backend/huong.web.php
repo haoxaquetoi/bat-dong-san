@@ -13,13 +13,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     Route::get('/media', 'Backend\Media\MediaCtrl@index')->name('media');
     Route::get('/media/media-new', 'Backend\Media\MediaCtrl@addNew');
 
-    
-    
+
+
     #Crawler
     Route::get('/crawler', 'Backend\Crawler\CrawlerCtrl@index')->name('crawler');
     Route::get('/crawler/configCrawler', 'Backend\Crawler\CrawlerCtrl@configCrawler');
-    
-    
 });
 
 
@@ -61,12 +59,15 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::put('/crawler/edit', 'Backend\Rest\CrawlerCtrl@edit');
     Route::put('/crawler/publish', 'Backend\Rest\CrawlerCtrl@publish');
     Route::delete('/crawler/{id}', 'Backend\Rest\CrawlerCtrl@delete');
-    
-    
+
+
     #article
     Route::post('/article', 'Backend\Rest\ArticleCtrl@addNew');
     Route::put('/article', 'Backend\Rest\ArticleCtrl@edit');
     Route::get('/article', 'Backend\Rest\ArticleCtrl@getAllArticle');
+    Route::delete('/article/{id}', 'Backend\Rest\ArticleCtrl@deleted');
+    Route::put('/article/updateSticky/{id}', 'Backend\Rest\ArticleCtrl@updateSticky');
+    Route::put('/article/updateCensored/{id}', 'Backend\Rest\ArticleCtrl@updateCensored');
 });
 
 Route::get('/test', 'Controller@test');

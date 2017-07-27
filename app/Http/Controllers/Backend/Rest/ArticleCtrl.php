@@ -10,6 +10,7 @@ use App\Models\Backend\CategoryModel;
 use App\Models\Backend\ArticleOtherModel;
 use App\Models\Backend\ArticleContactModel;
 use App\Models\Backend\ArticleBaseModel;
+use App\Models\Backend\CategoryArticleModel;
 use Illuminate\Support\Facades\DB;
 
 class ArticleCtrl extends Controller {
@@ -19,7 +20,7 @@ class ArticleCtrl extends Controller {
      * @param ArticleMode $articleModel
      * @param Request $request
      */
-    function addNew(ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleMode $articleModel, Request $request) {
+    function addNew(CategoryArticleModel $catArtModel, ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleMode $articleModel, Request $request) {
 
         $this->_chkValidation($articleModel, $catModel, $request);
 
@@ -28,6 +29,7 @@ class ArticleCtrl extends Controller {
                     'slug' => $request->slug,
                     'summary' => $request->summary,
                     'content' => $request->content,
+                    'thumbnail' => $request->thumbnail,
                     'type' => $request->type,
                     'is_sticky' => $request->is_sticky ? '1' : '0',
                     'status' => ($request->status == 'Publish') ? 'Publish' : 'Trash',
@@ -43,11 +45,15 @@ class ArticleCtrl extends Controller {
         if ($request->type == 'Product') {
             $this->_update_product($artBase, $artContact, $artOther, $catModel, $articleModel, $request);
         }
+
+        $arrCatID = $request->category;
+        $this->update_category_article($catArtModel, $articleID, $arrCatID);
         $articleInfo = $this->getArticleInfo($articleModel, $articleID);
         return response()->json($articleInfo);
     }
 
-    function edit(ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleMode $articleModel, Request $request) {
+    function edit(CategoryArticleModel $catArtModel, ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleMode $articleModel, Request $request) {
+
 
         $this->_chkValidation($articleModel, $catModel, $request);
         $articleID = $request->id;
@@ -56,6 +62,7 @@ class ArticleCtrl extends Controller {
         $articleInfo->slug = $request->slug;
         $articleInfo->summary = $request->summary;
         $articleInfo->content = $request->content;
+        $articleInfo->thumbnail = $request->thumbnail;
         $articleInfo->type = $request->type;
         $articleInfo->is_sticky = $request->is_sticky ? '1' : '0';
         $articleInfo->status = ($request->status == 'Publish') ? 'Publish' : 'Trash';
@@ -70,9 +77,23 @@ class ArticleCtrl extends Controller {
         if ($request->type == 'Product') {
             $this->_update_product($artBase, $artContact, $artOther, $catModel, $articleModel, $request);
         }
-
+        $arrCatID = $request->category;
+        $this->update_category_article($catArtModel, $articleID, $arrCatID);
         $articleInfo = $this->getArticleInfo($articleModel, $articleID);
         return response()->json($articleInfo);
+    }
+
+    function update_category_article($catArtModel, $articleID, array $arrCatID = array()) {
+        if (count($arrCatID) == 0) {
+            return false;
+        }
+        $catArtModel::where('article_id', '=', $articleID)->delete();
+        for ($i = 0; $i < count($arrCatID); $i ++) {
+            $catArtModel::insertGetId([
+                'category_id' => $arrCatID[$i],
+                'article_id' => $articleID
+            ]);
+        }
     }
 
     function getArticleInfo(ArticleMode $articleModel, $articleID) {
@@ -134,6 +155,8 @@ class ArticleCtrl extends Controller {
      * Kiểm tra các giá trị hợp lệ dùng trung trước khi update article
      */
     private function _chkValidation(ArticleMode $articleModel, CategoryModel $catModel, Request $request) {
+
+
 
         #######Common########
         $rules = [
@@ -309,8 +332,8 @@ class ArticleCtrl extends Controller {
                 $this->withValidator($validator, $errors);
             }
             if ($articleModel::where([
-                            ['slug', '!=', "{$request->slug}"],
-                            ['id', '=', $request->id]
+                        ['slug', '!=', "{$request->slug}"],
+                        ['id', '=', $request->id]
                     ])->count() > 0) {
                 $errors = [
                     'slug' => 'Đường dẫn đã tồn tại vui lòng chọn đường dẫn khác'
@@ -318,6 +341,16 @@ class ArticleCtrl extends Controller {
                 $this->withValidator($validator, $errors);
             }
         }
+
+        $request->category = is_array($request->category) ? $request->category : [];
+        if (count($request->category) == 0) {
+            $errors = [
+                'category' => 'Chưa chọn chuyên mục'
+            ];
+            $this->withValidator($validator, $errors);
+        }
+        
+
 
         $validator->validate();
     }
@@ -334,7 +367,7 @@ class ArticleCtrl extends Controller {
         $articleInfo->save();
     }
 
-    function updateDeleted(ArticleMode $articleModel, Request $request) {
+    function deleted(ArticleMode $articleModel, Request $request) {
         $articleInfo = $articleModel::find($request->id);
         $articleInfo->deleted = 1;
         $articleInfo->deleted_at = date('Y-m-d h:i:s');
