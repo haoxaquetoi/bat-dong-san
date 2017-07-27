@@ -51,7 +51,7 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     //setting
     Route::get('/setting', 'Backend\Rest\SettingCtrl@listSetting');
     Route::put('/setting', 'Backend\Rest\SettingCtrl@updateSetting');
-    Route::get('/setting/:key', 'Backend\Rest\SettingCtrl@infoSetting')->where('key', '[\W]+');
+    Route::get('/setting/:key', 'Backend\Rest\SettingCtrl@infoSetting')->where('key', '[\w]+');
     
     //menu
     Route::post('/menu/position', 'Backend\Rest\MenuCtrl@insertMenuPosition');
@@ -125,6 +125,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     
     //modal
     Route::get('/modal/{name}', 'Backend\Modal\ModalCtrl@index')->name('getModal');
+    
+    //widget 
+    Route::get('/widget/type/{type}', 'Backend\Widget\WidgetCtrl@widgetItem')->where('type', '[\w]+');
 });
 
 //route test

@@ -14,4 +14,9 @@ class WidgetCtrl extends Controller {
        
         return view('backend/widget/listWidget');
     }
+    
+    function widgetItem($type){
+        $view = 'backend/widget/type/' . $type;
+        return view($view);
+    }
 }

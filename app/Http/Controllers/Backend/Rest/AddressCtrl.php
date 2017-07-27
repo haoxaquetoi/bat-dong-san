@@ -23,7 +23,7 @@ class AddressCtrl extends Controller
         
         $newId = AddressCityModel::insertGetId([
             'name' => $request->name,
-            'code' => $request->name,
+            'code' => $request->code,
             'created_at' => Date('Y-m-d H:i:s'),
             'updated_at' => Date('Y-m-d H:i:s'),
         ]);
@@ -45,11 +45,11 @@ class AddressCtrl extends Controller
     
     /**
      * danh sach city
-     * @param \App\Http\Controllers\Backend\Rest\Resquest $request
+     * @param Request $request
      * @param AddressCityModel $addressCityModel
      * @return type
      */
-    function listCity(Resquest $request, AddressCityModel $addressCityModel){
+    function listCity(Request $request, AddressCityModel $addressCityModel){
         
         $data = $addressCityModel
                 ->filterFreeText($request->freeText)

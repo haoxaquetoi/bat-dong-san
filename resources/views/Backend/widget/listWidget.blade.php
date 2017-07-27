@@ -57,23 +57,12 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="box-body" >
-                                                    <div class="form-group">
-                                                        <label for="name" class="col-sm-12 col-xs-12">Tên công ty</label>
-                                                        <div class="col-sm-12 col-xs-12">
-                                                            <input type="text" class="form-control" id="name" placeholder="Tên công ty">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="phone" class="col-sm-12 col-xs-12">Số điện thoại</label>
-                                                        <div class="col-sm-12 col-xs-12">
-                                                            <input type="text" class="form-control" id="phone" placeholder="Số điện thoại">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-xs-12">
-                                                            <button type="submit" class="btn btn-primary">Lưu</button>
-                                                        </div>
+                                                <div class="box-body">
+                                                    <div ng-switch="widgetItem.type">
+                                                        <div ng-switch-when="image" class="widget-type-image" data-id="widgetItem.id"></div>
+                                                        <div ng-switch-when="freeText" class="widget-type-free-text" data-id="widgetItem.id"></div>
+                                                        <div ng-switch-when="menu" class="widget-type-menu" data-id="widgetItem.id"></div>
+                                                        <div ng-switch-when="adv" class="widget-type-adv" data-id="widgetItem.id"></div>
                                                     </div>
                                                 </div>
                                             </div>
