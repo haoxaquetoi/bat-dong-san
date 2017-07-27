@@ -46,10 +46,10 @@
                                     <div class="row" >
                                         <div class="col-md-12">
                                             <div class="box collapsed-box single-widget" 
-                                                 ng-repeat="widgetItem in item.data" ng-drag="true" ng-drag-data="widgetItem" 
+                                                 ng-repeat="widgetItem in item.data"  
                                                   ng-drop="true" ng-drop-success="actions.reOrder($data, widgetItem.order)">
-                                                <div class="box-header with-border">
-                                                    <h3 class="box-title"> @{{listWidget[widgetItem.type]}}</h3>
+                                                <div class="box-header with-border" ng-drag="true" ng-drag-data="widgetItem">
+                                                    <h3 class="box-title"> @{{listWidget[widgetItem.type]}}<i ng-if="widgetItem.myTitle"> - @{{widgetItem.myTitle}}</i> </h3>
                                                     <div class="box-tools pull-right">
                                                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
                                                         <button type="button" class="btn btn-box-tool" ng-click="actions.deleteWidget(widgetItem.id)">
@@ -59,10 +59,10 @@
                                                 </div>
                                                 <div class="box-body">
                                                     <div ng-switch="widgetItem.type">
-                                                        <div ng-switch-when="image" class="widget-type-image" data-id="widgetItem.id"></div>
-                                                        <div ng-switch-when="freeText" class="widget-type-free-text" data-id="widgetItem.id"></div>
-                                                        <div ng-switch-when="menu" class="widget-type-menu" data-id="widgetItem.id"></div>
-                                                        <div ng-switch-when="adv" class="widget-type-adv" data-id="widgetItem.id"></div>
+                                                        <div ng-switch-when="image" class="widget-type-image" widget-data="widgetItem"></div>
+                                                        <div ng-switch-when="freeText" class="widget-type-free-text" widget-data="widgetItem"></div>
+                                                        <div ng-switch-when="menu" class="widget-type-menu" widget-data="widgetItem"></div>
+                                                        <div ng-switch-when="adv" class="widget-type-adv" widget-data="widgetItem"></div>
                                                     </div>
                                                 </div>
                                             </div>

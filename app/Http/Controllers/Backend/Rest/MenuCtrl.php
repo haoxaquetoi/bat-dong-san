@@ -81,7 +81,7 @@ class MenuCtrl extends Controller {
      * @return type
      */
     function listMenuPosition() {
-        $data = MenuPositionModel::all();
+        $data = MenuPositionModel::all()->keyBy('id');
         return response()->json($data);
     }
 

@@ -79,11 +79,11 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::put('/widget/item/cache', 'Backend\Rest\WidgetCtrl@cacheWidget');
     
     //feedback
-    Route::post('/feedback', 'Backend\Rest\AddressCtrl@insertFeedback');
-    Route::get('/feedback/{id}', 'Backend\Rest\AddressCtrl@infoFeedback')->where('id', '[\d]+');
-    Route::get('/feedback', 'Backend\Rest\AddressCtrl@listFeedback');
-    Route::put('/feedback/{id}', 'Backend\Rest\AddressCtrl@updateFeedback')->where('id', '[\d]+');
-    Route::delete('/feedback/{id}', 'Backend\Rest\AddressCtrl@deleteFeedback')->where('id', '[\d]+');
+    Route::post('/feedback', 'Backend\Rest\FeedbackCtrl@insertFeedback');
+    Route::get('/feedback/{id}', 'Backend\Rest\FeedbackCtrl@infoFeedback')->where('id', '[\d]+');
+    Route::get('/feedback', 'Backend\Rest\FeedbackCtrl@listFeedback');
+    Route::put('/feedback/{id}', 'Backend\Rest\FeedbackCtrl@updateFeedback')->where('id', '[\d]+');
+    Route::delete('/feedback/{id}', 'Backend\Rest\FeedbackCtrl@deleteFeedback')->where('id', '[\d]+');
     
     //address
     Route::post('/address_city', 'Backend\Rest\AddressCtrl@insertCity');

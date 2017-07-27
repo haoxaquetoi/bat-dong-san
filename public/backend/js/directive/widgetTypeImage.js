@@ -1,7 +1,7 @@
 ngApp.directive('widgetTypeImage', function ($apply, $userService) {
     var templateUrl = SiteUrl + '/admin/widget/type/image';
     var restrict = 'C';
-    var scope = {dataId: '='};
+    var scope = {widgetData: '='};
     var link = function (scope) {
     };
     return {
