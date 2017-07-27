@@ -27,8 +27,14 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <table  class="table table-bordered table-hover dataTable" role="grid" >
+                                         <colgroup>
+                                            <col width='8%' />
+                                            <col width='8%' />
+                                            <col width='*' />
+                                            <col width='20%' />
+                                        </colgroup>
                                         <thead>
-                                            <tr role="row">
+                                            <tr>
                                                 <th class="sorting">STT</th>
                                                 <th>#</th>
                                                 <th class="sorting_asc">Tên</th>
@@ -41,15 +47,17 @@
                                                 <td class="text-center">@{{$index}}</td>
                                                 <td class="tbl-actions text-center">
                                                     <div class="dropdown">
-                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa                                                                        -bars"></i></a>
+                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fa fa-bars"></i>
+                                                        </a> 
                                                         <ul class="dropdown-menu">
-                                                            <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
+                                                            <li><a href="#!/single/@{{item.id}}">Chi tiết</a></li>
                                                             <li><a href="javascript:void(0);">Xóa</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="javascript:void(0);">@{{item.name}}</a>
+                                                    <a href="#!/single/@{{item.id}}">@{{item.name}}</a>
                                                 </td>
                                                 <td>@{{item.code}}</td>
                                             </tr>
@@ -63,7 +71,7 @@
                                         page="data.city.filter.page" 
                                         total="data.city.total"
                                         page-size="data.city.filter.pageSize"
-                                        paging-action="action.change(page)"
+                                        paging-action="action.changePage(page)"
                                         scroll-top="false" 
                                         hide-if-empty="true"
                                         show-prev-next="true"

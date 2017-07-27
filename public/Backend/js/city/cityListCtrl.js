@@ -8,16 +8,22 @@ ngApp.controller('cityListCtrl', function ($scope, $apply, $routeParams, $citySe
             list: {},
             filter: {
                 freeText: '',
-                pageSize: 10,
+                pageSize: 15,
                 page: 1
             },
             total: 0
         },
         getList: function () {
             $cityService.actions.list($scope.data.city.filter).then(function (resp) {
+                console.log(resp);
                 $apply(function () {
-                    console.log(resp);
-                    $scope.data.city.list = resp.data;
+                    if(resp.status == 200){
+                        $scope.data.city.list = resp.data.data;
+                        $scope.data.city.total = resp.data.total;
+                    }else{
+                        console.log(resp);
+                    }
+                    
                 });
             }, function (err) {
                 console.log(err);
