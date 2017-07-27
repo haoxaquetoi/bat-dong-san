@@ -2,7 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Danh sách câu hỏi góp ý <button class="btn btn-primary"  data-toggle="modal" data-target="#modalSettingFeedback">Thêm mới</button>
+            Danh sách câu hỏi góp ý <button class="btn btn-primary" ng-click="action.showModal('0');">Thêm mới</button>
         </h1>
     </section>
     <!-- Main content -->

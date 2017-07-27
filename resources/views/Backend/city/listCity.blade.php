@@ -16,9 +16,9 @@
                                 <div class="col-md-12 col-xs-12 padding-bottom-5">
                                     <div class="box-tools pull-right">
                                         <div class="input-group input-group-sm" style="width: 250px;">
-                                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm">
+                                            <input type="text" name="table_search" ng-enter="action.changePage(1)" ng-model="data.city.filter.freeText" class="form-control pull-right" placeholder="Tìm kiếm">
                                             <div class="input-group-btn">
-                                                <button type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                                <button type="button" ng-click="action.changePage(1)" class="btn btn-default"><i class="fa fa-search"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -26,8 +26,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table  class="table table-bordered table-hover dataTable" role="grid" >
-                                         <colgroup>
+                                    <table  class="table table-bordered table-hover " role="grid" >
+                                        <colgroup>
                                             <col width='8%' />
                                             <col width='8%' />
                                             <col width='*' />
@@ -44,7 +44,7 @@
                                         </thead>
                                         <tbody>
                                             <tr role="row" ng-repeat="item in data.city.list">
-                                                <td class="text-center">@{{$index}}</td>
+                                                <td class="text-center">@{{(data.city.filter.page - 1) * data.city.filter.pageSize + $index + 1}}</td>
                                                 <td class="tbl-actions text-center">
                                                     <div class="dropdown">
                                                         <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -52,7 +52,7 @@
                                                         </a> 
                                                         <ul class="dropdown-menu">
                                                             <li><a href="#!/single/@{{item.id}}">Chi tiết</a></li>
-                                                            <li><a href="javascript:void(0);">Xóa</a></li>
+                                                            <li><a href="javascript:void(0);" ng-click="action.delete(item.id)">Xóa</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
