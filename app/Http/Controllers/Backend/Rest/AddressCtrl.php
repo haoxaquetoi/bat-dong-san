@@ -23,7 +23,7 @@ class AddressCtrl extends Controller
         
         $newId = AddressCityModel::insertGetId([
             'name' => $request->name,
-            'code' => $request->name,
+            'code' => $request->code,
             'created_at' => Date('Y-m-d H:i:s'),
             'updated_at' => Date('Y-m-d H:i:s'),
         ]);
