@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AddressCityModel extends Model
 {
     protected $table = 'address_city';
+    public $timestamps = false;
     
     function district(){
         return $this->hasMany('App\Models\Backend\AddressDistrictModel', 'id', 'city_id');

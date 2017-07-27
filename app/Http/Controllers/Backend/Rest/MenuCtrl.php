@@ -141,7 +141,7 @@ class MenuCtrl extends Controller {
         //check id
         if(isset($request->id) && !empty($request->id) && $request->id > 0)
         {
-            Validator:make(
+            Validator::make(
                 ['id' => $request->id],
                 ['id' => 'required|exists:menu,id'],
                 [
@@ -152,7 +152,7 @@ class MenuCtrl extends Controller {
         }
         
         //validate
-        Validator:make(
+        Validator::make(
             $request->all(), 
             [
                 "name" => 'required',

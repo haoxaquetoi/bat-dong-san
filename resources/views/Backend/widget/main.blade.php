@@ -12,6 +12,8 @@
 <!--service-->
 <script src="{{ URL::asset('backend/js/factory/services/widgetService.js') }}"></script>
 
+<!--directive-->
+<script src="{{ URL::asset('backend/js/directive/widgetTypeImage.js') }}"></script>
 @endsection
 @section('content')
 <div ng-view></div>
