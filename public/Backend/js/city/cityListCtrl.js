@@ -2,7 +2,6 @@ ngApp.controller('cityListCtrl', function ($scope, $apply, $routeParams, $addres
 {
     $scope.data = {
         city: {
-            id: $routeParams.id,
             list: {},
             filter: {
                 freeText: '',
