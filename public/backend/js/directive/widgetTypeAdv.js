@@ -12,6 +12,7 @@ ngApp.directive('widgetTypeAdv', function ($apply, $widgetService) {
                 $apply(function () {
                     scope.widgetId = data.id || '';
                     scope.updateData = value;
+                    scope.data.setMytitle();
                 });
             },
             advImgSrc: function()
@@ -21,6 +22,14 @@ ngApp.directive('widgetTypeAdv', function ($apply, $widgetService) {
             checkData: function () {
                 var file_path = scope.updateData.file_path || '';
                 return (file_path.length > 0) ? true : false;
+            },
+            setMytitle: function(){
+                if(scope.updateData.name)
+                {
+                    $apply(function(){
+                        scope.widgetData.myTitle = scope.updateData.name;
+                    });
+                }
             }
         };
         
@@ -42,6 +51,7 @@ ngApp.directive('widgetTypeAdv', function ($apply, $widgetService) {
                 $widgetService.action.updateItem(scope.widgetId, scope.updateData)
                     .then(function(resp){
                         $.notify("Cập nhật thành công!", "success");
+                        scope.data.setMytitle();
                     })
                     .catch(function(err){
                         console.log(err);

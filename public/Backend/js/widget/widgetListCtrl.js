@@ -73,6 +73,13 @@ ngApp.controller('widgetListCtrl', function ($scope, $apply, $widgetService)
             }).catch(function(err){
                 console.log(err);
             });
+        },
+        publish: function(){
+            $widgetService.action.cache().then(function(resp){
+                $.notify('Giao diện Frontend đã được cập nhật widget', 'success');
+            }).catch(function(err){
+                console.log(err);
+            });
         }
     };
 

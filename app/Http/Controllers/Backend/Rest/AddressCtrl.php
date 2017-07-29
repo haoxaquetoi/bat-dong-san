@@ -50,11 +50,18 @@ class AddressCtrl extends Controller
      * @return type
      */
     function listCity(Request $request, AddressCityModel $addressCityModel){
+        $tmpModel = $addressCityModel
+                        ->filterFreeText($request->freeText)
+                        ->orderBy('name');
+        if((int)$request->page > 0)
+        {
+            $data = $tmpModel->paginate();
+        }
+        else
+        {
+            $data = $tmpModel->get();
+        }
         
-        $data = $addressCityModel
-                ->filterFreeText($request->freeText)
-                ->orderBy('name')
-                ->paginate();
         return response()->json($data);
         
     }
@@ -141,10 +148,17 @@ class AddressCtrl extends Controller
      */
     function listDistrict(Request $request, AddressDistrictModel $addressDistrictModel){
         
-        $data = $addressDistrictModel
-                ->filterFreeText($request->freeText)
-                ->orderBy('name')
-                ->paginate();
+        $tmpModel = $addressDistrictModel
+                        ->filterFreeText($request->freeText)
+                        ->orderBy('name');
+        if((int)$request->page > 0)
+        {
+            $data = $tmpModel->paginate();
+        }
+        else
+        {
+            $data = $tmpModel->get();
+        }
         return response()->json($data);
         
     }
@@ -234,10 +248,19 @@ class AddressCtrl extends Controller
      */
     function listVillage(Request $request, AddressVillageModel $addressVillageModel){
         
-        $data = $addressVillageModel
+        $tmpModel = $addressVillageModel
                 ->filterFreeText($request->freeText)
-                ->orderBy('name')
-                ->paginate();
+                ->orderBy('name');
+        
+        if((int)$request->page > 0)
+        {
+            $data = $tmpModel->paginate();
+        }
+        else
+        {
+            $data = $tmpModel->get();
+        }
+        
         return response()->json($data);
         
     }
@@ -328,10 +351,17 @@ class AddressCtrl extends Controller
      */
     function listStreet(Request $request, AddressStreetModel $addressStreetModel){
         
-        $data = $addressStreetModel
+        $tmpModel = $addressStreetModel
                 ->filterFreeText($request->freeText)
-                ->orderBy('name')
-                ->paginate();
+                ->orderBy('name');
+        if((int)$request->page > 0)
+        {
+            $data = $tmpModel->paginate();
+        }
+        else
+        {
+            $data = $tmpModel->get();
+        }
         return response()->json($data);
         
     }
