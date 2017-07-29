@@ -13,10 +13,10 @@ class AddressStreetModel extends Model
         return $this->belongsTo('App\Models\Backend\AddressVillageModel');
     }
     
-    function filterFreeText($freeText){
+    function filterFreeText(&$instance, $freeText){
         if(!empty($freeText))
         {
-            return $this->where('name', 'like', "%$freeText%");
+            $instance = $instance->where('name', 'like', "%$freeText%");
         }
         return $this;
     }

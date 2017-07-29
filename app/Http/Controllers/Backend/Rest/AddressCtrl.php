@@ -147,11 +147,10 @@ class AddressCtrl extends Controller
      * @return type
      */
     function listDistrict(Request $request, AddressDistrictModel $addressDistrictModel){
-        
-        $tmpModel = $addressDistrictModel
-                        ->with('city')
-                        ->filterFreeText($request->freeText)
-                        ->orderBy('name');
+        $tmpModel = $addressDistrictModel;
+        $addressDistrictModel->filterFreeText($tmpModel, $request->freeText);
+        $tmpModel = $tmpModel->with('city')->orderBy('name');
+                        
         if((int)$request->page > 0)
         {
             $data = $tmpModel->paginate();
@@ -161,7 +160,6 @@ class AddressCtrl extends Controller
             $data = $tmpModel->get();
         }
         return response()->json($data);
-        
     }
     
     /**
@@ -248,11 +246,9 @@ class AddressCtrl extends Controller
      * @return type
      */
     function listVillage(Request $request, AddressVillageModel $addressVillageModel){
-        
-        $tmpModel = $addressVillageModel
-                ->with('district')
-                ->filterFreeText($request->freeText)
-                ->orderBy('name');
+        $tmpModel = $addressVillageModel;
+        $addressVillageModel->filterFreeText($tmpModel, $request->freeText);
+        $tmpModel = $tmpModel->with('district')->orderBy('name');
         
         if((int)$request->page > 0)
         {
@@ -352,11 +348,10 @@ class AddressCtrl extends Controller
      * @return type
      */
     function listStreet(Request $request, AddressStreetModel $addressStreetModel){
-        
-        $tmpModel = $addressStreetModel
-                ->with('village')
-                ->filterFreeText($request->freeText)
-                ->orderBy('name');
+        $tmpModel = $addressStreetModel;
+        $addressStreetModel->filterFreeText($tmpModel, $request->freeText);
+        $tmpModel = $tmpModel->with('village')->orderBy('name');
+                
         if((int)$request->page > 0)
         {
             $data = $tmpModel->paginate();

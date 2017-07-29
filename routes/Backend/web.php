@@ -105,10 +105,10 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::delete('/address_village/{id}', 'Backend\Rest\AddressCtrl@deleteVillage')->where('id', '[\d]+');
     
     Route::post('/address_street', 'Backend\Rest\AddressCtrl@insertStreet');
-    Route::get('/address_village/{id}', 'Backend\Rest\AddressCtrl@infoStreet')->where('id', '[\d]+');
-    Route::get('/address_village', 'Backend\Rest\AddressCtrl@listStreet');
-    Route::put('/address_village/{id}', 'Backend\Rest\AddressCtrl@updateStreet')->where('id', '[\d]+');
-    Route::delete('/address_village/{id}', 'Backend\Rest\AddressCtrl@deleteStreet')->where('id', '[\d]+');
+    Route::get('/address_street/{id}', 'Backend\Rest\AddressCtrl@infoStreet')->where('id', '[\d]+');
+    Route::get('/address_street', 'Backend\Rest\AddressCtrl@listStreet');
+    Route::put('/address_street/{id}', 'Backend\Rest\AddressCtrl@updateStreet')->where('id', '[\d]+');
+    Route::delete('/address_street/{id}', 'Backend\Rest\AddressCtrl@deleteStreet')->where('id', '[\d]+');
 });
 
 

@@ -14,13 +14,13 @@ class AddressDistrictModel extends Model
     }
     
     function city(){
-        return $this->belongsTo('App\Models\Backend\AddressCityModelt');
+        return $this->belongsTo('App\Models\Backend\AddressCityModel');
     }
     
-    function filterFreeText($freeText){
+    function filterFreeText(&$instance, $freeText){
         if(!empty($freeText))
         {
-            return $this->where('name', 'like', "%$freeText%");
+            $instance = $instance->where('name', 'like', "%$freeText%");
         }
         return $this;
     }

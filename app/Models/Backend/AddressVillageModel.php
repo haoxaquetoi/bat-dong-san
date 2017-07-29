@@ -16,10 +16,11 @@ class AddressVillageModel extends Model
         return $this->belongsTo('App\Models\Backend\AddressDistrictModel');
     }
     
-    function filterFreeText($freeText){
+    function filterFreeText(&$instance, $freeText){
         if(!empty($freeText))
         {
-            return $this->where('name', 'like', "%$freeText%");
+            
+            $instance = $instance->where('name', 'like', "%$freeText%");
         }
         return $this;
     }
