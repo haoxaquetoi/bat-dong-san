@@ -1,4 +1,4 @@
-ngApp.controller('districtListCtrl', function ($scope, $apply, $routeParams, $addressService)
+ngApp.controller('districtListCtrl', function ($scope, $apply, $addressService)
 {
     $scope.data = {
         district: {

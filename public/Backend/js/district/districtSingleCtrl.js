@@ -2,7 +2,7 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
 {
     $scope.generalInfoDom;
     $scope.data = {
-        District: {
+        district: {
             id: $routeParams.id,
             info: {
                 city_id: ''
@@ -12,10 +12,9 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
             list: {}
         },
         getInfo: function () {
-            $addressService.action.infoDistrict($scope.data.District.id).then(function (resp) {
+            $addressService.action.infoDistrict($scope.data.district.id).then(function (resp) {
                 $apply(function () {
-                    $scope.data.District.info = resp.data;
-                    $scope.data.District.info.city_id = resp.data.city_id;
+                    $scope.data.district.info = resp.data;
                 });
             }, function (err) {
                 console.log(err);
@@ -47,12 +46,12 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
                 return false;
             }
             var dataPost = {
-                id: $scope.data.District.id,
-                name: $scope.data.District.info.name,
-                code: $scope.data.District.info.code,
-                city_id: $scope.data.District.info.city_id
+                id: $scope.data.district.id,
+                name: $scope.data.district.info.name,
+                code: $scope.data.district.info.code,
+                city_id: $scope.data.district.info.city_id
             };
-            $addressService.action.updateDistrict($scope.data.District.id, dataPost).then(function (resp) {
+            $addressService.action.updateDistrict($scope.data.district.id, dataPost).then(function (resp) {
                 window.location.href = '#!/';
             }, function (errors) {
                 console.log(errors);
@@ -64,9 +63,9 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
                 return false;
             }
             var dataPost = {
-                name: $scope.data.District.info.name,
-                code: $scope.data.District.info.code,
-                city_id: $scope.data.District.info.city_id
+                name: $scope.data.district.info.name,
+                code: $scope.data.district.info.code,
+                city_id: $scope.data.district.info.city_id
             };
             $addressService.action.insertDistrict(dataPost).then(function (resp) {
                 window.location.href = '#!/';
@@ -75,9 +74,8 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
             });
         }
     };
-
-    $scope.$watch('data.District.id', function (newVal, oldVal) {
-        $scope.data.getListCity();
+    $scope.data.getListCity();
+    $scope.$watch('data.district.id', function (newVal, oldVal) {
         if (parseInt(newVal) > 0)
         {
             $scope.data.getInfo();

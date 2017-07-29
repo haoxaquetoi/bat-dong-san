@@ -4,7 +4,7 @@
             Cập nhật Quận/Huyện
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{url('admin/district')}}"><i class="fa fa-dashboard"></i> Quản lý Quận/Huyện</a></li>
+            <li><a href="#!/"><i class="fa fa-dashboard"></i> Quản lý Quận/Huyện</a></li>
             <li class="active">Thêm mới</li>
         </ol>
     </section>
@@ -20,19 +20,19 @@
                             <div class="form-group">
                                 <label for="name" class="col-sm-2 col-xs-12 control-label">Tên Quận/huyện</label>
                                 <div class="col-sm-4 col-xs-12">
-                                    <input type="text" class="form-control" ng-model="data.District.info.name" id="name" required placeholder="Tên Quận/Huyện">
+                                    <input type="text" class="form-control" ng-model="data.district.info.name" id="name" required placeholder="Tên Quận/Huyện">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="name" class="col-sm-2 col-xs-12 control-label">Mã Quận/Huyện</label>
                                 <div class="col-sm-4 col-xs-12">
-                                    <input type="text" class="form-control" ng-model="data.District.info.code" id="name" required pattern="[\w]+" placeholder="Mã Quận/Huyện">
+                                    <input type="text" class="form-control" ng-model="data.district.info.code" id="name" required pattern="[\w]+" placeholder="Mã Quận/Huyện">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="name" class="col-sm-2 col-xs-12 control-label">Tỉnh/Thành phố</label>
                                 <div class="col-sm-4 col-xs-12">
-                                    <select class="form-control" ng-model="data.District.info.city_id" required 
+                                    <select class="form-control" ng-model="data.district.info.city_id" required 
                                             ng-options="value.id as value.name for (key, value) in data.city.list">
                                     </select>
                                 </div>
@@ -40,8 +40,8 @@
                             <div class="form-group">
                                 <label for="port" class="col-sm-2 col-xs-12 control-label"></label>
                                 <div class="col-sm-4 col-xs-12">
-                                    <button type="button" class="btn btn-primary" ng-show="data.District.id <= 0" ng-click="action.insert()"><i class="fa fa-edit"></i> Thêm mới</button>
-                                    <button type="button" class="btn btn-primary" ng-show="data.District.id > 0" ng-click="action.update()"><i class="fa fa-edit"></i> Cập nhật</button>
+                                    <button type="button" class="btn btn-primary" ng-show="data.district.id <= 0" ng-click="action.insert()"><i class="fa fa-edit"></i> Thêm mới</button>
+                                    <button type="button" class="btn btn-primary" ng-show="data.district.id > 0" ng-click="action.update()"><i class="fa fa-edit"></i> Cập nhật</button>
                                     <a href="#!/" class="btn btn-primary"><i class="fa fa-reply"></i> Hủy bỏ</a>
                                 </div>
                             </div>
