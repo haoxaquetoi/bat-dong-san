@@ -12,6 +12,8 @@ use App\Models\Backend\ArticleContactModel;
 use App\Models\Backend\ArticleBaseModel;
 use App\Models\Backend\CategoryArticleModel;
 use Illuminate\Support\Facades\DB;
+use App\Models\Backend\TagsAricleModel;
+use App\Models\Backend\TagsModel;
 
 class ArticleCtrl extends Controller {
 
@@ -20,7 +22,7 @@ class ArticleCtrl extends Controller {
      * @param ArticleMode $articleModel
      * @param Request $request
      */
-    function addNew(CategoryArticleModel $catArtModel, ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleMode $articleModel, Request $request) {
+    function addNew(TagsAricleModel $tagArtModel, TagsModel $TagsModel, CategoryArticleModel $catArtModel, ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleMode $articleModel, Request $request) {
 
         $this->_chkValidation($articleModel, $catModel, $request);
 
@@ -48,11 +50,13 @@ class ArticleCtrl extends Controller {
 
         $arrCatID = $request->category;
         $this->update_category_article($catArtModel, $articleID, $arrCatID);
+        $this->updateTag($tagArtModel, $TagsModel, $request, $arrCatID);
+
         $articleInfo = $this->getArticleInfo($articleModel, $articleID);
         return response()->json($articleInfo);
     }
 
-    function edit(CategoryArticleModel $catArtModel, ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleMode $articleModel, Request $request) {
+    function edit(TagsAricleModel $tagArtModel, TagsModel $TagsModel, CategoryArticleModel $catArtModel, ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleMode $articleModel, Request $request) {
 
 
         $this->_chkValidation($articleModel, $catModel, $request);
@@ -78,7 +82,9 @@ class ArticleCtrl extends Controller {
             $this->_update_product($artBase, $artContact, $artOther, $catModel, $articleModel, $request);
         }
         $arrCatID = $request->category;
+
         $this->update_category_article($catArtModel, $articleID, $arrCatID);
+        $this->updateTag($tagArtModel, $TagsModel, $request, $arrCatID);
         $articleInfo = $this->getArticleInfo($articleModel, $articleID);
         return response()->json($articleInfo);
     }
@@ -92,6 +98,34 @@ class ArticleCtrl extends Controller {
             $catArtModel::insertGetId([
                 'category_id' => $arrCatID[$i],
                 'article_id' => $articleID
+            ]);
+        }
+    }
+
+    function updateTag(TagsAricleModel $tagArtModel, TagsModel $TagsModel, Request $request, $articleID) {
+        $arrTags = is_array($request->tags) ? $request->tags : [];
+        $arrtagTmp = [];
+        foreach ($arrTags as $k => $v) {
+            $tagInfo = $TagsModel::where('code', '=', $v)->get();
+            if (isset($tagInfo->id) && $tagInfo->id > 0) {
+                //update count
+                $tagInfo->count = $tagInfo->count + 1;
+                $tagInfo->save();
+                $arrtagTmp[] = $tagInfo->id;
+            } else {
+                //insert
+                $arrtagTmp[] = $TagsModel->insertGetId([
+                    'code' => $v,
+                    'count' => 1
+                ]);
+            }
+        }
+        //insert tags by article
+        $tagArtModel::where('article_id', '=', $articleID)->delete();
+        foreach ($arrtagTmp as $k => $v) {
+            $tagArtModel->insertGetId([
+                'tag_id' => (int)$v,
+                'article_id' => (int)$articleID
             ]);
         }
     }
@@ -349,7 +383,7 @@ class ArticleCtrl extends Controller {
             ];
             $this->withValidator($validator, $errors);
         }
-        
+
 
 
         $validator->validate();

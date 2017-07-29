@@ -68,6 +68,10 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::delete('/article/{id}', 'Backend\Rest\ArticleCtrl@deleted');
     Route::put('/article/updateSticky/{id}', 'Backend\Rest\ArticleCtrl@updateSticky');
     Route::put('/article/updateCensored/{id}', 'Backend\Rest\ArticleCtrl@updateCensored');
+
+
+    #Tags
+    Route::get('/tags', 'Backend\Rest\TagCtrl@getAll');
 });
 
 Route::get('/test', 'Controller@test');

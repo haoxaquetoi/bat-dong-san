@@ -1,7 +1,8 @@
-ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $apply, $articleService, $categoryService)
+ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $apply, $articleService, $categoryService, $tagsService)
 {
     $scope.generalInfoDom;
     $scope.categorys = [];
+    $scope.allTagsOlds = [];
     $scope.articleInfo = {
         type: 'News',
         title: '',
@@ -10,7 +11,8 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
         summary: '',
         thumbnail: '',
         tags: [],
-        is_sticky: 1,
+        is_sticky: 0,
+        is_censored: 0,
         status: 'Publish',
         begin_date: '', //Y-m-d H:i:s
         end_date: '', //Y-m-d H:i:s
@@ -38,12 +40,15 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
                     $scope.articleInfo.category.push($(v)[0].value);
                 }
             });
-            $scope.articleInfo.thumbnail = $('#thumbnail').val()|| '';
+            
+            $scope.articleInfo.txtbegin_date = $('#txtbegin_date').val() || '';
+            $scope.articleInfo.txtend_date = $('#txtend_date').val() || '';
+            $scope.articleInfo.thumbnail = $('#thumbnail').val() || '';
             $scope.articleInfo.summary = CKEDITOR.instances.txtSummary.getData();
             $scope.articleInfo.content = CKEDITOR.instances.txtContent.getData();
             $scope.articleInfo.is_sticky = $('#chkSticky')[0].checked ? 1 : 0;
             $scope.articleInfo.is_censored = $('#chkCensored')[0].checked ? 1 : 0;
-               
+
             $scope.errors = [];
             $articleService.actions.insert($scope.articleInfo).then(function (resp) {
                 $location.path('/');
@@ -62,6 +67,61 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
                 $.notify("Có lỗi xảy ra khi lấy đanh sách chuyên mục!", "error");
             });
         },
+        addTags: function ()
+        {
+            var newTags = $('#txtTag').val() || '';
+            if (newTags == '')
+            {
+                return;
+            }
+            var arrNewtags = newTags.split(',');
+            $.each(arrNewtags, function (iParent, vParent) {
+                if ($.trim(vParent) != '')
+                {
+                    var push = true;
+                    $.each($scope.articleInfo.tags, function (i, v) {
+                        if (vParent == v)
+                        {
+                            push = false;
+                        }
+                    });
+                    if (push)
+                    {
+                        $scope.articleInfo.tags.push(vParent);
+                    }
+
+                }
+            });
+            $('#txtTag').val('');
+        },
+        removeTags: function (tagsID)
+        {
+            $scope.articleInfo.tags.splice(tagsID, 1);
+        },
+        loadAllTags: function ()
+        {
+            $tagsService.actions.getAll().then(function (resp) {
+                $scope.allTagsOlds = resp.data || [];
+            }, function (error) {
+                console.log(error);
+            });
+        },
+        chooseTagsOld: function (tag)
+        {
+            var push = true;
+            $.each($scope.articleInfo.tags, function (i, v) {
+                if (tag == v)
+                {
+                    push = false;
+                }
+            });
+            if (push)
+            {
+                var newtag = angular.copy(tag);
+                $('#txtTag').val(newtag);
+                $scope.actions.addTags();
+            }
+        }
     };
     $scope.$watchCollection('articleInfo.title', function (oldVal, newVal) {
         $scope.articleInfo.slug = Slug.slugify($scope.articleInfo.title);
@@ -69,5 +129,6 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
 
 
     $scope.actions.getAllCategory();
+    $scope.actions.loadAllTags();
 
 });
