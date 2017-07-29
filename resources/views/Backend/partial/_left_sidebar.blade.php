@@ -72,7 +72,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('wards')}}">
+                    <a href="{{route('village')}}">
                         <i class="fa fa-image"></i> <span>Phường/Xã</span>
                     </a>
                 </li>

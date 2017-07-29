@@ -4,7 +4,7 @@
             Cập nhật Phường/Xã
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{url('admin/wards')}}"><i class="fa fa-dashboard"></i> Quản lý Phường/Xã</a></li>
+            <li><a href="#!/"><i class="fa fa-dashboard"></i> Quản lý Phường/Xã</a></li>
             <li class="active">Thêm mới</li>
         </ol>
     </section>

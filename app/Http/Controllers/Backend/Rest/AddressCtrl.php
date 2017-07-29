@@ -119,7 +119,7 @@ class AddressCtrl extends Controller
         $newId = AddressDistrictModel::insertGetId([
             'city_id' => $request->city_id,
             'name' => $request->name,
-            'code' => $request->name,
+            'code' => $request->code,
             'created_at' => Date('Y-m-d H:i:s'),
             'updated_at' => Date('Y-m-d H:i:s'),
         ]);

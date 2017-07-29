@@ -12,7 +12,6 @@ ngApp.controller('districtListCtrl', function ($scope, $apply, $routeParams, $ad
         },
         getList: function () {
             $addressService.action.listDistrict($scope.data.district.filter).then(function (resp) {
-                console.log(resp);
                 $apply(function () {
                     if (resp.status == 200) {
                         $scope.data.district.list = resp.data.data;
