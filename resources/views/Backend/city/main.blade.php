@@ -3,7 +3,7 @@
 @section('title', 'Quản lý Tỉnh/Thành phố')
 @section('myJs')
 <script src="{{ URL::asset('backend/js/route/cityRoute.js') }}"></script>
-<script src="{{ URL::asset('backend/js/factory/services/cityService.js') }}"></script>
+<script src="{{ URL::asset('backend/js/factory/services/addressService.js') }}"></script>
 <script src="{{ URL::asset('backend/js/city/cityListCtrl.js') }}"></script>
 <script src="{{ URL::asset('backend/js/city/citySingleCtrl.js') }}"></script>
 @endsection

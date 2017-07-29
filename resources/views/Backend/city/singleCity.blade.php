@@ -32,8 +32,8 @@
                             <div class="form-group">
                                 <label for="port" class="col-sm-2 col-xs-12 control-label"></label>
                                 <div class="col-sm-4 col-xs-12">
-                                    <button type="submit" class="btn btn-primary" ng-show="data.city.id <= 0" ng-click="action.insert()"><i class="fa fa-edit"></i> Thêm mới</button>
-                                    <button type="submit" class="btn btn-primary" ng-show="data.city.id > 0" ng-click="action.update()"><i class="fa fa-edit"></i> Cập nhật</button>
+                                    <button type="button" class="btn btn-primary" ng-show="data.city.id <= 0" ng-click="action.insert()"><i class="fa fa-edit"></i> Thêm mới</button>
+                                    <button type="button" class="btn btn-primary" ng-show="data.city.id > 0" ng-click="action.update()"><i class="fa fa-edit"></i> Cập nhật</button>
                                     <a href="#!/" class="btn btn-primary"><i class="fa fa-reply"></i> Hủy bỏ</a>
                                 </div>
                             </div>

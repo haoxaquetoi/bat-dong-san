@@ -4,16 +4,16 @@ namespace App\Models\Backend;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AdvertisingModel extends Model {
+class AdvertisingModel extends Model  {
 
     protected $table = 'advertising';
     
     /**
      * filter name
      */
-    function filterFreeText($freeText) {
+    function filterFreeText(&$instance, $freeText) {
         if (strlen($freeText) > 0) {
-            return $this->whereRaw("name like ?", array("%$freeText%"));
+            $instance = $instance->whereRaw("name like ?", array("%$freeText%"));
         }
 
         return $this;
@@ -25,13 +25,12 @@ class AdvertisingModel extends Model {
      * @param type $endDate
      * @return \App\Models\Backend\AdvertisingModel
      */
-    function filterBeginDate($beginDate){
+    function filterBeginDate(&$instance, $beginDate){
         
         if(!empty($beginDate))
         {
-            $this->whereRaw("DATEDIFF(?, begin_date) <= 0", [$beginDate]);
+            $instance = $instance->whereRaw("DATEDIFF(?, begin_date) <= 0", [$beginDate]);
         }
-        
         
         return $this;
     }
@@ -41,11 +40,11 @@ class AdvertisingModel extends Model {
      * @param type $endDate
      * @return \App\Models\Backend\AdvertisingModel
      */
-    function filterEndDate($endDate){
+    function filterEndDate(&$instance, $endDate){
     
         if(!empty($endDate))
         {
-            $this->whereRaw("DATEDIFF(?, begin_date) >= 0", [$endDate]);
+            $instance = $instance->whereRaw("DATEDIFF(?, begin_date) >= 0", [$endDate]);
         }
         return $this;
         

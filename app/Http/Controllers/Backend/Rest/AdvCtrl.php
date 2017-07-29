@@ -10,7 +10,7 @@ use Validator;
 class AdvCtrl extends Controller {
 
     function __construct() {
-        header('Content-Type: application/json');
+        //header('Content-Type: application/json');
     }
     /**
      * lay danh sach quang cao theo pagging
@@ -23,8 +23,11 @@ class AdvCtrl extends Controller {
         $freeText = (isset($reqData['freeText']) && !empty($reqData['freeText'])) ? $reqData['freeText'] : '';
         $beginDate = (isset($reqData['begin_date']) && !empty($reqData['freeText'])) ? $reqData['begin_date'] : '';
         $endDate = (isset($reqData['end_date']) && !empty($reqData['freeText'])) ? $reqData['end_date'] : '';
-
-        $data = $advModel->filterFreeText($freeText)->filterBeginDate($beginDate)->filterEndDate($endDate)->orderBy('begin_date', 'desc')->paginate();
+        
+        $tmpAdvModel = $advModel;
+        $advModel->filterFreeText($tmpAdvModel, $freeText)->filterBeginDate($tmpAdvModel, $beginDate)->filterEndDate($tmpAdvModel, $endDate);
+        $data = $tmpAdvModel->orderBy('begin_date', 'desc')->paginate();
+                
         return response()->json($data);
     }
 

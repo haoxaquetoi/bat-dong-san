@@ -200,7 +200,7 @@ class WidgetCtrl extends Controller {
     }
     
     
-    function cacheWidget($id) {
+    function cacheWidget() {
         
     }
 

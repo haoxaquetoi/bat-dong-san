@@ -1,10 +1,7 @@
-ngApp.controller('cityListCtrl', function ($scope, $apply, $routeParams, $cityService)
+ngApp.controller('cityListCtrl', function ($scope, $apply, $routeParams, $addressService)
 {
-    $scope.generalInfoDom;
-    $scope.msgErr = '';
     $scope.data = {
         city: {
-            id: $routeParams.id,
             list: {},
             filter: {
                 freeText: '',
@@ -14,16 +11,16 @@ ngApp.controller('cityListCtrl', function ($scope, $apply, $routeParams, $citySe
             total: 0
         },
         getList: function () {
-            $cityService.actions.list($scope.data.city.filter).then(function (resp) {
+            $addressService.action.listCity($scope.data.city.filter).then(function (resp) {
                 console.log(resp);
                 $apply(function () {
-                    if(resp.status == 200){
+                    if (resp.status == 200) {
                         $scope.data.city.list = resp.data.data;
                         $scope.data.city.total = resp.data.total;
-                    }else{
+                    } else {
                         console.log(resp);
                     }
-                    
+
                 });
             }, function (err) {
                 console.log(err);
@@ -32,7 +29,17 @@ ngApp.controller('cityListCtrl', function ($scope, $apply, $routeParams, $citySe
     };
 
     $scope.action = {
-        delete: function () {
+        delete: function (id) {
+            $addressService.action.deleteCity(id).then(function (resp) {
+                if(resp.data.status){
+                    $scope.data.getList();
+                }else{
+                    console.log(resp);
+                }
+                
+            }, function (err) {
+                console.log(err);
+            });
         },
         changePage(page) {
             $scope.data.city.filter.page = page;

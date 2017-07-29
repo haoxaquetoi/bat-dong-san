@@ -1,4 +1,4 @@
-ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $cityService)
+ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $addressService)
 {
     $scope.generalInfoDom;
     $scope.data = {
@@ -7,7 +7,7 @@ ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $city
             info: {}
         },
         getInfo: function () {
-            $cityService.actions.info($scope.data.city.id).then(function (resp) {
+            $addressService.action.infoCity($scope.data.city.id).then(function (resp) {
                 $apply(function () {
                     console.log(resp);
                     $scope.data.city.info = resp.data;
@@ -20,7 +20,7 @@ ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $city
 
     $scope.action = {
         update: function () {
-            if(!$($scope.generalInfoDom).parsley().validate())
+            if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
             }
@@ -29,14 +29,14 @@ ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $city
                 name: $scope.data.city.info.name,
                 code: $scope.data.city.info.code
             };
-            $cityService.actions.update(dataPost).then(function (resp) {
+            $addressService.action.updateCity($scope.data.city.id, dataPost).then(function (resp) {
                 window.location.href = '#!/';
             }, function (errors) {
                 console.log(errors);
             });
         },
         insert: function () {
-            if(!$($scope.generalInfoDom).parsley().validate())
+            if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
             }
@@ -44,7 +44,7 @@ ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $city
                 name: $scope.data.city.info.name,
                 code: $scope.data.city.info.code
             };
-            $cityService.actions.insert(dataPost).then(function (resp) {
+            $addressService.action.insertCity(dataPost).then(function (resp) {
                 window.location.href = '#!/';
             }, function (errors) {
                 console.log(errors);
