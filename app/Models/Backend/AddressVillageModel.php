@@ -12,6 +12,10 @@ class AddressVillageModel extends Model
         return $this->hasMany('App\Models\Backend\AddressStreetModel', 'id', 'village_id');
     }
     
+    function district(){
+        return $this->belongsTo('App\Models\Backend\AddressDistrictModel');
+    }
+    
     function filterFreeText($freeText){
         if(!empty($freeText))
         {

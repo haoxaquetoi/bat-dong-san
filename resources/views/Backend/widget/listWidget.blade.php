@@ -6,7 +6,7 @@
             </h2>
         </div>
         <div class="col-xs-2 text-right">
-            <button class="btn btn-primary margin-top-25" ng-click="action.actions.publish()">Publish</button>
+            <button class="btn btn-primary margin-top-25" ng-click="actions.publish()">Publish</button>
         </div>
     </section>
     <section class="content  form-magic">

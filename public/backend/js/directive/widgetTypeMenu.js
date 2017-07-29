@@ -30,7 +30,10 @@ ngApp.directive('widgetTypeMenu', function ($apply, $widgetService, $menuService
             },
             setMytitle: function(){
                 $apply(function(){
-                    scope.widgetData.myTitle = scope.listMenuPosition[scope.menuPositionId].name;
+                    if(parseInt(scope.menuPositionId) > 0)
+                    {
+                        scope.widgetData.myTitle = scope.listMenuPosition[scope.menuPositionId].name || '';
+                    }
                 });
             }
         };

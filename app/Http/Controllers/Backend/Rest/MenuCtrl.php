@@ -210,7 +210,8 @@ class MenuCtrl extends Controller {
                 'positionId.exists' => 'Vị trí menu không tồn tại'
             ]
         )->validate();
-        $data = $menuModel->filterFreeText($request->freeText)->wherer('position_d', $positionId)->paginate();
+        
+        $data = $menuModel->filterFreeText($request->freeText)->where('position_id', $positionId)->orderBy('depth')->orderBy('order')->get();
         return response()->json($data);
     }
     

@@ -13,6 +13,10 @@ class AddressDistrictModel extends Model
         return $this->hasMany('App\Models\Backend\AddressVillageModel', 'id', 'district_id');
     }
     
+    function city(){
+        return $this->belongsTo('App\Models\Backend\AddressCityModelt');
+    }
+    
     function filterFreeText($freeText){
         if(!empty($freeText))
         {
@@ -20,4 +24,6 @@ class AddressDistrictModel extends Model
         }
         return $this;
     }
+    
+    
 }

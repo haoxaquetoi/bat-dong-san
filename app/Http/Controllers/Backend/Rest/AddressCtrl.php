@@ -149,6 +149,7 @@ class AddressCtrl extends Controller
     function listDistrict(Request $request, AddressDistrictModel $addressDistrictModel){
         
         $tmpModel = $addressDistrictModel
+                        ->with('city')
                         ->filterFreeText($request->freeText)
                         ->orderBy('name');
         if((int)$request->page > 0)
@@ -249,6 +250,7 @@ class AddressCtrl extends Controller
     function listVillage(Request $request, AddressVillageModel $addressVillageModel){
         
         $tmpModel = $addressVillageModel
+                ->with('district')
                 ->filterFreeText($request->freeText)
                 ->orderBy('name');
         
@@ -352,6 +354,7 @@ class AddressCtrl extends Controller
     function listStreet(Request $request, AddressStreetModel $addressStreetModel){
         
         $tmpModel = $addressStreetModel
+                ->with('village')
                 ->filterFreeText($request->freeText)
                 ->orderBy('name');
         if((int)$request->page > 0)

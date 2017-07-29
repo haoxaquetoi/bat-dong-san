@@ -201,7 +201,13 @@ class WidgetCtrl extends Controller {
     
     
     function cacheWidget() {
-        
+        $arrAllWidget = WidgetModel::all();
+        $widgetConfigInstance = app('WidgetConfig');
+        foreach($arrAllWidget as $widgetInfo)
+        {
+            $widgetConfigInstance->cache($widgetInfo);
+        }
+        return response()->json(['status' => true]);
     }
 
 }

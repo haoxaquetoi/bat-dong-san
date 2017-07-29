@@ -76,7 +76,7 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::delete('/widget/item/{id}', 'Backend\Rest\WidgetCtrl@deleteWidgetItem')->where('id', '[\d]+');
     Route::put('/widget/item/order', 'Backend\Rest\WidgetCtrl@reOrderWidgetItem')->where('id', '[\d]+');
     
-    Route::put('/widget/item/cache', 'Backend\Rest\WidgetCtrl@cacheWidget');
+    Route::put('/widget/cache', 'Backend\Rest\WidgetCtrl@cacheWidget');
     
     //feedback
     Route::post('/feedback', 'Backend\Rest\FeedbackCtrl@insertFeedback');
