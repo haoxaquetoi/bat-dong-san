@@ -2,7 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Danh sách Quận/Huyện <a class="btn btn-primary btn-sm" href="#!/single/0"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
+            Danh sách Phường/Xã <a class="btn btn-primary btn-sm" href="#!/single/0"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
         </h1>
     </section>
     <!-- Main content -->
@@ -27,28 +27,19 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <table  class="table table-bordered table-hover dataTable" role="grid" >
-                                         <colgroup>
-                                            <col width='5%' />
-                                            <col width='5%' />
-                                            <col width='*' />
-                                            <col width='20%' />
-                                            <col width='17%' />
-                                            <col width='10%' />
-                                            <col width='15%' />
-                                        </colgroup>
                                         <thead>
                                             <tr role="row">
                                                 <th class="sorting">STT</th>
                                                 <th>#</th>
                                                 <th class="sorting_asc">Tên</th>
                                                 <th class="sorting">Mã</th>
-                                                <th class="sorting">Tỉnh/Thành phố</th>
+                                                <th class="sorting">Quận/Huyện</th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr role="row" ng-repeat="item in data.district.list">
-                                                <td class="text-center">@{{(data.district.filter.page - 1) * data.district.filter.pageSize + $index + 1}}</td>
+                                            <tr role="row" ng-repeat="item in data.village.list">
+                                                <td class="text-center">@{{(data.village.filter.page - 1) * data.village.filter.pageSize + $index + 1}}</td>
                                                 <td class="tbl-actions text-center">
                                                     <div class="dropdown">
                                                         <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

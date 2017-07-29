@@ -1,7 +1,7 @@
-ngApp.controller('districtListCtrl', function ($scope, $apply, $addressService)
+ngApp.controller('villageListCtrl', function ($scope, $apply, $addressService)
 {
-    $scope.data = {
-        district: {
+     $scope.data = {
+        village: {
             list: {},
             filter: {
                 freeText: '',
@@ -11,11 +11,12 @@ ngApp.controller('districtListCtrl', function ($scope, $apply, $addressService)
             total: 0
         },
         getList: function () {
-            $addressService.action.listDistrict($scope.data.district.filter).then(function (resp) {
+            $addressService.action.listVillage($scope.data.village.filter).then(function (resp) {
+                console.log(resp);
                 $apply(function () {
                     if (resp.status == 200) {
-                        $scope.data.district.list = resp.data.data;
-                        $scope.data.district.total = resp.data.total;
+                        $scope.data.village.list = resp.data.data;
+                        $scope.data.village.total = resp.data.total;
                     } else {
                         console.log(resp);
                     }
@@ -29,7 +30,7 @@ ngApp.controller('districtListCtrl', function ($scope, $apply, $addressService)
 
     $scope.action = {
         delete: function (id) {
-            $addressService.action.deleteDistrict(id).then(function (resp) {
+            $addressService.action.deleteVillage(id).then(function (resp) {
                 if(resp.data && resp.data.status){
                     $scope.data.getList();
                 }else{
@@ -41,7 +42,7 @@ ngApp.controller('districtListCtrl', function ($scope, $apply, $addressService)
             });
         },
         changePage(page) {
-            $scope.data.district.filter.page = page;
+            $scope.data.village.filter.page = page;
             $scope.data.getList();
         }
     };

@@ -37,9 +37,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     Route::get('/district/list', 'Backend\District\DistrictCtrl@all');
     Route::get('/district/single', 'Backend\District\DistrictCtrl@single');    
     #Phường/Xã
-    Route::get('/wards', 'Backend\Wards\WardsCtrl@main')->name('wards');
-    Route::get('/wards/list', 'Backend\Wards\WardsCtrl@all');
-    Route::get('/wards/single', 'Backend\Wards\WardsCtrl@single');    
+    Route::get('/village', 'Backend\Village\VillageCtrl@main')->name('village');
+    Route::get('/village/list', 'Backend\Village\VillageCtrl@all');
+    Route::get('/village/single', 'Backend\Village\VillageCtrl@single');    
     #Đường phố
     Route::get('/street', 'Backend\Street\StreetCtrl@main')->name('street');
     Route::get('/street/list', 'Backend\Street\StreetCtrl@all');

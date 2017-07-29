@@ -1,33 +1,33 @@
-ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $addressService)
+ngApp.controller('villageSingleCtrl', function ($scope, $apply, $routeParams, $addressService)
 {
     $scope.generalInfoDom;
     $scope.data = {
-        district: {
+        village: {
             id: $routeParams.id,
             info: {
                 city_id: ''
             }
         },
-        city: {
+        district: {
             list: {}
         },
         getInfo: function () {
-            $addressService.action.infoDistrict($scope.data.district.id).then(function (resp) {
+            $addressService.action.infoVillage($scope.data.village.id).then(function (resp) {
                 $apply(function () {
-                    $scope.data.district.info = resp.data;
+                    $scope.data.village.info = resp.data;
                 });
             }, function (err) {
                 console.log(err);
             });
         },
-        getListCity: function () {
+        getListDistrict: function () {
             var dataPost = {
                 pageSize: 0
             };
-            $addressService.action.listCity(dataPost).then(function (resp) {
+            $addressService.action.listDistrict(dataPost).then(function (resp) {
                 $apply(function () {
                     if (resp.status == 200) {
-                        $scope.data.city.list = resp.data;
+                        $scope.data.district.list = resp.data;
                     } else {
                         console.log(resp);
                     }
@@ -46,12 +46,12 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
                 return false;
             }
             var dataPost = {
-                id: $scope.data.district.id,
-                name: $scope.data.district.info.name,
-                code: $scope.data.district.info.code,
-                city_id: $scope.data.district.info.city_id
+                id: $scope.data.village.id,
+                name: $scope.data.village.info.name,
+                code: $scope.data.village.info.code,
+                district_id : $scope.data.village.info.district_id 
             };
-            $addressService.action.updateDistrict($scope.data.district.id, dataPost).then(function (resp) {
+            $addressService.action.updateVillage($scope.data.village.id, dataPost).then(function (resp) {
                 window.location.href = '#!/';
             }, function (errors) {
                 console.log(errors);
@@ -63,19 +63,20 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
                 return false;
             }
             var dataPost = {
-                name: $scope.data.district.info.name,
-                code: $scope.data.district.info.code,
-                city_id: $scope.data.district.info.city_id
+                name: $scope.data.village.info.name,
+                code: $scope.data.village.info.code,
+                district_id : $scope.data.village.info.district_id 
             };
-            $addressService.action.insertDistrict(dataPost).then(function (resp) {
+            $addressService.action.insertVillage(dataPost).then(function (resp) {
+                console.log(resp)
                 window.location.href = '#!/';
             }, function (errors) {
                 console.log(errors);
             });
         }
     };
-    $scope.data.getListCity();
-    $scope.$watch('data.district.id', function (newVal, oldVal) {
+    $scope.data.getListDistrict();
+    $scope.$watch('data.village.id', function (newVal, oldVal) {
         if (parseInt(newVal) > 0)
         {
             $scope.data.getInfo();

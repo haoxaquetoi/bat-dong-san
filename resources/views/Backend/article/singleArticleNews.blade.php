@@ -65,14 +65,17 @@
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <div class="col-xs-6" style="padding: 0 3px 10px 0">
-                                    <label for="time-from-advertising">Từ ngày</label>
-                                    <input type="date" class="form-control" id="time-from-advertising" />
+                                <div class="col-xs-6" style="padding: 0 3px 10px 0" ng-class="actions.hasError('begin_date') ? 'has-error' : ''">
+                                    <label for="txtbegin_date">Từ ngày</label>
+                                    <input type="date" class="form-control" id="txtbegin_date" value="@{{articleInfo.begin_date}}" />
+                                    <span class="help-block">@{{actions.showError('begin_date')}}</span>
                                 </div>
-                                <div class="col-xs-6" style="padding: 0 0 10px 3px">
-                                    <label for="time-from-advertising">Đến ngày</label>
-                                    <input type="date" class="form-control" id="time-from-advertising" />
+                                <div class="col-xs-6" style="padding: 0 0 10px 3px" ng-class="actions.hasError('end_date') ? 'has-error' : ''">
+                                    <label for="txtend_date">Đến ngày</label>
+                                    <input type="date" class="form-control" id="txtend_date" value="@{{articleInfo.end_date}}"  />
+                                    <span class="help-block">@{{actions.showError('end_date')}}</span>
                                 </div>
+                                
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-6" style="padding: 0 3px 10px 0">
@@ -130,12 +133,14 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <input type="text" name="txtTag" id="txtTag" value="" />
-                                <button type="button" >Lưu</button>
+                                <button type="button" ng-click="actions.addTags()"  >Lưu</button>
                                 <br/>
                                 <p>Danh sách thẻ tag đã chọn</p>
-                                <a hre="javascript:;"><i class="glyphicon glyphicon-remove-sign"></i> Thẻ a</a>&nbsp;
-                                <a hre="javascript:;"><i class="glyphicon glyphicon-remove-sign"></i> Thẻ a</a>&nbsp;
-                                <a hre="javascript:;"><i class="glyphicon glyphicon-remove-sign"></i> Thẻ a</a>&nbsp;
+                                <div id="newTags">
+                                    <a hre="javascript:;" ng-repeat="tag in articleInfo.tags" >
+                                        <i class="glyphicon glyphicon-remove-sign" ng-click="actions.removeTags($index)" ></i> @{{tag}}&nbsp;&nbsp;
+                                    </a>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Danh sách thẻ tag đã sử dụng</label><br/>
@@ -144,9 +149,7 @@
                                      border: 1px solid #ddd;
                                      line-height: 1.8em;
                                      word-spacing: 3px;">
-                                    <a hre="javascript:;"><u>Thẻ a</u></a>&nbsp;
-                                    <a hre="javascript:;"><u>Thẻ a</u></a>&nbsp;
-                                    <a hre="javascript:;"><u>Thẻ a</u></a>&nbsp;
+                                    <a hre="javascript:;" ng-repeat="tagOld in allTagsOlds" ng-click="actions.chooseTagsOld(tagOld.code)" ><u>@{{tagOld.code}}</u>&nbsp;</a>
                                 </div>
                             </div>
                         </div>
