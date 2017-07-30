@@ -16,7 +16,7 @@
                                 <div class="col-md-12 col-xs-12 padding-bottom-5">
                                     <div class="box-tools pull-right">
                                         <div class="input-group input-group-sm" style="width: 250px;">
-                                            <input type="text" name="table_search" ng-enter="action.changePage(1)" ng-model="data.district.filter.freeText" class="form-control pull-right" placeholder="Tìm kiếm">
+                                            <input type="text" name="table_search" ng-enter="action.changePage(1)" ng-model="data.village.filter.freeText" class="form-control pull-right" placeholder="Tìm kiếm">
                                             <div class="input-group-btn">
                                                 <button type="button" ng-click="action.changePage(1)" class="btn btn-default"><i class="fa fa-search"></i></button>
                                             </div>
@@ -64,9 +64,9 @@
                             <div class="row">
                                 <div class="col-xs-12 text-right">
                                     <paging
-                                        page="data.district.filter.page" 
-                                        total="data.district.total"
-                                        page-size="data.district.filter.pageSize"
+                                        page="data.village.filter.page" 
+                                        total="data.village.total"
+                                        page-size="data.village.filter.pageSize"
                                         paging-action="action.changePage(page)"
                                         scroll-top="false" 
                                         hide-if-empty="true"
