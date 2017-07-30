@@ -127,22 +127,7 @@
         <li class="treeview">
             <a href="javascript:void(0)">
                 <i class="fa fa-cog"></i> <span>Cài đặt</span>
-                <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                </span>
             </a>
-            <ul class="treeview-menu">
-                <li>
-                    <a href="{{route('setting')}}">
-                        <i class="fa fa-info-circle"></i> <span>Thông tin chung</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('setting')}}#!/email">
-                        <i class="fa fa-envelope"></i> <span>Email</span>
-                    </a>
-                </li>
-            </ul>
         </li>
 
     </ul>

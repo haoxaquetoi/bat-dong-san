@@ -42,9 +42,15 @@ class MyAppConfigProvider extends ServiceProvider {
         $this->app->singleton('ThemeConfig', function($app) {
             return new \App\Libs\Config\ThemeConfig();
         });
-
+        
+        //register direction
         $this->app->singleton('DirectionConfig', function($app) {
             return new \App\Libs\Config\DirectionConfig();
+        });
+        
+        //register direction
+        $this->app->singleton('SettingConfig', function($app) {
+            return new \App\Libs\Config\SettingConfig();
         });
     }
 
@@ -54,7 +60,8 @@ class MyAppConfigProvider extends ServiceProvider {
             'PermitConfig',
             'WidgetConfig',
             'ThemeConfig',
-            'DirectionConfig'
+            'DirectionConfig',
+            'SettingConfig'
         ];
     }
 

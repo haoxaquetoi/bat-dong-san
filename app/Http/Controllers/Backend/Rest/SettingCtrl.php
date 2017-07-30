@@ -13,7 +13,7 @@ class SettingCtrl extends Controller {
 
     function __construct() {
 
-        $this->listSetting = ['EmailSetting', 'WebInfoSetting'];
+        $this->listSetting = app('SettingConfig')->getList();
         header('Content-Type: application/json');
     }
 
@@ -22,11 +22,14 @@ class SettingCtrl extends Controller {
      * @param MetadataModel $metadataModel
      * @return type
      */
-    function listSetting(MetadataModel $metadataModel) {
-        $data = $metadataModel->whereIn('key', $this->listSetting)->get()->map(function($item, $key) {
-            $item->value = json_decode($item->value);
-            return $item;
-        });
+    function listSetting() {
+        $data = [];
+        foreach($this->listSetting as $settingCode => $settingName)
+        {
+            $data[$settingCode]['name'] = $settingName;
+            $metadataInfo = MetadataModel::where('key', $settingCode)->first();
+            $data[$settingCode]['value'] = !empty($metadataInfo->value)? json_decode($metadataInfo->value): [];
+        }
 
         return response()->json($data);
     }
