@@ -43,9 +43,9 @@ $.widget.bridge('uibutton', $.ui.button);
 <script src="{{url::asset('js/plugins/parsley/locale/vi.js')}}"></script>
 <link rel="stylesheet" href="{{url::asset('js/plugins/parsley/css/parsley.css')}}" />
 
-<script src="{{url::asset('js/plugins/ckeditor.js')}}"></script>
-<script src="{{url::asset('js/plugins/adaptersJquery.js')}}"></script>
-<script src="{{url::asset('js/plugins/tinymce.min.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/ckeditor.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/adapters/jquery.js"></script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 
 <script>
     var route_prefix = "{{ url(config('lfm.prefix')) }}";
