@@ -55,7 +55,7 @@
                                                     <a href="#!/single/@{{item.id}}">@{{item.name}}</a>
                                                 </td>
                                                 <td>@{{item.code}}</td>
-                                                <td>@{{item.city_id}}</td>
+                                                <td>@{{item.district.name}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
