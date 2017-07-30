@@ -4,7 +4,7 @@
             Cập nhật Tỉnh/Thành phố
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{url('admin/city')}}"><i class="fa fa-dashboard"></i> Quản lý Tỉnh/Thành phố</a></li>
+            <li><a href="#!/"><i class="fa fa-dashboard"></i> Quản lý Tỉnh/Thành phố</a></li>
             <li class="active">Thêm mới</li>
         </ol>
     </section>

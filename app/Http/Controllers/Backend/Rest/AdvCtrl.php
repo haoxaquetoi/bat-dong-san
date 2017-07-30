@@ -48,7 +48,7 @@ class AdvCtrl extends Controller {
      * @param AdvertisingModel $advModel
      * @return type
      */
-    function insertAdv(Requst $request, AdvertisingModel $advModel) {
+    function insertAdv(Request $request, AdvertisingModel $advModel) {
         //checkvalidate
         $this->_validateUpdate($request);
 
@@ -56,8 +56,8 @@ class AdvCtrl extends Controller {
         $newID = $advModel::insertGetId([
                 'name' => $data['name'],
                 'url' => $data['url'],
-                'begin_date' => $data['begin_date'] . '0:0:0',
-                'end_date' => $data['end_date']  . '0:0:0',
+                'begin_date' => $data['begin_date'] . ' 0:0:0',
+                'end_date' => $data['end_date']  . ' 0:0:0',
                 'file_path' => $data['file_path'],
                 'status' => $data['status'],
                 'created_at' => Date('Y-m-d H:i:s'),
@@ -87,8 +87,8 @@ class AdvCtrl extends Controller {
         $adv = $advModel::find($reqData['id']);
         $adv->name = $reqData['name'];
         $adv->url = $reqData['url'];
-        $adv->begin_date = $reqData['begin_date']. '0:0:0';
-        $adv->end_date = $reqData['end_date']. '0:0:0';
+        $adv->begin_date = $reqData['begin_date']. ' 0:0:0';
+        $adv->end_date = $reqData['end_date']. ' 0:0:0';
         $adv->file_path = $reqData['file_path'];
         $adv->status = $reqData['status'];
         $adv->updated_at = Date('Y-m-d H:i:s');
