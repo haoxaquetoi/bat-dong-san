@@ -16,9 +16,9 @@
                                 <div class="col-md-12 col-xs-12 padding-bottom-5">
                                     <div class="box-tools pull-right">
                                         <div class="input-group input-group-sm" style="width: 250px;">
-                                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm">
+                                            <input type="text" name="table_search" ng-enter="action.changePage(1)" ng-model="data.street.filter.freeText" class="form-control pull-right" placeholder="Tìm kiếm">
                                             <div class="input-group-btn">
-                                                <button type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                                <button type="button" ng-click="action.changePage(1)" class="btn btn-default"><i class="fa fa-search"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -27,147 +27,63 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <table  class="table table-bordered table-hover dataTable" role="grid" >
+                                        <colgroup>
+                                            <col width='5%' />
+                                            <col width='5%' />
+                                            <col width='*' />
+                                            <col width='20%' />
+                                            <col width='20%' />
+                                        </colgroup>
                                         <thead>
                                             <tr role="row">
                                                 <th class="sorting">STT</th>
                                                 <th>#</th>
                                                 <th class="sorting_asc">Tên</th>
                                                 <th class="sorting">Mã</th>
-                                                <th class="sorting">Tỉnh/Thành phố</th>
-                                                <th class="sorting">Quận/Huyện</th>
                                                 <th class="sorting">Phường/Xã</th>
-                                                <th class="sorting">Thứ tự</th>
-                                                <th class="sorting">Trạng thái</th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr role="row">
-                                                <td class="text-center">1</td>
+                                            <tr role="row" ng-repeat="item in data.street.list">
+                                                <td class="text-center">@{{(data.street.filter.page - 1) * data.street.filter.pageSize + $index + 1}}</td>
                                                 <td class="tbl-actions text-center">
                                                     <div class="dropdown">
-                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
+                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fa fa-bars"></i>
+                                                        </a> 
                                                         <ul class="dropdown-menu">
-                                                            <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                            <li><a href="javascript:void(0);">Xóa</a></li>
+                                                            <li><a href="#!/single/@{{item.id}}">Chi tiết</a></li>
+                                                            <li><a href="javascript:void(0);" ng-click="action.delete(item.id)">Xóa</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="javascript:void(0);">Đường 21B</a>
+                                                    <a href="#!/single/@{{item.id}}">@{{item.name}}</a>
                                                 </td>
-                                                <td>HN</td>
-                                                 <td>
-                                                    <a href="javascript:void(0);">Hà Nội</a>
-                                                </td>
-                                                 <td>
-                                                    <a href="javascript:void(0);">Thanh oai</a>
-                                                </td>
-                                                 <td>
-                                                    <a href="javascript:void(0);">Cự khê</a>
-                                                </td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-center"><a>Hoạt động</a></td>
-                                            </tr>
-                                            <tr role="row">
-                                                <td class="text-center">1</td>
-                                                <td class="tbl-actions text-center">
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                            <li><a href="javascript:void(0);">Xóa</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);">Đường 21B</a>
-                                                </td>
-                                                <td>HN</td>
-                                                 <td>
-                                                    <a href="javascript:void(0);">Hà Nội</a>
-                                                </td>
-                                                 <td>
-                                                    <a href="javascript:void(0);">Thanh oai</a>
-                                                </td>
-                                                 <td>
-                                                    <a href="javascript:void(0);">Cự khê</a>
-                                                </td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-center"><a>Hoạt động</a></td>
-                                            </tr>
-                                            <tr role="row">
-                                                <td class="text-center">1</td>
-                                                <td class="tbl-actions text-center">
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                            <li><a href="javascript:void(0);">Xóa</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);">Đường 21B</a>
-                                                </td>
-                                                <td>HN</td>
-                                                 <td>
-                                                    <a href="javascript:void(0);">Hà Nội</a>
-                                                </td>
-                                                 <td>
-                                                    <a href="javascript:void(0);">Thanh oai</a>
-                                                </td>
-                                                 <td>
-                                                    <a href="javascript:void(0);">Cự khê</a>
-                                                </td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-center"><a>Hoạt động</a></td>
-                                            </tr>
-                                            <tr role="row">
-                                                <td class="text-center">1</td>
-                                                <td class="tbl-actions text-center">
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                            <li><a href="javascript:void(0);">Xóa</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);">Đường 21B</a>
-                                                </td>
-                                                <td>HN</td>
-                                                 <td>
-                                                    <a href="javascript:void(0);">Hà Nội</a>
-                                                </td>
-                                                 <td>
-                                                    <a href="javascript:void(0);">Thanh oai</a>
-                                                </td>
-                                                 <td>
-                                                    <a href="javascript:void(0);">Cự khê</a>
-                                                </td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-center"><a>Hoạt động</a></td>
+                                                <td>@{{item.code}}</td>
+                                                <td>@{{item.village.name}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                        <ul class="pagination">
-                                            <li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li>
-                                            <li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li>
-                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li>
-                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li>
-                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a></li>
-                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a></li>
-                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a></li>
-                                            <li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a></li>
-                                        </ul>
-                                    </div>
+                                <div class="col-xs-12 text-right">
+                                    <paging
+                                        page="data.street.filter.page" 
+                                        total="data.street.total"
+                                        page-size="data.street.filter.pageSize"
+                                        paging-action="action.changePage(page)"
+                                        scroll-top="false" 
+                                        hide-if-empty="true"
+                                        show-prev-next="true"
+                                        show-first-last="true"
+                                        text-first="Đầu"
+                                        text-last="Cuối"
+                                        text-next="Sau"
+                                        text-prev="Trước">
+                                    </paging>
                                 </div>
                             </div>
                         </div>

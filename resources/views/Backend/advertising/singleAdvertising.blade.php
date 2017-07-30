@@ -4,12 +4,12 @@
             Thêm mới quảng cáo
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{url('admin/advertising')}}"><i class="fa fa-dashboard"></i> Quản lý quảng cáo</a></li>
+            <li><a href="#!/"><i class="fa fa-dashboard"></i> Quản lý quảng cáo</a></li>
             <li class="active">Thêm mới</li>
         </ol>
     </section>
     <section class="content  form-magic">
-        <form role="form">
+        <form  ng-dom="generalInfoDom">
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-md-12">
@@ -22,22 +22,22 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="title-advertising">Tiêu đề <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="title-advertising" />
+                                <input type="text" class="form-control" id="title-advertising" required ng-model="data.adv.info.name"  />
                             </div>
                             <div class="form-group">
                                 <label for="url-advertising">Đường dẫn <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="url-advertising" />
+                                <input type="text" class="form-control" id="url-advertising"  required ng-model="data.adv.info.url" />
                             </div>
                             <div class="form-group">
                                 <label for="time-from-advertising">Thời gian bắt đầu</label>
-                                <input type="date" class="form-control" id="time-from-advertising" />
+                                <input type="date" class="form-control" id="time-from-advertising" ng-model="data.adv.info.begin_date" />
                             </div>
                             <div class="form-group">
                                 <label for="time-to-advertising">Thời gian kết thúc</label>
-                                <input type="date" class="form-control" id="time-to-advertising" />
+                                <input type="date" class="form-control" id="time-to-advertising" ng-model="data.adv.info.end_date"  />
                             </div>
                             <div class="form-group">
-                                <input id="status" type="checkbox" name="status" checked="" class="magic-checkbox" />
+                                <input id="status" type="checkbox" name="status" checked="" class="magic-checkbox" ng-model="data.adv.info.status"  />
                                 <label for="status" class="padding-right-20">
                                     Hoạt động
                                 </label>
@@ -50,14 +50,15 @@
                                             <a data-input="thumbnail" data-preview="holder" class="btn btn-primary my-lfm">
                                                 <i class="fa fa-picture-o"></i> Chọn ảnh
                                             </a>
-                                            <input id="thumbnail" class="form-control" type="hidden" name="filepath">
+                                            <input id="thumbnail" class="form-control" type="hidden" name="filepath" ng-model="data.adv.info.file_path" />
                                         </div>
                                         <img id="holder" style="margin-top:15px;max-height:200px;">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                <button type="button" class="btn btn-primary" ng-show="data.adv.id <= 0" ng-click="action.insert()"><i class="fa fa-edit"></i> Thêm mới</button>
+                                <button type="button" class="btn btn-primary" ng-show="data.adv.id > 0" ng-click="action.update()"><i class="fa fa-edit"></i> Cập nhật</button>
                                 <a href="#!/" class="btn btn-default">hủy bỏ</a>
                             </div>
                         </div>

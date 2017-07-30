@@ -24,13 +24,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 col-xs-12 control-label">Mã Quận/Huyện</label>
+                                <label for="code" class="col-sm-2 col-xs-12 control-label">Mã Quận/Huyện</label>
                                 <div class="col-sm-4 col-xs-12">
-                                    <input type="text" class="form-control" ng-model="data.district.info.code" id="name" required pattern="[\w]+" placeholder="Mã Quận/Huyện">
+                                    <input type="text" class="form-control" ng-model="data.district.info.code" id="code" required pattern="[\w]+" placeholder="Mã Quận/Huyện">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 col-xs-12 control-label">Tỉnh/Thành phố</label>
+                                <label class="col-sm-2 col-xs-12 control-label">Tỉnh/Thành phố</label>
                                 <div class="col-sm-4 col-xs-12">
                                     <select class="form-control" ng-model="data.district.info.city_id" required 
                                             ng-options="value.id as value.name for (key, value) in data.city.list">

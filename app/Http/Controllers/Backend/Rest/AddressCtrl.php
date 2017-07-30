@@ -217,7 +217,7 @@ class AddressCtrl extends Controller
         $newId = AddressVillageModel::insertGetId([
             'district_id' => $request->district_id,
             'name' => $request->name,
-            'code' => $request->name,
+            'code' => $request->code,
             'created_at' => Date('Y-m-d H:i:s'),
             'updated_at' => Date('Y-m-d H:i:s'),
         ]);
@@ -320,7 +320,7 @@ class AddressCtrl extends Controller
         $newId = AddressStreetModel::insertGetId([
             'village_id' => $request->village_id,
             'name' => $request->name,
-            'code' => $request->name,
+            'code' => $request->code,
             'created_at' => Date('Y-m-d H:i:s'),
             'updated_at' => Date('Y-m-d H:i:s'),
         ]);
@@ -335,8 +335,8 @@ class AddressCtrl extends Controller
     function infoStreet($id){
         //validate 
         $this->_validateId('id', $id, 'street');
-        
         $data = AddressStreetModel::find($id);
+       
         return response()->json($data);
         
     }
@@ -424,7 +424,7 @@ class AddressCtrl extends Controller
             case 'village':
                 $arrCondition = [$name => 'required|exists:address_village,id'];
                 break;
-            case 'Street':
+            case 'street':
                 $arrCondition = [$name => 'required|exists:address_street,id'];
                 break;
         }
