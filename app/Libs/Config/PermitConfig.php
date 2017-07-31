@@ -13,12 +13,22 @@ class PermitConfig {
                 'permit' => [
                     'user' => 'Quản trị người dùng',
                     'group' => 'Quản trị nhóm',
+                    'setting' => 'Cài đặt',
+                    'address' => 'Địa chỉ',
+                    'feedbackConfig' => 'Cấu hình feedback',
                 ]
             ],
             [
                 'label' => 'Quản trị nội dung',
                 'permit' => [
-                    'category' => 'Quản trị chuyên mục'
+                    'category' => 'Quản trị chuyên mục',
+                    'article' => 'Tin bài',
+                    'feedback' => 'Feedback',
+                    'crawler' => 'Crawler',
+                    'adv' => 'Quảng cáo',
+                    'menu' => 'Menu',
+                    'widget' => 'widget',
+                    
                 ]
             ]
         ];

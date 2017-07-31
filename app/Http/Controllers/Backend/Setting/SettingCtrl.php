@@ -10,14 +10,8 @@ class SettingCtrl extends Controller {
         return view('backend/setting/main');
     }
     
-    function settingInfo() {
+    function detailSetting($code) {
        
-        return view('backend/setting/settingInfo');
+        return view('backend/setting/detail/' . $code);
     }
-    
-    function settingEmail() {
-       
-        return view('backend/setting/settingEmail');
-    }
-
 }
