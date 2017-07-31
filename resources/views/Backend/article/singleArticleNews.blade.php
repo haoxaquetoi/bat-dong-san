@@ -42,12 +42,12 @@
                                 <span class="help-block">@{{actions.showError('slug')}}</span>
                             </div>
                             <div class="form-group" ng-class="actions.hasError('summary') ? 'has-error' : ''">
-                                <label for="txtContent">Tóm tắt</label>
+                                <label for="txtSummary">Tóm tắt</label>
                                 <textarea  placeholder="Nội dung tóm tắt"   id="txtSummary" name="txtSummary" class="form-control my-ckeditor"></textarea>
                                 <span class="help-block">@{{actions.showError('summary')}}</span>
                             </div>
                             <div class="form-group" ng-class="actions.hasError('content') ? 'has-error' : ''">
-                                <label for="txtSummary">Nội dung <span class="text-danger">*</span></label>
+                                <label for="txtContent">Nội dung <span class="text-danger">*</span></label>
                                 <textarea placeholder="Nội dung"  name="txtContent" id="txtContent" class="form-control my-ckeditor"></textarea>
                                 <span class="help-block">@{{actions.showError('content')}}</span>
                             </div>

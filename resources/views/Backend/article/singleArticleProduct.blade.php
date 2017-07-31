@@ -9,14 +9,14 @@
         </ol>
     </section>
     <section class="content  form-magic">
-         
+
         <form role="form">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Thông tin</h3>
+                            <h3 class="box-title">Chi tiết tin đăng</h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             </div>
@@ -24,34 +24,29 @@
                         <!-- /.box-header -->
                         <!-- form start -->
                         <div class="box-body">
-                            <div class="row">
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">Loại tin</label>
-                                        <select class="form-control" ng-model="typeArticle" ng-change="actions.changePage()">
-                                            <option value="news">Tin đăng</option>
-                                            <option value="product">Tin bất động sản</option>
-                                        </select>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="">Loại tin</label>
+                                <select class="form-control" ng-model="articleInfo.type" ng-change="actions.changePage()">
+                                    <option value="News">Tin đăng</option>
+                                    <option value="Product">Tin bất động sản</option>
+                                </select>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">Tiêu đề <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="url-advertising">Đường dẫn <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="url-advertising" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Nội dung mô tả</label>
-                                        <textarea name="txtContent" class="form-control my-ckeditor"></textarea>
-                                    </div>
-                                </div>
+                            <div class="form-group" ng-class="actions.hasError('title') ? 'has-error' : ''">
+                                <label for="txtTitle">Tiêu đề <span class="text-danger">*</span></label>
+                                <input placeholder="Tiêu đề" ng-model="articleInfo.title" type="text" class="form-control" id="txtTitle" name="txtTitle" />
+                                <span class="help-block">@{{actions.showError('title')}}</span>
                             </div>
-
+                            <div class="form-group" ng-class="actions.hasError('slug') ? 'has-error' : ''">
+                                <label for="txtSlug">Đường dẫn <span class="text-danger">*</span></label>
+                                <input placeholder="Đường dẫn"  ng-model="articleInfo.slug"  type="text" class="form-control" id="txtSlug"  name="txtSlug" />
+                                <span class="help-block">@{{actions.showError('slug')}}</span>
+                            </div>
+                        
+                            <div class="form-group" ng-class="actions.hasError('content') ? 'has-error' : ''">
+                                <label for="txtContent">Nội dung <span class="text-danger">*</span></label>
+                                <textarea placeholder="Nội dung"  name="txtContent" id="txtContent" class="form-control my-ckeditor"></textarea>
+                                <span class="help-block">@{{actions.showError('content')}}</span>
+                            </div>
                         </div>
 
                     </div>
@@ -275,7 +270,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+
+
+                <div class="col-md-4">
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Lịch đăng</h3>
@@ -285,70 +282,61 @@
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="time-from-advertising">Từ ngày</label>
-                                <input type="date" class="form-control" id="time-from-advertising" />
+                                <div class="col-xs-6" style="padding: 0 3px 10px 0" ng-class="actions.hasError('begin_date') ? 'has-error' : ''">
+                                    <label for="txtbegin_date">Từ ngày</label>
+                                    <input type="date" class="form-control" id="txtbegin_date" value="@{{articleInfo.begin_date}}" />
+                                    <span class="help-block">@{{actions.showError('begin_date')}}</span>
+                                </div>
+                                <div class="col-xs-6" style="padding: 0 0 10px 3px" ng-class="actions.hasError('end_date') ? 'has-error' : ''">
+                                    <label for="txtend_date">Đến ngày</label>
+                                    <input type="date" class="form-control" id="txtend_date" value="@{{articleInfo.end_date}}"  />
+                                    <span class="help-block">@{{actions.showError('end_date')}}</span>
+                                </div>
+
                             </div>
                             <div class="form-group">
-                                <label for="time-to-advertising">Đến ngày</label>
-                                <input type="date" class="form-control" id="time-to-advertising" />
+                                <div class="col-xs-6" style="padding: 0 3px 10px 0">
+                                    <label for="chkSticky">
+                                        <input type="checkbox" ng-checked="articleInfo.is_sticky == 1"   name=chkSticky" id="chkSticky" />
+                                        Tin nổi bật
+                                    </label>
+                                </div>
+                                <div class="col-xs-6" style="padding: 0 0 10px 3px">
+                                    <label for="chkCensored">
+                                        <input type="checkbox" ng-checked="articleInfo.is_censored == 1"  name=chkCensored" id="chkCensored" />
+                                        Tin đảm bảo
+                                    </label>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <ul class="list-unstyled line-height-32">
-                                    <li>
-                                        <input id="position-1" type="checkbox" name="position" class="magic-checkbox" checked="" />
-                                        <label for="position-1" class="padding-right-20">
-                                            Tin thường
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input id="position-2" type="checkbox" name="position" class="magic-checkbox" checked=""/>
-                                        <label for="position-2" class="padding-right-20">
-                                            Tin đảm bảo
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input id="position-3" type="checkbox" name="position" class="magic-checkbox" />
-                                        <label for="position-3" class="padding-right-20">
-                                            Tin nổi bật
-                                        </label>
-                                    </li>
-                                </ul>
+                            <div class="form-group clearfix">
+                                <div class="col-xs-6" style="padding: 0 3px 10px 0">
+                                    <label>Trạng thái</label>
+                                    <select class="form-control" ng-model="articleInfo.status">
+                                        <option value="Publish">Công khai</option>
+                                        <option value="Trash">Viết nháp</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary">Lưu</button>
-                                <button type="button" class="btn btn-default">hủy bỏ</button>
+                                <button type="button" class="btn btn-primary" ng-click="actions.update()">Lưu</button>
+                                <button type="button" class="btn btn-default" ng-click="actions.cancel()">hủy bỏ</button>
                             </div>
                         </div>
                     </div>
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Loại chuyên mục</h3>
+                            <h3 class="box-title">Chuyên mục <span class="text-danger">*</span></h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             </div>
                         </div>
-                        <div class="box-body">
+                        <div class="box-body" style="max-height: 150px;overflow-y: auto">
                             <div class="form-group">
-                                <ul class="list-unstyled line-height-32">
-                                    <li>
-                                        <input id="category-1" type="checkbox" name="category" class="magic-checkbox" checked="" />
-                                        <label for="category-1" class="padding-right-20">
-                                            Chuyên mục 1
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input id="category-2" type="checkbox" name="category" class="magic-checkbox" checked=""/>
-                                        <label for="category-2" class="padding-right-20">
-                                            Chuyên mục 2
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input id="category-3" type="checkbox" name="category" class="magic-checkbox" />
-                                        <label for="category-3" class="padding-right-20">
-                                            Chuyên mục 3
-                                        </label>
-                                    </li>
-                                </ul>
+
+                                <div ng-repeat="cat in categorys">
+                                    <label><input type="checkbox" class="chkCat" name="chkCat[]" value="@{{cat.id}}" >@{{cat.children}}&nbsp;@{{cat.name}}</label>
+                                </div>
+                                <span style="color: #dd4b39" class="help-block">@{{actions.showError('category')}}</span>
                             </div>
                         </div>
                     </div>
@@ -361,16 +349,31 @@
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <select class="form-control">
-                                    <option>-- Chọn tag --</option>
-                                    <option>tag 1</option>
-                                </select>
+                                <input type="text" name="txtTag" id="txtTag" value="" />
+                                <button type="button" ng-click="actions.addTags()"  >Lưu</button>
+                                <br/>
+                                <p>Danh sách thẻ tag đã chọn</p>
+                                <div id="newTags">
+                                    <a hre="javascript:;" ng-repeat="tag in articleInfo.tags" >
+                                        <i class="glyphicon glyphicon-remove-sign" ng-click="actions.removeTags($index)" ></i> @{{tag}}&nbsp;&nbsp;
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Danh sách thẻ tag đã sử dụng</label><br/>
+                                <div style="margin: 5px 0 10px;
+                                     padding: 8px;
+                                     border: 1px solid #ddd;
+                                     line-height: 1.8em;
+                                     word-spacing: 3px;">
+                                    <a hre="javascript:;" ng-repeat="tagOld in allTagsOlds" ng-click="actions.chooseTagsOld(tagOld.code)" ><u>@{{tagOld.code}}</u>&nbsp;</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Hình ảnh/Video</h3>
+                            <h3 class="box-title">Ảnh minh họa</h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             </div>
@@ -381,9 +384,9 @@
                                     <a data-input="thumbnail" data-preview="holder" class="btn btn-primary my-lfm">
                                         <i class="fa fa-picture-o"></i> Chọn ảnh/video
                                     </a>
-                                    <input id="thumbnail" class="form-control " type="hidden" name="filepath">
+                                    <input id="thumbnail" class="form-control " type="hidden" name="filepath" ng-model="articleInfo.thumbnail"  >
                                 </div>
-                                <img id="holder" class="img-responsive margin-top-15">
+                                <img ng-show="actions.build_thumnail(articleInfo.thumbnail)" id="holder" class="img-responsive margin-top-15" src="@{{actions.build_thumnail(articleInfo.thumbnail)}}">
                             </div>
                         </div>
                     </div>
@@ -391,7 +394,7 @@
             </div>
             <!-- /.row (main row) -->
         </form>
-        
+
     </section>
     <!-- /.content -->
 </angular>
