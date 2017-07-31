@@ -16,6 +16,7 @@ class CreateTagTable extends Migration {
             $table->increments('id');
             $table->string('code', 255);
             $table->integer('count')->default(0);
+            $table->datetime('updated_at')->nullable();
         });
     }
 

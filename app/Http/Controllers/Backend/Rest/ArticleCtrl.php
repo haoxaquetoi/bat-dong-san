@@ -106,7 +106,8 @@ class ArticleCtrl extends Controller {
         $arrTags = is_array($request->tags) ? $request->tags : [];
         $arrtagTmp = [];
         foreach ($arrTags as $k => $v) {
-            $tagInfo = $TagsModel::where('code', '=', $v)->get();
+            $tagInfo = $TagsModel::where('code', '=', $v)->first();
+           
             if (isset($tagInfo->id) && $tagInfo->id > 0) {
                 //update count
                 $tagInfo->count = $tagInfo->count + 1;
@@ -124,8 +125,8 @@ class ArticleCtrl extends Controller {
         $tagArtModel::where('article_id', '=', $articleID)->delete();
         foreach ($arrtagTmp as $k => $v) {
             $tagArtModel->insertGetId([
-                'tag_id' => (int)$v,
-                'article_id' => (int)$articleID
+                'tag_id' => (int) $v,
+                'article_id' => (int) $articleID
             ]);
         }
     }
@@ -142,7 +143,34 @@ class ArticleCtrl extends Controller {
             $articleInfo[0]->articleBase->village_name = DB::table('address_village')->find($articleInfo[0]->articleBase->village_id)->name;
         if (isset($articleInfo[0]->articleBase->street_id))
             $articleInfo[0]->articleBase->street_name = DB::table('address_street')->find($articleInfo[0]->articleBase->street_id)->name;
-        return $articleInfo;
+
+        $categoryTmp = array();
+        $category = DB::table('category_article')->where('article_id', '=', $articleID)->select('category_id')->get();
+        $category = collect($category)->toArray();
+        foreach ($category as $key => $value) {
+            $categoryTmp[] = (int) $value->category_id;
+        }
+        $articleInfo[0]->category = $categoryTmp;
+
+        $tags = DB::table('tag_article')->where('article_id', '=', $articleID)->select('tag_id')->get();
+        $tags = collect($tags)->toArray();
+        $tagsTmp = [];
+        foreach ($tags as $key => $value) {
+            $tagInfo = DB::table('tag')->find($value->tag_id);
+            if (isset($tagInfo->code)) {
+                $tagsTmp[] = $tagInfo->code;
+            }
+        }
+        $articleInfo[0]->tags = $tagsTmp;
+
+
+        if ($articleInfo[0]->begin_date != '')
+            $articleInfo[0]->begin_date = explode(' ', $articleInfo[0]->begin_date)[0];
+
+        if ($articleInfo[0]->end_date != '')
+            $articleInfo[0]->end_date = explode(' ', $articleInfo[0]->end_date)[0];
+
+        return $articleInfo[0];
     }
 
     private function _update_product(ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleMode $articleModel, Request $request) {
@@ -190,8 +218,6 @@ class ArticleCtrl extends Controller {
      */
     private function _chkValidation(ArticleMode $articleModel, CategoryModel $catModel, Request $request) {
 
-
-
         #######Common########
         $rules = [
             "slug" => "required|max:255",
@@ -202,7 +228,6 @@ class ArticleCtrl extends Controller {
             'title.required' => 'Tiêu đề tin đăng không được bỏ trống',
             'title.max' => 'Tiêu đề không được lớn hơn 255 ký tự',
             'slug.required' => 'Đường dẫn slug không được để trống',
-            'slug.unique' => 'Đường dẫn đã tồn tại vui lòng chọn đường dẫn khác',
             'summary.required' => 'Nội dung tóm tắt không được bỏ trống',
             'content.required' => 'Nội dung đăng không được bỏ trống'
         ];
@@ -366,8 +391,8 @@ class ArticleCtrl extends Controller {
                 $this->withValidator($validator, $errors);
             }
             if ($articleModel::where([
-                        ['slug', '!=', "{$request->slug}"],
-                        ['id', '=', $request->id]
+                        ['slug', '=', "{$request->slug}"],
+                        ['id', '!=', $request->id]
                     ])->count() > 0) {
                 $errors = [
                     'slug' => 'Đường dẫn đã tồn tại vui lòng chọn đường dẫn khác'
@@ -434,6 +459,19 @@ class ArticleCtrl extends Controller {
 
 
         $data = $articleIstall->paginate();
+        return response()->json($data);
+    }
+
+    function getSingleArticle(ArticleMode $articleModel, Request $request) {
+        $request->id;
+        #######Common########
+        $rules = [
+            "id" => "exists:article,id"
+        ];
+        $message = [
+            'id.exists' => 'Tin đăng không tồn tại'
+        ];
+        $data = $this->getArticleInfo($articleModel, $request->id);
         return response()->json($data);
     }
 

@@ -38,5 +38,10 @@ ngApp.factory('$articleService', function ($rootScope, $http)
         var url = SiteUrl + '/rest/article/updateCensored/' + id;
         return $http.put(url);
     }
+    service.actions.getSingleArticle = function (id)
+    {
+        var url = SiteUrl + '/rest/article/' + id;
+        return $http.get(url);
+    }
     return service;
 });

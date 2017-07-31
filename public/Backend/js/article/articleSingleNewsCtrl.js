@@ -1,9 +1,10 @@
-ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $apply, $articleService, $categoryService, $tagsService)
+ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $apply, $articleService, $categoryService, $tagsService, $routeParams)
 {
     $scope.generalInfoDom;
     $scope.categorys = [];
     $scope.allTagsOlds = [];
     $scope.articleInfo = {
+        id: 0,
         type: 'News',
         title: '',
         slug: '',
@@ -13,7 +14,7 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
         tags: [],
         is_sticky: 0,
         is_censored: 0,
-        status: 'Publish',
+        status: 'Trash',
         begin_date: '', //Y-m-d H:i:s
         end_date: '', //Y-m-d H:i:s
         category: []
@@ -40,9 +41,12 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
                     $scope.articleInfo.category.push($(v)[0].value);
                 }
             });
-            
-            $scope.articleInfo.txtbegin_date = $('#txtbegin_date').val() || '';
-            $scope.articleInfo.txtend_date = $('#txtend_date').val() || '';
+
+            $scope.articleInfo.begin_date = $('#txtbegin_date').val() || '';
+            $scope.articleInfo.end_date = $('#txtend_date').val() || '';
+
+
+
             $scope.articleInfo.thumbnail = $('#thumbnail').val() || '';
             $scope.articleInfo.summary = CKEDITOR.instances.txtSummary.getData();
             $scope.articleInfo.content = CKEDITOR.instances.txtContent.getData();
@@ -50,12 +54,27 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
             $scope.articleInfo.is_censored = $('#chkCensored')[0].checked ? 1 : 0;
 
             $scope.errors = [];
-            $articleService.actions.insert($scope.articleInfo).then(function (resp) {
-                $location.path('/');
-            }, function (error) {
-                $scope.errors = error.data;
-                $.notify("Có lỗi xảy ra, Bạn vui lòng tải lại trang và thao tác lại!", "error");
-            });
+            if ($scope.articleInfo.id && $scope.articleInfo.id > 0)
+            {
+                $articleService.actions.edit($scope.articleInfo).then(function (resp) {
+                    $location.path('/');
+                }, function (error) {
+                    $scope.errors = error.data;
+                    $.notify("Có lỗi xảy ra, Bạn vui lòng tải lại trang và thao tác lại!", "error");
+                });
+            } else
+            {
+                $articleService.actions.insert($scope.articleInfo).then(function (resp) {
+                    $location.path('/');
+                }, function (error) {
+                    $scope.errors = error.data;
+                    $.notify("Có lỗi xảy ra, Bạn vui lòng tải lại trang và thao tác lại!", "error");
+                });
+            }
+        },
+        cancel: function ()
+        {
+            $location.path('/');
         },
         getAllCategory: function () {
             $categoryService.actions.getAllCategory().then(function (resp) {
@@ -64,6 +83,7 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
                 });
 
             }, function (error) {
+                console.log(error);
                 $.notify("Có lỗi xảy ra khi lấy đanh sách chuyên mục!", "error");
             });
         },
@@ -121,6 +141,39 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
                 $('#txtTag').val(newtag);
                 $scope.actions.addTags();
             }
+        },
+        build_thumnail: function (path)
+        {
+            if (path != '')
+                return SiteUrl + path;
+            return '';
+        },
+        singleNews: function (articleID)
+        {
+            $articleService.actions.getSingleArticle(articleID).then(function (resp) {
+                $apply(function () {
+                    $scope.articleInfo = resp.data;
+                    $.each($('.chkCat'), function (i, v)
+                    {
+                        var value = parseInt($(v)[0].value) || null;
+                        if ($scope.articleInfo.category.indexOf(value) < 0)
+                        {
+                            $(v)[0].checked = false;
+                        } else
+                        {
+                            $(v)[0].checked = true;
+                        }
+                    });
+                    $('#txtSummary').val($scope.articleInfo.summary);
+                    $('#txtContent').val($scope.articleInfo.content);
+                    $('#txtbegin_date').val($scope.articleInfo.begin_date);
+                    $('#txtend_date').val($scope.articleInfo.end_date);
+                });
+
+            }, function (error) {
+                console.log(error);
+                $.notify("Có lỗi xảy ra khi lấy đanh sách chuyên mục!", "error");
+            });
         }
     };
     $scope.$watchCollection('articleInfo.title', function (oldVal, newVal) {
@@ -130,5 +183,11 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
 
     $scope.actions.getAllCategory();
     $scope.actions.loadAllTags();
+
+    if ($routeParams.id && $routeParams.id > 0)
+    {
+        //load single post
+        $scope.actions.singleNews($routeParams.id);
+    }
 
 });

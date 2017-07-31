@@ -67,19 +67,19 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="article in data.data.data">
-                                            <td class="text-center">@{{(data.data.current_page -1) * data.data.per_page + $index +1 }}</td>
+                                            <td class="text-center">@{{(data.data.current_page - 1) * data.data.per_page + $index + 1}}</td>
                                             <td class="tbl-actions text-center">
                                                 <div class="dropdown">
                                                     <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                     <ul class="dropdown-menu">
-                                                        <li><a href="{{url('admin/article/single')}}/@{{article.id}}">Chi tiết</a></li>
+                                                        <li><a href="{{url('admin/article')}}#!/@{{article.type=='News' ? 'singleNews':'singleProduct'}}/@{{article.id}}">Chi tiết</a></li>
                                                         <li><a ng-click="actions.delete(article.id)"  href="javascript:void(0);">Xóa</a></li>
                                                     </ul>
                                                 </div>
                                             </td>
                                             <td>
-                                                <a ng-if="article.deleted ==1"  href="javascript:void(0);"><strike>@{{article.title}}</strike></a>
-                                                <a ng-if="article.deleted !=1" href="javascript:void(0);">@{{article.title}}</a>
+                                                <a ng-if="article.deleted == 1"  href="{{url('admin/article')}}#!/@{{article.type=='News' ? 'singleNews':'singleProduct'}}/@{{article.id}}"  ><strike>@{{article.title}}</strike></a>
+                                                <a ng-if="article.deleted != 1" href="{{url('admin/article')}}#!/@{{article.type=='News' ? 'singleNews':'singleProduct'}}/@{{article.id}}"  >@{{article.title}}</a>
                                             </td>
                                             <td class="mailbox-star text-center">
                                                 <a ng-click="actions.updateSticky(article.id)" ng-if="article.is_sticky == 1" href="javascript:;"><i class="fa fa-star text-yellow"></i></a>
@@ -109,11 +109,11 @@
                             <div class="col-xs-12">
                                 <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
                                     <div paging
-                                    page="data.data.current_page" 
-                                    page-size="data.data.per_page" 
-                                    total="data.data.total"
-                                    paging-action="actions.changePage(page)">
-                                  </div> 
+                                         page="data.data.current_page" 
+                                         page-size="data.data.per_page" 
+                                         total="data.data.total"
+                                         paging-action="actions.changePage(page)">
+                                    </div> 
                                 </div>
                             </div>
                         </div>

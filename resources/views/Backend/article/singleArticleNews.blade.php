@@ -43,12 +43,12 @@
                             </div>
                             <div class="form-group" ng-class="actions.hasError('summary') ? 'has-error' : ''">
                                 <label for="txtContent">Tóm tắt</label>
-                                <textarea  placeholder="Nội dung tóm tắt" ng-model="articleInfo.summary"  id="txtSummary" name="txtSummary" class="form-control my-ckeditor"></textarea>
+                                <textarea  placeholder="Nội dung tóm tắt"   id="txtSummary" name="txtSummary" class="form-control my-ckeditor"></textarea>
                                 <span class="help-block">@{{actions.showError('summary')}}</span>
                             </div>
-                            <div class="form-group" ng-class="actions.hasError('summary') ? 'has-error' : ''">
+                            <div class="form-group" ng-class="actions.hasError('content') ? 'has-error' : ''">
                                 <label for="txtSummary">Nội dung <span class="text-danger">*</span></label>
-                                <textarea placeholder="Nội dung" ng-model="articleInfo.content"  name="txtContent" id="txtContent" class="form-control my-ckeditor"></textarea>
+                                <textarea placeholder="Nội dung"  name="txtContent" id="txtContent" class="form-control my-ckeditor"></textarea>
                                 <span class="help-block">@{{actions.showError('content')}}</span>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                                     <input type="date" class="form-control" id="txtend_date" value="@{{articleInfo.end_date}}"  />
                                     <span class="help-block">@{{actions.showError('end_date')}}</span>
                                 </div>
-                                
+
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-6" style="padding: 0 3px 10px 0">
@@ -102,7 +102,7 @@
                             </div>
                             <div class="form-group text-center">
                                 <button type="button" class="btn btn-primary" ng-click="actions.update()">Lưu</button>
-                                <button type="button" class="btn btn-default">hủy bỏ</button>
+                                <button type="button" class="btn btn-default" ng-click="actions.cancel()">hủy bỏ</button>
                             </div>
                         </div>
                     </div>
@@ -167,9 +167,9 @@
                                     <a data-input="thumbnail" data-preview="holder" class="btn btn-primary my-lfm">
                                         <i class="fa fa-picture-o"></i> Chọn ảnh/video
                                     </a>
-                                    <input id="thumbnail" class="form-control " type="hidden" name="filepath"  >
+                                    <input id="thumbnail" class="form-control " type="hidden" name="filepath" ng-model="articleInfo.thumbnail"  >
                                 </div>
-                                <img id="holder" class="img-responsive margin-top-15">
+                                <img ng-show="actions.build_thumnail(articleInfo.thumbnail)" id="holder" class="img-responsive margin-top-15" src="@{{actions.build_thumnail(articleInfo.thumbnail)}}">
                             </div>
                         </div>
                     </div>

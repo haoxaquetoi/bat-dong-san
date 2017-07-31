@@ -145,7 +145,7 @@ ngApp.controller('articleCtrl', function ($scope, $apply, $articleService, Slug)
                     furniture: ''
                 }
             };
-
+            
             $articleService.actions.edit(params).then(function (resp) {
                 console.log(resp);
             }, function (error) {
