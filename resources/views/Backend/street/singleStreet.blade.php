@@ -8,7 +8,7 @@
             <li class="active">Thêm mới</li>
         </ol>
     </section>
-      <section class="content  form-magic">
+    <section class="content  form-magic">
         <form class="form-horizontal" ng-dom="generalInfoDom">
             <div class="row">
                 <div class="col-md-12">
@@ -21,12 +21,14 @@
                                 <label for="name" class="col-sm-2 col-xs-12 control-label">Tên đường phố</label>
                                 <div class="col-sm-4 col-xs-12">
                                     <input type="text" class="form-control" id="name"  ng-model="data.street.info.name" required placeholder="Tên đường phố">
+                                    <span class="text-danger" ng-show="error.name" ng-repeat ="item in error.name">@{{item}}. </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="code" class="col-sm-2 col-xs-12 control-label">Mã đường phố</label>
                                 <div class="col-sm-4 col-xs-12">
                                     <input type="text" class="form-control" ng-model="data.street.info.code"  required pattern="[\w]+" id="code" placeholder="Mã đường phố">
+                                    <span class="text-danger" ng-show="error.code" ng-repeat ="item in error.code">@{{item}}. </span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -34,7 +36,9 @@
                                 <div class="col-sm-4 col-xs-12">
                                     <select class="form-control" ng-model="data.street.info.village_id" required 
                                             ng-options="value.id as value.name for (key, value) in data.village.list">
+                                        <option value="">--Chọn Phường/Xã--</option>
                                     </select>
+                                    <span class="text-danger" ng-show="error.village_id" ng-repeat ="item in error.village_id">@{{item}}. </span>
                                 </div>
                             </div>
                             <div class="form-group">

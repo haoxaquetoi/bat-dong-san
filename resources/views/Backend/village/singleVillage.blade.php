@@ -21,20 +21,24 @@
                                 <label for="name" class="col-sm-2 col-xs-12 control-label">Tên Phường/Xã</label>
                                 <div class="col-sm-4 col-xs-12">
                                     <input type="text" class="form-control" ng-model="data.village.info.name" id="name" required placeholder="Tên Phường/Xã">
+                                    <span class="text-danger" ng-show="error.name" ng-repeat ="item in error.name">@{{item}}. </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="name" class="col-sm-2 col-xs-12 control-label">Mã Phường/Xã</label>
                                 <div class="col-sm-4 col-xs-12">
                                     <input type="text" class="form-control" ng-model="data.village.info.code" id="name" required pattern="[\w]+" placeholder="Mã Phường/Xã">
+                                    <span class="text-danger" ng-show="error.code" ng-repeat ="item in error.code">@{{item}}. </span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 col-xs-12 control-label">Tỉnh/Thành phố</label>
+                                <label for="name" class="col-sm-2 col-xs-12 control-label">Quận/Huyện</label>
                                 <div class="col-sm-4 col-xs-12">
                                     <select class="form-control" ng-model="data.village.info.district_id" required 
                                             ng-options="value.id as value.name for (key, value) in data.district.list">
+                                        <option value="">--Chọn Quận/Huyện--</option>
                                     </select>
+                                    <span class="text-danger" ng-show="error.district_id" ng-repeat ="item in error.district_id">@{{item}}. </span>
                                 </div>
                             </div>
                             <div class="form-group">

@@ -1,6 +1,10 @@
 ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $addressService)
 {
     $scope.generalInfoDom;
+	$scope.error = {
+		name: '',
+		code: ''
+	};
     $scope.data = {
         city: {
             id: $routeParams.id,
@@ -9,18 +13,24 @@ ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $addr
         getInfo: function () {
             $addressService.action.infoCity($scope.data.city.id).then(function (resp) {
                 $apply(function () {
-                    console.log(resp);
                     $scope.data.city.info = resp.data;
                 });
             }, function (err) {
                 console.log(err);
             });
-        }
+        },
+		resetError: function(){
+			$scope.error = {
+				name: '',
+				code: ''
+			};
+		}
     };
 
     $scope.action = {
         update: function () {
-            if (!$($scope.generalInfoDom).parsley().validate())
+			$scope.data.resetError();
+			if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
             }
@@ -32,10 +42,12 @@ ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $addr
             $addressService.action.updateCity($scope.data.city.id, dataPost).then(function (resp) {
                 window.location.href = '#!/';
             }, function (errors) {
+				$scope.error = errors.data;
                 console.log(errors);
             });
         },
         insert: function () {
+			$scope.data.resetError();
             if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
@@ -47,6 +59,7 @@ ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $addr
             $addressService.action.insertCity(dataPost).then(function (resp) {
                 window.location.href = '#!/';
             }, function (errors) {
+				$scope.error = errors.data;
                 console.log(errors);
             });
         }

@@ -1,6 +1,11 @@
 ngApp.controller('streetSingleCtrl', function ($scope, $apply, $routeParams, $addressService)
 {
     $scope.generalInfoDom;
+    $scope.error = {
+        name: '',
+        code: '',
+        village_id: ''
+    };
     $scope.data = {
         street: {
             id: $routeParams.id,
@@ -36,11 +41,19 @@ ngApp.controller('streetSingleCtrl', function ($scope, $apply, $routeParams, $ad
             }, function (err) {
                 console.log(err);
             });
+        },
+        resetError: function () {
+            $scope.error = {
+                name: '',
+                code: '',
+                village_id: ''
+            };
         }
     };
 
     $scope.action = {
         update: function () {
+            $scope.data.resetError();
             if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
@@ -55,10 +68,11 @@ ngApp.controller('streetSingleCtrl', function ($scope, $apply, $routeParams, $ad
             $addressService.action.updateStreet($scope.data.street.id, dataPost).then(function (resp) {
                 window.location.href = '#!/';
             }, function (errors) {
-                console.log(errors);
+                $scope.error = errors.data;
             });
         },
         insert: function () {
+            $scope.data.resetError();
             if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
@@ -71,7 +85,7 @@ ngApp.controller('streetSingleCtrl', function ($scope, $apply, $routeParams, $ad
             $addressService.action.insertStreet(dataPost).then(function (resp) {
                 window.location.href = '#!/';
             }, function (errors) {
-                console.log(errors);
+                $scope.error = errors.data;
             });
         }
     };
