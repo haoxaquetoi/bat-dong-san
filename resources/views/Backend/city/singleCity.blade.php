@@ -21,12 +21,14 @@
                                 <label for="name" class="col-sm-2 col-xs-12 control-label">Tên Tỉnh/Thành phố</label>
                                 <div class="col-sm-4 col-xs-12">
                                     <input type="text" class="form-control" id="name" required ng-model="data.city.info.name" placeholder="Tên Tỉnh/Thành phố">
+									<span class="text-danger" ng-show="error.name" ng-repeat ="item in error.name">@{{item}}. </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="code" class="col-sm-2 col-xs-12 control-label">Mã Tỉnh/Thành phố</label>
                                 <div class="col-sm-4 col-xs-12">
                                     <input type="text" class="form-control" id="code" required  pattern="[\w]+" ng-model="data.city.info.code" placeholder="Mã Tỉnh/Thành phố">
+									<span class="text-danger" ng-show="error.code" ng-repeat ="item in error.code">@{{item}}. </span>
                                 </div>
                             </div>
                             <div class="form-group">

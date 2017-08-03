@@ -21,12 +21,14 @@
                                 <label for="name" class="col-sm-2 col-xs-12 control-label">Tên Quận/huyện</label>
                                 <div class="col-sm-4 col-xs-12">
                                     <input type="text" class="form-control" ng-model="data.district.info.name" id="name" required placeholder="Tên Quận/Huyện">
+                                    <span class="text-danger" ng-show="error.name" ng-repeat ="item in error.name">@{{item}}. </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="code" class="col-sm-2 col-xs-12 control-label">Mã Quận/Huyện</label>
                                 <div class="col-sm-4 col-xs-12">
                                     <input type="text" class="form-control" ng-model="data.district.info.code" id="code" required pattern="[\w]+" placeholder="Mã Quận/Huyện">
+                                    <span class="text-danger" ng-show="error.code" ng-repeat ="item in error.code">@{{item}}. </span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -34,7 +36,9 @@
                                 <div class="col-sm-4 col-xs-12">
                                     <select class="form-control" ng-model="data.district.info.city_id" required 
                                             ng-options="value.id as value.name for (key, value) in data.city.list">
+                                        <option value="">--Chọn Tỉnh/Thành phố--</option>
                                     </select>
+                                    <span class="text-danger" ng-show="error.city_id" ng-repeat ="item in error.city_id">@{{item}}. </span>
                                 </div>
                             </div>
                             <div class="form-group">

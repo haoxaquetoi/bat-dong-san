@@ -1,11 +1,16 @@
 ngApp.controller('villageSingleCtrl', function ($scope, $apply, $routeParams, $addressService)
 {
     $scope.generalInfoDom;
+    $scope.error = {
+        name: '',
+        code: '',
+        district_id: ''
+    };
     $scope.data = {
         village: {
             id: $routeParams.id,
             info: {
-                city_id: ''
+                district_id: ''
             }
         },
         district: {
@@ -36,11 +41,19 @@ ngApp.controller('villageSingleCtrl', function ($scope, $apply, $routeParams, $a
             }, function (err) {
                 console.log(err);
             });
+        },
+        resetError: function () {
+            $scope.error = {
+                name: '',
+                code: '',
+                district_id: ''
+            };
         }
     };
 
     $scope.action = {
         update: function () {
+            $scope.data.resetError();
             if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
@@ -54,10 +67,11 @@ ngApp.controller('villageSingleCtrl', function ($scope, $apply, $routeParams, $a
             $addressService.action.updateVillage($scope.data.village.id, dataPost).then(function (resp) {
                 window.location.href = '#!/';
             }, function (errors) {
-                console.log(errors);
+                $scope.error = errors.data;
             });
         },
         insert: function () {
+            $scope.data.resetError();
             if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
@@ -68,10 +82,9 @@ ngApp.controller('villageSingleCtrl', function ($scope, $apply, $routeParams, $a
                 district_id : $scope.data.village.info.district_id 
             };
             $addressService.action.insertVillage(dataPost).then(function (resp) {
-                console.log(resp)
                 window.location.href = '#!/';
             }, function (errors) {
-                console.log(errors);
+                $scope.error = errors.data;
             });
         }
     };

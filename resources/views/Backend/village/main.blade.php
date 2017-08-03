@@ -1,6 +1,6 @@
 
 @extends('backend.layouts.default')
-@section('title', 'Quản lý Tỉnh/Thành phố')
+@section('title', 'Quản lý Phường/Xã')
 @section('myJs')
 <script src="{{ URL::asset('backend/js/route/villageRoute.js') }}"></script>
 <script src="{{ URL::asset('backend/js/factory/services/addressService.js') }}"></script>

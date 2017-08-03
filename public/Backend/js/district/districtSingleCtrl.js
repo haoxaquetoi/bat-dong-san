@@ -1,6 +1,11 @@
 ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $addressService)
 {
     $scope.generalInfoDom;
+    $scope.error = {
+        name: '',
+        code: '',
+        city_id: ''
+    };
     $scope.data = {
         district: {
             id: $routeParams.id,
@@ -26,21 +31,24 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
             };
             $addressService.action.listCity(dataPost).then(function (resp) {
                 $apply(function () {
-                    if (resp.status == 200) {
-                        $scope.data.city.list = resp.data;
-                    } else {
-                        console.log(resp);
-                    }
-
+                    $scope.data.city.list = resp.data;
                 });
             }, function (err) {
                 console.log(err);
             });
+        },
+        resetError: function () {
+            $scope.error = {
+                name: '',
+                code: '',
+                city_id: ''
+            };
         }
     };
 
     $scope.action = {
         update: function () {
+            $scope.data.resetError();
             if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
@@ -54,10 +62,11 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
             $addressService.action.updateDistrict($scope.data.district.id, dataPost).then(function (resp) {
                 window.location.href = '#!/';
             }, function (errors) {
-                console.log(errors);
+                $scope.error = errors.data;
             });
         },
         insert: function () {
+            $scope.data.resetError();
             if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
@@ -70,7 +79,7 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
             $addressService.action.insertDistrict(dataPost).then(function (resp) {
                 window.location.href = '#!/';
             }, function (errors) {
-                console.log(errors);
+                $scope.error = errors.data;
             });
         }
     };
