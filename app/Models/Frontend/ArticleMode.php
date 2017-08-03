@@ -21,33 +21,49 @@ class ArticleMode extends Model {
         return $this->hasOne('App\Models\Frontend\ArticleOtherModel', 'article_id');
     }
 
-    public function getAllArticle($request) {
+    /**
+     * Danh sách tin bài
+     * @param type $freeText lọc theo tiều đề
+     * @param type $sticky 1 hoặc 0 Tin nổi bật
+     * @param type $censored  1 hoặc 0 Tin đảm bảo 
+     * @param type $page trnag
+     * @param type $pageSize Số bản ghi trên 1 trang
+     * @return type
+     */
+    public function getAllArticle($freeText, $sticky = '', $censored = '', $page = 1, $pageSize = 10) {
+        $limit = ($page - 1) * $pageSize;
+        $db = DB::table($this->table)
+                ->where('status', '=', 1)
+                ->whereRaw('DATEDIFF(begin_date, now())<=0')
+                ->whereRaw('DATEDIFF(end_date, now())>=0')
+                ->where('deleted', '=', 0);
 
-        $db = DB::table($this->table);
-
-        if ($request->type != '') {
-            $db->where('type', '=', $request->type);
+        if ($censored !== '') {
+            $db->where('is_censored', '=', $censored);
         }
-        if ($request->status != '') {
-            $db->where('status', '=', $request->status);
+        if ($sticky != '') {
+            $db->where('is_sticky', '=', $sticky);
         }
-        if ($request->deleted != '') {
-            $db->where('deleted', '=', $request->deleted);
-        }
-        if ($request->created_at != '') {
-            $db->where('created_at', '=', $request->created_at);
-        }
-        if ($request->freeText != '') {
-            $db->where('title', 'like', "%{$request->freeText}%");
+        if ($freeText != '') {
+            $db->where('title', 'like', "%{$freeText}%");
         }
 
-        $allArticle = $db->select('id')->get();
+        $allArticle = $db->select('id')
+                ->orderBy('begin_date', 'ASC')
+                ->offset($limit)
+                ->limit($pageSize)
+                ->get();
         foreach ($allArticle as $key => $value) {
             $allArticle[$key] = $this->getArticleInfo($value->id);
         }
         return $allArticle;
     }
 
+    /**
+     * Chi tiết tin bài
+     * @param type $articleID Mã tin bài
+     * @return type
+     */
     function getArticleInfo($articleID) {
         $articleInfo = $this::with([
                     'articleBase', 'articleContact', 'articleOther'
@@ -60,7 +76,7 @@ class ArticleMode extends Model {
             $articleInfo[0]->articleBase->village_name = DB::table('address_village')->find($articleInfo[0]->articleBase->village_id)->name;
         if (isset($articleInfo[0]->articleBase->street_id))
             $articleInfo[0]->articleBase->street_name = DB::table('address_street')->find($articleInfo[0]->articleBase->street_id)->name;
-        
+
         $categoryTmp = array();
         $category = DB::table('category_article')->where('article_id', '=', $articleID)->select('category_id')->get();
         $category = collect($category)->toArray();

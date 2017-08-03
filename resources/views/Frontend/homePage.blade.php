@@ -28,246 +28,38 @@
                                         Tin đảm bảo
                                     </h2>
                                 </div>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_1a.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
+                                <?php foreach ($dataView['arrArticleCensored'] as $values) : ?>
+                                    <article>
+                                        <div class="row">
+                                            <div class="col-xs-5 article-left">
+                                                <div class="article-left-relative">
+                                                    <img src="{{url('Frontend')}}/images/article1_1a.png" class="img-responsive" alt=""/>
+                                                    <div class="article-rectangle"></div>
+                                                    <div class="article-action">
+                                                        <button class="btn btn-success" ><i class="fa fa-search"></i></button>
+                                                        <button class="btn btn-success" ><i class="fa fa-link"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                </div>
+                                            <div class="col-xs-7 article-right">
+                                                <header>
+                                                    <h2>{{$values->title}}</h2>
+                                                    <div class="article-time">
+                                                        <span>Cập nhật: <time>{{$values->begin_date}}</time></span>
+                                                        <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
+                                                    </div>
 
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_2.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
+                                                </header>
+                                                <section>
+                                                    <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
+                                                    <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
+                                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$values->articleBase->district_name}}-{{$values->articleBase->city_name}}</p>
+                                                    <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
+                                                </section>
                                             </div>
                                         </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_4.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_6.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_8.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_10.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_10.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_10.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
+                                    </article>
+                                <?php endforeach; ?>
                                 <div class="text-right padding-right-15">
                                     <a class="btn btn-default btn-more-category" href="">Xem thêm <i class="fa fa-angle-right"></i></a>
                                 </div>
@@ -287,238 +79,37 @@
                                         a gally of type and scrambled it to make a type specimen book.">
                                         Tin thường</h2>
                                 </div>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_1.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
+                                <?php foreach ($dataView['arrArticle'] as $values) : ?>
+                                    <article>
+                                        <div class="row">
+                                            <div class="col-xs-5 article-left">
+                                                <div class="article-left-relative">
+                                                    <img src="{{url('Frontend')}}/images/article1_1.png" class="img-responsive" alt=""/>
+                                                    <div class="article-rectangle"></div>
+                                                    <div class="article-action">
+                                                        <button class="btn btn-success" ><i class="fa fa-search"></i></button>
+                                                        <button class="btn btn-success" ><i class="fa fa-link"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                </div>
+                                            <div class="col-xs-7 article-right">
+                                                <header>
+                                                    <h2>{{$values->title}}</h2>
+                                                    <div class="article-time">
+                                                        <span>Cập nhật: <time>{{$values->begin_date}}</time></span>
+                                                    </div>
 
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_3.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
+                                                </header>
+                                                <section>
+                                                    <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
+                                                    <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
+                                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$values->articleBase->district_name}}-{{$values->articleBase->city_name}}</p>
+                                                    <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
+                                                </section>
                                             </div>
                                         </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_5.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_7.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_9.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_11.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_11.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_11.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
+                                    </article>
+                                <?php endforeach; ?>
                                 <div class="text-right padding-right-15">
                                     <a class="btn btn-default btn-more-category" href="">Xem thêm <i class="fa fa-angle-right"></i></a>
                                 </div>
@@ -572,6 +163,7 @@
                         <!--.item-->
                         <div class="item active">
                             <div class="row">
+                                <?php foreach ($dataView['arrArticleSticky'] as $values) : ?>
                                 <div class="col-md-4 col-sm-4 col-xs-12 slide-column-left padding-bottom-15">
                                     <article>
                                         <header>
@@ -620,6 +212,7 @@
                                         </section>
                                     </article>
                                 </div>
+                                <?php endforeach; ?>
                                 <div class="col-md-4 col-sm-4 col-xs-12 slide-column-center padding-bottom-15">
                                     <article>
                                         <header>
