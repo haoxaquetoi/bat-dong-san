@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\Rest;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Backend\ArticleMode;
+use App\Models\Backend\ArticleModel;
 use Validator;
 use App\Models\Backend\CategoryModel;
 use App\Models\Backend\ArticleOtherModel;
@@ -19,10 +19,10 @@ class ArticleCtrl extends Controller {
 
     /**
      * Thêm mới tin đăng
-     * @param ArticleMode $articleModel
+     * @param ArticleModel $articleModel
      * @param Request $request
      */
-    function addNew(TagsAricleModel $tagArtModel, TagsModel $TagsModel, CategoryArticleModel $catArtModel, ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleMode $articleModel, Request $request) {
+    function addNew(TagsAricleModel $tagArtModel, TagsModel $TagsModel, CategoryArticleModel $catArtModel, ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleModel $articleModel, Request $request) {
 
         $this->_chkValidation($articleModel, $catModel, $request);
 
@@ -34,6 +34,8 @@ class ArticleCtrl extends Controller {
                     'thumbnail' => $request->thumbnail,
                     'type' => $request->type,
                     'is_sticky' => $request->is_sticky ? '1' : '0',
+                    'is_censored' => $request->is_censored ? '1' : '0',
+                    'is_sold' => $request->is_sold ? '1' : '0',
                     'status' => ($request->status == 'Publish') ? 'Publish' : 'Trash',
                     'begin_date' => trim($request->begin_date) != '' ? $request->begin_date : null,
                     'end_date' => trim($request->end_date) != '' ? $request->end_date : null,
@@ -50,13 +52,13 @@ class ArticleCtrl extends Controller {
 
         $arrCatID = $request->category;
         $this->update_category_article($catArtModel, $articleID, $arrCatID);
-        $this->updateTag($tagArtModel, $TagsModel, $request, $arrCatID);
+        $this->updateTag($tagArtModel, $TagsModel, $request, $articleID);
 
         $articleInfo = $this->getArticleInfo($articleModel, $articleID);
         return response()->json($articleInfo);
     }
 
-    function edit(TagsAricleModel $tagArtModel, TagsModel $TagsModel, CategoryArticleModel $catArtModel, ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleMode $articleModel, Request $request) {
+    function edit(TagsAricleModel $tagArtModel, TagsModel $TagsModel, CategoryArticleModel $catArtModel, ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleModel $articleModel, Request $request) {
 
 
         $this->_chkValidation($articleModel, $catModel, $request);
@@ -69,6 +71,8 @@ class ArticleCtrl extends Controller {
         $articleInfo->thumbnail = $request->thumbnail;
         $articleInfo->type = $request->type;
         $articleInfo->is_sticky = $request->is_sticky ? '1' : '0';
+        $articleInfo->is_censored = $request->is_censored ? '1' : '0';
+        $articleInfo->is_sold = $request->is_sold ? '1' : '0';
         $articleInfo->status = ($request->status == 'Publish') ? 'Publish' : 'Trash';
         $articleInfo->begin_date = trim($request->begin_date) != '' ? $request->begin_date : null;
         $articleInfo->end_date = trim($request->end_date) != '' ? $request->end_date : null;
@@ -84,15 +88,15 @@ class ArticleCtrl extends Controller {
         $arrCatID = $request->category;
 
         $this->update_category_article($catArtModel, $articleID, $arrCatID);
-        $this->updateTag($tagArtModel, $TagsModel, $request, $arrCatID);
+        
+        
+        $this->updateTag($tagArtModel, $TagsModel, $request, $articleID);
         $articleInfo = $this->getArticleInfo($articleModel, $articleID);
         return response()->json($articleInfo);
     }
 
-    function update_category_article($catArtModel, $articleID, array $arrCatID = array()) {
-        if (count($arrCatID) == 0) {
-            return false;
-        }
+    function update_category_article(CategoryArticleModel $catArtModel, $articleID, array $arrCatID = array()) {
+        
         $catArtModel::where('article_id', '=', $articleID)->delete();
         for ($i = 0; $i < count($arrCatID); $i ++) {
             $catArtModel::insertGetId([
@@ -100,6 +104,7 @@ class ArticleCtrl extends Controller {
                 'article_id' => $articleID
             ]);
         }
+        
     }
 
     function updateTag(TagsAricleModel $tagArtModel, TagsModel $TagsModel, Request $request, $articleID) {
@@ -107,7 +112,7 @@ class ArticleCtrl extends Controller {
         $arrtagTmp = [];
         foreach ($arrTags as $k => $v) {
             $tagInfo = $TagsModel::where('code', '=', $v)->first();
-           
+
             if (isset($tagInfo->id) && $tagInfo->id > 0) {
                 //update count
                 $tagInfo->count = $tagInfo->count + 1;
@@ -131,18 +136,18 @@ class ArticleCtrl extends Controller {
         }
     }
 
-    function getArticleInfo(ArticleMode $articleModel, $articleID) {
+    function getArticleInfo(ArticleModel $articleModel, $articleID) {
         $articleInfo = $articleModel::with([
-                    'articleBase', 'articleContact', 'articleOther'
+                    'article_base', 'article_contact', 'article_other'
                 ])->where('id', '=', $articleID)->get();
-        if (isset($articleInfo[0]->articleBase->city_id))
-            $articleInfo[0]->articleBase->city_name = DB::table('address_city')->find($articleInfo[0]->articleBase->city_id)->name;
-        if (isset($articleInfo[0]->articleBase->district_id))
-            $articleInfo[0]->articleBase->district_name = DB::table('address_district')->find($articleInfo[0]->articleBase->district_id)->name;
-        if (isset($articleInfo[0]->articleBase->village_id))
-            $articleInfo[0]->articleBase->village_name = DB::table('address_village')->find($articleInfo[0]->articleBase->village_id)->name;
-        if (isset($articleInfo[0]->articleBase->street_id))
-            $articleInfo[0]->articleBase->street_name = DB::table('address_street')->find($articleInfo[0]->articleBase->street_id)->name;
+        if (isset($articleInfo[0]->article_base->city_id))
+            $articleInfo[0]->article_base->city_name = DB::table('address_city')->find($articleInfo[0]->article_base->city_id)->name;
+        if (isset($articleInfo[0]->article_base->district_id))
+            $articleInfo[0]->article_base->district_name = DB::table('address_district')->find($articleInfo[0]->article_base->district_id)->name;
+        if (isset($articleInfo[0]->article_base->village_id))
+            $articleInfo[0]->article_base->village_name = DB::table('address_village')->find($articleInfo[0]->article_base->village_id)->name;
+        if (isset($articleInfo[0]->article_base->street_id))
+            $articleInfo[0]->article_base->street_name = DB::table('address_street')->find($articleInfo[0]->article_base->street_id)->name;
 
         $categoryTmp = array();
         $category = DB::table('category_article')->where('article_id', '=', $articleID)->select('category_id')->get();
@@ -173,31 +178,31 @@ class ArticleCtrl extends Controller {
         return $articleInfo[0];
     }
 
-    private function _update_product(ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleMode $articleModel, Request $request) {
+    private function _update_product(ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleModel $articleModel, Request $request) {
         //update base
         $artBase::where('article_id', '=', $request->id)->delete();
         $artiBaseID = $artBase::insertGetId([
                     'article_id' => $request->id,
-                    'city_id' => $request->articleBase['city_id'],
-                    'district_id' => $request->articleBase['district_id'],
-                    'village_id' => $request->articleBase['village_id'],
-                    'street_id' => $request->articleBase['street_id'],
-                    'address' => $request->articleBase['address'],
-                    'price' => intval($request->articleBase['price']),
-                    'myself' => ($request->myself == '1') ? '1' : '0'
+                    'city_id' => $request->article_base['city_id'],
+                    'district_id' => $request->article_base['district_id'],
+                    'village_id' => $request->article_base['village_id'],
+                    'street_id' => $request->article_base['street_id'],
+                    'address' => $request->article_base['address'],
+                    'price' => intval($request->article_base['price']),
+                    'myself' => ($request->article_base['myself'] == '1') ? '1' : '0'
         ]);
         //update other
         $artOther::where('article_id', '=', $request->id)->delete();
         $artOtherID = $artOther::insertGetId([
                     'article_id' => $request->id,
-                    'facade' => $request->articleOther['facade'],
-                    'entry_width' => $request->articleOther['entry_width'],
-                    'house_direction' => $request->articleOther['house_direction'],
-                    'balcony_direction' => $request->articleOther['balcony_direction'],
-                    'number_of_storeys' => $request->articleOther['number_of_storeys'],
-                    'number_of_wc' => intval($request->articleOther['number_of_wc']),
-                    'number_of_bedrooms' => intval($request->articleOther['number_of_bedrooms']),
-                    'furniture' => intval($request->articleOther['furniture'])
+                    'facade' => $request->article_other['facade'],
+                    'entry_width' => $request->article_other['entry_width'],
+                    'house_direction' => $request->article_other['house_direction'],
+                    'balcony_direction' => $request->article_other['balcony_direction'],
+                    'number_of_storeys' => $request->article_other['number_of_storeys'],
+                    'number_of_wc' => intval($request->article_other['number_of_wc']),
+                    'number_of_bedrooms' => intval($request->article_other['number_of_bedrooms']),
+                    'furniture' => intval($request->article_other['furniture'])
         ]);
 
 
@@ -205,18 +210,18 @@ class ArticleCtrl extends Controller {
         $artContact::where('article_id', '=', $request->id)->delete();
         $artContactID = $artContact::insertGetId([
                     'article_id' => $request->id,
-                    'name' => $request->articleContact['name'],
-                    'address' => $request->articleContact['address'],
-                    'phone' => $request->articleContact['phone'],
-                    'mobile' => $request->articleContact['mobile'],
-                    'email' => $request->articleContact['email']
+                    'name' => $request->article_contact['name'],
+                    'address' => $request->article_contact['address'],
+                    'phone' => $request->article_contact['phone'],
+                    'mobile' => $request->article_contact['mobile'],
+                    'email' => $request->article_contact['email']
         ]);
     }
 
     /**
      * Kiểm tra các giá trị hợp lệ dùng trung trước khi update article
      */
-    private function _chkValidation(ArticleMode $articleModel, CategoryModel $catModel, Request $request) {
+    private function _chkValidation(ArticleModel $articleModel, CategoryModel $catModel, Request $request) {
 
         #######Common########
         $rules = [
@@ -240,47 +245,49 @@ class ArticleCtrl extends Controller {
         } else if ($request->type == 'Product') {
 
             $rulesBase = [
-                'articleBase.city_id' => 'required|exists:address_city,id',
-                'articleBase.district_id' => 'required|exists:address_district,id',
-                'articleBase.village_id' => 'required|exists:address_village,id',
-                'articleBase.street_id' => 'required|exists:address_street,id',
-                'articleBase.address' => 'required',
-                'articleBase.price' => 'required|integer',
+                'article_base.city_id' => 'required|exists:address_city,id',
+                'article_base.district_id' => 'required|exists:address_district,id',
+                'article_base.village_id' => 'required|exists:address_village,id',
+                'article_base.street_id' => 'required|exists:address_street,id',
+                'article_base.address' => 'required',
+                'article_base.price' => 'required|integer',
             ];
             $rules = array_merge($rules, $rulesBase);
 
             #######Base########
             $messageBase = [
-                'articleBase.city_id.required' => 'Tỉnh/thành phố không được bỏ trống',
-                'articleBase.city_id.exists' => 'Tỉnh/thành phố không hợp lệ',
-                'articleBase.district_id.required' => 'Quận/Huyện phố không được bỏ trống',
-                'articleBase.district_id.exists' => 'Quận/Huyện không hợp lệ',
-                'articleBase.village_id.required' => 'Phường/Xã không được bỏ trống',
-                'articleBase.village_id.exists' => 'Phường/Xã phố không hợp lệ',
-                'articleBase.street_id.required' => 'Đường/phố không được bỏ trống',
-                'articleBase.street_id.exists' => 'Đường/phố không hợp lệ',
-                'articleBase.address.required' => 'Không được bỏ trống',
-                'articleBase.price.required' => 'Không được bỏ trống',
-                'articleBase.price.integer' => 'Giá tiền phải >0',
+                'article_base.city_id.required' => 'Tỉnh/thành phố không được bỏ trống',
+                'article_base.city_id.exists' => 'Tỉnh/thành phố không hợp lệ',
+                'article_base.district_id.required' => 'Quận/Huyện phố không được bỏ trống',
+                'article_base.district_id.exists' => 'Quận/Huyện không hợp lệ',
+                'article_base.village_id.required' => 'Phường/Xã không được bỏ trống',
+                'article_base.village_id.exists' => 'Phường/Xã phố không hợp lệ',
+                'article_base.street_id.required' => 'Đường/phố không được bỏ trống',
+                'article_base.street_id.exists' => 'Đường/phố không hợp lệ',
+                'article_base.address.required' => 'Không được bỏ trống',
+                'article_base.price.required' => 'Không được bỏ trống',
+                'article_base.price.integer' => 'Giá tiền phải >0',
             ];
             $message = array_merge($message, $messageBase);
 
             #######Contact########
             $rulesContact = [
-//                'articleContact.name'=>'',
-//                'articleContact.address'=>'required|exists:address_district,id',
-//                'articleContact.phone'=>'required|min:9|numeric',
-                'articleContact.mobile' => 'required|min:9|numeric',
-                'articleContact.email' => 'email'
+                'article_contact.name' => 'required',
+                'article_contact.address' => 'required',
+//                'article_contact.phone'=>'required|min:9|numeric',
+                'article_contact.mobile' => 'required|min:9|numeric',
+                'article_contact.email' => 'email'
             ];
             $rules = array_merge($rules, $rulesContact);
 
 
             $messageContact = [
-                'articleContact.email.email' => 'Địa chỉ email không hợp lệ',
-                'articleContact.mobile.required' => 'Số điện thoại liên hệ không được bỏ trống',
-                'articleContact.mobile.numeric' => 'Số điện thoại không hợp lệ',
-                'articleContact.mobile.min' => 'Số điện thoại ít nhất 9 chữ số'
+                'article_contact.name.required' => 'Tên liên hệ không được bỏ trống',
+                'article_contact.address.required' => 'Tên liên hệ không được bỏ trống',
+                'article_contact.email.email' => 'Địa chỉ email không hợp lệ',
+                'article_contact.mobile.required' => 'Số điện thoại liên hệ không được bỏ trống',
+                'article_contact.mobile.numeric' => 'Số điện thoại không hợp lệ',
+                'article_contact.mobile.min' => 'Số điện thoại ít nhất 9 chữ số'
             ];
             $message = array_merge($message, $messageContact);
 
@@ -288,54 +295,54 @@ class ArticleCtrl extends Controller {
             #######other########
             $rulesOther = [];
             $messageOther = [];
-            if ($request->articleOther['facade'] != '') {
+            if ($request->article_other['facade'] != '') {
                 $rulesOther = [
-                    'articleOther.facade' => 'numeric',
+                    'article_other.facade' => 'numeric',
                 ];
 
                 $messageOther = [
-                    'articleOther.facade.numeric' => 'Chỉ có thể nhập kiểu số',
+                    'article_other.facade.numeric' => 'Chỉ có thể nhập kiểu số',
                 ];
             }
-            if ($request->articleOther['entry_width'] != '') {
+            if ($request->article_other['entry_width'] != '') {
                 $rulesOther = [
-                    'articleOther.entry_width' => 'numeric',
+                    'article_other.entry_width' => 'numeric',
                 ];
 
                 $messageOther = [
-                    'articleOther.entry_width.numeric' => 'Chỉ có thể nhập kiểu số',
+                    'article_other.entry_width.numeric' => 'Chỉ có thể nhập kiểu số',
                 ];
             }
-            if ($request->articleOther['number_of_storeys'] != '') {
+            if ($request->article_other['number_of_storeys'] != '') {
                 $rulesOther = [
-                    'articleOther.number_of_storeys' => 'numeric',
+                    'article_other.number_of_storeys' => 'numeric',
                 ];
                 $messageOther = [
-                    'articleOther.number_of_storeys.numeric' => 'Chỉ có thể nhập kiểu số',
+                    'article_other.number_of_storeys.numeric' => 'Chỉ có thể nhập kiểu số',
                 ];
             }
-            if ($request->articleOther['number_of_wc'] != '') {
+            if ($request->article_other['number_of_wc'] != '') {
                 $rulesOther = [
-                    'articleOther.number_of_wc' => 'numeric',
+                    'article_other.number_of_wc' => 'numeric',
                 ];
                 $messageOther = [
-                    'articleOther.number_of_wc.numeric' => 'Chỉ có thể nhập kiểu số',
+                    'article_other.number_of_wc.numeric' => 'Chỉ có thể nhập kiểu số',
                 ];
             }
-            if ($request->articleOther['number_of_bedrooms'] != '') {
+            if ($request->article_other['number_of_bedrooms'] != '') {
                 $rulesOther = [
-                    'articleOther.number_of_bedrooms' => 'numeric',
+                    'article_other.number_of_bedrooms' => 'numeric',
                 ];
                 $messageOther = [
-                    'articleOther.number_of_bedrooms.numeric' => 'Chỉ có thể nhập kiểu số',
+                    'article_other.number_of_bedrooms.numeric' => 'Chỉ có thể nhập kiểu số',
                 ];
             }
-            if ($request->articleOther['furniture'] != '') {
+            if ($request->article_other['furniture'] != '') {
                 $rulesOther = [
-                    'articleOther.furniture' => 'numeric',
+                    'article_other.furniture' => 'numeric',
                 ];
                 $messageOther = [
-                    'articleOther.furniture.numeric' => 'Chỉ có thể nhập kiểu số',
+                    'article_other.furniture.numeric' => 'Chỉ có thể nhập kiểu số',
                 ];
             }
             $rules = array_merge($rules, $rulesOther);
@@ -368,16 +375,16 @@ class ArticleCtrl extends Controller {
         }
 
         $getDirection = app('DirectionConfig')->getDirection();
-        if (isset($request->articleContact['house_direction']) && trim($request->articleContact['house_direction']) != '' && !in_array($request->articleContact['house_direction'], array_keys($getDirection))) {
+        if (isset($request->article_contact['house_direction']) && trim($request->article_contact['house_direction']) != '' && !in_array($request->article_contact['house_direction'], array_keys($getDirection))) {
             $errors = [
-                'articleContact.house_direction' => 'Hướng nhà không hợp lệ'
+                'article_contact.house_direction' => 'Hướng nhà không hợp lệ'
             ];
             $this->withValidator($validator, $errors);
         }
 
-        if (isset($request->articleContact['balcony_direction']) && trim($request->articleContact['balcony_direction']) != '' && !in_array(articleContact['balcony_direction'], array_keys($getDirection))) {
+        if (isset($request->article_contact['balcony_direction']) && trim($request->article_contact['balcony_direction']) != '' && !in_array(article_contact['balcony_direction'], array_keys($getDirection))) {
             $errors = [
-                'articleContact.balcony_direction' => 'Hướng ban công không hợp lệ'
+                'article_contact.balcony_direction' => 'Hướng ban công không hợp lệ'
             ];
             $this->withValidator($validator, $errors);
         }
@@ -414,26 +421,26 @@ class ArticleCtrl extends Controller {
         $validator->validate();
     }
 
-    function updateSticky(ArticleMode $articleModel, Request $request) {
+    function updateSticky(ArticleModel $articleModel, Request $request) {
         $articleInfo = $articleModel::find($request->id);
         $articleInfo->is_sticky = $articleInfo->is_sticky == 0 ? 1 : 0;
         $articleInfo->save();
     }
 
-    function updateCensored(ArticleMode $articleModel, Request $request) {
+    function updateCensored(l $articleModel, Request $request) {
         $articleInfo = $articleModel::find($request->id);
         $articleInfo->is_censored = $articleInfo->is_censored == 0 ? 1 : 0;
         $articleInfo->save();
     }
 
-    function deleted(ArticleMode $articleModel, Request $request) {
+    function deleted(ArticleModel $articleModel, Request $request) {
         $articleInfo = $articleModel::find($request->id);
         $articleInfo->deleted = 1;
         $articleInfo->deleted_at = date('Y-m-d h:i:s');
         $articleInfo->save();
     }
 
-    function getAllArticle(ArticleMode $articleModel, Request $request) {
+    function getAllArticle(ArticleModel $articleModel, Request $request) {
 
         $request->orderBy;
         $request->page;
@@ -462,7 +469,7 @@ class ArticleCtrl extends Controller {
         return response()->json($data);
     }
 
-    function getSingleArticle(ArticleMode $articleModel, Request $request) {
+    function getSingleArticle(ArticleModel $articleModel, Request $request) {
         $request->id;
         #######Common########
         $rules = [

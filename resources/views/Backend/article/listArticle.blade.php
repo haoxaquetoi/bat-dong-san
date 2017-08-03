@@ -1,3 +1,19 @@
+@extends('backend.layouts.default')
+@section('title', 'Quản lý danh sách tin đăng')
+@section('myJs')
+categorys
+<script>
+    ngApp.value('category',<?php echo json_encode($category) ?>);
+    ngApp.value('post_date',<?php echo json_encode($post_date) ?>);
+    ngApp.value('count',<?php echo json_encode($count) ?>);
+    ngApp.value('arrArticle',<?php echo json_encode($arrArticle) ?>);
+</script>
+
+<script src="{{url('backend')}}/js/factory/services/articleService.js"></script>
+<script src="{{ URL::asset('backend/js/article/articleListCtrl.js') }}"></script>
+@endsection
+@section('content')
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
@@ -6,14 +22,17 @@
     </h1>
 </section>
 <!-- Main content -->
-<section class="content">
+<section class="content" ng-controller="articleListCtrl" ng-cloak="">
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
                     <div class="row padding-bottom-10">
                         <div class="col-xs-12">
-                            <a href="">Tất cả (20)</a> | <a href="" class="text-black">Lưu nháp (5)</a> | <a href="" class="text-black">Đã xóa (5)</a>
+                            <a href="javascript:;" >Tất cả (@{{count.total}})</a> 
+                            | <a href="javascript:;" class="text-black">Công khai (@{{count.total_publish}})</a> 
+                            | <a href="javascript:;" class="text-black">Lưu nháp (@{{count.total_trash}})</a> 
+                            | <a href="javascript:;" class="text-black">Đã xóa (@{{count.total_publish}})</a>
                         </div>
                     </div>
                     <div class="row">
@@ -21,9 +40,18 @@
                             <form class="form-inline" role="form">
                                 <select class="form-control input-sm" ng-model="data.filter.category_id" >
                                     <option value="" >-- Tất cả chuyên mục --</option>
-                                    <option ng-repeat="cat in data.category" value="@{{cat.id}}" >@{{cat.name}}</option>
+                                    <option ng-repeat="cat in data.category" value="@{{cat.id}}" >@{{cat.children}}&nbsp;@{{cat.name}}</option>
                                 </select>
-                                <input type="date" class="form-control input-sm" id="time_from">
+                                <select class="form-control input-sm" ng-model="data.filter.post_date" >
+                                    <option value="" >-- Tất cả --</option>
+                                    <option  ng-repeat="post_date in data.post_date" value="@{{post_date.post_date}}" >Tháng @{{post_date.post_date}}</option>
+                                </select>
+                                <select class="form-control input-sm" ng-model="data.filter.type" >
+                                    <option value="" >-- Tất cả loại tin --</option>
+                                    <option value="News" >Tin đăng</option>
+                                    <option value="Product" >Tin bất động sản</option>
+                                </select>
+
                                 <button ng-click="actions.getAll()" type="button" class="btn btn-default btn-sm">Lọc</button>
                             </form>
                         </div> 
@@ -37,6 +65,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -66,7 +95,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="article in data.data.data">
+                                        <tr ng-repeat="article in data.arrArticle">
                                             <td class="text-center">@{{(data.data.current_page - 1) * data.data.per_page + $index + 1}}</td>
                                             <td class="tbl-actions text-center">
                                                 <div class="dropdown">
@@ -86,8 +115,8 @@
                                                 <a ng-click="actions.updateSticky(article.id)" ng-if="article.is_sticky == 0" href="javascript:;"href="javascript:;"><i class="fa fa-star-o text-yellow"></i></a>
                                             </td>
                                             <td class="mailbox-star text-center">
-                                                <a ng-click="actions.updateCensored(article.id)" ng-if="article.is_censored == 1" href="javascript:;"><i class="fa fa-star text-yellow"></i></a>
-                                                <a ng-click="actions.updateCensored(article.id)" ng-if="article.is_censored == 0" href="javascript:;"href="javascript:;"><i class="fa fa-star-o text-yellow"></i></a>
+                                                <a ng-click="actions.updateCensored(article.id)" ng-show="article.type == 'Product'"  ng-if="article.is_censored == 1" href="javascript:;"><i class="fa fa-star text-yellow"></i></a>
+                                                <a ng-click="actions.updateCensored(article.id)" ng-show="article.type == 'Product'" ng-if="article.is_censored == 0" href="javascript:;"href="javascript:;"><i class="fa fa-star-o text-yellow"></i></a>
                                             </td>
                                             <td class="comments column-comments text-center" data-colname="Bình luận">		
                                                 <div class="post-com-count-wrapper">
@@ -117,11 +146,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <button type="button" class="btn btn-danger btn-sm">Xóa</button>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -132,4 +157,7 @@
     </div>
     <!-- /.row -->
 </section>
+
+
+@endsection
 

@@ -21,13 +21,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
 
     #article
     Route::get('/article', 'Backend\Article\ArticleCtrl@main')->name('article');
-    Route::get('/article/list', 'Backend\Article\ArticleCtrl@all');
     Route::get('/article/singleNews', 'Backend\Article\ArticleCtrl@singleArticleNews');
     Route::get('/article/singleProduct', 'Backend\Article\ArticleCtrl@singleArticleProduct');
-    
+
     Route::get('/article/singleNews/{id}', 'Backend\Article\ArticleCtrl@singleArticleNews')->where('id', '[\d]+');
     Route::get('/article/singleProduct/{id}', 'Backend\Article\ArticleCtrl@singleArticleProduct')->where('id', '[\d]+');
-    
 });
 
 

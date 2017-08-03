@@ -27,6 +27,7 @@ class CreateArticleTable extends Migration {
             $table->datetime('deleted_at')->nullable();
             $table->tinyInteger('is_sticky')->default(0);
             $table->tinyInteger('is_censored')->default(0);
+            $table->tinyInteger('is_sold')->default(0);
             $table->string('thumbnail', 500)->nullable();
             $table->string('type', 7)->default('Product');
         });

@@ -1,24 +1,63 @@
-ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $apply, $articleService, $categoryService, $tagsService, $routeParams)
+ngApp.controller('articleSingleNewsCtrl', function ($scope
+        , Slug
+        , $apply
+        , $articleService,
+        city,
+        district,
+        village,
+        street,
+        tags,
+        category,
+        articleInfo)
 {
+    $apply(function () {
+        $scope.allCity = city;
+        $scope.allDistrict = district;
+        $scope.allVillage = village;
+        $scope.allStreet = street;
+        $scope.allTagsOlds = tags;
+        $scope.categorys = category;
+
+        $scope.articleInfo = {
+            id: articleInfo.id || 0,
+            type: 'News',
+            title: articleInfo.title || '',
+            slug: articleInfo.slug || '',
+            content: articleInfo.content || '',
+            summary: articleInfo.summary || '',
+            thumbnail: articleInfo.thumbnail || '',
+            is_sticky: articleInfo.is_sticky || 0,
+            is_sold: articleInfo.is_sold || 0,
+            tags: articleInfo.tags || [],
+            is_censored: articleInfo.is_censored || 0,
+            status: articleInfo.status || 'Trash',
+            begin_date: articleInfo.begin_date || '', //Y-m-d H:i:s
+            end_date: articleInfo.end_date || '', //Y-m-d H:i:s
+            category: articleInfo.category || []
+        };
+        angular.forEach($scope.categorys, function (v, i) {
+            if (articleInfo.category.indexOf(v.id) < 0)
+            {
+                v.checked = false;
+            } else
+            {
+                v.checked = true;
+            }
+        });
+        $('#txtSummary').val($scope.articleInfo.summary);
+        $('#txtContent').val($scope.articleInfo.content);
+        $('#txtbegin_date').val($scope.articleInfo.begin_date);
+        $('#txtend_date').val($scope.articleInfo.end_date);
+
+
+
+    });
+
+
     $scope.generalInfoDom;
-    $scope.categorys = [];
-    $scope.allTagsOlds = [];
-    $scope.articleInfo = {
-        id: 0,
-        type: 'News',
-        title: '',
-        slug: '',
-        content: '',
-        summary: '',
-        thumbnail: '',
-        tags: [],
-        is_sticky: 0,
-        is_censored: 0,
-        status: 'Trash',
-        begin_date: '', //Y-m-d H:i:s
-        end_date: '', //Y-m-d H:i:s
-        category: []
-    };
+
+
+
     $scope.errors = [];
     $scope.actions = {
         hasError: function (code)
@@ -30,34 +69,29 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
             return $scope.errors[code] ? $scope.errors[code][0] : '';
         },
         changePage: function () {
-            window.location.href = SiteUrl+'/admin/article/singleProduct';
+            window.location.href = SiteUrl + '/admin/article/singleNews';
         },
         update: function ()
         {
             $scope.articleInfo.category = [];
-            $.each($('.chkCat'), function (i, v) {
-                if ($(v)[0].checked)
+            angular.forEach($scope.categorys, function (v, i) {
+                if (v.checked)
                 {
-                    $scope.articleInfo.category.push($(v)[0].value);
+                    $scope.articleInfo.category.push(v.id);
                 }
             });
-
             $scope.articleInfo.begin_date = $('#txtbegin_date').val() || '';
             $scope.articleInfo.end_date = $('#txtend_date').val() || '';
 
-
-
             $scope.articleInfo.thumbnail = $('#thumbnail').val() || '';
-            $scope.articleInfo.summary = CKEDITOR.instances.txtSummary.getData();
             $scope.articleInfo.content = CKEDITOR.instances.txtContent.getData();
-            $scope.articleInfo.is_sticky = $('#chkSticky')[0].checked ? 1 : 0;
-            $scope.articleInfo.is_censored = $('#chkCensored')[0].checked ? 1 : 0;
+            $scope.articleInfo.summary = CKEDITOR.instances.txtSummary.getData();
 
             $scope.errors = [];
             if ($scope.articleInfo.id && $scope.articleInfo.id > 0)
             {
                 $articleService.actions.edit($scope.articleInfo).then(function (resp) {
-                    $location.path('/');
+                    window.location.href = SiteUrl + '/admin/article'
                 }, function (error) {
                     $scope.errors = error.data;
                     $.notify("Có lỗi xảy ra, Bạn vui lòng tải lại trang và thao tác lại!", "error");
@@ -65,7 +99,7 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
             } else
             {
                 $articleService.actions.insert($scope.articleInfo).then(function (resp) {
-                    $location.path('/');
+                    window.location.href = SiteUrl + '/admin/article'
                 }, function (error) {
                     $scope.errors = error.data;
                     $.notify("Có lỗi xảy ra, Bạn vui lòng tải lại trang và thao tác lại!", "error");
@@ -74,18 +108,7 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
         },
         cancel: function ()
         {
-            $location.path('/');
-        },
-        getAllCategory: function () {
-            $categoryService.actions.getAllCategory().then(function (resp) {
-                $apply(function () {
-                    $scope.categorys = resp.data;
-                });
-
-            }, function (error) {
-                console.log(error);
-                $.notify("Có lỗi xảy ra khi lấy đanh sách chuyên mục!", "error");
-            });
+            window.location.href = SiteUrl + '/admin/article'
         },
         addTags: function ()
         {
@@ -118,14 +141,7 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
         {
             $scope.articleInfo.tags.splice(tagsID, 1);
         },
-        loadAllTags: function ()
-        {
-            $tagsService.actions.getAll().then(function (resp) {
-                $scope.allTagsOlds = resp.data || [];
-            }, function (error) {
-                console.log(error);
-            });
-        },
+
         chooseTagsOld: function (tag)
         {
             var push = true;
@@ -147,47 +163,12 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
             if (path != '')
                 return SiteUrl + path;
             return '';
-        },
-        singleNews: function (articleID)
-        {
-            $articleService.actions.getSingleArticle(articleID).then(function (resp) {
-                $apply(function () {
-                    $scope.articleInfo = resp.data;
-                    $.each($('.chkCat'), function (i, v)
-                    {
-                        var value = parseInt($(v)[0].value) || null;
-                        if ($scope.articleInfo.category.indexOf(value) < 0)
-                        {
-                            $(v)[0].checked = false;
-                        } else
-                        {
-                            $(v)[0].checked = true;
-                        }
-                    });
-                    $('#txtSummary').val($scope.articleInfo.summary);
-                    $('#txtContent').val($scope.articleInfo.content);
-                    $('#txtbegin_date').val($scope.articleInfo.begin_date);
-                    $('#txtend_date').val($scope.articleInfo.end_date);
-                });
-
-            }, function (error) {
-                console.log(error);
-                $.notify("Có lỗi xảy ra khi lấy đanh sách chuyên mục!", "error");
-            });
         }
+
     };
+
     $scope.$watchCollection('articleInfo.title', function (oldVal, newVal) {
-        $scope.articleInfo.slug = Slug.slugify($scope.articleInfo.title);
+        if (oldVal != newVal)
+            $scope.articleInfo.slug = Slug.slugify($scope.articleInfo.title);
     });
-
-
-    $scope.actions.getAllCategory();
-    $scope.actions.loadAllTags();
-
-    if ($routeParams.id && $routeParams.id > 0)
-    {
-        //load single post
-        $scope.actions.singleNews($routeParams.id);
-    }
-
 });

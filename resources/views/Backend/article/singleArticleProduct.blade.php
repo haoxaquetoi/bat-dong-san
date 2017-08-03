@@ -1,10 +1,16 @@
 @extends('backend.layouts.default')
-@section('title', 'Quản lý người dùng')
+@section('title', 'Chi tiết tin đăng')
 @section('myJs')
+<script>
+    ngApp.constant('city',<?php echo json_encode($city) ?>);
+    ngApp.constant('district',<?php echo json_encode($district) ?>);
+    ngApp.constant('village',<?php echo json_encode($village) ?>);
+    ngApp.constant('street',<?php echo json_encode($street) ?>);
+    ngApp.constant('tags',<?php echo json_encode($tags) ?>);
+    ngApp.constant('category',<?php echo json_encode($category) ?>);
+    ngApp.value('articleInfo',<?php echo json_encode($articleInfo) ?>);
+</script>
 <script src="{{url('backend')}}/js/factory/services/articleService.js"></script>
-<script src="{{url('backend')}}/js/factory/services/categoryService.js"></script>
-<script src="{{url('backend')}}/js/factory/services/addressService.js"></script>
-<script src="{{url('backend')}}/js/factory/services/tagsService.js"></script>
 <script src="{{ URL::asset('backend/js/article/articleSingleProductCtrl.js') }}"></script>
 @endsection
 @section('content')
@@ -73,66 +79,66 @@
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12" >
-                                    <div class="form-group" ng-class="actions.hasError('articleBase.city_id') ? 'has-error' : ''">
+                                    <div class="form-group" ng-class="actions.hasError('article_base.city_id') ? 'has-error' : ''">
                                         <label for="">Tỉnh/Thành phố <span class="text-danger">*</span></label>
-                                        <select class="form-control" ng-model="articleInfo.articleBase.city_id" ng-change="actions.renderAddress()" >
+                                        <select class="form-control" ng-model="articleInfo.article_base.city_id" ng-change="actions.renderAddress()" >
                                             <option value="" >--Tỉnh/Thành phố--</option>
                                             <option ng-repeat="city in allCity" ng-value="@{{city.id}}"  >@{{city.name}}</option>
                                         </select>
-                                        <span class="help-block">@{{actions.showError('articleBase.city_id')}}</span>
+                                        <span class="help-block">@{{actions.showError('article_base.city_id')}}</span>
 
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-xs-12" >
-                                    <div class="form-group" ng-class="actions.hasError('articleBase.district_id') ? 'has-error' : ''">
+                                    <div class="form-group" ng-class="actions.hasError('article_base.district_id') ? 'has-error' : ''">
                                         <label for="">Quận/Huyện <span class="text-danger">*</span></label>
-                                        <select class="form-control" ng-model="articleInfo.articleBase.district_id" ng-change="actions.renderAddress()">
+                                        <select class="form-control" ng-model="articleInfo.article_base.district_id" ng-change="actions.renderAddress()">
                                             <option value="">--Quận/Huyện--</option>
-                                            <option ng-repeat="district in allDistrict" ng-value="@{{district.id}}" ng-show="district.city_id == articleInfo.articleBase.city_id" >@{{district.name}}</option>
+                                            <option ng-repeat="district in allDistrict" ng-value="@{{district.id}}" ng-show="district.city_id == articleInfo.article_base.city_id" >@{{district.name}}</option>
                                         </select>
-                                        <span class="help-block">@{{actions.showError('articleBase.district_id')}}</span>
+                                        <span class="help-block">@{{actions.showError('article_base.district_id')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row" >
                                 <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('articleBase.village_id') ? 'has-error' : ''">
+                                    <div class="form-group" ng-class="actions.hasError('article_base.village_id') ? 'has-error' : ''">
                                         <label for="">Phường/Xã <span class="text-danger">*</span></label>
-                                        <select class="form-control" ng-model="articleInfo.articleBase.village_id" ng-change="actions.renderAddress()">
+                                        <select class="form-control" ng-model="articleInfo.article_base.village_id" ng-change="actions.renderAddress()">
                                             <option value="">--Phường/Xã--</option>
-                                            <option ng-repeat="village in allVillage" ng-value="@{{village.id}}"  ng-show="village.district_id == articleInfo.articleBase.district_id" >@{{village.name}}</option>
+                                            <option ng-repeat="village in allVillage" ng-value="@{{village.id}}"  ng-show="village.district_id == articleInfo.article_base.district_id" >@{{village.name}}</option>
                                         </select>
-                                        <span class="help-block">@{{actions.showError('articleBase.village_id')}}</span>
+                                        <span class="help-block">@{{actions.showError('article_base.village_id')}}</span>
                                     </div>
 
                                 </div>
                                 <div class="col-sm-6 col-xs-12" >
-                                    <div class="form-group" ng-class="actions.hasError('articleBase.street_id') ? 'has-error' : ''">
+                                    <div class="form-group" ng-class="actions.hasError('article_base.street_id') ? 'has-error' : ''">
                                         <label for="">Đường/Phố</label>
-                                        <select class="form-control" ng-model="articleInfo.articleBase.street_id" ng-change="actions.renderAddress()">
+                                        <select class="form-control" ng-model="articleInfo.article_base.street_id" ng-change="actions.renderAddress()">
                                             <option value="">--Đường/Phố--</option>
-                                            <option ng-repeat="street in allStreet" ng-value="@{{street.id}}"  ng-show="street.village_id == articleInfo.articleBase.village_id" >@{{street.name}}</option>
+                                            <option ng-repeat="street in allStreet" ng-value="@{{street.id}}"  ng-show="street.village_id == articleInfo.article_base.village_id" >@{{street.name}}</option>
                                         </select>
-                                        <span class="help-block">@{{actions.showError('articleBase.street_id')}}</span>
+                                        <span class="help-block">@{{actions.showError('article_base.street_id')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('articleBase.address') ? 'has-error' : ''">
+                                    <div class="form-group" ng-class="actions.hasError('article_base.address') ? 'has-error' : ''">
                                         <label for="">Địa chỉ <span class="text-danger">*</span></label>
 
-                                        <input type="text" class="form-control" id="txtAddress" value="@{{articleInfo.articleBase.address}}"  />
-                                        <span class="help-block">@{{actions.showError('articleBase.address')}}</span>
+                                        <input type="text" class="form-control" id="txtAddress" value="@{{articleInfo.article_base.address}}"  />
+                                        <span class="help-block">@{{actions.showError('article_base.address')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('articleBase.price') ? 'has-error' : ''">
+                                    <div class="form-group" ng-class="actions.hasError('article_base.price') ? 'has-error' : ''">
                                         <label for="">Giá</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.articleBase.price" />
-                                        <span class="help-block">@{{actions.showError('articleBase.price')}}</span>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_base.price" />
+                                        <span class="help-block">@{{actions.showError('article_base.price')}}</span>
                                     </div>
                                 </div>
 
@@ -141,7 +147,7 @@
                                                             <label for="">Tổng tiền: 1,000,000,000</label>
                                                         </div>-->
                             <div class="form-group">
-                                <input id="status" type="checkbox" name="status"  class="magic-checkbox" ng-checked="articleInfo.myself" />
+                                <input id="status" type="checkbox" name="status"  class="magic-checkbox" ng-checked="articleInfo.article_base.myself == 1" ng-click="articleInfo.article_base.myself = !articleInfo.article_base.myself" />
                                 <label for="status" class="padding-right-20">
                                     Chính chủ
                                 </label>
@@ -162,13 +168,13 @@
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Mặt tiền</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.articleOther.facade" />
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.facade" />
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Hướng vào</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.articleOther.house_direction" />
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.house_direction" />
                                     </div>
                                 </div>
                             </div>
@@ -236,44 +242,44 @@
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('articleContact.name') ? 'has-error' : ''">
-                                        <label for="">Tên liên hệ</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.articleContact.name" />
-                                        <span class="help-block">@{{actions.showError('articleContact.name')}}</span>
+                                    <div class="form-group" ng-class="actions.hasError('article_contact.name') ? 'has-error' : ''">
+                                        <label for="">Tên liên hệ <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.name" />
+                                        <span class="help-block">@{{actions.showError('article_contact.name')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('articleContact.address') ? 'has-error' : ''">
-                                        <label for="">Địa chỉ</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.articleContact.address" />
-                                        <span class="help-block">@{{actions.showError('articleContact.address')}}</span>
+                                    <div class="form-group" ng-class="actions.hasError('article_contact.address') ? 'has-error' : ''">
+                                        <label for="">Địa chỉ <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.address" />
+                                        <span class="help-block">@{{actions.showError('article_contact.address')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('articleContact.phone') ? 'has-error' : ''">
+                                    <div class="form-group" ng-class="actions.hasError('article_contact.phone') ? 'has-error' : ''">
                                         <label for="">Số điện thoại</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.articleContact.phone" />
-                                        <span class="help-block">@{{actions.showError('articleContact.phone')}}</span>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.phone" />
+                                        <span class="help-block">@{{actions.showError('article_contact.phone')}}</span>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('articleContact.mobile') ? 'has-error' : ''">
+                                    <div class="form-group" ng-class="actions.hasError('article_contact.mobile') ? 'has-error' : ''">
                                         <label for="">Di động <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.articleContact.mobile" />
-                                        <span class="help-block">@{{actions.showError('articleContact.mobile')}}</span>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.mobile" />
+                                        <span class="help-block">@{{actions.showError('article_contact.mobile')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('articleContact.email') ? 'has-error' : ''">
+                                    <div class="form-group" ng-class="actions.hasError('article_contact.email') ? 'has-error' : ''">
                                         <label for="">Email <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.articleContact.email" />
-                                        <span class="help-block">@{{actions.showError('articleContact.email')}}</span>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.email" />
+                                        <span class="help-block">@{{actions.showError('article_contact.email')}}</span>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-sm-6 col-xs-12">
@@ -314,16 +320,30 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-6" style="padding: 0 3px 10px 0">
-                                    <label for="chkSticky">
-                                        <input type="checkbox" ng-checked="articleInfo.is_sticky == 1"   name=chkSticky" id="chkSticky" />
-                                        Tin nổi bật
-                                    </label>
+                                    <div class="form-group">
+                                        <input  type="checkbox"  class="magic-checkbox" ng-checked="articleInfo.is_sticky == 1"  ng-click="articleInfo.is_sticky = !articleInfo.is_sticky"  name=chkSticky" id="chkSticky" />
+                                        <label for="chkSticky" class="padding-right-20" >
+                                            Tin nổi bật
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="col-xs-6" style="padding: 0 0 10px 3px">
-                                    <label for="chkCensored">
-                                        <input type="checkbox" ng-checked="articleInfo.is_censored == 1"  name=chkCensored" id="chkCensored" />
-                                        Tin đảm bảo
-                                    </label>
+                                    <div class="form-group">
+                                        <input  type="checkbox"  class="magic-checkbox" ng-checked="articleInfo.is_censored == 1" ng-click="articleInfo.is_censored = !articleInfo.is_censored" name=chkCensored" id="chkCensored" >
+                                        <label for="chkCensored" class="padding-right-20" >
+                                            Tin đảm bảo
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="col-xs-6" style="padding: 0 3px 10px 0">
+                                    <div class="form-group">
+                                        <input  type="checkbox" name="chkSold" id='chkSold' class="magic-checkbox" ng-checked="articleInfo.is_sold == 1" ng-click="articleInfo.is_sold = !articleInfo.is_sold"  name=chkSold" id="chkSold" >
+                                        <label for="chkSold" class="padding-right-20" >
+                                            Đã bán
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group clearfix">
@@ -352,7 +372,7 @@
                             <div class="form-group">
 
                                 <div ng-repeat="cat in categorys">
-                                    <label><input type="checkbox" class="chkCat" name="chkCat[]" value="@{{cat.id}}" >@{{cat.children}}&nbsp;@{{cat.name}}</label>
+                                    <label><input type="checkbox" class="chkCat" ng-checked="cat.checked" ng-click="cat.checked = !cat.checked"  value="@{{cat.id}}" >@{{cat.children}}&nbsp;@{{cat.name}}</label>
                                 </div>
                                 <span style="color: #dd4b39" class="help-block">@{{actions.showError('category')}}</span>
                             </div>

@@ -1,55 +1,92 @@
-ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, $apply, $articleService, $categoryService, $tagsService, $routeParams, $addressService)
+ngApp.controller('articleSingleProductCtrl', function ($scope
+        , Slug
+        , $apply
+        , $articleService,
+        city,
+        district,
+        village,
+        street,
+        tags,
+        category,
+        articleInfo)
 {
-    $scope.generalInfoDom;
-    $scope.categorys = [];
-    $scope.allTagsOlds = [];
-    $scope.allCity = [];
-    $scope.allDistrict = [];
-    $scope.allVillage = [];
-    $scope.allStreet = [];
+    $apply(function () {
+        $scope.allCity = city;
+        $scope.allDistrict = district;
+        $scope.allVillage = village;
+        $scope.allStreet = street;
+        $scope.allTagsOlds = tags;
+        $scope.categorys = category;
 
-    $scope.articleInfo = {
-        id: 0,
-        type: 'Product',
-        title: '',
-        slug: '',
-        content: '',
-        summary: '',
-        thumbnail: '',
-        is_sticky: 0,
-        tags: [],
-        is_censored: 0,
-        status: 'Trash',
-        begin_date: '', //Y-m-d H:i:s
-        end_date: '', //Y-m-d H:i:s
-        category: [],
-        articleBase: {
-            city_id: '',
-            district_id: '',
-            village_id: '',
-            street_id: '',
-            address: '',
-            price: '',
-            myself: 1
-        },
-        articleContact: {
-            name: '',
-            address: '',
-            phone: '',
-            mobile: '',
-            email: ''
-        },
-        articleOther: {
-            facade: '',
-            entry_width: '',
-            house_direction: '',
-            balcony_direction: '',
-            number_of_storeys: '',
-            number_of_wc: '',
-            number_of_bedrooms: '',
-            furniture: ''
-        }
-    };
+        articleInfo.article_base = articleInfo.article_base || {};
+        articleInfo.article_contact = articleInfo.article_contact || {};
+        articleInfo.article_other = articleInfo.article_other || {};
+
+        $scope.articleInfo = {
+            id: articleInfo.id || 0,
+            type: 'Product',
+            title: articleInfo.title || '',
+            slug: articleInfo.slug || '',
+            content: articleInfo.content || '',
+            summary: articleInfo.summary || '',
+            thumbnail: articleInfo.thumbnail || '',
+            is_sticky: articleInfo.is_sticky || 0,
+            is_sold: articleInfo.is_sold || 0,
+            tags: articleInfo.tags || [],
+            is_censored: articleInfo.is_censored || 0,
+            status: articleInfo.status || 'Trash',
+            begin_date: articleInfo.begin_date || '', //Y-m-d H:i:s
+            end_date: articleInfo.end_date || '', //Y-m-d H:i:s
+            category: articleInfo.category || [],
+            article_base: {
+                city_id: articleInfo.article_base.city_id || '',
+                district_id: articleInfo.article_base.district_id || '',
+                village_id: articleInfo.article_base.village_id || '',
+                street_id: articleInfo.article_base.street_id || '',
+                address: articleInfo.article_base.address || '',
+                price: articleInfo.article_base.price || '',
+                myself: articleInfo.article_base.myself || 1
+            },
+            article_contact: {
+                name: articleInfo.article_contact.name || '',
+                address: articleInfo.article_contact.address || '',
+                phone: articleInfo.article_contact.phone || '',
+                mobile: articleInfo.article_contact.mobile || '',
+                email: articleInfo.article_contact.email || ''
+            },
+            article_other: {
+                facade: articleInfo.article_other.facade || '',
+                entry_width: articleInfo.article_other.entry_width || '',
+                house_direction: articleInfo.article_other.house_direction || '',
+                balcony_direction: articleInfo.article_other.balcony_direction || '',
+                number_of_storeys: articleInfo.article_other.number_of_storeys || '',
+                number_of_wc: articleInfo.article_other.number_of_wc || '',
+                number_of_bedrooms: articleInfo.article_other.number_of_bedrooms || '',
+                furniture: articleInfo.article_other.furniture || ''
+            }
+        };
+        angular.forEach($scope.categorys, function (v, i) {
+            if (articleInfo.category.indexOf(v.id) < 0)
+            {
+                v.checked = false;
+            } else
+            {
+                v.checked = true;
+            }
+        });
+        $('#txtContent').val($scope.articleInfo.content);
+        $('#txtbegin_date').val($scope.articleInfo.begin_date);
+        $('#txtend_date').val($scope.articleInfo.end_date);
+
+
+
+    });
+
+
+    $scope.generalInfoDom;
+
+
+
     $scope.errors = [];
     $scope.actions = {
         hasError: function (code)
@@ -66,27 +103,23 @@ ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, 
         update: function ()
         {
             $scope.articleInfo.category = [];
-            $.each($('.chkCat'), function (i, v) {
-                if ($(v)[0].checked)
+            angular.forEach($scope.categorys, function (v, i) {
+                if(v.checked)
                 {
-                    $scope.articleInfo.category.push($(v)[0].value);
+                    $scope.articleInfo.category.push(v.id);
                 }
             });
-
             $scope.articleInfo.begin_date = $('#txtbegin_date').val() || '';
             $scope.articleInfo.end_date = $('#txtend_date').val() || '';
 
             $scope.articleInfo.thumbnail = $('#thumbnail').val() || '';
             $scope.articleInfo.content = CKEDITOR.instances.txtContent.getData();
-            $scope.articleInfo.is_sticky = $('#chkSticky')[0].checked ? 1 : 0;
-            $scope.articleInfo.is_censored = $('#chkCensored')[0].checked ? 1 : 0;
-
-
+            
             $scope.errors = [];
             if ($scope.articleInfo.id && $scope.articleInfo.id > 0)
             {
                 $articleService.actions.edit($scope.articleInfo).then(function (resp) {
-                    $location.path('/');
+                    window.location.href = SiteUrl + '/admin/article'
                 }, function (error) {
                     $scope.errors = error.data;
                     $.notify("Có lỗi xảy ra, Bạn vui lòng tải lại trang và thao tác lại!", "error");
@@ -94,7 +127,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, 
             } else
             {
                 $articleService.actions.insert($scope.articleInfo).then(function (resp) {
-                    $location.path('/');
+                    window.location.href = SiteUrl + '/admin/article'
                 }, function (error) {
                     $scope.errors = error.data;
                     $.notify("Có lỗi xảy ra, Bạn vui lòng tải lại trang và thao tác lại!", "error");
@@ -103,18 +136,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, 
         },
         cancel: function ()
         {
-            $location.path('/');
-        },
-        getAllCategory: function () {
-            $categoryService.actions.getAllCategory().then(function (resp) {
-                $apply(function () {
-                    $scope.categorys = resp.data;
-                });
-
-            }, function (error) {
-                console.log(error);
-                $.notify("Có lỗi xảy ra khi lấy đanh sách chuyên mục!", "error");
-            });
+            window.location.href = SiteUrl + '/admin/article'
         },
         addTags: function ()
         {
@@ -147,14 +169,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, 
         {
             $scope.articleInfo.tags.splice(tagsID, 1);
         },
-        loadAllTags: function ()
-        {
-            $tagsService.actions.getAll().then(function (resp) {
-                $scope.allTagsOlds = resp.data || [];
-            }, function (error) {
-                console.log(error);
-            });
-        },
+
         chooseTagsOld: function (tag)
         {
             var push = true;
@@ -177,109 +192,50 @@ ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, 
                 return SiteUrl + path;
             return '';
         },
-        singleNews: function (articleID)
-        {
-            $articleService.actions.getSingleArticle(articleID).then(function (resp) {
-                $apply(function () {
-                    $scope.articleInfo = resp.data;
-                    $.each($('.chkCat'), function (i, v)
-                    {
-                        var value = parseInt($(v)[0].value) || null;
-                        if ($scope.articleInfo.category.indexOf(value) < 0)
-                        {
-                            $(v)[0].checked = false;
-                        } else
-                        {
-                            $(v)[0].checked = true;
-                        }
-                    });
-                    $('#txtContent').val($scope.articleInfo.content);
-                    $('#txtbegin_date').val($scope.articleInfo.begin_date);
-                    $('#txtend_date').val($scope.articleInfo.end_date);
-                });
-
-            }, function (error) {
-                console.log(error);
-                $.notify("Có lỗi xảy ra khi lấy đanh sách chuyên mục!", "error");
-            });
-        },
-        loadAddress: function ()
-        {
-            $addressService.action.listCity([]).then(function (resp) {
-                $apply(function () {
-                    $scope.allCity = resp.data;
-                });
-            }, function (error) {
-                console.log(error)
-            });
-
-            $addressService.action.listDistrict([]).then(function (resp) {
-                $apply(function () {
-                    $scope.allDistrict = resp.data;
-                });
-            }, function (error) {
-                console.log(error)
-            });
-            $addressService.action.listVillage([]).then(function (resp) {
-                $apply(function () {
-                    $scope.allVillage = resp.data;
-                });
-            }, function (error) {
-                console.log(error)
-            });
-            $addressService.action.listStreet([]).then(function (resp) {
-                $apply(function () {
-                    $scope.allStreet = resp.data;
-                });
-
-            }, function (error) {
-                console.log(error)
-            });
-        },
         renderAddress: function ()
         {
             $apply(function () {
-                if ($scope.articleInfo.articleBase.city_id)
+                if ($scope.articleInfo.article_base.city_id)
                 {
                     $.each($scope.allCity, function (i, v) {
-                        if (v.id == $scope.articleInfo.articleBase.city_id)
+                        if (v.id == $scope.articleInfo.article_base.city_id)
                         {
-                            $scope.articleInfo.articleBase.address = v.name;
+                            $scope.articleInfo.article_base.address = v.name;
                         }
                     });
 
                 }
 
 
-                if ($scope.articleInfo.articleBase.district_id)
+                if ($scope.articleInfo.article_base.district_id)
                 {
                     $.each($scope.allDistrict, function (i, v) {
-                        if (v.id == $scope.articleInfo.articleBase.district_id)
+                        if (v.id == $scope.articleInfo.article_base.district_id)
                         {
-                            $scope.articleInfo.articleBase.address += ' ' + v.name;
+                            $scope.articleInfo.article_base.address += ' - ' + v.name;
                         }
                     });
                 }
 
 
-                if ($scope.articleInfo.articleBase.village_id)
+                if ($scope.articleInfo.article_base.village_id)
                 {
                     $.each($scope.allVillage, function (i, v) {
-                        if (v.id == $scope.articleInfo.articleBase.village_id)
+                        if (v.id == $scope.articleInfo.article_base.village_id)
                         {
-                            $scope.articleInfo.articleBase.address += ' ' + v.name;
+                            $scope.articleInfo.article_base.address += ' - ' + v.name;
                         }
                     });
 
                 }
 
 
-                if ($scope.articleInfo.articleBase.street_id)
+                if ($scope.articleInfo.article_base.street_id)
                 {
                     $.each($scope.allStreet, function (i, v) {
-                        if (v.id == $scope.articleInfo.articleBase.street_id)
+                        if (v.id == $scope.articleInfo.article_base.street_id)
                         {
-                            $scope.articleInfo.articleBase.address += ' ' + v.name;
+                            $scope.articleInfo.article_base.address += ' - ' + v.name;
                         }
                     });
 
@@ -288,20 +244,9 @@ ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, 
         }
 
     };
+
     $scope.$watchCollection('articleInfo.title', function (oldVal, newVal) {
-        $scope.articleInfo.slug = Slug.slugify($scope.articleInfo.title);
+        if (oldVal != newVal)
+            $scope.articleInfo.slug = Slug.slugify($scope.articleInfo.title);
     });
-
-
-
-    $scope.actions.getAllCategory();
-    $scope.actions.loadAllTags();
-    $scope.actions.loadAddress();
-
-    if ($routeParams.id && $routeParams.id > 0)
-    {
-        //load single post
-        $scope.actions.singleNews($routeParams.id);
-    }
-
 });

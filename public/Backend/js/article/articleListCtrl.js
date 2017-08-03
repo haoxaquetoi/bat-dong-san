@@ -1,7 +1,15 @@
-ngApp.controller('articleListCtrl', function ($scope, $apply, $articleService, $categoryService)
+ngApp.controller('articleListCtrl', function ($scope, $apply, $articleService,
+        category,
+        post_date,
+        count,
+        arrArticle,
+        $httpParamSerializer
+        )
 {
+    $scope.count = count;
+
     $scope.data = {
-        data: {},
+        arrArticle: arrArticle,
         filter: {
             page: 1,
             type: "",
@@ -11,31 +19,32 @@ ngApp.controller('articleListCtrl', function ($scope, $apply, $articleService, $
             orderBy: '',
             deleted: "",
             pageSize: "",
-            category_id: ''
+            category_id: '',
+            post_date: ''
 
         },
-        category: {}
+        post_date: post_date,
+        category: category
     };
-    $scope.actions = {
-        getAllCategory: function ()
-        {
-            $categoryService.actions.getAllCategory().then(function (resp) {
-                $scope.data.category = resp.data;
-                console.log($scope.data.category);
-            }, function (error) {
+    
+    var params = {};
+    if (location.search) {
+        var parts = location.search.substring(1).split('&');
 
-            });
-        },
+        for (var i = 0; i < parts.length; i++) {
+            var nv = parts[i].split('=');
+            if (!nv[0])
+                continue;
+            params[nv[0]] = nv[1] || '';
+        }
+    }
+    $scope.data.filter = params;
+    
+    $scope.actions = {
         getAll: function ()
         {
-            $articleService.actions.getAll($scope.data.filter).then(function (resp) {
-                console.log(resp);
-                $apply(function () {
-                    $scope.data.data = resp.data;
-                });
-            }, function (error) {
-                console.log(error);
-            });
+
+            window.location.href = SiteUrl + '/admin/article?' + $httpParamSerializer(params);
         },
         changePage: function (page)
         {
@@ -80,6 +89,4 @@ ngApp.controller('articleListCtrl', function ($scope, $apply, $articleService, $
             }
         }
     };
-    $scope.actions.getAllCategory();
-    $scope.actions.getAll();
 });

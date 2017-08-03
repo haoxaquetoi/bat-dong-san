@@ -1,25 +1,33 @@
 @extends('backend.layouts.default')
-@section('title', 'Quản lý người dùng')
+@section('title', 'Chi tiết tin bất động sản')
 @section('myJs')
+<script>
+    ngApp.constant('city',<?php echo json_encode($city) ?>);
+    ngApp.constant('district',<?php echo json_encode($district) ?>);
+    ngApp.constant('village',<?php echo json_encode($village) ?>);
+    ngApp.constant('street',<?php echo json_encode($street) ?>);
+    ngApp.constant('tags',<?php echo json_encode($tags) ?>);
+    ngApp.constant('category',<?php echo json_encode($category) ?>);
+    ngApp.value('articleInfo',<?php echo json_encode($articleInfo) ?>);
+</script>
 <script src="{{url('backend')}}/js/factory/services/articleService.js"></script>
-<script src="{{url('backend')}}/js/factory/services/categoryService.js"></script>
-<script src="{{url('backend')}}/js/factory/services/tagsService.js"></script>
 <script src="{{ URL::asset('backend/js/article/articleSingleNewsCtrl.js') }}"></script>
 @endsection
 @section('content')
-<angular ng-cloak="" ng-controller="articleSingleNewsCtrl">
 
+<angular ng-cloak="" ng-controller="articleSingleNewsCtrl">
     <section class="content-header">
         <h1>
             Thêm mới tin đăng
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{url('admin/advertising')}}"><i class="fa fa-dashboard"></i> Quản lý tin bài</a></li>
-            <li class="active">Thêm mới tin đăng</li>
+            <li><a href="{{url('admin/article')}}"><i class="fa fa-dashboard"></i> Quản lý tin bài</a></li>
+            <li class="active">Thêm mới tin bất động sản</li>
         </ol>
     </section>
-    <section class="content form-magic">
-        <form  ng-dom="generalInfoDom">
+    <section class="content  form-magic">
+
+        <form role="form">
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-md-8">
@@ -51,8 +59,8 @@
                                 <span class="help-block">@{{actions.showError('slug')}}</span>
                             </div>
                             <div class="form-group" ng-class="actions.hasError('summary') ? 'has-error' : ''">
-                                <label for="txtSummary">Tóm tắt</label>
-                                <textarea  placeholder="Nội dung tóm tắt"   id="txtSummary" name="txtSummary" class="form-control my-ckeditor"></textarea>
+                                <label for="txtSummary">Nội dung tóm tắt<span class="text-danger">*</span></label>
+                                <textarea placeholder="Nội dung tóm tắt"  name="txtSummary" id="txtSummary" class="form-control my-ckeditor"></textarea>
                                 <span class="help-block">@{{actions.showError('summary')}}</span>
                             </div>
                             <div class="form-group" ng-class="actions.hasError('content') ? 'has-error' : ''">
@@ -63,7 +71,11 @@
                         </div>
 
                     </div>
+
+
                 </div>
+
+
                 <div class="col-md-4">
                     <div class="box box-primary">
                         <div class="box-header with-border">
@@ -86,18 +98,14 @@
                                 </div>
 
                             </div>
-                            <div class="form-group">
+                            <div class="form-group clearfix">
                                 <div class="col-xs-6" style="padding: 0 3px 10px 0">
-                                    <label for="chkSticky">
-                                        <input type="checkbox" ng-checked="articleInfo.is_sticky == 1"   name=chkSticky" id="chkSticky" />
-                                        Tin nổi bật
-                                    </label>
-                                </div>
-                                <div class="col-xs-6" style="padding: 0 0 10px 3px">
-                                    <label for="chkCensored">
-                                        <input type="checkbox" ng-checked="articleInfo.is_censored == 1"  name=chkCensored" id="chkCensored" />
-                                        Tin đảm bảo
-                                    </label>
+                                    <div class="form-group">
+                                        <input  type="checkbox"  class="magic-checkbox" ng-checked="articleInfo.is_sticky == 1"  ng-click="articleInfo.is_sticky = !articleInfo.is_sticky"  name=chkSticky" id="chkSticky" />
+                                        <label for="chkSticky" class="padding-right-20" >
+                                            Tin nổi bật
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group clearfix">
@@ -126,7 +134,7 @@
                             <div class="form-group">
 
                                 <div ng-repeat="cat in categorys">
-                                    <label><input type="checkbox" class="chkCat" name="chkCat[]" value="@{{cat.id}}" >@{{cat.children}}&nbsp;@{{cat.name}}</label>
+                                    <label><input type="checkbox" class="chkCat" ng-checked="cat.checked" ng-click="cat.checked = !cat.checked"  value="@{{cat.id}}" >@{{cat.children}}&nbsp;@{{cat.name}}</label>
                                 </div>
                                 <span style="color: #dd4b39" class="help-block">@{{actions.showError('category')}}</span>
                             </div>
@@ -186,18 +194,9 @@
             </div>
             <!-- /.row (main row) -->
         </form>
+
     </section>
     <!-- /.content -->
 </angular>
-
-
-
-
-
-
-
-
-
-
 
 @endsection
