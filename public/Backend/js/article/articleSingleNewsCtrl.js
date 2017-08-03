@@ -69,7 +69,7 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope
             return $scope.errors[code] ? $scope.errors[code][0] : '';
         },
         changePage: function () {
-            window.location.href = SiteUrl + '/admin/article/singleNews';
+            window.location.href = SiteUrl + '/admin/article/singleProduct';
         },
         update: function ()
         {
