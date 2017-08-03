@@ -30,7 +30,7 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope, $location, Slug, $ap
             return $scope.errors[code] ? $scope.errors[code][0] : '';
         },
         changePage: function () {
-            $location.path('/singleProduct/0');
+            window.location.href = SiteUrl+'/admin/article/singleProduct';
         },
         update: function ()
         {

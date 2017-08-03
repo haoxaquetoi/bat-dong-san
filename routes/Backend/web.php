@@ -87,26 +87,26 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     
     //address
     Route::post('/address_city', 'Backend\Rest\AddressCtrl@insertCity');
-    Route::get('/address_city/{id}', 'Backend\Rest\AddressCtrl@infoCity')->where('id', '[\d]+');
     Route::get('/address_city', 'Backend\Rest\AddressCtrl@listCity');
+    Route::get('/address_city/{id}', 'Backend\Rest\AddressCtrl@infoCity')->where('id', '[\d]+');
     Route::put('/address_city/{id}', 'Backend\Rest\AddressCtrl@updateCity')->where('id', '[\d]+');
     Route::delete('/address_city/{id}', 'Backend\Rest\AddressCtrl@deleteCity')->where('id', '[\d]+');
     
     Route::post('/address_district', 'Backend\Rest\AddressCtrl@insertDistrict');
-    Route::get('/address_district/{id}', 'Backend\Rest\AddressCtrl@infoDistrict')->where('id', '[\d]+');
     Route::get('/address_district', 'Backend\Rest\AddressCtrl@listDistrict');
+    Route::get('/address_district/{id}', 'Backend\Rest\AddressCtrl@infoDistrict')->where('id', '[\d]+');
     Route::put('/address_district/{id}', 'Backend\Rest\AddressCtrl@updateDistrict')->where('id', '[\d]+');
     Route::delete('/address_district/{id}', 'Backend\Rest\AddressCtrl@deleteDistrict')->where('id', '[\d]+');
     
     Route::post('/address_village', 'Backend\Rest\AddressCtrl@insertVillage');
-    Route::get('/address_village/{id}', 'Backend\Rest\AddressCtrl@infoVillage')->where('id', '[\d]+');
     Route::get('/address_village', 'Backend\Rest\AddressCtrl@listVillage');
+    Route::get('/address_village/{id}', 'Backend\Rest\AddressCtrl@infoVillage')->where('id', '[\d]+');
     Route::put('/address_village/{id}', 'Backend\Rest\AddressCtrl@updateVillage')->where('id', '[\d]+');
     Route::delete('/address_village/{id}', 'Backend\Rest\AddressCtrl@deleteVillage')->where('id', '[\d]+');
     
     Route::post('/address_street', 'Backend\Rest\AddressCtrl@insertStreet');
-    Route::get('/address_street/{id}', 'Backend\Rest\AddressCtrl@infoStreet')->where('id', '[\d]+');
     Route::get('/address_street', 'Backend\Rest\AddressCtrl@listStreet');
+    Route::get('/address_street/{id}', 'Backend\Rest\AddressCtrl@infoStreet')->where('id', '[\d]+');
     Route::put('/address_street/{id}', 'Backend\Rest\AddressCtrl@updateStreet')->where('id', '[\d]+');
     Route::delete('/address_street/{id}', 'Backend\Rest\AddressCtrl@deleteStreet')->where('id', '[\d]+');
 });

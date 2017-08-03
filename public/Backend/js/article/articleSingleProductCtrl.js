@@ -1,8 +1,13 @@
-ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, $apply, $articleService, $categoryService, $tagsService, $routeParams)
+ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, $apply, $articleService, $categoryService, $tagsService, $routeParams, $addressService)
 {
     $scope.generalInfoDom;
     $scope.categorys = [];
     $scope.allTagsOlds = [];
+    $scope.allCity = [];
+    $scope.allDistrict = [];
+    $scope.allVillage = [];
+    $scope.allStreet = [];
+
     $scope.articleInfo = {
         id: 0,
         type: 'Product',
@@ -11,13 +16,39 @@ ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, 
         content: '',
         summary: '',
         thumbnail: '',
-        tags: [],
         is_sticky: 0,
+        tags: [],
         is_censored: 0,
         status: 'Trash',
         begin_date: '', //Y-m-d H:i:s
         end_date: '', //Y-m-d H:i:s
-        category: []
+        category: [],
+        articleBase: {
+            city_id: '',
+            district_id: '',
+            village_id: '',
+            street_id: '',
+            address: '',
+            price: '',
+            myself: 1
+        },
+        articleContact: {
+            name: '',
+            address: '',
+            phone: '',
+            mobile: '',
+            email: ''
+        },
+        articleOther: {
+            facade: '',
+            entry_width: '',
+            house_direction: '',
+            balcony_direction: '',
+            number_of_storeys: '',
+            number_of_wc: '',
+            number_of_bedrooms: '',
+            furniture: ''
+        }
     };
     $scope.errors = [];
     $scope.actions = {
@@ -30,7 +61,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, 
             return $scope.errors[code] ? $scope.errors[code][0] : '';
         },
         changePage: function () {
-            $location.path('/singleNews/0');
+            window.location.href = SiteUrl + '/admin/article/singleNews';
         },
         update: function ()
         {
@@ -45,12 +76,11 @@ ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, 
             $scope.articleInfo.begin_date = $('#txtbegin_date').val() || '';
             $scope.articleInfo.end_date = $('#txtend_date').val() || '';
 
-
-
             $scope.articleInfo.thumbnail = $('#thumbnail').val() || '';
             $scope.articleInfo.content = CKEDITOR.instances.txtContent.getData();
             $scope.articleInfo.is_sticky = $('#chkSticky')[0].checked ? 1 : 0;
             $scope.articleInfo.is_censored = $('#chkCensored')[0].checked ? 1 : 0;
+
 
             $scope.errors = [];
             if ($scope.articleInfo.id && $scope.articleInfo.id > 0)
@@ -163,7 +193,6 @@ ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, 
                             $(v)[0].checked = true;
                         }
                     });
-                    $('#txtSummary').val($scope.articleInfo.summary);
                     $('#txtContent').val($scope.articleInfo.content);
                     $('#txtbegin_date').val($scope.articleInfo.begin_date);
                     $('#txtend_date').val($scope.articleInfo.end_date);
@@ -173,15 +202,101 @@ ngApp.controller('articleSingleProductCtrl', function ($scope, $location, Slug, 
                 console.log(error);
                 $.notify("Có lỗi xảy ra khi lấy đanh sách chuyên mục!", "error");
             });
+        },
+        loadAddress: function ()
+        {
+            $addressService.action.listCity([]).then(function (resp) {
+                $apply(function () {
+                    $scope.allCity = resp.data;
+                });
+            }, function (error) {
+                console.log(error)
+            });
+
+            $addressService.action.listDistrict([]).then(function (resp) {
+                $apply(function () {
+                    $scope.allDistrict = resp.data;
+                });
+            }, function (error) {
+                console.log(error)
+            });
+            $addressService.action.listVillage([]).then(function (resp) {
+                $apply(function () {
+                    $scope.allVillage = resp.data;
+                });
+            }, function (error) {
+                console.log(error)
+            });
+            $addressService.action.listStreet([]).then(function (resp) {
+                $apply(function () {
+                    $scope.allStreet = resp.data;
+                });
+
+            }, function (error) {
+                console.log(error)
+            });
+        },
+        renderAddress: function ()
+        {
+            $apply(function () {
+                if ($scope.articleInfo.articleBase.city_id)
+                {
+                    $.each($scope.allCity, function (i, v) {
+                        if (v.id == $scope.articleInfo.articleBase.city_id)
+                        {
+                            $scope.articleInfo.articleBase.address = v.name;
+                        }
+                    });
+
+                }
+
+
+                if ($scope.articleInfo.articleBase.district_id)
+                {
+                    $.each($scope.allDistrict, function (i, v) {
+                        if (v.id == $scope.articleInfo.articleBase.district_id)
+                        {
+                            $scope.articleInfo.articleBase.address += ' ' + v.name;
+                        }
+                    });
+                }
+
+
+                if ($scope.articleInfo.articleBase.village_id)
+                {
+                    $.each($scope.allVillage, function (i, v) {
+                        if (v.id == $scope.articleInfo.articleBase.village_id)
+                        {
+                            $scope.articleInfo.articleBase.address += ' ' + v.name;
+                        }
+                    });
+
+                }
+
+
+                if ($scope.articleInfo.articleBase.street_id)
+                {
+                    $.each($scope.allStreet, function (i, v) {
+                        if (v.id == $scope.articleInfo.articleBase.street_id)
+                        {
+                            $scope.articleInfo.articleBase.address += ' ' + v.name;
+                        }
+                    });
+
+                }
+            });
         }
+
     };
     $scope.$watchCollection('articleInfo.title', function (oldVal, newVal) {
         $scope.articleInfo.slug = Slug.slugify($scope.articleInfo.title);
     });
 
 
+
     $scope.actions.getAllCategory();
     $scope.actions.loadAllTags();
+    $scope.actions.loadAddress();
 
     if ($routeParams.id && $routeParams.id > 0)
     {

@@ -18,6 +18,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     #Crawler
     Route::get('/crawler', 'Backend\Crawler\CrawlerCtrl@index')->name('crawler');
     Route::get('/crawler/configCrawler', 'Backend\Crawler\CrawlerCtrl@configCrawler');
+
+    #article
+    Route::get('/article', 'Backend\Article\ArticleCtrl@main')->name('article');
+    Route::get('/article/list', 'Backend\Article\ArticleCtrl@all');
+    Route::get('/article/singleNews', 'Backend\Article\ArticleCtrl@singleArticleNews');
+    Route::get('/article/singleProduct', 'Backend\Article\ArticleCtrl@singleArticleProduct');
+    
+    Route::get('/article/singleNews/{id}', 'Backend\Article\ArticleCtrl@singleArticleNews')->where('id', '[\d]+');
+    Route::get('/article/singleProduct/{id}', 'Backend\Article\ArticleCtrl@singleArticleProduct')->where('id', '[\d]+');
+    
 });
 
 
@@ -69,6 +79,7 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::put('/article/updateSticky/{id}', 'Backend\Rest\ArticleCtrl@updateSticky');
     Route::put('/article/updateCensored/{id}', 'Backend\Rest\ArticleCtrl@updateCensored');
     Route::get('/article/{id}', 'Backend\Rest\ArticleCtrl@getSingleArticle');
+
 
     #Tags
     Route::get('/tags', 'Backend\Rest\TagCtrl@getAll');

@@ -18,9 +18,10 @@ class CreateArticleContactTable extends Migration
             $table->integer('article_id');
             $table->string('name', 255);
             $table->text('address')->nullable();
-            $table->string('phone', 50);
-            $table->string('mobile', 50)->nullable();
+            $table->string('phone', 50)->nullable();
+            $table->string('mobile', 50);
             $table->string('email', 255);
+            $table->timestamps();
         });
     }
 

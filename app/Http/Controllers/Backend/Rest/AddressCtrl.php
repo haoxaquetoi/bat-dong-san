@@ -14,6 +14,9 @@ use Validator;
 
 class AddressCtrl extends Controller
 {
+    function __construct() {
+        parent::__construct();
+    }
     /**
      * thuc hien insert city
      * @param Request $request
