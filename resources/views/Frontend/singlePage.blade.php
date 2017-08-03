@@ -26,12 +26,12 @@
 </script>
 <!--.content-->
 <section class="content">
-    <!--.banner-->
+<!--    .banner
     <div class="container-fluid">
         <div class="row">
             <div class="banner">
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000" data-pause="null">
-                    <!-- Wrapper for slides -->
+                     Wrapper for slides 
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
                             <img src="{{url('Frontend')}}/images/banner.png" class="img-responsive" alt="banner"/>
@@ -53,9 +53,9 @@
                 </div>
             </div>
         </div>
-    </div><!--end .banner-->
+    </div>end .banner
     <div class="container">   
-        <!--.filter-->
+        .filter
         <div class="page-single-filter select-group">
             <div class="row">
                 <div class="col-xs-12 box-filter">
@@ -151,7 +151,7 @@
                 </div>
             </div>
         </div>
-    </div><!--end filter-->
+    </div>end filter-->
     <div class="container">
         <div class="row">
             <!--.content-left-->
