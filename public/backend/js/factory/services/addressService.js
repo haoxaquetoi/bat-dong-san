@@ -23,7 +23,7 @@ ngApp.factory('$addressService', function ($rootScope, $http, $httpParamSerializ
     
     //action city
     service.action.listCity = function(data){
-        var url = SiteUrl + '/rest/address_city?' + $httpParamSerializer(data);
+        var url = SiteUrl + '/rest/address_city?' + $httpParamSerializer(data) + '&random='+new Date().getTime();
         return $http.get(url);
     };
     

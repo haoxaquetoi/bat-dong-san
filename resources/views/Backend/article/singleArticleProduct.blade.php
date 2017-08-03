@@ -1,4 +1,15 @@
-<angular ng-cloak="">
+@extends('backend.layouts.default')
+@section('title', 'Quản lý người dùng')
+@section('myJs')
+<script src="{{url('backend')}}/js/factory/services/articleService.js"></script>
+<script src="{{url('backend')}}/js/factory/services/categoryService.js"></script>
+<script src="{{url('backend')}}/js/factory/services/addressService.js"></script>
+<script src="{{url('backend')}}/js/factory/services/tagsService.js"></script>
+<script src="{{ URL::asset('backend/js/article/articleSingleProductCtrl.js') }}"></script>
+@endsection
+@section('content')
+
+<angular ng-cloak="" ng-controller="articleSingleProductCtrl">
     <section class="content-header">
         <h1>
             Thêm mới tin bất động sản
@@ -41,7 +52,7 @@
                                 <input placeholder="Đường dẫn"  ng-model="articleInfo.slug"  type="text" class="form-control" id="txtSlug"  name="txtSlug" />
                                 <span class="help-block">@{{actions.showError('slug')}}</span>
                             </div>
-                        
+
                             <div class="form-group" ng-class="actions.hasError('content') ? 'has-error' : ''">
                                 <label for="txtContent">Nội dung <span class="text-danger">*</span></label>
                                 <textarea placeholder="Nội dung"  name="txtContent" id="txtContent" class="form-control my-ckeditor"></textarea>
@@ -61,74 +72,76 @@
                         <!-- form start -->
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
+                                <div class="col-sm-6 col-xs-12" >
+                                    <div class="form-group" ng-class="actions.hasError('articleBase.city_id') ? 'has-error' : ''">
                                         <label for="">Tỉnh/Thành phố <span class="text-danger">*</span></label>
-                                        <select class="form-control">
-                                            <option>--Tỉnh/Thành phố--</option>
-                                            <option>Hà Nội</option>
+                                        <select class="form-control" ng-model="articleInfo.articleBase.city_id" ng-change="actions.renderAddress()" >
+                                            <option value="" >--Tỉnh/Thành phố--</option>
+                                            <option ng-repeat="city in allCity" ng-value="@{{city.id}}"  >@{{city.name}}</option>
                                         </select>
+                                        <span class="help-block">@{{actions.showError('articleBase.city_id')}}</span>
+
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
+                                <div class="col-sm-6 col-xs-12" >
+                                    <div class="form-group" ng-class="actions.hasError('articleBase.district_id') ? 'has-error' : ''">
                                         <label for="">Quận/Huyện <span class="text-danger">*</span></label>
-                                        <select class="form-control">
-                                            <option>--Quận/Huyện--</option>
-                                            <option>Hà đông</option>
+                                        <select class="form-control" ng-model="articleInfo.articleBase.district_id" ng-change="actions.renderAddress()">
+                                            <option value="">--Quận/Huyện--</option>
+                                            <option ng-repeat="district in allDistrict" ng-value="@{{district.id}}" ng-show="district.city_id == articleInfo.articleBase.city_id" >@{{district.name}}</option>
                                         </select>
+                                        <span class="help-block">@{{actions.showError('articleBase.district_id')}}</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" >
                                 <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="actions.hasError('articleBase.village_id') ? 'has-error' : ''">
                                         <label for="">Phường/Xã <span class="text-danger">*</span></label>
-                                        <select class="form-control">
-                                            <option>--Phường/Xã--</option>
-                                            <option>Hà đông</option>
+                                        <select class="form-control" ng-model="articleInfo.articleBase.village_id" ng-change="actions.renderAddress()">
+                                            <option value="">--Phường/Xã--</option>
+                                            <option ng-repeat="village in allVillage" ng-value="@{{village.id}}"  ng-show="village.district_id == articleInfo.articleBase.district_id" >@{{village.name}}</option>
                                         </select>
+                                        <span class="help-block">@{{actions.showError('articleBase.village_id')}}</span>
                                     </div>
+
                                 </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
+                                <div class="col-sm-6 col-xs-12" >
+                                    <div class="form-group" ng-class="actions.hasError('articleBase.street_id') ? 'has-error' : ''">
                                         <label for="">Đường/Phố</label>
-                                        <select class="form-control">
-                                            <option>--Đường/Phố--</option>
-                                            <option>Hà đông</option>
+                                        <select class="form-control" ng-model="articleInfo.articleBase.street_id" ng-change="actions.renderAddress()">
+                                            <option value="">--Đường/Phố--</option>
+                                            <option ng-repeat="street in allStreet" ng-value="@{{street.id}}"  ng-show="street.village_id == articleInfo.articleBase.village_id" >@{{street.name}}</option>
                                         </select>
+                                        <span class="help-block">@{{actions.showError('articleBase.street_id')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="actions.hasError('articleBase.address') ? 'has-error' : ''">
                                         <label for="">Địa chỉ <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="" />
+
+                                        <input type="text" class="form-control" id="txtAddress" value="@{{articleInfo.articleBase.address}}"  />
+                                        <span class="help-block">@{{actions.showError('articleBase.address')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="actions.hasError('articleBase.price') ? 'has-error' : ''">
                                         <label for="">Giá</label>
-                                        <input type="text" class="form-control" id="" />
+                                        <input type="text" class="form-control" ng-model="articleInfo.articleBase.price" />
+                                        <span class="help-block">@{{actions.showError('articleBase.price')}}</span>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">Đơn vị</label>
-                                        <select class="form-control">
-                                            <option>--Chọn đơn vị giá--</option>
-                                        </select>
-                                    </div>
-                                </div>
+
                             </div>
+                            <!--                            <div class="form-group">
+                                                            <label for="">Tổng tiền: 1,000,000,000</label>
+                                                        </div>-->
                             <div class="form-group">
-                                <label for="">Tổng tiền: 1,000,000,000</label>
-                            </div>
-                            <div class="form-group">
-                                <input id="status" type="checkbox" name="status" checked="" class="magic-checkbox" />
+                                <input id="status" type="checkbox" name="status"  class="magic-checkbox" ng-checked="articleInfo.myself" />
                                 <label for="status" class="padding-right-20">
                                     Chính chủ
                                 </label>
@@ -149,13 +162,13 @@
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Mặt tiền</label>
-                                        <input type="text" class="form-control" id="" />
+                                        <input type="text" class="form-control" ng-model="articleInfo.articleOther.facade" />
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Hướng vào</label>
-                                        <input type="text" class="form-control" id="" />
+                                        <input type="text" class="form-control" ng-model="articleInfo.articleOther.house_direction" />
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +218,7 @@
                                 <div class="col-sm-12 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Mô tả nội thất</label>
-                                        <textarea name="txtContent" class="form-control my-ckeditor"></textarea>
+                                        <textarea name="txtContentNoiThat" class="form-control my-ckeditor"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -223,49 +236,54 @@
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="actions.hasError('articleContact.name') ? 'has-error' : ''">
                                         <label for="">Tên liên hệ</label>
-                                        <input type="text" class="form-control" id="" />
+                                        <input type="text" class="form-control" ng-model="articleInfo.articleContact.name" />
+                                        <span class="help-block">@{{actions.showError('articleContact.name')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="actions.hasError('articleContact.address') ? 'has-error' : ''">
                                         <label for="">Địa chỉ</label>
-                                        <input type="text" class="form-control" id="" />
+                                        <input type="text" class="form-control" ng-model="articleInfo.articleContact.address" />
+                                        <span class="help-block">@{{actions.showError('articleContact.address')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="actions.hasError('articleContact.phone') ? 'has-error' : ''">
                                         <label for="">Số điện thoại</label>
-                                        <input type="text" class="form-control" id="" />
+                                        <input type="text" class="form-control" ng-model="articleInfo.articleContact.phone" />
+                                        <span class="help-block">@{{actions.showError('articleContact.phone')}}</span>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="actions.hasError('articleContact.mobile') ? 'has-error' : ''">
                                         <label for="">Di động <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="" />
+                                        <input type="text" class="form-control" ng-model="articleInfo.articleContact.mobile" />
+                                        <span class="help-block">@{{actions.showError('articleContact.mobile')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="actions.hasError('articleContact.email') ? 'has-error' : ''">
                                         <label for="">Email <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="" />
+                                        <input type="text" class="form-control" ng-model="articleInfo.articleContact.email" />
+                                        <span class="help-block">@{{actions.showError('articleContact.email')}}</span>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <input id="status" type="checkbox" name="status" checked="" class="magic-checkbox" />
-                                        <label for="status" class="padding-right-20">
-                                            Nhận phản hồi
-                                        </label>
-                                    </div>
-                                </div>
+                                <!--                                <div class="col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <input id="status" type="checkbox" name="status" checked="" class="magic-checkbox" />
+                                                                        <label for="status" class="padding-right-20">
+                                                                            Nhận phản hồi
+                                                                        </label>
+                                                                    </div>
+                                                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -386,7 +404,7 @@
                                     </a>
                                     <input id="thumbnail" class="form-control " type="hidden" name="filepath" ng-model="articleInfo.thumbnail"  >
                                 </div>
-                                <img ng-show="actions.build_thumnail(articleInfo.thumbnail)" id="holder" class="img-responsive margin-top-15" src="@{{actions.build_thumnail(articleInfo.thumbnail)}}">
+                                <img  id="holder" class="img-responsive margin-top-15" src="@{{actions.build_thumnail(articleInfo.thumbnail)}}">
                             </div>
                         </div>
                     </div>
@@ -398,3 +416,5 @@
     </section>
     <!-- /.content -->
 </angular>
+
+@endsection

@@ -2,7 +2,7 @@
 <section class="content-header">
     <h1>
         Danh sách tin đăng 
-        <a class="btn btn-primary btn-sm" href="#!/singleNews/0"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
+        <a class="btn btn-primary btn-sm" href="{{ URL::asset('admin/article/singleNews')}}"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
     </h1>
 </section>
 <!-- Main content -->
@@ -78,8 +78,8 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <a ng-if="article.deleted == 1"  href="{{url('admin/article')}}#!/@{{article.type=='News' ? 'singleNews':'singleProduct'}}/@{{article.id}}"  ><strike>@{{article.title}}</strike></a>
-                                                <a ng-if="article.deleted != 1" href="{{url('admin/article')}}#!/@{{article.type=='News' ? 'singleNews':'singleProduct'}}/@{{article.id}}"  >@{{article.title}}</a>
+                                                <a ng-if="article.deleted == 1"  href="{{url('admin/article')}}/@{{article.type=='News' ? 'singleNews':'singleProduct'}}/@{{article.id}}"  ><strike>@{{article.title}}</strike></a>
+                                                <a ng-if="article.deleted != 1" href="{{url('admin/article')}}/@{{article.type=='News' ? 'singleNews':'singleProduct'}}/@{{article.id}}"  >@{{article.title}}</a>
                                             </td>
                                             <td class="mailbox-star text-center">
                                                 <a ng-click="actions.updateSticky(article.id)" ng-if="article.is_sticky == 1" href="javascript:;"><i class="fa fa-star text-yellow"></i></a>

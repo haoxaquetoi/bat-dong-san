@@ -1,4 +1,13 @@
-<angular ng-cloak="">
+@extends('backend.layouts.default')
+@section('title', 'Quản lý người dùng')
+@section('myJs')
+<script src="{{url('backend')}}/js/factory/services/articleService.js"></script>
+<script src="{{url('backend')}}/js/factory/services/categoryService.js"></script>
+<script src="{{url('backend')}}/js/factory/services/tagsService.js"></script>
+<script src="{{ URL::asset('backend/js/article/articleSingleNewsCtrl.js') }}"></script>
+@endsection
+@section('content')
+<angular ng-cloak="" ng-controller="articleSingleNewsCtrl">
 
     <section class="content-header">
         <h1>
@@ -169,7 +178,7 @@
                                     </a>
                                     <input id="thumbnail" class="form-control " type="hidden" name="filepath" ng-model="articleInfo.thumbnail"  >
                                 </div>
-                                <img ng-show="actions.build_thumnail(articleInfo.thumbnail)" id="holder" class="img-responsive margin-top-15" src="@{{actions.build_thumnail(articleInfo.thumbnail)}}">
+                                <img  id="holder" class="img-responsive margin-top-15" src="@{{actions.build_thumnail(articleInfo.thumbnail)}}">
                             </div>
                         </div>
                     </div>
@@ -191,3 +200,4 @@
 
 
 
+@endsection
