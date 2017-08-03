@@ -26,11 +26,11 @@
 <!--.content-->
 <section class="content">
     <!--.banner-->
-    <div class="container-fluid">
+<!--    <div class="container-fluid">
         <div class="row">
             <div class="banner">
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000" data-pause="null">
-                    <!-- Wrapper for slides -->
+                     Wrapper for slides 
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
                             <img src="{{url('Frontend')}}/images/banner.png" class="img-responsive" alt="banner"/>
@@ -60,12 +60,12 @@
                         <div class="input-group-btn">
                             <button class="btn btn-success">Tìm đảm bảo</button>
                             <button class="btn btn-success filter">Tìm kiếm</button>
-                        </div><!-- /btn-group -->
-                    </div><!-- /input-group -->
+                        </div> /btn-group 
+                    </div> /input-group 
                 </div>
             </div>
         </div>
-    </div><!--end .banner-->
+    </div>end .banner-->
     <div class="container">
         <div class="row">
             <!--.content-left-->
