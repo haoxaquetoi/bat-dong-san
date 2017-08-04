@@ -74,6 +74,7 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::put('/article', 'Backend\Rest\ArticleCtrl@edit');
     Route::get('/article', 'Backend\Rest\ArticleCtrl@getAllArticle');
     Route::delete('/article/{id}', 'Backend\Rest\ArticleCtrl@deleted');
+    Route::put('/article/undelete{id}', 'Backend\Rest\ArticleCtrl@undelete');
     Route::put('/article/updateSticky/{id}', 'Backend\Rest\ArticleCtrl@updateSticky');
     Route::put('/article/updateCensored/{id}', 'Backend\Rest\ArticleCtrl@updateCensored');
     Route::get('/article/{id}', 'Backend\Rest\ArticleCtrl@getSingleArticle');

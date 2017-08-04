@@ -7,6 +7,7 @@ categorys
     ngApp.value('post_date',<?php echo json_encode($post_date) ?>);
     ngApp.value('count',<?php echo json_encode($count) ?>);
     ngApp.value('arrArticle',<?php echo json_encode($arrArticle) ?>);
+    ngApp.value('filter',<?php echo json_encode($_REQUEST) ?>);
 </script>
 
 <script src="{{url('backend')}}/js/factory/services/articleService.js"></script>
@@ -29,10 +30,10 @@ categorys
                 <div class="box-header">
                     <div class="row padding-bottom-10">
                         <div class="col-xs-12">
-                            <a href="javascript:;" >Tất cả (@{{count.total}})</a> 
-                            | <a href="javascript:;" class="text-black">Công khai (@{{count.total_publish}})</a> 
-                            | <a href="javascript:;" class="text-black">Lưu nháp (@{{count.total_trash}})</a> 
-                            | <a href="javascript:;" class="text-black">Đã xóa (@{{count.total_publish}})</a>
+                            <a ng-class="data.filter.option ? 'text-black' : ''" href="javascript:;" ng-click="data.filter = {};;actions.getAll()" >Tất cả (@{{count.total}})</a> 
+                            | <a ng-class="data.filter.option != 'Publish' ? 'text-black' : ''" href="javascript:;" ng-click="data.filter = {};data.filter.option = 'Publish';actions.getAll()" >Công khai (@{{count.total_publish}})</a> 
+                            | <a ng-class="data.filter.option != 'Trash' ? 'text-black' : ''" href="javascript:;" ng-click="data.filter = {};data.filter.option = 'Trash';actions.getAll()" >Lưu nháp (@{{count.total_trash}})</a> 
+                            | <a ng-class="data.filter.option != 'deleted' ? 'text-black' : ''"  href="javascript:;" ng-click="data.filter = {};data.filter.option = 'deleted';actions.getAll()" >Đã xóa (@{{count.total_deleted}})</a>
                         </div>
                     </div>
                     <div class="row">
@@ -60,7 +61,7 @@ categorys
                                 <div class="input-group input-group-sm" style="width: 250px;">
                                     <input type="text" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm" ng-model="data.filter.freeText" >
                                     <div class="input-group-btn">
-                                        <button ng-click="actions.getAll()" type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                        <button ng-click=" actions.getAll()" type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -85,24 +86,25 @@ categorys
                                     </colgroup>
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc">STT</th>
+                                            <th>STT</th>
                                             <th>#</th>
-                                            <th ng-click="actions.sorting()"  class="sorting">Tiêu đề</th>
-                                            <th ng-click="actions.sorting('sticky')" class="sorting">Nổi bật</th>
-                                            <th ng-click="actions.sorting('censored')" class="sorting">Đảm bảo</th>
-                                            <th ng-click="actions.sorting()" class="sorting">Phản hồi</th>
-                                            <th ng-click="actions.sorting()" class="sorting">Ngày đăng</th>
+                                            <th >Tiêu đề</th>
+                                            <th ng-click="actions.sorting('ord_sk')" ng-class="!data.filter.ord_sk ? 'sorting' : data.filter.ord_sk == 'asc' ? 'sorting_asc' : 'sorting_desc'"  >Nổi bật</th>
+                                            <th ng-click="actions.sorting('ord_cd')" ng-class="!data.filter.ord_cd ? 'sorting' : data.filter.ord_cd == 'asc' ? 'sorting_asc' : 'sorting_desc'" >Đảm bảo</th>
+                                            <th ng-click="actions.sorting('ord_fb')" ng-class="!data.filter.ord_fb ? 'sorting' : data.filter.ord_fb == 'asc' ? 'sorting_asc' : 'sorting_desc'" >Phản hồi</th>
+                                            <th ng-click="actions.sorting('ord_crat')" ng-class="!data.filter.ord_crat ? 'sorting' : data.filter.ord_crat == 'asc' ? 'sorting_asc' : 'sorting_desc'">Ngày đăng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="article in data.arrArticle">
-                                            <td class="text-center">@{{(data.data.current_page - 1) * data.data.per_page + $index + 1}}</td>
+                                        <tr ng-repeat="article in data.arrArticle.data">
+                                            <td class="text-center">@{{(data.arrArticle.current_page - 1) * data.arrArticle.per_page + $index + 1}}</td>
                                             <td class="tbl-actions text-center">
                                                 <div class="dropdown">
                                                     <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                     <ul class="dropdown-menu">
-                                                        <li><a href="{{url('admin/article')}}#!/@{{article.type=='News' ? 'singleNews':'singleProduct'}}/@{{article.id}}">Chi tiết</a></li>
-                                                        <li><a ng-click="actions.delete(article.id)"  href="javascript:void(0);">Xóa</a></li>
+                                                        <li><a href="{{url('admin/article')}}/@{{article.type=='News' ? 'singleNews':'singleProduct'}}/@{{article.id}}">Chi tiết</a></li>
+                                                        <li><a  ng-show="!article.deleted" ng-click="actions.delete(article.id)"  href="javascript:void(0);">Xóa</a></li>
+                                                        <li><a ng-show="article.deleted"  ng-click="actions.undelete(article.id)"  href="javascript:void(0);">Khôi khục</a></li>
                                                     </ul>
                                                 </div>
                                             </td>
@@ -138,9 +140,9 @@ categorys
                             <div class="col-xs-12">
                                 <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
                                     <div paging
-                                         page="data.data.current_page" 
-                                         page-size="data.data.per_page" 
-                                         total="data.data.total"
+                                         page="data.arrArticle.current_page" 
+                                         page-size="data.arrArticle.per_page" 
+                                         total="data.arrArticle.total"
                                          paging-action="actions.changePage(page)">
                                     </div> 
                                 </div>

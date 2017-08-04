@@ -8,7 +8,9 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
         street,
         tags,
         category,
-        articleInfo)
+        articleInfo,
+        direction
+        )
 {
     $apply(function () {
         $scope.allCity = city;
@@ -17,6 +19,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
         $scope.allStreet = street;
         $scope.allTagsOlds = tags;
         $scope.categorys = category;
+        $scope.direction = direction;
 
         articleInfo.article_base = articleInfo.article_base || {};
         articleInfo.article_contact = articleInfo.article_contact || {};
@@ -66,6 +69,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
             }
         };
         angular.forEach($scope.categorys, function (v, i) {
+            articleInfo.category = articleInfo.category || [];
             if (articleInfo.category.indexOf(v.id) < 0)
             {
                 v.checked = false;
@@ -77,6 +81,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
         $('#txtContent').val($scope.articleInfo.content);
         $('#txtbegin_date').val($scope.articleInfo.begin_date);
         $('#txtend_date').val($scope.articleInfo.end_date);
+        $('#txtContentFurniture').val($scope.articleInfo.article_other.txtContentFurniture);
 
 
 
@@ -104,7 +109,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
         {
             $scope.articleInfo.category = [];
             angular.forEach($scope.categorys, function (v, i) {
-                if(v.checked)
+                if (v.checked)
                 {
                     $scope.articleInfo.category.push(v.id);
                 }
@@ -114,6 +119,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
 
             $scope.articleInfo.thumbnail = $('#thumbnail').val() || '';
             $scope.articleInfo.content = CKEDITOR.instances.txtContent.getData();
+            $scope.articleInfo.article_other.txtContentFurniture = CKEDITOR.instances.txtContentFurniture.getData();
             
             $scope.errors = [];
             if ($scope.articleInfo.id && $scope.articleInfo.id > 0)

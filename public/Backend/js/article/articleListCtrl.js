@@ -3,48 +3,22 @@ ngApp.controller('articleListCtrl', function ($scope, $apply, $articleService,
         post_date,
         count,
         arrArticle,
-        $httpParamSerializer
+        $httpParamSerializer,
+        filter
         )
 {
     $scope.count = count;
 
     $scope.data = {
         arrArticle: arrArticle,
-        filter: {
-            page: 1,
-            type: "",
-            freeText: "",
-            created_at: "",
-            status: "",
-            orderBy: '',
-            deleted: "",
-            pageSize: "",
-            category_id: '',
-            post_date: ''
-
-        },
+        filter: filter || {},
         post_date: post_date,
         category: category
     };
-    
-    var params = {};
-    if (location.search) {
-        var parts = location.search.substring(1).split('&');
-
-        for (var i = 0; i < parts.length; i++) {
-            var nv = parts[i].split('=');
-            if (!nv[0])
-                continue;
-            params[nv[0]] = nv[1] || '';
-        }
-    }
-    $scope.data.filter = params;
-    
     $scope.actions = {
         getAll: function ()
         {
-
-            window.location.href = SiteUrl + '/admin/article?' + $httpParamSerializer(params);
+            window.location.href = SiteUrl + '/admin/article?' + $httpParamSerializer($scope.data.filter);
         },
         changePage: function (page)
         {
@@ -56,6 +30,18 @@ ngApp.controller('articleListCtrl', function ($scope, $apply, $articleService,
             if (confirm('Xác nhận xóa đối tượng đã chọn?'))
             {
                 $articleService.actions.delete(id).then(function (resp) {
+                    $scope.actions.getAll();
+                }, function (error)
+                {
+                    console.log(error);
+                });
+            }
+        },
+        undelete: function (id)
+        {
+            if (confirm('Xác nhận khôi phục đối tượng đã chọn?'))
+            {
+                $articleService.actions.undelete(id).then(function (resp) {
                     $scope.actions.getAll();
                 }, function (error)
                 {
@@ -83,10 +69,20 @@ ngApp.controller('articleListCtrl', function ($scope, $apply, $articleService,
         },
         sorting: function (sorting)
         {
-            if (sorting == 'sticky')
-            {
+            if (sorting != 'ord_sk')
+                delete $scope.data.filter['ord_sk'];
 
-            }
+            if (sorting != 'ord_cd')
+                delete $scope.data.filter['ord_cd'];
+
+            if (sorting != 'ord_fb')
+                delete $scope.data.filter['ord_fb'];
+
+            if (sorting != 'ord_crat')
+                delete $scope.data.filter['ord_crat'];
+
+            $scope.data.filter[sorting] = $scope.data.filter[sorting] == 'asc' ? 'desc' : 'asc';
+            $scope.actions.getAll();
         }
     };
 });

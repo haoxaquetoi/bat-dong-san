@@ -22,9 +22,13 @@ ngApp.factory('$articleService', function ($rootScope, $http)
     }
     service.actions.delete = function (id)
     {
-
         var url = SiteUrl + '/rest/article/' + id;
         return $http.delete(url);
+    }
+    service.actions.undelete = function (id)
+    {
+        var url = SiteUrl + '/rest/article/undelete' + id;
+        return $http.put(url);
     }
     service.actions.updateSticky = function (id)
     {

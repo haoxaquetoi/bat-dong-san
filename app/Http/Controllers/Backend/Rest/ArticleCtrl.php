@@ -41,11 +41,11 @@ class ArticleCtrl extends Controller {
                     'end_date' => trim($request->end_date) != '' ? $request->end_date : null,
                     'created_at' => date('Y-m-d H:i:s')
         ]);
-
+        
         if ($articleID == NULL) {
             return response()->json(array('other' => ['Xảy ra lỗi, bạn vui lòng tải lại trang sau đó thao tác lại']), 422);
         }
-
+        $request->id = $articleID;
         if ($request->type == 'Product') {
             $this->_update_product($artBase, $artContact, $artOther, $catModel, $articleModel, $request);
         }
@@ -88,15 +88,15 @@ class ArticleCtrl extends Controller {
         $arrCatID = $request->category;
 
         $this->update_category_article($catArtModel, $articleID, $arrCatID);
-        
-        
+
+
         $this->updateTag($tagArtModel, $TagsModel, $request, $articleID);
         $articleInfo = $this->getArticleInfo($articleModel, $articleID);
         return response()->json($articleInfo);
     }
 
     function update_category_article(CategoryArticleModel $catArtModel, $articleID, array $arrCatID = array()) {
-        
+
         $catArtModel::where('article_id', '=', $articleID)->delete();
         for ($i = 0; $i < count($arrCatID); $i ++) {
             $catArtModel::insertGetId([
@@ -104,7 +104,6 @@ class ArticleCtrl extends Controller {
                 'article_id' => $articleID
             ]);
         }
-        
     }
 
     function updateTag(TagsAricleModel $tagArtModel, TagsModel $TagsModel, Request $request, $articleID) {
@@ -437,6 +436,13 @@ class ArticleCtrl extends Controller {
         $articleInfo = $articleModel::find($request->id);
         $articleInfo->deleted = 1;
         $articleInfo->deleted_at = date('Y-m-d h:i:s');
+        $articleInfo->save();
+    }
+
+    function undelete(ArticleModel $articleModel, Request $request) {
+        $articleInfo = $articleModel::find($request->id);
+        $articleInfo->deleted = 0;
+        $articleInfo->deleted_at = null;
         $articleInfo->save();
     }
 
