@@ -364,7 +364,7 @@ class ArticleCtrl extends Controller {
             ];
             $this->withValidator($validator, $errors);
         } else {
-            $countCat = $catModel::whereIn('id', $request->category)->where('status', '=', 1)->count();
+            $countCat = $catModel::whereIn('id', $request->category)->count();
             if (count($request->category) != $countCat) {
                 $errors = [
                     'category' => 'Tồn tại chuyên mục lựa chọn không hợp lệ'

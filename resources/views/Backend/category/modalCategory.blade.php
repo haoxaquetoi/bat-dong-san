@@ -1,5 +1,5 @@
 <form name="frmCategory" id="frmCategory" ng-submit="actions.updateCategory('#modalCategory', data.categoryInfo)">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="_token" value="{{ csrf_token()}}">
     <div class="modal fade" tabindex="-1" role="dialog" id="modalCategory">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -41,15 +41,14 @@
                     </div>
 
 
-
-
                     <div class="form-group" ng-class="actions.hasError('type') ? 'has-error' : ''">
                         <label for="type">Loại chuyên mục</label>
-                        <input type="text" class="form-control" id="type" placeholder="Loại chuyên mục"  ng-model="data.categoryInfo.type">
+                        <select class="form-control" name="selParent" id="selParent" ng-model="data.categoryInfo.type">
+                            <option value="News">Tin đăng</option>
+                            <option value="Product">Tin bất động sản</option>
+                        </select>
                         <span class="help-block">@{{actions.showError('type')}}</span>
                     </div>
-
-
 
                     <div class="form-group" ng-class="actions.hasError('order') ? 'has-error' : ''">
                         <label for="slug"  >Thứ tự hiển thị<span class="text-red">*</span></label>

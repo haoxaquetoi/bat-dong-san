@@ -13,9 +13,9 @@ ngApp.controller('advertisingSingleCtrl', function ($scope, $apply, $routeParams
                     $scope.data.adv.info = resp.data;
                     $scope.data.adv.info.begin_date = new Date(resp.data.begin_date);
                     $scope.data.adv.info.end_date = new Date(resp.data.end_date);
-                    if(resp.data.status == '1'){
+                    if (resp.data.status == '1') {
                         $scope.data.adv.info.status = true;
-                    }else{
+                    } else {
                         $scope.data.adv.info.status = false;
                     }
                 });
@@ -24,9 +24,18 @@ ngApp.controller('advertisingSingleCtrl', function ($scope, $apply, $routeParams
             });
         }
     };
-
+    $scope.errors = [];
     $scope.action = {
+        hasError: function (code)
+        {
+            return $scope.errors[code] ? true : false;
+        },
+        showError: function (code)
+        {
+            return $scope.errors[code] ? $scope.errors[code][0] : '';
+        },
         update: function () {
+            $scope.errors = [];
             if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
@@ -44,9 +53,11 @@ ngApp.controller('advertisingSingleCtrl', function ($scope, $apply, $routeParams
                 window.location.href = '#!/';
             }, function (errors) {
                 console.log(errors);
+                $scope.errors = errors.data;
             });
         },
         insert: function () {
+            $scope.errors = [];
             if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
@@ -63,6 +74,7 @@ ngApp.controller('advertisingSingleCtrl', function ($scope, $apply, $routeParams
                 window.location.href = '#!/';
             }, function (errors) {
                 console.log(errors);
+                $scope.errors = errors.data;
             });
         },
         getFormattedDateYMD: function (date)
@@ -75,6 +87,12 @@ ngApp.controller('advertisingSingleCtrl', function ($scope, $apply, $routeParams
             }
 
             return date;
+        }
+        , build_thumnail: function (path)
+        {
+            if (path != '')
+                return SiteUrl + path;
+            return '';
         }
     };
 
