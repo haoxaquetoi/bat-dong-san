@@ -28,6 +28,7 @@
                                         Tin đảm bảo
                                     </h2>
                                 </div>
+
                                 <?php foreach ($dataView['arrArticleCensored'] as $values) : ?>
                                     <article>
                                         <div class="row">
@@ -79,37 +80,41 @@
                                         a gally of type and scrambled it to make a type specimen book.">
                                         Tin thường</h2>
                                 </div>
-                                <?php foreach ($dataView['arrArticle'] as $values) : ?>
-                                    <article>
-                                        <div class="row">
-                                            <div class="col-xs-5 article-left">
-                                                <div class="article-left-relative">
-                                                    <img src="{{url('Frontend')}}/images/article1_1.png" class="img-responsive" alt=""/>
-                                                    <div class="article-rectangle"></div>
-                                                    <div class="article-action">
-                                                        <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-success" ><i class="fa fa-link"></i></button>
+                                <?php
+                                if (count($dataView['arrArticle']) > 0):
+                                    foreach ($dataView['arrArticle'] as $values) :
+                                        ?>
+                                        <article>
+                                            <div class="row">
+                                                <div class="col-xs-5 article-left">
+                                                    <div class="article-left-relative">
+                                                        <img src="{{url('Frontend')}}/images/article1_1.png" class="img-responsive" alt=""/>
+                                                        <div class="article-rectangle"></div>
+                                                        <div class="article-action">
+                                                            <button class="btn btn-success" ><i class="fa fa-search"></i></button>
+                                                            <button class="btn btn-success" ><i class="fa fa-link"></i></button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xs-7 article-right">
-                                                <header>
-                                                    <h2>{{$values->title}}</h2>
-                                                    <div class="article-time">
-                                                        <span>Cập nhật: <time>{{$values->begin_date}}</time></span>
-                                                    </div>
+                                                <div class="col-xs-7 article-right">
+                                                    <header>
+                                                        <h2>{{$values->title}}</h2>
+                                                        <div class="article-time">
+                                                            <span>Cập nhật: <time>{{$values->begin_date}}</time></span>
+                                                        </div>
 
-                                                </header>
-                                                <section>
-                                                    <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                    <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$values->articleBase->district_name}}-{{$values->articleBase->city_name}}</p>
-                                                    <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                                </section>
+                                                    </header>
+                                                    <section>
+                                                        <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
+                                                        <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
+                                                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$values->articleBase->district_name}}-{{$values->articleBase->city_name}}</p>
+                                                        <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
+                                                    </section>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </article>
-                                <?php endforeach; ?>
+                                        </article>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                                 <div class="text-right padding-right-15">
                                     <a class="btn btn-default btn-more-category" href="">Xem thêm <i class="fa fa-angle-right"></i></a>
                                 </div>
@@ -160,306 +165,66 @@
                 <div id="carousel-example-generic-footer" class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
-                        <!--.item-->
-                        <div class="item active">
-                            <div class="row">
-                                <?php foreach ($dataView['arrArticleSticky'] as $values) : ?>
-                                <div class="col-md-4 col-sm-4 col-xs-12 slide-column-left padding-bottom-15">
-                                    <article>
-                                        <header>
-                                            <div class="article-highlights-img">
-                                                <div class="article-left-relative">
-                                                    <img src="{{url('Frontend')}}/images/article2_2.png" class="img-responsive" alt=""/>
-                                                    <div class="article-rectangle"></div>
-                                                    <div class="article-action">
-                                                        <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                    </div>
-                                                    <div class="sale-off">
-                                                        <div class="btn-group">
-                                                            <button class="btn btn-success btn-active-purple">
-                                                                <span class="text-uppercase">Đang sale off</span><br />
-                                                                <span class="price"><i class="fa fa-dollar"></i> 10Tr/m2</span>
-                                                            </button>
-                                                            <button class="btn btn-default btn-active-purple">
-                                                                <i class="fa fa-tag"></i>
-                                                            </button>
+                        <?php
+                        if (count($dataView['arrArticle']) > 0):
+                            for ($i = 0; $i < count($dataView['arrArticleSticky']); $i = $i + 3) :
+                                ?>
+                                <div class="item <?php echo ($i == 0) ? 'active' : ''; ?>">
+                                    <div class="row">
+                                        <?php for ($j = $i; ($j < $i + 3 && $j < count($dataView['arrArticleSticky']) ); $j++) : ?>
+                                            <div class="col-md-4 col-sm-4 col-xs-12 slide-column-left padding-bottom-15">
+                                                <article>
+                                                    <header>
+                                                        <div class="article-highlights-img">
+                                                            <div class="article-left-relative">
+                                                                <img src="{{url('Frontend')}}/images/article2_2.png" class="img-responsive" alt=""/>
+                                                                <div class="article-rectangle"></div>
+                                                                <div class="article-action">
+                                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
+                                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
+                                                                </div>
+                                                                <div class="sale-off">
+                                                                    <div class="btn-group">
+                                                                        <button class="btn btn-success btn-active-purple">
+                                                                            <span class="text-uppercase">Đang sale off</span><br />
+                                                                            <span class="price"><i class="fa fa-dollar"></i> 10Tr/m2</span>
+                                                                        </button>
+                                                                        <button class="btn btn-default btn-active-purple">
+                                                                            <i class="fa fa-tag"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="check-product">
+                                                                    <button class="btn text-uppercase" >Còn nhà</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="check-product">
-                                                        <button class="btn text-uppercase" >Còn nhà</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="box-header">
-                                                <div class="row">
-                                                    <div class="col-md-4 col-xs-4 acreage">
-                                                        <p><i class="fa fa-home"></i> Diện tích: 85</p>
-                                                    </div>
-                                                    <div class="col-md-4 col-xs-4 bed">
-                                                        <p><i class="fa fa-bed"></i> 3 phòng ngủ</p>
-                                                    </div>
-                                                    <div class="col-md-4 col-xs-4 price">
-                                                        <p><i class="fa fa-dollar"></i> Giá: 3 tỷ/căn</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </header>
-                                        <section>
-                                            <h3 class="text-center">Nhà đất khu Quang Trung, HN</h3>
-                                            <p class="text-center">Lorem Ipsum is simply dummy test of the </p>
-                                            <p class="text-center">typesetting industry. Lorem Ipsum</p>
-                                        </section>
-                                    </article>
-                                </div>
-                                <?php endforeach; ?>
-                                <div class="col-md-4 col-sm-4 col-xs-12 slide-column-center padding-bottom-15">
-                                    <article>
-                                        <header>
-                                            <div class="article-highlights-img">
-                                                <div class="article-left-relative">
-                                                    <img src="{{url('Frontend')}}/images/article2_1.png" class="img-responsive" alt=""/>
-                                                    <div class="article-rectangle"></div>
-                                                    <div class="article-action">
-                                                        <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                    </div>
-                                                    <div class="sale-off">
-                                                        <div class="btn-group">
-                                                            <button class="btn btn-success btn-active-purple">
-                                                                <span class="text-uppercase">Đang sale off</span><br />
-                                                                <span class="price"><i class="fa fa-dollar"></i> 10Tr/m2</span>
-                                                            </button>
-                                                            <button class="btn btn-default btn-active-purple">
-                                                                <i class="fa fa-tag"></i>
-                                                            </button>
+                                                        <div class="box-header">
+                                                            <div class="row">
+                                                                <div class="col-md-4 col-xs-4 acreage">
+                                                                    <p><i class="fa fa-home"></i> Diện tích: 85</p>
+                                                                </div>
+                                                                <div class="col-md-4 col-xs-4 bed">
+                                                                    <p><i class="fa fa-bed"></i> 3 phòng ngủ</p>
+                                                                </div>
+                                                                <div class="col-md-4 col-xs-4 price">
+                                                                    <p><i class="fa fa-dollar"></i> Giá: 3 tỷ/căn</p>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="check-product">
-                                                        <button class="btn text-uppercase" >Còn nhà</button>
-                                                    </div>
-                                                </div>
+                                                    </header>
+                                                    <section>
+                                                        <h3 class="text-center">Nhà đất khu Quang Trung, HN</h3>
+                                                        <p class="text-center">Lorem Ipsum is simply dummy test of the </p>
+                                                        <p class="text-center">typesetting industry. Lorem Ipsum</p>
+                                                    </section>
+                                                </article>
                                             </div>
-                                            <div class="box-header">
-                                                <div class="row">
-                                                    <div class="col-md-4 col-xs-4 acreage">
-                                                        <p><i class="fa fa-home"></i> Diện tích: 85</p>
-                                                    </div>
-                                                    <div class="col-md-4 col-xs-4 bed">
-                                                        <p><i class="fa fa-bed"></i> 3 phòng ngủ</p>
-                                                    </div>
-                                                    <div class="col-md-4 col-xs-4 price">
-                                                        <p><i class="fa fa-dollar"></i> Giá: 3 tỷ/căn</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </header>
-                                        <section>
-                                            <h3 class="text-center">Nhà đất khu Quang Trung, HN</h3>
-                                            <p class="text-center">Lorem Ipsum is simply dummy test of the</p>
-                                            <p class="text-center">typesetting industry. Lorem Ipsum</p>
-                                        </section>
-                                    </article>
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 slide-column-right padding-bottom-15">
-                                    <article>
-                                        <header>
-                                            <div class="article-highlights-img">
-                                                <div class="article-left-relative">
-                                                    <img src="{{url('Frontend')}}/images/article2_2.png" class="img-responsive" alt=""/>
-                                                    <div class="article-rectangle"></div>
-                                                    <div class="article-action">
-                                                        <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                    </div>
-                                                    <div class="sale-off">
-                                                        <div class="btn-group">
-                                                            <button class="btn btn-success btn-active-purple">
-                                                                <span class="text-uppercase">Đang sale off</span><br />
-                                                                <span class="price"><i class="fa fa-dollar"></i> 10Tr/m2</span>
-                                                            </button>
-                                                            <button class="btn btn-default btn-active-purple">
-                                                                <i class="fa fa-tag"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="check-product">
-                                                        <button class="btn text-uppercase" >Còn nhà</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="box-header">
-                                                <div class="row">
-                                                    <div class="col-md-4 col-xs-4 acreage">
-                                                        <p><i class="fa fa-home"></i> Diện tích: 85</p>
-                                                    </div>
-                                                    <div class="col-md-4 col-xs-4 bed">
-                                                        <p><i class="fa fa-bed"></i> 3 phòng ngủ</p>
-                                                    </div>
-                                                    <div class="col-md-4 col-xs-4 price">
-                                                        <p><i class="fa fa-dollar"></i> Giá: 3 tỷ/căn</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </header>
-                                        <section>
-                                            <h3 class="text-center">Nhà đất khu Quang Trung, HN</h3>
-                                            <p class="text-center">Lorem Ipsum is simply dummy test of the </p>
-                                            <p class="text-center">typesetting industry. Lorem Ipsum</p>
-                                        </section>
-                                    </article>
-                                </div>
-                            </div>
-                        </div><!-- end .item -->
-                        <!--.item-->
-                        <div class="item">
-                            <div class="row">
-                                <div class="col-md-4 col-sm-4 col-xs-12 slide-column-left padding-bottom-15">
-                                    <article>
-                                        <header>
-                                            <div class="article-highlights-img">
-                                                <div class="article-left-relative">
-                                                    <img src="{{url('Frontend')}}/images/article2_2.png" class="img-responsive" alt=""/>
-                                                    <div class="article-rectangle"></div>
-                                                    <div class="article-action">
-                                                        <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                    </div>
-                                                    <div class="sale-off">
-                                                        <div class="btn-group">
-                                                            <button class="btn btn-success btn-active-purple">
-                                                                <span class="text-uppercase">Đang sale off</span><br />
-                                                                <span class="price"><i class="fa fa-dollar"></i> 10Tr/m2</span>
-                                                            </button>
-                                                            <button class="btn btn-default btn-active-purple">
-                                                                <i class="fa fa-tag"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="check-product">
-                                                        <button class="btn text-uppercase" >Còn nhà</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="box-header">
-                                                <div class="row">
-                                                    <div class="col-md-4 col-xs-4 acreage">
-                                                        <p><i class="fa fa-home"></i> Diện tích: 85</p>
-                                                    </div>
-                                                    <div class="col-md-4 col-xs-4 bed">
-                                                        <p><i class="fa fa-bed"></i> 3 phòng ngủ</p>
-                                                    </div>
-                                                    <div class="col-md-4 col-xs-4 price">
-                                                        <p><i class="fa fa-dollar"></i> Giá: 3 tỷ/căn</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </header>
-                                        <section>
-                                            <h3 class="text-center">Nhà đất khu Quang Trung, HN</h3>
-                                            <p class="text-center">Lorem Ipsum is simply dummy test of the </p>
-                                            <p class="text-center">typesetting industry. Lorem Ipsum</p>
-                                        </section>
-                                    </article>
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 slide-column-center padding-bottom-15">
-                                    <article>
-                                        <header>
-                                            <div class="article-highlights-img">
-                                                <div class="article-left-relative">
-                                                    <img src="{{url('Frontend')}}/images/article2_1.png" class="img-responsive" alt=""/>
-                                                    <div class="article-rectangle"></div>
-                                                    <div class="article-action">
-                                                        <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                    </div>
-                                                    <div class="sale-off">
-                                                        <div class="btn-group">
-                                                            <button class="btn btn-success btn-active-purple">
-                                                                <span class="text-uppercase">Đang sale off</span><br />
-                                                                <span class="price"><i class="fa fa-dollar"></i> 10Tr/m2</span>
-                                                            </button>
-                                                            <button class="btn btn-default btn-active-purple">
-                                                                <i class="fa fa-tag"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="check-product">
-                                                        <button class="btn text-uppercase" >Còn nhà</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="box-header">
-                                                <div class="row">
-                                                    <div class="col-md-4 col-xs-4 acreage">
-                                                        <p><i class="fa fa-home"></i> Diện tích: 85</p>
-                                                    </div>
-                                                    <div class="col-md-4 col-xs-4 bed">
-                                                        <p><i class="fa fa-bed"></i> 3 phòng ngủ</p>
-                                                    </div>
-                                                    <div class="col-md-4 col-xs-4 price">
-                                                        <p><i class="fa fa-dollar"></i> Giá: 3 tỷ/căn</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </header>
-                                        <section>
-                                            <h3 class="text-center">Nhà đất khu Quang Trung, HN</h3>
-                                            <p class="text-center">Lorem Ipsum is simply dummy test of the </p>
-                                            <p class="text-center">typesetting industry. Lorem Ipsum</p>
-                                        </section>
-                                    </article>
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 slide-column-right padding-bottom-15">
-                                    <article>
-                                        <header>
-                                            <div class="article-highlights-img">
-                                                <div class="article-left-relative">
-                                                    <img src="{{url('Frontend')}}/images/article2_2.png" class="img-responsive" alt=""/>
-                                                    <div class="article-rectangle"></div>
-                                                    <div class="article-action">
-                                                        <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                    </div>
-                                                    <div class="sale-off">
-                                                        <div class="btn-group">
-                                                            <button class="btn btn-success btn-active-purple">
-                                                                <span class="text-uppercase">Đang sale off</span><br />
-                                                                <span class="price"><i class="fa fa-dollar"></i> 10Tr/m2</span>
-                                                            </button>
-                                                            <button class="btn btn-default btn-active-purple">
-                                                                <i class="fa fa-tag"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="check-product">
-                                                        <button class="btn text-uppercase" >Còn nhà</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="box-header">
-                                                <div class="row">
-                                                    <div class="col-md-4 col-xs-4 acreage">
-                                                        <p><i class="fa fa-home"></i> Diện tích: 85</p>
-                                                    </div>
-                                                    <div class="col-md-4 col-xs-4 bed">
-                                                        <p><i class="fa fa-bed"></i> 3 phòng ngủ</p>
-                                                    </div>
-                                                    <div class="col-md-4 col-xs-4 price">
-                                                        <p><i class="fa fa-dollar"></i> Giá: 3 tỷ/căn</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </header>
-                                        <section>
-                                            <h3 class="text-center">Nhà đất khu Quang Trung, HN</h3>
-                                            <p class="text-center">Lorem Ipsum is simply dummy test of the</p>
-                                            <p class="text-center">typesetting industry. Lorem Ipsum</p>
-                                        </section>
-                                    </article>
-                                </div>
-                            </div>
-                        </div><!-- end .item -->
+                                        <?php endfor; ?>
+                                    </div>
+                                </div><!-- end .item -->
+                            <?php endfor; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
 

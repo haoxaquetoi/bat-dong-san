@@ -30,22 +30,30 @@ class ArticleMode extends Model {
      * @param type $pageSize Số bản ghi trên 1 trang
      * @return type
      */
-    public function getAllArticle($freeText, $sticky = '', $censored = '', $page = 1, $pageSize = 10) {
+    public function getAllArticle($type = '', $freeText = '', $sticky = '', $censored = '', $sold = '', $page = 1, $pageSize = 10) {
         $limit = ($page - 1) * $pageSize;
         $db = DB::table($this->table)
-                ->where('status', '=', 1)
+                ->where('status', '=', 'Publish')
                 ->whereRaw('DATEDIFF(begin_date, now())<=0')
                 ->whereRaw('DATEDIFF(end_date, now())>=0')
                 ->where('deleted', '=', 0);
 
-        if ($censored !== '') {
-            $db->where('is_censored', '=', $censored);
+        if ($type !== '') {
+            $db->where('type', '=', $type);
+        }
+        if ($freeText != '') {
+            $db->where('title', 'like', "%{$freeText}%");
         }
         if ($sticky != '') {
             $db->where('is_sticky', '=', $sticky);
         }
-        if ($freeText != '') {
-            $db->where('title', 'like', "%{$freeText}%");
+
+        if ($censored !== '') {
+            $db->where('is_censored', '=', $censored);
+        }
+
+        if ($sold !== '') {
+            $db->where('is_sold', '=', $sold);
         }
 
         $allArticle = $db->select('id')

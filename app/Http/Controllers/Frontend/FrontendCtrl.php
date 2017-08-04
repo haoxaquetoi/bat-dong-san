@@ -12,11 +12,11 @@ class FrontendCtrl extends Controller {
         $data = array();
         $freeText = $request->freeText;
         // Tin thường
-        $data['arrArticle'] = $articleModel->getAllArticle($freeText, '', 0, 1, 10);
+        $data['arrArticle'] = $articleModel->getAllArticle('Product', $freeText, '', 0, 0, 1, 10);
         // Tin đảm bảo
-        $data['arrArticleCensored'] = $articleModel->getAllArticle($freeText, '', 1, 1, 10);
+        $data['arrArticleCensored'] = $articleModel->getAllArticle('Product', $freeText, '', 1, 0, 1, 10);
         // Tin nổi bật
-        $data['arrArticleSticky'] = $articleModel->getAllArticle($freeText, 1, '', 1, 10);
+        $data['arrArticleSticky'] = $articleModel->getAllArticle('Product', $freeText, 1, '', 0, 1, 10);
 //        return response()->json($data);
         return view('Frontend.homePage')->with('dataView', $data);
     }
