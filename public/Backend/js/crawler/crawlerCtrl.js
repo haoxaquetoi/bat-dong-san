@@ -40,11 +40,13 @@ ngApp.controller('crawlerCtrl', function ($scope, $apply, $crawlerService)
         ,
         singleModalCrawler: function (targetModal, websiteInfo)
         {
+            $scope.errors = [];
             $(targetModal).modal('show');
             $scope.data.singleWebsite = angular.copy(websiteInfo);
         },
         addNewCrawler: function (targetModal)
         {
+            $scope.errors = [];
             $crawlerService.actions.add($scope.data.singleWebsite).then(function (resp) {
                 $scope.actions.getAllCrawler();
                 $(targetModal).modal('hide');
@@ -55,6 +57,7 @@ ngApp.controller('crawlerCtrl', function ($scope, $apply, $crawlerService)
         },
         editCrawler: function (targetModal)
         {
+            $scope.errors = [];
             $crawlerService.actions.edit($scope.data.singleWebsite).then(function (resp) {
                 $scope.actions.getAllCrawler();
                 $(targetModal).modal('hide');

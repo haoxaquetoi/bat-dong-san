@@ -17,6 +17,7 @@ class CreateArticleOtherTable extends Migration
             $table->increments('id');
             $table->integer('article_id');
             $table->integer('facade')->nullable();
+            $table->integer('floor_area')->nullable(); //Diện tích mặt sàn; diện tích nhà
             $table->integer('entry_width')->nullable();
             $table->string('house_direction', 50)->nullable();
             $table->string('balcony_direction', 50)->nullable();

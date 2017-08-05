@@ -65,8 +65,10 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
                 number_of_storeys: articleInfo.article_other.number_of_storeys || '',
                 number_of_wc: articleInfo.article_other.number_of_wc || '',
                 number_of_bedrooms: articleInfo.article_other.number_of_bedrooms || '',
-                furniture: articleInfo.article_other.furniture || ''
+                furniture: articleInfo.article_other.furniture || '',
+                floor_area: articleInfo.article_other.floor_area || ''
             }
+            
         };
         angular.forEach($scope.categorys, function (v, i) {
             articleInfo.category = articleInfo.category || [];

@@ -203,8 +203,14 @@
                                     <div class="form-group">
                                         <label for="">Số tầng</label>
                                         <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_storeys" />
-                            </div>
-                        </div>
+                                </div>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="">Diện tích nhà</label>
+                                        <input type="text"  class="form-control" ng-model="articleInfo.article_other.floor_area" />
+                                </div>
+                                </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6 col-xs-12">

@@ -201,7 +201,8 @@ class ArticleCtrl extends Controller {
                     'number_of_storeys' => $request->article_other['number_of_storeys'],
                     'number_of_wc' => intval($request->article_other['number_of_wc']),
                     'number_of_bedrooms' => intval($request->article_other['number_of_bedrooms']),
-                    'furniture' => intval($request->article_other['furniture'])
+                    'furniture' => intval($request->article_other['furniture']),
+                    'floor_area' => intval($request->article_other['floor_area'])
         ]);
 
 
@@ -344,6 +345,14 @@ class ArticleCtrl extends Controller {
                     'article_other.furniture.numeric' => 'Chỉ có thể nhập kiểu số',
                 ];
             }
+            if ($request->article_other['floor_area'] != '') {
+                $rulesOther = [
+                    'article_other.floor_area' => 'numeric',
+                ];
+                $messageOther = [
+                    'article_other.floor_area.numeric' => 'Chỉ có thể nhập kiểu số',
+                ];
+            }
             $rules = array_merge($rules, $rulesOther);
             $message = array_merge($message, $messageOther);
         }
@@ -426,7 +435,7 @@ class ArticleCtrl extends Controller {
         $articleInfo->save();
     }
 
-    function updateCensored(l $articleModel, Request $request) {
+    function updateCensored(articleModel $articleModel, Request $request) {
         $articleInfo = $articleModel::find($request->id);
         $articleInfo->is_censored = $articleInfo->is_censored == 0 ? 1 : 0;
         $articleInfo->save();

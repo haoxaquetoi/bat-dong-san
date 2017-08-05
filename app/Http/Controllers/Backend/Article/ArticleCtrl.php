@@ -84,7 +84,7 @@ class ArticleCtrl extends Controller {
         $viewData['village'] = AddressVillageModel::select('id', 'name', 'district_id')->get()->toArray();
         $viewData['street'] = AddressStreetModel::select('id', 'name', 'village_id')->get()->toArray();
         $viewData['tags'] = TagsModel::select('id', 'code')->get()->toArray();
-        $viewData['direction'] = app('DirectionConfig')->getDirection();;
+        $viewData['direction'] = app('DirectionConfig')->getDirection();
         $category = $catModel->getAllCat(0);
         $viewData['category'] = collect($category);
         return view('backend/article/singleArticleProduct', $viewData);
