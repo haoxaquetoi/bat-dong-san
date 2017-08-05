@@ -19,48 +19,57 @@
                         <div class="content-left-col">
                             <div class="content-left-col-border">
                                 <div class="text-uppercase title">
-                                    <h2 class="title-content" data-toggle="popover" title="Tin đảm bảo" 
-                                        data-placement="top" data-trigger="hover"
-                                        data-content="Lorem Ipsum is simply dummy test of the printing and typesetting industry.
-                                        Lorem Ipsum has been the industry's standard dummy test ever since the 1500s,
-                                        When an unknowing printer took 
-                                        a gally of type and scrambled it to make a type specimen book.">
+                                    <h2 class="title-content">
                                         Tin đảm bảo
                                     </h2>
                                 </div>
-
-                                <?php foreach ($dataView['arrArticleCensored'] as $values) : ?>
-                                    <article>
-                                        <div class="row">
-                                            <div class="col-xs-5 article-left">
-                                                <div class="article-left-relative">
-                                                    <img src="{{url('Frontend')}}/images/article1_1a.png" class="img-responsive" alt=""/>
-                                                    <div class="article-rectangle"></div>
-                                                    <div class="article-action">
-                                                        <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-7 article-right">
-                                                <header>
-                                                    <h2>{{$values->title}}</h2>
-                                                    <div class="article-time">
-                                                        <span>Cập nhật: <time>{{$values->begin_date}}</time></span>
-                                                        <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                    </div>
-
-                                                </header>
-                                                <section>
-                                                    <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                    <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$values->articleBase->district_name}}-{{$values->articleBase->city_name}}</p>
-                                                    <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                                </section>
+                                @if (count($dataView['arrArticleCensored']) > 0)
+                                @foreach ($dataView['arrArticleCensored'] as $values)
+                                <article>
+                                    <div class="row">
+                                        <div class="col-xs-5 article-left">
+                                            <div class="article-left-relative">
+                                                @if (isset($values->thumbnail))
+                                                <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
+                                                @else
+                                                <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                @endif
                                             </div>
                                         </div>
-                                    </article>
-                                <?php endforeach; ?>
+                                        <div class="col-xs-7 article-right">
+                                            <header>
+                                                <h2>{{$values->title}}</h2>
+                                                <div class="article-time">
+                                                    <span>Cập nhật: <time>{{ Carbon\Carbon::parse($values->begin_date)->format('d-m-Y') }}</time></span>
+                                                    @if ((int) $values->is_censored > 0)
+                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
+                                                    @endif
+                                                </div>
+                                            </header>
+                                            <section>
+                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
+                                                @if ((int) $values->articleOther->number_of_bedrooms > 0  || (int) $values->articleOther->number_of_wc > 0)
+                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 
+                                                    @if ((int) $values->articleOther->number_of_bedrooms > 0)
+                                                    {{$values->articleOther->number_of_bedrooms}} phòng ngủ, 
+                                                    @endif
+                                                    @if ((int) $values->articleOther->number_of_wc > 0)
+                                                    {{$values->articleOther->number_of_wc}} phòng tắm
+                                                    @endif
+                                                </p>
+                                                @endif
+                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> 
+                                                    {{$values->articleBase->district_name}}-{{$values->articleBase->city_name}}
+                                                </p>
+                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> 
+                                                    Giá: {{ number_format($values->articleBase->price, 0) }}
+                                                </p>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </article>
+                                @endforeach
+                                @endif
                                 <div class="text-right padding-right-15">
                                     <a class="btn btn-default btn-more-category" href="">Xem thêm <i class="fa fa-angle-right"></i></a>
                                 </div>
@@ -72,49 +81,56 @@
                         <div class="content-left-col content-left-col-2">
                             <div class="content-left-col-border">
                                 <div class="text-uppercase title">
-                                    <h2 class="title-content" data-toggle="popover" title="Tin thường" 
-                                        data-placement="top" data-trigger="hover"
-                                        data-content="Lorem Ipsum is simply dummy test of the printing and typesetting industry.
-                                        Lorem Ipsum has been the industry's standard dummy test ever since the 1500s,
-                                        When an unknowing printer took 
-                                        a gally of type and scrambled it to make a type specimen book.">
+                                    <h2 class="title-content">
                                         Tin thường</h2>
                                 </div>
-                                <?php
-                                if (count($dataView['arrArticle']) > 0):
-                                    foreach ($dataView['arrArticle'] as $values) :
-                                        ?>
-                                        <article>
-                                            <div class="row">
-                                                <div class="col-xs-5 article-left">
-                                                    <div class="article-left-relative">
-                                                        <img src="{{url('Frontend')}}/images/article1_1.png" class="img-responsive" alt=""/>
-                                                        <div class="article-rectangle"></div>
-                                                        <div class="article-action">
-                                                            <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                            <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-7 article-right">
-                                                    <header>
-                                                        <h2>{{$values->title}}</h2>
-                                                        <div class="article-time">
-                                                            <span>Cập nhật: <time>{{$values->begin_date}}</time></span>
-                                                        </div>
-
-                                                    </header>
-                                                    <section>
-                                                        <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                        <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$values->articleBase->district_name}}-{{$values->articleBase->city_name}}</p>
-                                                        <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                                    </section>
-                                                </div>
+                                @if (count($dataView['arrArticle']) > 0)
+                                @foreach ($dataView['arrArticle'] as $values)
+                                <article>
+                                    <div class="row">
+                                        <div class="col-xs-5 article-left">
+                                            <div class="article-left-relative">
+                                                @if (isset($values->thumbnail))
+                                                <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
+                                                @else
+                                                <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                @endif
                                             </div>
-                                        </article>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                        </div>
+                                        <div class="col-xs-7 article-right">
+                                            <header>
+                                                <h2>{{$values->title}}</h2>
+                                                <div class="article-time">
+                                                    <span>Cập nhật: <time>{{ Carbon\Carbon::parse($values->begin_date)->format('d-m-Y') }}</time></span>
+                                                    @if ((int) $values->is_censored > 0)
+                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
+                                                    @endif
+                                                </div>
+                                            </header>
+                                            <section>
+                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
+                                                @if ((int) $values->articleOther->number_of_bedrooms > 0  || (int) $values->articleOther->number_of_wc > 0)
+                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 
+                                                    @if ((int) $values->articleOther->number_of_bedrooms > 0)
+                                                    {{$values->articleOther->number_of_bedrooms}} phòng ngủ, 
+                                                    @endif
+                                                    @if ((int) $values->articleOther->number_of_wc > 0)
+                                                    {{$values->articleOther->number_of_wc}} phòng tắm
+                                                    @endif
+                                                </p>
+                                                @endif
+                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> 
+                                                    {{$values->articleBase->district_name}}-{{$values->articleBase->city_name}}
+                                                </p>
+                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> 
+                                                    Giá: {{ number_format($values->articleBase->price, 0) }}
+                                                </p>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </article>
+                                @endforeach
+                                @endif
                                 <div class="text-right padding-right-15">
                                     <a class="btn btn-default btn-more-category" href="">Xem thêm <i class="fa fa-angle-right"></i></a>
                                 </div>
@@ -144,12 +160,7 @@
     <div class="article-highlights">
         <div class="container">
             <div class="text-uppercase title">
-                <h2 class="title-content" data-toggle="popover" title="Tin nổi bật" 
-                    data-placement="top" data-trigger="hover"
-                    data-content="Lorem Ipsum is simply dummy test of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy test ever since the 1500s,
-                    When an unknowing printer took 
-                    a gally of type and scrambled it to make a type specimen book.">
+                <h2 class="title-content">
                     Tin nổi bật</h2>
                 <div class="pull-right">
                     <!-- Controls -->
@@ -165,66 +176,73 @@
                 <div id="carousel-example-generic-footer" class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
-                        <?php
-                        if (count($dataView['arrArticle']) > 0):
-                            for ($i = 0; $i < count($dataView['arrArticleSticky']); $i = $i + 3) :
-                                ?>
-                                <div class="item <?php echo ($i == 0) ? 'active' : ''; ?>">
-                                    <div class="row">
-                                        <?php for ($j = $i; ($j < $i + 3 && $j < count($dataView['arrArticleSticky']) ); $j++) : ?>
-                                            <div class="col-md-4 col-sm-4 col-xs-12 slide-column-left padding-bottom-15">
-                                                <article>
-                                                    <header>
-                                                        <div class="article-highlights-img">
-                                                            <div class="article-left-relative">
-                                                                <img src="{{url('Frontend')}}/images/article2_2.png" class="img-responsive" alt=""/>
-                                                                <div class="article-rectangle"></div>
-                                                                <div class="article-action">
-                                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                                </div>
-                                                                <div class="sale-off">
-                                                                    <div class="btn-group">
-                                                                        <button class="btn btn-success btn-active-purple">
-                                                                            <span class="text-uppercase">Đang sale off</span><br />
-                                                                            <span class="price"><i class="fa fa-dollar"></i> 10Tr/m2</span>
-                                                                        </button>
-                                                                        <button class="btn btn-default btn-active-purple">
-                                                                            <i class="fa fa-tag"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="check-product">
-                                                                    <button class="btn text-uppercase" >Còn nhà</button>
-                                                                </div>
-                                                            </div>
+                        @if (count($dataView['arrArticle']) > 0)
+                        @for ($i = 0; $i < count($dataView['arrArticleSticky']); $i = $i + 3)
+                        <div class="item {{{($i == 0) ? 'active' : '' }}}">
+                            <div class="row">
+                                @for ($j = $i; ($j < $i + 3 && $j < count($dataView['arrArticleSticky'])); $j++)
+                                <div class="col-md-4 col-sm-4 col-xs-12 slide-column-left padding-bottom-15">
+                                    <article>
+                                        <header>
+                                            <div class="article-highlights-img">
+                                                <div class="article-left-relative">
+                                                    @if (isset($dataView['arrArticleSticky'][$j]->thumbnail))
+                                                    <img src="{{url('') . $dataView['arrArticleSticky'][$j]->thumbnail}}" class="pull-right" alt=""/>
+                                                    @else
+                                                    <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                    @endif
+                                                    <div class="sale-off">
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-success btn-active-purple">
+                                                                <span class="text-uppercase">Đang sale off</span><br />
+                                                                <span class="price"><i class="fa fa-dollar"></i> 10Tr/m2</span>
+                                                            </button>
+                                                            <button class="btn btn-default btn-active-purple">
+                                                                <i class="fa fa-tag"></i>
+                                                            </button>
                                                         </div>
-                                                        <div class="box-header">
-                                                            <div class="row">
-                                                                <div class="col-md-4 col-xs-4 acreage">
-                                                                    <p><i class="fa fa-home"></i> Diện tích: 85</p>
-                                                                </div>
-                                                                <div class="col-md-4 col-xs-4 bed">
-                                                                    <p><i class="fa fa-bed"></i> 3 phòng ngủ</p>
-                                                                </div>
-                                                                <div class="col-md-4 col-xs-4 price">
-                                                                    <p><i class="fa fa-dollar"></i> Giá: 3 tỷ/căn</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </header>
-                                                    <section>
-                                                        <h3 class="text-center">Nhà đất khu Quang Trung, HN</h3>
-                                                        <p class="text-center">Lorem Ipsum is simply dummy test of the </p>
-                                                        <p class="text-center">typesetting industry. Lorem Ipsum</p>
-                                                    </section>
-                                                </article>
+                                                    </div>
+                                                    <div class="check-product">
+                                                        <button class="btn text-uppercase" >Còn nhà</button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        <?php endfor; ?>
-                                    </div>
-                                </div><!-- end .item -->
-                            <?php endfor; ?>
-                        <?php endif; ?>
+                                            <div class="box-header">
+                                                <div class="row">
+                                                    <div class="col-md-4 col-xs-4 acreage">
+                                                        <p><i class="fa fa-home"></i> Diện tích: 85</p>
+                                                    </div>
+                                                    <div class="col-md-4 col-xs-4 bed">
+                                                        @if ((int) $dataView['arrArticleSticky'][$j]->articleOther->number_of_bedrooms > 0 || (int) $dataView['arrArticleSticky'][$j]->articleOther->number_of_wc > 0)
+                                                        <p><i class="fa fa-bed"></i> 
+                                                            @if ((int) $dataView['arrArticleSticky'][$j]->articleOther->number_of_bedrooms > 0)
+                                                            {{$dataView['arrArticleSticky'][$j]->articleOther->number_of_bedrooms}} phòng ngủ
+                                                            @elseif ((int) $dataView['arrArticleSticky'][$j]->articleOther->number_of_wc > 0)
+                                                            {{$dataView['arrArticleSticky'][$j]->articleOther->number_of_wc}} phòng tắm
+                                                            @endif
+                                                        </p>
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="col-md-4 col-xs-4 price">
+                                                        <p><i class="fa fa-dollar"></i> Giá: {{number_format($dataView['arrArticleSticky'][$j]->articleBase->price, 0)}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </header>
+                                        <section>
+                                            <h3 class="text-center">{{$dataView['arrArticleSticky'][$j]->title}}</h3>
+                                            <div class="text-center">
+                                                {!! str_limit($dataView['arrArticleSticky'][$j]->content, $limit = 100, $end = '...') !!}
+                                            </div>
+                                        </section>
+                                    </article>
+                                </div>
+                                @endfor
+                            </div>
+                        </div><!-- end .item -->
+                        @endfor
+                        @endif
                     </div>
                 </div>
 
