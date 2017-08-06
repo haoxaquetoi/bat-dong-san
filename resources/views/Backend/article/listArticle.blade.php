@@ -129,7 +129,7 @@ categorys
                                                     </a>
                                                 </div>
                                             </td>
-                                            <td>@{{article.created_at}}</td>
+                                            <td>@{{article.begin_date}}</td>
                                         </tr>
 
                                     </tbody>

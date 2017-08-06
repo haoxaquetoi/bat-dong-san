@@ -5,7 +5,7 @@ ngApp.config(function ($routeProvider, $locationProvider) {
                 templateUrl: SiteUrl + '/admin/menu/list',
                 controller: 'menuListCtrl'
             })
-            .when('/single/:id', {
+            .when('/single/:postionID/:id', {
                 templateUrl: SiteUrl + '/admin/menu/single',
                 controller: 'menuSingleCtrl'
             })
