@@ -230,7 +230,7 @@
                         <div class="col-sm-12 col-xs-12">
                             <div class="form-group">
                                 <label for="">Mô tả nội thất</label>
-                                <textarea name="txtContentFurniture" class="form-control my-ckeditor" ></textarea>
+                                <textarea name="txtContentFurniture" id='txtContentFurniture' class="form-control my-ckeditor" ></textarea>
                             </div>
                         </div>
                     </div>

@@ -20,13 +20,14 @@ class ArticleMode extends Model {
     function articleOther() {
         return $this->hasOne('App\Models\Frontend\ArticleOtherModel', 'article_id');
     }
-
     /**
      * Danh sách tin bài
-     * @param type $freeText lọc theo tiều đề
-     * @param type $sticky 1 hoặc 0 Tin nổi bật
-     * @param type $censored  1 hoặc 0 Tin đảm bảo 
-     * @param type $page trnag
+     * @param type $type Kiểu tin bài. News: Tin đăng, Product: Tin bất động sản
+     * @param type $freeText Lọc theo tiều đề
+     * @param type $sticky 1 Tin nổi bật, 0 Ngược lại
+     * @param type $censored 1 Tin đảm bảo, 0 Ngược lại
+     * @param type $sold 1 Đã bán, 0 Còn
+     * @param type $page Trang
      * @param type $pageSize Số bản ghi trên 1 trang
      * @return type
      */
@@ -110,6 +111,30 @@ class ArticleMode extends Model {
         if ($articleInfo[0]->end_date != '')
             $articleInfo[0]->end_date = explode(' ', $articleInfo[0]->end_date)[0];
         return $articleInfo[0];
+    }
+    /**
+     * Kiểm tra tin bài có hoạt động không
+     * @param type $id Mã tin bài
+     * @param type $type  kiểu tin bài. News: Tin đăng, Product: Tin bất động sản
+     * @return type
+     */
+    function checkIdArticlePublish($id, $type = '') {
+        $db = DB::table($this->table)
+                ->where('id', '=', $id)
+                ->where('status', '=', 'Publish')
+                ->whereRaw('DATEDIFF(begin_date, now())<=0')
+                ->whereRaw('DATEDIFF(end_date, now())>=0')
+                ->where('deleted', '=', 0);
+        if ($type !== '') {
+            $db->where('type', '=', $type);
+        }
+        $arr = $db->orderBy('begin_date', 'ASC')
+                ->pluck('id');
+        if(count ($arr) > 0){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 }

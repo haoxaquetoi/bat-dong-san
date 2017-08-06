@@ -47,7 +47,9 @@
                                                 </div>
                                             </header>
                                             <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
+                                                @isset($values->articleOther->floor_area)
+                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: {{$values->articleOther->floor_area}} m2</p>
+                                                @endisset
                                                 @if ((int) $values->articleOther->number_of_bedrooms > 0  || (int) $values->articleOther->number_of_wc > 0)
                                                 <p><i class="fa fa-bed" aria-hidden="true"></i> 
                                                     @if ((int) $values->articleOther->number_of_bedrooms > 0)
@@ -108,7 +110,9 @@
                                                 </div>
                                             </header>
                                             <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
+                                                @isset($values->articleOther->floor_area)
+                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: {{$values->articleOther->floor_area}} m2</p>
+                                                @endisset
                                                 @if ((int) $values->articleOther->number_of_bedrooms > 0  || (int) $values->articleOther->number_of_wc > 0)
                                                 <p><i class="fa fa-bed" aria-hidden="true"></i> 
                                                     @if ((int) $values->articleOther->number_of_bedrooms > 0)
@@ -210,7 +214,9 @@
                                             <div class="box-header">
                                                 <div class="row">
                                                     <div class="col-md-4 col-xs-4 acreage">
-                                                        <p><i class="fa fa-home"></i> Diện tích: 85</p>
+                                                        @isset($values->articleOther->floor_area)
+                                                        <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: {{$values->articleOther->floor_area}} m2</p>
+                                                        @endisset
                                                     </div>
                                                     <div class="col-md-4 col-xs-4 bed">
                                                         @if ((int) $dataView['arrArticleSticky'][$j]->articleOther->number_of_bedrooms > 0 || (int) $dataView['arrArticleSticky'][$j]->articleOther->number_of_wc > 0)

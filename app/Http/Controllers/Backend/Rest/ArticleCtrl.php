@@ -201,7 +201,7 @@ class ArticleCtrl extends Controller {
                     'number_of_storeys' => $request->article_other['number_of_storeys'],
                     'number_of_wc' => intval($request->article_other['number_of_wc']),
                     'number_of_bedrooms' => intval($request->article_other['number_of_bedrooms']),
-                    'furniture' => intval($request->article_other['furniture']),
+                    'furniture' => $request->article_other['furniture'],
                     'floor_area' => intval($request->article_other['floor_area'])
         ]);
 
@@ -337,14 +337,7 @@ class ArticleCtrl extends Controller {
                     'article_other.number_of_bedrooms.numeric' => 'Chỉ có thể nhập kiểu số',
                 ];
             }
-            if ($request->article_other['furniture'] != '') {
-                $rulesOther = [
-                    'article_other.furniture' => 'numeric',
-                ];
-                $messageOther = [
-                    'article_other.furniture.numeric' => 'Chỉ có thể nhập kiểu số',
-                ];
-            }
+          
             if ($request->article_other['floor_area'] != '') {
                 $rulesOther = [
                     'article_other.floor_area' => 'numeric',
