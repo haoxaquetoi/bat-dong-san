@@ -20,42 +20,14 @@ class ArticleCtrl extends Controller {
 
         $category = $catModel->getAllCat(0);
         $viewData['category'] = collect($category);
-        $viewData['post_date'] = $artModel::select(DB::raw("DATE_FORMAT(created_at,'%m-%Y') as post_date"))->groupBy('post_date')->orderBy('post_date', 'desc')->get()->toArray();
+        $viewData['post_date'] = $artModel->get_all_post_date();
         $viewData['count'] = [];
         $viewData['count']['total'] = $artModel::count();
         $viewData['count']['total_publish'] = $artModel::where('status', 'Publish')->count();
         $viewData['count']['total_trash'] = $artModel::where('status', 'Trash')->count();
         $viewData['count']['total_deleted'] = $artModel::where('deleted', '1')->count();
 
-        $arr_where = [];
-        if ($request->type) {
-            $arr_where[] = ['type', '=', $request->type];
-        }
-        if ($request->option == 'Trash' || $request->option == 'Publish') {
-            $arr_where[] = ['status', '=', $request->option];
-        }
-        if ($request->option == 'deleted') {
-            $arr_where[] = ['deleted', '=', 1];
-        }
-        if ($request->freeText) {
-            $arr_where[] = ['title', 'like', "%{$request->freeText}%"];
-        }
-        if ($request->post_date) {
-            $arr_where[] = [DB::raw("DATE_FORMAT(created_at,'%m-%Y')"), '=', $request->post_date];
-        }
-        $artModel = $artModel::where($arr_where);
-        if ($request->ord_crat) {
-          
-            $artModel = $artModel->orderBy('created_at', $request->ord_crat);
-        }
-        if ($request->ord_sk) {
-            $artModel = $artModel->orderBy('is_sticky', $request->ord_sk);
-        }
-        if ($request->ord_cd) {
-            $artModel = $artModel->orderBy('is_censored', $request->ord_cd);
-        }
-        $viewData['arrArticle'] = $artModel->where($arr_where)->paginate()->toArray();
-        
+        $viewData['arrArticle'] = $artModel->getAll($request->category_id,$request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd);
         return view('backend/article/listArticle', $viewData);
     }
 

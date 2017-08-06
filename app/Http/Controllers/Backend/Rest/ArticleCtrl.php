@@ -41,7 +41,7 @@ class ArticleCtrl extends Controller {
                     'end_date' => trim($request->end_date) != '' ? $request->end_date : null,
                     'created_at' => date('Y-m-d H:i:s')
         ]);
-        
+
         if ($articleID == NULL) {
             return response()->json(array('other' => ['Xảy ra lỗi, bạn vui lòng tải lại trang sau đó thao tác lại']), 422);
         }
@@ -455,34 +455,7 @@ class ArticleCtrl extends Controller {
         $articleInfo->save();
     }
 
-    function getAllArticle(ArticleModel $articleModel, Request $request) {
-
-        $request->orderBy;
-        $request->page;
-        $request->pageSize;
-
-        $articleIstall = $articleModel;
-
-        if ($request->type != '') {
-            $articleIstall = $articleIstall->where('type', '=', $request->type);
-        }
-        if ($request->status != '') {
-            $articleIstall = $articleIstall->where('status', '=', $request->status);
-        }
-        if ($request->deleted != '') {
-            $articleIstall = $articleIstall->where('deleted', '=', $request->deleted);
-        }
-        if ($request->created_at != '') {
-            $articleIstall = $articleIstall->where('created_at', '=', $request->created_at);
-        }
-        if ($request->freeText != '') {
-            $articleIstall = $articleIstall->where('title', 'like', "%{$request->freeText}%");
-        }
-
-
-        $data = $articleIstall->paginate();
-        return response()->json($data);
-    }
+    
 
     function getSingleArticle(ArticleModel $articleModel, Request $request) {
         $request->id;
@@ -496,5 +469,15 @@ class ArticleCtrl extends Controller {
         $data = $this->getArticleInfo($articleModel, $request->id);
         return response()->json($data);
     }
+
+    function getAllPostDate(ArticleModel $articleModel) {
+        $data = $articleModel->get_all_post_date();
+        return response()->json($data);
+    }
+    function getAllArticle(ArticleModel $artModel, Request $request) {
+
+        return $artModel->getAll($request->category_id,$request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd);
+    }
+   
 
 }

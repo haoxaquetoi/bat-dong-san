@@ -18,6 +18,7 @@ ngApp.controller('categoryCtrl', function ($scope, $apply, $categoryService, Slu
         singleModalCategory: function (targetModal, catInfo) {
             $scope.errors = {};
             catInfo = catInfo || {parent_id: '0'};
+            catInfo.parent_id = catInfo.parent_id == 0 ? catInfo.parent_id.toString() : catInfo.parent_id;
             $scope.data.categoryInfo = angular.copy(catInfo);
             $(targetModal).modal('show');
         },
@@ -30,8 +31,7 @@ ngApp.controller('categoryCtrl', function ($scope, $apply, $categoryService, Slu
             if (!categoryInfo.id)
             {
                 var resp = $categoryService.actions.insertCategory(categoryInfo);
-            }
-            else
+            } else
             {
                 resp = $categoryService.actions.updateCategory(categoryInfo);
             }

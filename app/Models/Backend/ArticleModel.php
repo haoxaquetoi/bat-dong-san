@@ -67,4 +67,44 @@ class ArticleModel extends Model {
         return $articleInfo->toArray();
     }
 
+    function get_all_post_date() {
+        return $this->select(DB::raw("DATE_FORMAT(created_at,'%m-%Y') as post_date"))->groupBy('post_date')->orderBy('post_date', 'desc')->get()->toArray();
+    }
+
+    function getAll($category_id = '', $type = '', $option = '', $freeText = '', $post_date = '', $ord_crat = '', $ord_sk = '', $ord_cd = '') {
+        $arr_where = [];
+        if ($type) {
+            $arr_where[] = ['type', '=', $type];
+        }
+        if (intval($category_id) > 0) {
+//            $arr_where[] = ['status', 'in', intval($category_id)];
+        }
+
+        if ($option == 'Trash' || $option == 'Publish') {
+            $arr_where[] = ['status', '=', $option];
+        }
+        if ($option == 'deleted') {
+            $arr_where[] = ['deleted', '=', 1];
+        }
+        if ($freeText) {
+            $arr_where[] = ['title', 'like', "%{$freeText}%"];
+        }
+        if ($post_date) {
+            $arr_where[] = [DB::raw("DATE_FORMAT(created_at,'%m-%Y')"), '=', $post_date];
+        }
+        $artModel = $this->where($arr_where);
+        if ($ord_crat) {
+
+            $artModel = $artModel->orderBy('created_at', $ord_crat);
+        }
+        if ($ord_sk) {
+            $artModel = $artModel->orderBy('is_sticky', $ord_sk);
+        }
+        if ($ord_cd) {
+            $artModel = $artModel->orderBy('is_censored', $ord_cd);
+        }
+
+        return $artModel->where($arr_where)->paginate()->toArray();
+    }
+
 }

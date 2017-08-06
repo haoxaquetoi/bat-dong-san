@@ -10,21 +10,23 @@
                     <div class="row">
                         <div class="col-md-7 col-xs-12 padding-bottom-5">
                             <form class="form-inline" role="form">
-                                <select class="form-control input-sm">
-                                    <option>-- Tất cả chuyên mục --</option>
-                                    <option>-- Chuyên mục 1 --</option>
-                                    <option>-- Chuyên mục 2 --</option>
+                                <select class="form-control btn-sm" ng-model="data.article.filter.category_id">
+                                    <option value="">-- Chọn chuyên mục--</option>
+                                    <option ng-repeat="catInfo in data.category" value="@{{catInfo.id}}" >@{{catInfo.children}}@{{catInfo.name}}</option>
                                 </select>
-                                <input type="date" class="form-control input-sm" id="time_from">
-                                <button type="button" class="btn btn-default btn-sm">Lọc</button>
+                                <select class="form-control input-sm" ng-model="data.article.filter.post_date" >
+                                    <option value="" >-- Tất cả --</option>
+                                    <option  ng-repeat="post_date in data.article.post_date" value="@{{post_date.post_date}}" >Tháng @{{post_date.post_date}}</option>
+                                </select>
+                                <button type="button" class="btn btn-default btn-sm" ng-click="actions.getAllArticle()" >Lọc</button>
                             </form>
                         </div> 
                         <div class="col-md-5 col-xs-12 padding-bottom-5">
                             <div class="box-tools pull-right">
                                 <div class="input-group input-group-sm" style="width: 250px;">
-                                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm">
+                                    <input type="text"  class="form-control pull-right" placeholder="Tìm kiếm" ng-model="data.article.filter.freeText">
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                        <button type="button" class="btn btn-default" ng-click="actions.getAllArticle()" ><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -39,103 +41,33 @@
                                 <table  class="table table-bordered table-hover dataTable" role="grid" id="example2" >
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc">STT</th>
-                                            <th class="sorting">Tiêu đề</th>
-                                            <th class="sorting">Nổi bật</th>
-                                            <th class="sorting">Đảm bảo</th>
-                                            <th class="sorting">Phản hồi</th>
-                                            <th class="sorting">Ngày đăng</th>
+                                            <th >STT</th>
+                                            <th>Tiêu đề</th>
+                                            <th >Nổi bật</th>
+                                            <th >Đảm bảo</th>
+                                            <th >Ngày đăng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="text-center">1</td>
+
+                                        <tr ng-repeat=" articleInfo in data.article.arrArticle.data" ng-click="actions.chooseArticle(articleInfo);" >
+                                            <td class="text-center">@{{(data.article.arrArticle.current_page - 1) * data.article.arrArticle.per_page + $index + 1}}</td>
                                             <td>
-                                                <a href="javascript:void(0);">Nhà đất bán tại việt nam</a>
+                                                <a ng-if="articleInfo.deleted == 1 || articleInfo.expired == 1" ><strike>@{{articleInfo.title}}</strike></a>
+                                                <a ng-if="articleInfo.deleted != 1" >@{{articleInfo.title}}</a>
                                             </td>
-                                            <td class="mailbox-star text-center"><i class="fa fa-star-o text-yellow"></i></td>
-                                            <td class="mailbox-star text-center"><i class="fa fa-star-o text-yellow"></i></td>
-                                            <td class="comments column-comments text-center" data-colname="Bình luận">		
-                                                <div class="post-com-count-wrapper">
-                                                    <a href="" class="post-com-count post-com-count-approved">
-                                                        <span class="comment-count-approved" aria-hidden="true">1</span>
-                                                        <span class="screen-reader-text">1 Bình luận</span>
-                                                    </a>
-                                                </div>
+                                            <td class="mailbox-star text-center">
+                                                <a  ng-if="articleInfo.is_sticky == 1" href="javascript:;"><i class="fa fa-star text-yellow"></i></a>
+                                                <a  ng-if="articleInfo.is_sticky == 0" href="javascript:;"href="javascript:;"><i class="fa fa-star-o text-yellow"></i></a>
                                             </td>
-                                            <td>10:00:00 17/07/2017</td>
-                                        <tr>
-                                            <td class="text-center">1</td>
-                                            <td>
-                                                <a href="javascript:void(0);">Nhà đất bán tại việt nam</a>
+                                            <td class="mailbox-star text-center">
+                                                <a  ng-show="articleInfo.type == 'Product'"  ng-if="articleInfo.is_censored == 1" href="javascript:;"><i class="fa fa-star text-yellow"></i></a>
+                                                <a  ng-show="articleInfo.type == 'Product'" ng-if="articleInfo.is_censored == 0" href="javascript:;"href="javascript:;"><i class="fa fa-star-o text-yellow"></i></a>
                                             </td>
-                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class="comments column-comments text-center" data-colname="Bình luận">		
-                                                <div class="post-com-count-wrapper">
-                                                    <a href=""
-                                                       class="post-com-count post-com-count-approved">
-                                                        <span class="comment-count-approved" aria-hidden="true">1</span>
-                                                        <span class="screen-reader-text">1 Bình luận</span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>10:00:00 17/07/2017</td>
+
+                                            <td>@{{article.begin_date}}</td>
                                         </tr>
-                                        <tr>
-                                            <td class="text-center">1</td>
-                                            <td>
-                                                <a href="javascript:void(0);">Nhà đất bán tại việt nam</a>
-                                            </td>
-                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class="comments column-comments text-center" data-colname="Bình luận">		
-                                                <div class="post-com-count-wrapper">
-                                                    <a href=""
-                                                       class="post-com-count post-com-count-approved">
-                                                        <span class="comment-count-approved" aria-hidden="true">1</span>
-                                                        <span class="screen-reader-text">1 Bình luận</span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>10:00:00 17/07/2017</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">1</td>
-                                            <td>
-                                                <a href="javascript:void(0);">Nhà đất bán tại việt nam</a>
-                                            </td>
-                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class="comments column-comments text-center" data-colname="Bình luận">		
-                                                <div class="post-com-count-wrapper">
-                                                    <a href=""
-                                                       class="post-com-count post-com-count-approved">
-                                                        <span class="comment-count-approved" aria-hidden="true">1</span>
-                                                        <span class="screen-reader-text">1 Bình luận</span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>10:00:00 17/07/2017</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">1</td>
-                                            <td>
-                                                <a href="javascript:void(0);">Nhà đất bán tại việt nam</a>
-                                            </td>
-                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class="mailbox-star text-center"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class="comments column-comments text-center" data-colname="Bình luận">		
-                                                <div class="post-com-count-wrapper">
-                                                    <a href=""
-                                                       class="post-com-count post-com-count-approved">
-                                                        <span class="comment-count-approved" aria-hidden="true">1</span>
-                                                        <span class="screen-reader-text">1 Bình luận</span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>10:00:00 17/07/2017</td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -143,16 +75,12 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                    <ul class="pagination">
-                                        <li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li>
-                                        <li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li>
-                                        <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li>
-                                        <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li>
-                                        <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a></li>
-                                        <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a></li>
-                                        <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a></li>
-                                        <li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a></li>
-                                    </ul>
+                                    <div paging
+                                         page="data.article.arrArticle.current_page" 
+                                         page-size="data.article.arrArticle.per_page" 
+                                         total="data.article.arrArticle.total"
+                                         paging-action="actions.changePage(page)">
+                                    </div> 
                                 </div>
                             </div>
                         </div>

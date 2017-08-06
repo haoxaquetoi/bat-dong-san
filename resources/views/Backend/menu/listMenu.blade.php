@@ -13,29 +13,18 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">Vị trí menu</h3>
                             <div class="box-tools pull-right">
-                                <a class="btn padding-right-0" data-toggle="modal" data-target="#modalPositionMenu"><i class="fa fa-plus"></i> Thêm mới</a>
+                                <a class="btn padding-right-0" ng-click="actions.singlePositionMenu()"><i class="fa fa-plus"></i> Thêm mới</a>
                             </div>
                         </div>
                         <div class="box-body">
-                            <div class="row padding-top-15">
+                            <div class="row padding-top-15" ng-repeat="position in data.listPosition">
                                 <div class="col-xs-12">
                                     <label class="pull-left">
-                                        <a data-toggle="modal" data-target="#modalPositionMenu">Menu top</a>
+                                        <a ng-class="(data.positioInfo.id == position.id) ? 'red' : ''"  href="javascript:void(0);" ng-click="actions.showListMenu(position)" >@{{position.name}}</a>
                                     </label>
                                     <label class="pull-right">
-                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#modalPositionMenu" class="padding-5"><i class="fa fa-edit text-primary"></i></a>
-                                        <a href="javascript:void(0)" class="padding-5"><i class="fa fa-trash text-danger"></i></a>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="row padding-top-15">
-                                <div class="col-xs-12">
-                                    <label class="pull-left">
-                                        <a data-toggle="modal" data-target="#modalPositionMenu">Menu footer</a>
-                                    </label>
-                                    <label class="pull-right">
-                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#modalPositionMenu" class="padding-5"><i class="fa fa-edit text-primary"></i></a>
-                                        <a href="javascript:void(0)" class="padding-5"><i class="fa fa-trash text-danger"></i></a>
+                                        <a href="javascript:void(0)"  ng-click="actions.singlePositionMenu(position)"  class="padding-5"><i class="fa fa-edit text-primary"></i></a>
+                                        <a href="javascript:void(0)" class="padding-5" ng-click="actions.deletePosition(position.id)"><i class="fa fa-trash text-danger"></i></a>
                                     </label>
                                 </div>
                             </div>
@@ -54,7 +43,7 @@
                                 </div>
                             </h3>
                             <div class="box-tools pull-right">
-                                <a href="#!/single/0" class="btn padding-right-0"><i class="fa fa-plus"></i> Thêm mới</a>
+                                <a  ng-click="actions.singleMenu(data.positioInfo.id, 0)"  class="btn padding-right-0"><i class="fa fa-plus"></i> Thêm mới</a>
                             </div>
                         </div>
                         <!-- /.box-header -->
@@ -72,61 +61,29 @@
                                 </colgroup>
                                 <thead>
                                     <tr role="row">
-                                        <th class="sorting">STT</th>
+                                        <th>STT</th>
                                         <th>#</th>
-                                        <th class="sorting_asc">Tên menu</th>
-                                        <th class="sorting">Loại menu</th>
+                                        <th>Tên menu</th>
+                                        <th>Loại menu</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr role="row">
-                                        <td class="text-center">1</td>
+                                    <tr role="row" ng-repeat="menu in data.listMenu">
+                                        <td class="text-center">@{{$index +1}}</td>
                                         <td class="tbl-actions text-center">
                                             <div class="dropdown">
                                                 <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="">Chi tiết</a></li>
-                                                    <li><a href="javascript:void(0);">Xóa</a></li>
+                                                    <li><a href="javascript:void(0);" ng-click="actions.singleMenu(menu.position_id, menu.id)"  >Chi tiết</a></li>
+                                                    <li><a href="javascript:void(0);" ng-click="actions.deleteMenu( menu.id)" >Xóa</a></li>
                                                 </ul>
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="#!/single/0" data-toggle="modal" data-target="#modalSettingFeedback">Trang chủ</a>
+                                            <a href="javascript:void(0);" ng-click="actions.singleMenu(menu.position_id, menu.id)" >@{{menu.split_child}} @{{menu.name}}</a>
                                         </td>
                                         <td>Link</td>
-                                    </tr>
-                                    <tr role="row">
-                                        <td class="text-center">2</td>
-                                        <td class="tbl-actions text-center">
-                                            <div class="dropdown">
-                                                <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="">Chi tiết</a></li>
-                                                    <li><a href="javascript:void(0);">Xóa</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="#!/single/0" data-toggle="modal" data-target="#modalSettingFeedback">Giới thiệu</a>
-                                        </td>
-                                        <td>Chuyên mục</td>
-                                    </tr>
-                                    <tr role="row">
-                                        <td class="text-center">3</td>
-                                        <td class="tbl-actions text-center">
-                                            <div class="dropdown">
-                                                <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="">Chi tiết</a></li>
-                                                    <li><a href="javascript:void(0);">Xóa</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="#!/single/0" data-toggle="modal" data-target="#modalSettingFeedback">-- Dịch vụ</a>
-                                        </td>
-                                        <td>Tin bài</td>
                                     </tr>
                                 </tbody>
                             </table>

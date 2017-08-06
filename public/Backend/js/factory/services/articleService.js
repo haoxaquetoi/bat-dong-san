@@ -16,7 +16,6 @@ ngApp.factory('$articleService', function ($rootScope, $http)
     }
     service.actions.getAll = function (params)
     {
-
         var url = SiteUrl + '/rest/article';
         return $http.get(url, {params: params});
     }
@@ -45,6 +44,11 @@ ngApp.factory('$articleService', function ($rootScope, $http)
     service.actions.getSingleArticle = function (id)
     {
         var url = SiteUrl + '/rest/article/' + id;
+        return $http.get(url);
+    }
+    service.actions.getAllPostDate = function ()
+    {
+        var url = SiteUrl + '/rest/article/getAllPostDate';
         return $http.get(url);
     }
     return service;
