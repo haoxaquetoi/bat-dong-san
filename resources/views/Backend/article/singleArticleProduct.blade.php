@@ -226,6 +226,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
                                     <div class="form-group">
@@ -233,6 +234,7 @@
                                         <textarea name="txtContentFurniture" id="txtContentFurniture" class="form-control my-ckeditor" ></textarea>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

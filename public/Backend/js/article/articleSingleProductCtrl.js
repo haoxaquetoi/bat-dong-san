@@ -123,6 +123,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
         $('#txtContentFurniture').val($scope.articleInfo.article_other.furniture);
         $('#txtbegin_date').val($scope.articleInfo.begin_date);
         $('#txtend_date').val($scope.articleInfo.end_date);
+        $('#txtContentFurniture').val($scope.articleInfo.article_other.furniture);
     });
     $scope.generalInfoDom;
     $scope.errors = [];
@@ -152,6 +153,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
             $scope.articleInfo.thumbnail = $('#thumbnail').val() || '';
             $scope.articleInfo.content = tinyMCE.get('txtContent').getContent();
             $scope.articleInfo.article_other.furniture = tinyMCE.get('txtContentFurniture').getContent();
+
             $scope.errors = [];
             if ($scope.articleInfo.id && $scope.articleInfo.id > 0)
             {
