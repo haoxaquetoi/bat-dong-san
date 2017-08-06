@@ -60,7 +60,6 @@ class ArticleCtrl extends Controller {
 
     function edit(TagsAricleModel $tagArtModel, TagsModel $TagsModel, CategoryArticleModel $catArtModel, ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleModel $articleModel, Request $request) {
 
-
         $this->_chkValidation($articleModel, $catModel, $request);
         $articleID = $request->id;
         $articleInfo = $articleModel::find($articleID);
@@ -178,6 +177,35 @@ class ArticleCtrl extends Controller {
     }
 
     private function _update_product(ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleModel $articleModel, Request $request) {
+
+        //update slider
+        $request->id;
+        DB::table('article_slide')->where('article_id', '=', $request->id)->delete();
+        if (isset($request->article_slide['images']) && is_array($request->article_slide['images'])) {
+            foreach ($request->article_slide['images'] as $imageInfo) {
+                if ($imageInfo['type'] == '' || $imageInfo['path'] == '') {
+                    continue;
+                }
+                DB::table('article_slide')->insertGetId([
+                    'article_id' => $request->id,
+                    'type' => $imageInfo['type'],
+                    'path' => $imageInfo['path'],
+                ]);
+            }
+        }
+        if (isset($request->article_slide['video']) && is_array($request->article_slide['video'])) {
+            foreach ($request->article_slide['video'] as $videoInfo) {
+                if ($videoInfo['type'] == '' || $videoInfo['path'] == '') {
+                    continue;
+                }
+                DB::table('article_slide')->insertGetId([
+                    'article_id' => $request->id,
+                    'type' => $videoInfo['type'],
+                    'path' => $videoInfo['path'],
+                ]);
+            }
+        }
+
         //update base
         $artBase::where('article_id', '=', $request->id)->delete();
         $artiBaseID = $artBase::insertGetId([
@@ -201,7 +229,7 @@ class ArticleCtrl extends Controller {
                     'number_of_storeys' => $request->article_other['number_of_storeys'],
                     'number_of_wc' => intval($request->article_other['number_of_wc']),
                     'number_of_bedrooms' => intval($request->article_other['number_of_bedrooms']),
-                    'furniture' => intval($request->article_other['furniture']),
+                    'furniture' => $request->article_other['furniture'],
                     'floor_area' => intval($request->article_other['floor_area'])
         ]);
 
@@ -250,7 +278,7 @@ class ArticleCtrl extends Controller {
                 'article_base.village_id' => 'required|exists:address_village,id',
                 'article_base.street_id' => 'required|exists:address_street,id',
                 'article_base.address' => 'required',
-                'article_base.price' => 'required|integer',
+                'article_base.price' => 'integer',
             ];
             $rules = array_merge($rules, $rulesBase);
 
@@ -265,7 +293,6 @@ class ArticleCtrl extends Controller {
                 'article_base.street_id.required' => 'Đường/phố không được bỏ trống',
                 'article_base.street_id.exists' => 'Đường/phố không hợp lệ',
                 'article_base.address.required' => 'Không được bỏ trống',
-                'article_base.price.required' => 'Không được bỏ trống',
                 'article_base.price.integer' => 'Giá tiền phải >0',
             ];
             $message = array_merge($message, $messageBase);
@@ -283,7 +310,7 @@ class ArticleCtrl extends Controller {
 
             $messageContact = [
                 'article_contact.name.required' => 'Tên liên hệ không được bỏ trống',
-                'article_contact.address.required' => 'Tên liên hệ không được bỏ trống',
+                'article_contact.address.required' => 'Địa chỉ liên hệ không được bỏ trống',
                 'article_contact.email.email' => 'Địa chỉ email không hợp lệ',
                 'article_contact.mobile.required' => 'Số điện thoại liên hệ không được bỏ trống',
                 'article_contact.mobile.numeric' => 'Số điện thoại không hợp lệ',
@@ -337,14 +364,7 @@ class ArticleCtrl extends Controller {
                     'article_other.number_of_bedrooms.numeric' => 'Chỉ có thể nhập kiểu số',
                 ];
             }
-            if ($request->article_other['furniture'] != '') {
-                $rulesOther = [
-                    'article_other.furniture' => 'numeric',
-                ];
-                $messageOther = [
-                    'article_other.furniture.numeric' => 'Chỉ có thể nhập kiểu số',
-                ];
-            }
+
             if ($request->article_other['floor_area'] != '') {
                 $rulesOther = [
                     'article_other.floor_area' => 'numeric',
@@ -455,8 +475,6 @@ class ArticleCtrl extends Controller {
         $articleInfo->save();
     }
 
-    
-
     function getSingleArticle(ArticleModel $articleModel, Request $request) {
         $request->id;
         #######Common########
@@ -474,10 +492,10 @@ class ArticleCtrl extends Controller {
         $data = $articleModel->get_all_post_date();
         return response()->json($data);
     }
+
     function getAllArticle(ArticleModel $artModel, Request $request) {
 
-        return $artModel->getAll($request->category_id,$request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd);
+        return $artModel->getAll($request->category_id, $request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd);
     }
-   
 
 }

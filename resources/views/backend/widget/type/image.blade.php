@@ -3,7 +3,7 @@
         <div class="form-group text-center">
             <div class="margin-bottom-5">
                 <div class="col-xs-12">
-                    <a data-input="thumbnail@{{widgetId}}" data-preview="holder@{{widgetId}}" class="btn btn-primary my-lfm">
+                    <a data-input="thumbnail@{{widgetId}}" data-preview="holder@{{widgetId}}" class="btn btn-primary my-lfm-img">
                         <i class="fa fa-picture-o"></i> Chọn ảnh/video
                     </a>
                     <a class="btn btn-danger" ng-click="action.deleteImage()">

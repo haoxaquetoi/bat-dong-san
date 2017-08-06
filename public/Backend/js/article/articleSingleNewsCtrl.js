@@ -49,8 +49,6 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope
         $('#txtbegin_date').val($scope.articleInfo.begin_date);
         $('#txtend_date').val($scope.articleInfo.end_date);
 
-
-
     });
 
 
@@ -84,8 +82,8 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope
             $scope.articleInfo.end_date = $('#txtend_date').val() || '';
 
             $scope.articleInfo.thumbnail = $('#thumbnail').val() || '';
-            $scope.articleInfo.content = CKEDITOR.instances.txtContent.getData();
-            $scope.articleInfo.summary = CKEDITOR.instances.txtSummary.getData();
+            $scope.articleInfo.content = tinyMCE.get('txtContent').getContent();
+            $scope.articleInfo.summary = tinyMCE.get('txtSummary').getContent();
 
             $scope.errors = [];
             if ($scope.articleInfo.id && $scope.articleInfo.id > 0)

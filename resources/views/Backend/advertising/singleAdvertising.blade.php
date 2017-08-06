@@ -54,7 +54,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="input-group">
-                                            <a data-input="thumbnail" data-preview="holder" class="btn btn-primary my-lfm">
+                                            <a data-input="thumbnail" data-preview="holder" class="btn btn-primary my-lfm-img">
                                                 <i class="fa fa-picture-o"></i> Chọn ảnh
                                             </a>
                                             <input id="thumbnail" class="form-control" type="hidden" name="filepath" value="@{{data.adv.info.file_path}}" />

@@ -113,12 +113,12 @@
             </a>
             <ul class="treeview-menu">
                 <li>
-                    <a href="{{URL::asset('')}}file-manager?type=image" target="_blank">
+                    <a href="{{URL::asset('')}}file-manager?type=Images" target="_blank">
                         <i class="fa fa-image"></i> <span>Media-images</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{URL::asset('')}}file-manager?type=image" target="_blank">
+                    <a href="{{URL::asset('')}}file-manager?type=Files" target="_blank">
                         <i class="fa fa-file"></i> <span>Media-files</span>
                     </a>
                 </li>

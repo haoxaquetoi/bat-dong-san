@@ -203,236 +203,320 @@
                                     <div class="form-group">
                                         <label for="">Số tầng</label>
                                         <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_storeys" />
-                                </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Diện tích nhà</label>
                                         <input type="text"  class="form-control" ng-model="articleInfo.article_other.floor_area" />
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="">Số phòng ngủ</label>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_bedrooms" />
+                                    </div>
                                 </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-xs-12">
-                            <div class="form-group">
-                                <label for="">Số phòng ngủ</label>
-                                <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_bedrooms" />
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="">Số tolet</label>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_wc" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-xs-12">
-                            <div class="form-group">
-                                <label for="">Số tolet</label>
-                                <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_wc" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-xs-12">
-                            <div class="form-group">
-                                <label for="">Mô tả nội thất</label>
-                                <textarea name="txtContentFurniture" class="form-control my-ckeditor" ></textarea>
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="">Mô tả nội thất</label>
+                                        <textarea name="txtContentFurniture" id="txtContentFurniture" class="form-control my-ckeditor" ></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Thông tin liên hệ</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    </div>
-                </div>
-                <!-- /.box-header -->
-                <!-- form start -->
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-sm-12 col-xs-12">
-                            <div class="form-group" ng-class="actions.hasError('article_contact.name') ? 'has-error' : ''">
-                                <label for="">Tên liên hệ <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" ng-model="articleInfo.article_contact.name" />
-                                <span class="help-block">@{{actions.showError('article_contact.name')}}</span>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Thông tin liên hệ</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-xs-12">
-                            <div class="form-group" ng-class="actions.hasError('article_contact.address') ? 'has-error' : ''">
-                                <label for="">Địa chỉ <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" ng-model="articleInfo.article_contact.address" />
-                                <span class="help-block">@{{actions.showError('article_contact.address')}}</span>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-group" ng-class="actions.hasError('article_contact.name') ? 'has-error' : ''">
+                                        <label for="">Tên liên hệ <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.name" />
+                                        <span class="help-block">@{{actions.showError('article_contact.name')}}</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-xs-12">
-                            <div class="form-group" ng-class="actions.hasError('article_contact.phone') ? 'has-error' : ''">
-                                <label for="">Số điện thoại</label>
-                                <input type="text" class="form-control" ng-model="articleInfo.article_contact.phone" />
-                                <span class="help-block">@{{actions.showError('article_contact.phone')}}</span>
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-group" ng-class="actions.hasError('article_contact.address') ? 'has-error' : ''">
+                                        <label for="">Địa chỉ <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.address" />
+                                        <span class="help-block">@{{actions.showError('article_contact.address')}}</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-xs-12">
-                            <div class="form-group" ng-class="actions.hasError('article_contact.mobile') ? 'has-error' : ''">
-                                <label for="">Di động <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" ng-model="articleInfo.article_contact.mobile" />
-                                <span class="help-block">@{{actions.showError('article_contact.mobile')}}</span>
+                            <div class="row">
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="form-group" ng-class="actions.hasError('article_contact.phone') ? 'has-error' : ''">
+                                        <label for="">Số điện thoại</label>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.phone" />
+                                        <span class="help-block">@{{actions.showError('article_contact.phone')}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="form-group" ng-class="actions.hasError('article_contact.mobile') ? 'has-error' : ''">
+                                        <label for="">Di động <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.mobile" />
+                                        <span class="help-block">@{{actions.showError('article_contact.mobile')}}</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-xs-12">
-                            <div class="form-group" ng-class="actions.hasError('article_contact.email') ? 'has-error' : ''">
-                                <label for="">Email <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" ng-model="articleInfo.article_contact.email" />
-                                <span class="help-block">@{{actions.showError('article_contact.email')}}</span>
+                            <div class="row">
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="form-group" ng-class="actions.hasError('article_contact.email') ? 'has-error' : ''">
+                                        <label for="">Email <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.email" />
+                                        <span class="help-block">@{{actions.showError('article_contact.email')}}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
 
-        <div class="col-md-4">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Lịch đăng</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <div class="form-group">
-                        <div class="col-xs-6" style="padding: 0 3px 10px 0" ng-class="actions.hasError('begin_date') ? 'has-error' : ''">
-                            <label for="txtbegin_date">Từ ngày</label>
-                            <input type="date" class="form-control" id="txtbegin_date" value="@{{articleInfo.begin_date}}" />
-                            <span class="help-block">@{{actions.showError('begin_date')}}</span>
-                        </div>
-                        <div class="col-xs-6" style="padding: 0 0 10px 3px" ng-class="actions.hasError('end_date') ? 'has-error' : ''">
-                            <label for="txtend_date">Đến ngày</label>
-                            <input type="date" class="form-control" id="txtend_date" value="@{{articleInfo.end_date}}"  />
-                            <span class="help-block">@{{actions.showError('end_date')}}</span>
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-6" style="padding: 0 3px 10px 0">
-                            <div class="form-group">
-                                <input  type="checkbox"  class="magic-checkbox" ng-checked="articleInfo.is_sticky == 1"  ng-click="articleInfo.is_sticky = !articleInfo.is_sticky"  name=chkSticky" id="chkSticky" />
-                                <label for="chkSticky" class="padding-right-20" >
-                                    Tin nổi bật
-                                </label>
+                <div class="col-md-4">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Lịch đăng</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             </div>
                         </div>
-                        <div class="col-xs-6" style="padding: 0 0 10px 3px">
+                        <div class="box-body">
                             <div class="form-group">
-                                <input  type="checkbox"  class="magic-checkbox" ng-checked="articleInfo.is_censored == 1" ng-click="articleInfo.is_censored = !articleInfo.is_censored" name=chkCensored" id="chkCensored" >
-                                <label for="chkCensored" class="padding-right-20" >
-                                    Tin đảm bảo
-                                </label>
+                                <div class="col-xs-6" style="padding: 0 3px 10px 0" ng-class="actions.hasError('begin_date') ? 'has-error' : ''">
+                                    <label for="txtbegin_date">Từ ngày</label>
+                                    <input type="date" class="form-control" id="txtbegin_date" value="@{{articleInfo.begin_date}}" />
+                                    <span class="help-block">@{{actions.showError('begin_date')}}</span>
+                                </div>
+                                <div class="col-xs-6" style="padding: 0 0 10px 3px" ng-class="actions.hasError('end_date') ? 'has-error' : ''">
+                                    <label for="txtend_date">Đến ngày</label>
+                                    <input type="date" class="form-control" id="txtend_date" value="@{{articleInfo.end_date}}"  />
+                                    <span class="help-block">@{{actions.showError('end_date')}}</span>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-6" style="padding: 0 3px 10px 0">
+                                    <div class="form-group">
+                                        <input  type="checkbox"  class="magic-checkbox" ng-checked="articleInfo.is_sticky == 1"  ng-click="articleInfo.is_sticky = !articleInfo.is_sticky"  name=chkSticky" id="chkSticky" />
+                                        <label for="chkSticky" class="padding-right-20" >
+                                            Tin nổi bật
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6" style="padding: 0 0 10px 3px">
+                                    <div class="form-group">
+                                        <input  type="checkbox"  class="magic-checkbox" ng-checked="articleInfo.is_censored == 1" ng-click="articleInfo.is_censored = !articleInfo.is_censored" name=chkCensored" id="chkCensored" >
+                                        <label for="chkCensored" class="padding-right-20" >
+                                            Tin đảm bảo
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="col-xs-6" style="padding: 0 3px 10px 0">
+                                    <div class="form-group">
+                                        <input  type="checkbox" name="chkSold" id='chkSold' class="magic-checkbox" ng-checked="articleInfo.is_sold == 1" ng-click="articleInfo.is_sold = !articleInfo.is_sold"  name=chkSold" id="chkSold" >
+                                        <label for="chkSold" class="padding-right-20" >
+                                            Đã bán
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="col-xs-6" style="padding: 0 3px 10px 0">
+                                    <label>Trạng thái</label>
+                                    <select class="form-control" ng-model="articleInfo.status">
+                                        <option value="Publish">Công khai</option>
+                                        <option value="Trash">Viết nháp</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-primary" ng-click="actions.update()">Lưu</button>
+                                <button type="button" class="btn btn-default" ng-click="actions.cancel()">hủy bỏ</button>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group clearfix">
-                        <div class="col-xs-6" style="padding: 0 3px 10px 0">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Chuyên mục <span class="text-danger">*</span></h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body" style="max-height: 150px;overflow-y: auto">
                             <div class="form-group">
-                                <input  type="checkbox" name="chkSold" id='chkSold' class="magic-checkbox" ng-checked="articleInfo.is_sold == 1" ng-click="articleInfo.is_sold = !articleInfo.is_sold"  name=chkSold" id="chkSold" >
-                                <label for="chkSold" class="padding-right-20" >
-                                    Đã bán
-                                </label>
+
+                                <div ng-repeat="cat in categorys">
+                                    <label><input type="checkbox" class="chkCat" ng-checked="cat.checked" ng-click="cat.checked = !cat.checked"  value="@{{cat.id}}" >@{{cat.children}}&nbsp;@{{cat.name}}</label>
+                                </div>
+                                <span style="color: #dd4b39" class="help-block">@{{actions.showError('category')}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group clearfix">
-                        <div class="col-xs-6" style="padding: 0 3px 10px 0">
-                            <label>Trạng thái</label>
-                            <select class="form-control" ng-model="articleInfo.status">
-                                <option value="Publish">Công khai</option>
-                                <option value="Trash">Viết nháp</option>
-                            </select>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Tag</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <input type="text" name="txtTag" id="txtTag" value="" />
+                                <button type="button" ng-click="actions.addTags()"  >Lưu</button>
+                                <br/>
+                                <p>Danh sách thẻ tag đã chọn</p>
+                                <div id="newTags">
+                                    <a hre="javascript:;" ng-repeat="tag in articleInfo.tags" >
+                                        <i class="glyphicon glyphicon-remove-sign" ng-click="actions.removeTags($index)" ></i> @{{tag}}&nbsp;&nbsp;
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Danh sách thẻ tag đã sử dụng</label><br/>
+                                <div style="margin: 5px 0 10px;
+                                     padding: 8px;
+                                     border: 1px solid #ddd;
+                                     line-height: 1.8em;
+                                     word-spacing: 3px;">
+                                    <a hre="javascript:;" ng-repeat="tagOld in allTagsOlds" ng-click="actions.chooseTagsOld(tagOld.code)" ><u>@{{tagOld.code}}</u>&nbsp;</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group text-center">
-                        <button type="button" class="btn btn-primary" ng-click="actions.update()">Lưu</button>
-                        <button type="button" class="btn btn-default" ng-click="actions.cancel()">hủy bỏ</button>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Ảnh minh họa</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group text-center">
+                                <div>
+                                    <a data-input="thumbnail" data-preview="holder" class="btn btn-primary my-lfm-img">
+                                        <i class="fa fa-picture-o"></i> Chọn ảnh đại diện
+                                    </a>
+                                    <input id="thumbnail" class="form-control " type="hidden" value="@{{articleInfo.thumbnail}}" name="filepath" ng-model="articleInfo.thumbnail"  >
+                                </div>
+                                <img  id="holder" class="img-responsive margin-top-15" src="@{{actions.build_thumnail(articleInfo.thumbnail)}}">
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Chuyên mục <span class="text-danger">*</span></h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    </div>
-                </div>
-                <div class="box-body" style="max-height: 150px;overflow-y: auto">
-                    <div class="form-group">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Danh sách ảnh/video slider</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group text-center" id="boxImgSlider">
+                                <ul class="clearfix">
+                                    <li  ng-repeat=" img in  articleInfo.article_slide.images">
+                                        <i ng-show="img.type == 'images'" class="fa fa-remove" title="Xóa" ng-click="actions.removeSlideImg($index)" >&nbsp;</i>
+                                        <input  class="form-control txtSliderImg" type="hidden" value="@{{img.path}}"   >
+                                        <img  ng-show="img.type == 'images'"  src="@{{img.path}}" class="img-responsive margin-top-15  img-Slider" width="50px" >
+                                    </li>
 
-                        <div ng-repeat="cat in categorys">
-                            <label><input type="checkbox" class="chkCat" ng-checked="cat.checked" ng-click="cat.checked = !cat.checked"  value="@{{cat.id}}" >@{{cat.children}}&nbsp;@{{cat.name}}</label>
-                        </div>
-                        <span style="color: #dd4b39" class="help-block">@{{actions.showError('category')}}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Tag</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <div class="form-group">
-                        <input type="text" name="txtTag" id="txtTag" value="" />
-                        <button type="button" ng-click="actions.addTags()"  >Lưu</button>
-                        <br/>
-                        <p>Danh sách thẻ tag đã chọn</p>
-                        <div id="newTags">
-                            <a hre="javascript:;" ng-repeat="tag in articleInfo.tags" >
-                                <i class="glyphicon glyphicon-remove-sign" ng-click="actions.removeTags($index)" ></i> @{{tag}}&nbsp;&nbsp;
-                            </a>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Danh sách thẻ tag đã sử dụng</label><br/>
-                        <div style="margin: 5px 0 10px;
-                             padding: 8px;
-                             border: 1px solid #ddd;
-                             line-height: 1.8em;
-                             word-spacing: 3px;">
-                            <a hre="javascript:;" ng-repeat="tagOld in allTagsOlds" ng-click="actions.chooseTagsOld(tagOld.code)" ><u>@{{tagOld.code}}</u>&nbsp;</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Ảnh minh họa</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <div class="form-group text-center">
-                        <div>
-                            <a data-input="thumbnail" data-preview="holder" class="btn btn-primary my-lfm">
-                                <i class="fa fa-picture-o"></i> Chọn ảnh/video
-                            </a>
-                            <input id="thumbnail" class="form-control " type="hidden" name="filepath" ng-model="articleInfo.thumbnail"  >
-                        </div>
-                        <img  id="holder" class="img-responsive margin-top-15" src="@{{actions.build_thumnail(articleInfo.thumbnail)}}">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /.row (main row) -->
-</form>
+                                    <li  ng-repeat=" img in  articleInfo.article_slide.images" style="display: none">
+                                        <input id="chooseImgInput_@{{$index + 1}}" class="form-control txtSliderImg" type="hidden" value="@{{img.path}}"   >
+                                        <img  id="chooseImgPreview_@{{$index + 1}}" src="@{{img.path}}" class="img-responsive margin-top-15  img-Slider" width="50px" >
+                                    </li>
+                                </ul>
+                                <div id="boxChooseImgSlider">
+                                    <a ng-click="actions.chooseImgSlider('chooseImgInput_' + articleInfo.article_slide.images.length)"  data-input="chooseImgInput_@{{articleInfo.article_slide.images.length}}" data-preview="chooseImgPreview_@{{articleInfo.article_slide.images.length}}" class="btn btn-primary my-lfm-img">
+                                        <i class="fa fa-picture-o"></i> Chọn ảnh
+                                    </a>
+                                </div>
 
-</section>
-<!-- /.content -->
+
+                                <ul class="clearfix">
+                                    <li  ng-repeat=" video in  articleInfo.article_slide.video">
+                                        <i ng-show="video.type != 'images'" class="fa fa-remove" title="Xóa" ng-click="actions.removeSlideVideo($index)" >&nbsp;</i>
+                                        <input  class="form-control txtSliderVideo" type="hidden" value="@{{video.path}}"   >
+                                        <video ng-if="video.type == 'video'" width="100" height="100" controls style="float: left;margin: 3px;border: solid 1x">
+                                            <source src="@{{video.path}}" type="video/mp4">
+                                            <source src="movie.ogg" type="video/ogg">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <iframe ng-if="video.type == 'youtube'" width="100" height="100" src="@{{video.path | trustAsResourceUrl}}" style="float: left;margin: 3px;"></iframe>
+                                    </li>
+
+                                    <li  ng-repeat=" video in  articleInfo.article_slide.video" style="display: none">
+                                        <input id="chooseVideoInput_@{{$index + 1}}" class="form-control txtSliderImg" type="hidden" value="@{{video.path}}"   >
+                                        <img  id="chooseVideoPreview_@{{$index + 1}}" src="@{{video.path}}" class="img-responsive margin-top-15" width="50px" >
+                                    </li>
+                                </ul>
+                                <div style="margin-top:5px">
+                                    <a ng-click="actions.chooseVideoSlider('chooseVideoInput_' + articleInfo.article_slide.video.length)"  data-input="chooseVideoInput_@{{articleInfo.article_slide.video.length}}" data-preview="chooseVideoPreview_@{{articleInfo.article_slide.video.length}}" class="btn btn-primary my-lfm-file">
+                                        <i class="fa fa-video-camera"></i> Chọn video
+                                    </a>
+                                    <a ng-click="actions.chooseVideoYoutubeSlider()"   class="btn btn-primary">
+                                        <i class="fa fa-video-camera"></i> Chọn video youtube
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row (main row) -->
+        </form>
+
+    </section>
+    <!-- /.content -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalChooseYoutube">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Nhập link youtube</h4>
+                </div>
+                <div class="modal-body form-horizontal clearfix">
+
+                    <div class="row col-xs-9 col-xs-offset-1">
+                        <div class="form-group">
+                            <label>Nhập link youtube</label>
+                            <input id="txtYoutubeID" name="txtYoutubeID" class="form-control" type="text"  value=""  >
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="actions.saveLinkYoutube()" ><i class="fa fa-save"></i>&nbsp;Xác nhận</button>
+                    <button type="button" class="btn btn-default" class="close" data-dismiss="modal" aria-label="Close"  ><i class="fa fa-close"></i>&nbsp;Đóng của sổ</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </angular>
+
+
+
+
 
 @endsection

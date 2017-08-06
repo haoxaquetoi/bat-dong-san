@@ -181,10 +181,10 @@
                         <div class="box-body">
                             <div class="form-group text-center">
                                 <div>
-                                    <a data-input="thumbnail" data-preview="holder" class="btn btn-primary my-lfm">
+                                    <a data-input="thumbnail" data-preview="holder" class="btn btn-primary my-lfm-img">
                                         <i class="fa fa-picture-o"></i> Chọn ảnh/video
                                     </a>
-                                    <input id="thumbnail" class="form-control " type="hidden" name="filepath" ng-model="articleInfo.thumbnail"  >
+                                    <input id="thumbnail" value="@{{articleInfo.thumbnail}}" class="form-control " type="hidden" name="filepath" ng-model="articleInfo.thumbnail"  >
                                 </div>
                                 <img  id="holder" class="img-responsive margin-top-15" src="@{{actions.build_thumnail(articleInfo.thumbnail)}}">
                             </div>

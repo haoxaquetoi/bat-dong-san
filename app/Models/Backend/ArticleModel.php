@@ -38,6 +38,18 @@ class ArticleModel extends Model {
         if (isset($articleInfo->article_base->street_id))
             $articleInfo->article_base->street_name = DB::table('address_street')->find($articleInfo->article_base->street_id)->name;
 
+        $articleInfo->article_slide = new \stdClass();
+
+        $articleInfo->article_slide->images = DB::table('article_slide')->where([
+                    ['article_id', '=', $articleInfo->id],
+                    ['type', '=', 'images']
+                ])->get()->toArray();
+
+        $articleInfo->article_slide->video = DB::table('article_slide')->where([
+                    ['article_id', '=', $articleInfo->id],
+                    ['type', '!=', 'images']
+                ])->get()->toArray();
+
         $categoryTmp = array();
         $category = DB::table('category_article')->where('article_id', '=', $articleID)->select('category_id')->get();
         $category = collect($category)->toArray();
@@ -107,7 +119,7 @@ class ArticleModel extends Model {
             $artModel = $artModel->orderBy('is_censored', $ord_cd);
         }
 
-        return $artModel->where($arr_where)->paginate()->toArray();
+        return $artModel->paginate()->toArray();
     }
 
 }

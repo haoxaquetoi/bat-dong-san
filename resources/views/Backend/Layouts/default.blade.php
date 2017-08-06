@@ -26,6 +26,7 @@
         @includeif('backend.partial._js')
         @yield('myJs')
         @includeif('backend.partial._default_modal')
+        @includeif('backend.partial._foot')
         
     </body>
 </html>
