@@ -76,9 +76,7 @@ class ArticleModel extends Model {
         if ($type) {
             $arr_where[] = ['type', '=', $type];
         }
-        if (intval($category_id) > 0) {
-//            $arr_where[] = ['status', 'in', intval($category_id)];
-        }
+
 
         if ($option == 'Trash' || $option == 'Publish') {
             $arr_where[] = ['status', '=', $option];
@@ -92,7 +90,12 @@ class ArticleModel extends Model {
         if ($post_date) {
             $arr_where[] = [DB::raw("DATE_FORMAT(created_at,'%m-%Y')"), '=', $post_date];
         }
-        $artModel = $this->where($arr_where);
+        $artModel = $this;
+        if (intval($category_id) > 0) {
+            $artModel = $artModel->leftJoin('category_article', 'article.id', '=', 'category_article.article_id');
+            $arr_where[] = ['category_article.category_id', '=', intval($category_id)];
+        }
+        $artModel = $artModel->where($arr_where);
         if ($ord_crat) {
 
             $artModel = $artModel->orderBy('created_at', $ord_crat);
