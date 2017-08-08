@@ -115,21 +115,21 @@ class MenuCtrl extends Controller {
     private function _render_menu_value(Request $request) {
         if ($request->type == 'link') {
             $request->value = [
-                'url' => $request->value['url'],
+                'url' => urlencode($request->value['url']),
                 'categoryID' => '',
                 'articleID' => ''
             ];
         } elseif ($request->type == 'category') {
             $categoryInfo = \App\Models\Backend\CategoryModel::find($request->value['categoryID']);
             $request->value = [
-                'url' => $categoryInfo->slug,
+                'url' => urlencode(app('BuildUrl')->buildCategoryDetail($categoryInfo->id, $categoryInfo->slug)),
                 'categoryID' => $request->value['categoryID'],
                 'articleID' => ''
             ];
         } elseif ($request->type == 'article') {
             $articleInfo = \App\Models\Frontend\ArticleMode::find($request->value['articleID']);
             $request->value = [
-                'url' => $articleInfo->slug,
+                'url' => urlencode(app('BuildUrl')->buildArticleDetail($articleInfo->id, $articleInfo->slug, $articleInfo->catID, $articleInfo->catSlug)),
                 'categoryID' => '',
                 'articleID' => $request->value['articleID']
             ];

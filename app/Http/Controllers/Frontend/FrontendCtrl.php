@@ -21,21 +21,6 @@ class FrontendCtrl extends Controller {
         return view('Frontend.homePage')->with('dataView', $data);
     }
 
-    function singlePage(ArticleMode $articleModel,FeedbackModel $feedbackModel,  Request $request) {
-        $id = isset($request->id) ? $request->id : 0;
-        // kiểm tra mã tin bài
-        $check = $articleModel->checkIdArticlePublish($id, 'Product');
-        if(!$check){
-            echo 'Mã tin bài không hợp lệ';
-            return;
-        }
-        // Tin thường
-        $data['arrAllFeedback'] = $feedbackModel->getAllFeedback();
-        // chi tiết tin
-        $data['arrSingleArticle'] = $articleModel->getArticleInfo($id);
-        
-        return view('Frontend.singlePage')->with('dataView', $data);
-    }
 
     function singleCategory() {
         return view('Frontend.singleCategory');

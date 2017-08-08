@@ -20,6 +20,7 @@ class ArticleMode extends Model {
     function articleOther() {
         return $this->hasOne('App\Models\Frontend\ArticleOtherModel', 'article_id');
     }
+
     /**
      * Danh sách tin bài
      * @param type $type Kiểu tin bài. News: Tin đăng, Product: Tin bất động sản
@@ -69,22 +70,75 @@ class ArticleMode extends Model {
     }
 
     /**
-     * Chi tiết tin bài
-     * @param type $articleID Mã tin bài
-     * @return type
+     * Xét điều kiện xóa tin bài
+     * @param NULL||boolean $chkDeleted TRUE -  Đã xóa <br/>FALSE - Chưa xóa <br/>Mặc định không xét
+     * @return $this
      */
-    function getArticleInfo($articleID) {
-        $articleInfo = $this::with([
-                    'articleBase', 'articleContact', 'articleOther'
-                ])->where('id', '=', $articleID)->get();
-        if (isset($articleInfo[0]->articleBase->city_id))
-            $articleInfo[0]->articleBase->city_name = DB::table('address_city')->find($articleInfo[0]->articleBase->city_id)->name;
-        if (isset($articleInfo[0]->articleBase->district_id))
-            $articleInfo[0]->articleBase->district_name = DB::table('address_district')->find($articleInfo[0]->articleBase->district_id)->name;
-        if (isset($articleInfo[0]->articleBase->village_id))
-            $articleInfo[0]->articleBase->village_name = DB::table('address_village')->find($articleInfo[0]->articleBase->village_id)->name;
-        if (isset($articleInfo[0]->articleBase->street_id))
-            $articleInfo[0]->articleBase->street_name = DB::table('address_street')->find($articleInfo[0]->articleBase->street_id)->name;
+    function checkDeleted($chkDeleted = NULL) {
+        if ($chkDeleted === TRUE) {
+            $this->where('deleted', '=', 0);
+        } elseif ($chkDeleted === FALSE) {
+            $this->where('deleted', '=', 1);
+        }
+        return $this;
+    }
+
+    /**
+     * Xét loại tin dăng
+     * @param NULL||boolean $chkType <br/>News: Tin tức <br/>Product:Tin bất động sản <br/>Mặc định không xét
+     * @return $this
+     */
+    function checkType($chkType = NULL) {
+        if ($chkType === 'News') {
+            $this->where('status', '=', 'Publish');
+        } elseif ($chkType === 'Product') {
+            $this->where('status', '=', 'Publish');
+        }
+        return $this;
+    }
+
+    /**
+     * Xét còn hoạt động hay khong còn hoạt động
+     * @param NULL||boolean $chkType TRUE: Còn hạn <br/>FALSE: Hết hạn đăng không hiên thị <br/>Mặc định không xét
+     * @return $this
+     */
+    function checkDealine($chkType = NULL) {
+        if ($chkType === 'News') {
+            $this->where('status', '=', 'Publish');
+        } elseif ($chkType === 'Product') {
+            $this->where('status', '=', 'Publish');
+        }
+        return $this;
+    }
+
+    /**
+     * Chi tiết tin bài
+     * @param int $articleID Mã tin bài
+     * @param any $checkDealine <br/>TRUE: Còn hạn <br/>FALSE: Hết hạn đăng không hiên thị <br/>Mặc định không xét
+     * @param string $chkType <br/>News: Tin tức <br/>Product:Tin bất động sản <br/>Mặc định không xét
+     * @return $chkDeleted
+     */
+    function getArticleInfo($articleID, $checkDealine = NULL, $chkType = NULL, $chkDeleted = NULL) {
+
+        $this::with([
+            'articleBase', 'articleContact', 'articleOther'
+        ]);
+        $this->checkDealine($chkType);
+        $this->checkType($chkType);
+        $this->checkDeleted($chkDeleted);
+        $postInfo = $this->where('id', '=', $articleID)->first();
+
+        if (!isset($postInfo->id)) {
+            return [];
+        }
+        if (isset($postInfo->articleBase->city_id))
+            $postInfo->articleBase->city_name = DB::table('address_city')->find($postInfo->articleBase->city_id)->name;
+        if (isset($postInfo->articleBase->district_id))
+            $postInfo->articleBase->district_name = DB::table('address_district')->find($postInfo->articleBase->district_id)->name;
+        if (isset($postInfo->articleBase->village_id))
+            $postInfo->articleBase->village_name = DB::table('address_village')->find($postInfo->articleBase->village_id)->name;
+        if (isset($postInfo->articleBase->street_id))
+            $postInfo->articleBase->street_name = DB::table('address_street')->find($postInfo->articleBase->street_id)->name;
 
         $categoryTmp = array();
         $category = DB::table('category_article')->where('article_id', '=', $articleID)->select('category_id')->get();
@@ -92,7 +146,7 @@ class ArticleMode extends Model {
         foreach ($category as $key => $value) {
             $categoryTmp[] = (int) $value->category_id;
         }
-        $articleInfo[0]->category = $categoryTmp;
+        $postInfo->category = $categoryTmp;
 
         $tags = DB::table('tag_article')->where('article_id', '=', $articleID)->select('tag_id')->get();
         $tags = collect($tags)->toArray();
@@ -103,38 +157,15 @@ class ArticleMode extends Model {
                 $tagsTmp[] = $tagInfo->code;
             }
         }
-        $articleInfo[0]->tags = $tagsTmp;
+        $postInfo->tags = $tagsTmp;
 
-        if ($articleInfo[0]->begin_date != '')
-            $articleInfo[0]->begin_date = explode(' ', $articleInfo[0]->begin_date)[0];
+        if ($postInfo->begin_date != '')
+            $postInfo->begin_date = explode(' ', $postInfo->begin_date)[0];
 
-        if ($articleInfo[0]->end_date != '')
-            $articleInfo[0]->end_date = explode(' ', $articleInfo[0]->end_date)[0];
-        return $articleInfo[0];
+        if ($postInfo->end_date != '')
+            $postInfo->end_date = explode(' ', $postInfo->end_date)[0];
+        return $postInfo;
     }
-    /**
-     * Kiểm tra tin bài có hoạt động không
-     * @param type $id Mã tin bài
-     * @param type $type  kiểu tin bài. News: Tin đăng, Product: Tin bất động sản
-     * @return type
-     */
-    function checkIdArticlePublish($id, $type = '') {
-        $db = DB::table($this->table)
-                ->where('id', '=', $id)
-                ->where('status', '=', 'Publish')
-                ->whereRaw('DATEDIFF(begin_date, now())<=0')
-                ->whereRaw('DATEDIFF(end_date, now())>=0')
-                ->where('deleted', '=', 0);
-        if ($type !== '') {
-            $db->where('type', '=', $type);
-        }
-        $arr = $db->orderBy('begin_date', 'ASC')
-                ->pluck('id');
-        if(count ($arr) > 0){
-            return true;
-        }else {
-            return false;
-        }
-    }
+
 
 }
