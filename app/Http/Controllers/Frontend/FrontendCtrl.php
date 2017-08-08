@@ -20,10 +20,4 @@ class FrontendCtrl extends Controller {
 
         return view('Frontend.homePage')->with('dataView', $data);
     }
-
-
-    function singleCategory() {
-        return view('Frontend.singleCategory');
-    }
-
 }

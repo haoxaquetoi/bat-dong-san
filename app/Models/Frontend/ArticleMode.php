@@ -33,7 +33,7 @@ class ArticleMode extends Model {
      * @return type
      */
     public function getAllArticle($type = '', $freeText = '', $sticky = '', $censored = '', $sold = '', $page = 1, $pageSize = 10) {
-        $limit = ($page - 1) * $pageSize;
+        $offset = ($page - 1) * $pageSize;
         $db = DB::table($this->table)
                 ->where('status', '=', 'Publish')
                 ->whereRaw('DATEDIFF(begin_date, now())<=0')
@@ -60,7 +60,7 @@ class ArticleMode extends Model {
 
         $allArticle = $db->select('id')
                 ->orderBy('begin_date', 'ASC')
-                ->offset($limit)
+                ->offset($offset)
                 ->limit($pageSize)
                 ->get();
         foreach ($allArticle as $key => $value) {
@@ -116,7 +116,8 @@ class ArticleMode extends Model {
      * @param int $articleID Mã tin bài
      * @param any $checkDealine <br/>TRUE: Còn hạn <br/>FALSE: Hết hạn đăng không hiên thị <br/>Mặc định không xét
      * @param string $chkType <br/>News: Tin tức <br/>Product:Tin bất động sản <br/>Mặc định không xét
-     * @return $chkDeleted
+     * @param NULL||boolean $chkDeleted TRUE -  Đã xóa <br/>FALSE - Chưa xóa <br/>Mặc định không xét
+     * @return 
      */
     function getArticleInfo($articleID, $checkDealine = NULL, $chkType = NULL, $chkDeleted = NULL) {
 
@@ -162,10 +163,103 @@ class ArticleMode extends Model {
         if ($postInfo->begin_date != '')
             $postInfo->begin_date = explode(' ', $postInfo->begin_date)[0];
 
+
         if ($postInfo->end_date != '')
             $postInfo->end_date = explode(' ', $postInfo->end_date)[0];
         return $postInfo;
     }
 
+    function getAllArticleInvolve($articleId, $type, $page = 1, $pageSize = 10) {
+        // tin liên quan
+        $arrArticleInvolve = array();
+        // mảng id tin bag liên quan thr tag
+        $arrIdArticleTag = array();
+        $offset = ($page - 1) * $pageSize;
+        $limit = $pageSize;
+        //tổng số bản ghi liên quan tag
+        $totalArticleTag = 0;
+        // danh sách thẻ tag của tin bài
+        $arrTagArticle = DB::table('tag_article')
+                ->where('article_id', '=', $articleId)
+                ->selectRaw('group_concat(tag_id) as arr_tag_id')
+                ->first();
+        if ($arrTagArticle->arr_tag_id) {
+            // danh sách các tin liên quan có thẻ tag trùng với thẻ tag vừa $articleId
+            $db = DB::table($this->table)
+                    ->join(DB::raw("(SELECT 
+                                    GROUP_CONCAT(DISTINCT article_id) as article_id
+                                  FROM
+                                    tag_article 
+                                  WHERE tag_id IN 
+                                    ($arrTagArticle->arr_tag_id) 
+                                    AND article_id != $articleId
+                                    GROUP BY article_id
+                                  ORDER BY id DESC) ta"), function($join) {
+                        $join->on('article.id', '=', 'ta.article_id');
+                    })
+                    ->where('status', '=', 'Publish')
+                    ->whereRaw('DATEDIFF(begin_date, now())<=0')
+                    ->whereRaw('DATEDIFF(end_date, now())>=0');
+            if ($type !== '') {
+                $db->where('type', '=', $type);
+            }
+            // danh sách các tin liên quan có thẻ tag trùng với thẻ tag vừa $articleId
+            $arrArticleInvolveTag = $db->where('deleted', '=', 0)
+                    ->orderBy('begin_date', 'ASC')
+                    ->paginate($limit, ['id'], 'page', $page);
+
+            $limit -= $arrArticleInvolveTag->count();
+            //tổng số bản ghi liên quan tag
+            $totalArticleTag = $arrArticleInvolveTag->total();
+
+            foreach ($arrArticleInvolveTag as $value) {
+                $arrArticleInvolve[] = $this->getArticleInfo($value->id);
+                $arrIdArticleTag[] = $value->id;
+            }
+        }
+        if ($limit > 0) {
+            $stringIdArticleTag = (count($arrIdArticleTag)) ? implode(",", $arrIdArticleTag) : '0';
+            // danh sách chuyên mục của tin bài
+            $arrCategory = DB::table('category_article')
+                    ->where('article_id', '=', $articleId)
+                    ->selectRaw('group_concat(category_id) as arr_category_id')
+                    ->first();
+
+            // danh sách các tin liên quan cùng category
+            if ($arrCategory->arr_category_id) {
+                $db = DB::table($this->table)
+                        ->join(DB::raw("(SELECT 
+                                    GROUP_CONCAT(DISTINCT article_id) as article_id
+                                  FROM
+                                    category_article 
+                                  WHERE category_id IN 
+                                    ($arrCategory->arr_category_id) 
+                                    AND article_id != $articleId
+                                        AND article_id NOT IN ($stringIdArticleTag)
+                                    GROUP BY article_id
+                                  ORDER BY id DESC) ca"), function($join) {
+                            $join->on('article.id', '=', 'ca.article_id');
+                        })
+                        ->where('status', '=', 'Publish')
+                        ->whereRaw('DATEDIFF(begin_date, now())<=0')
+                        ->whereRaw('DATEDIFF(end_date, now())>=0');
+                if ($type !== '') {
+                    $db->where('type', '=', $type);
+                }
+
+                $offset = $offset - $totalArticleTag;
+                $arrArticleInvolveCategory = $db->where('deleted', '=', 0)
+                        ->orderBy('begin_date', 'ASC')
+                        ->offset($offset)
+                        ->limit($limit)
+                        ->get();
+                foreach ($arrArticleInvolveCategory as $value) {
+                    $arrArticleInvolve[] = $this->getArticleInfo($value->id, TRUE, $value->type, FALSE);
+                    $arrIdArticleTag[] = $value->id;
+                }
+            }
+        }
+        return $arrArticleInvolve;
+    }
 
 }
