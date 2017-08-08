@@ -21,19 +21,21 @@ class FrontendCtrl extends Controller {
         return view('Frontend.homePage')->with('dataView', $data);
     }
 
-    function singlePage(ArticleMode $articleModel,FeedbackModel $feedbackModel,  Request $request) {
+    function singlePage(ArticleMode $articleModel, FeedbackModel $feedbackModel, Request $request) {
         $id = isset($request->id) ? $request->id : 0;
         // kiểm tra mã tin bài
         $check = $articleModel->checkIdArticlePublish($id, 'Product');
-        if(!$check){
+        if (!$check) {
             echo 'Mã tin bài không hợp lệ';
             return;
         }
         // Tin thường
         $data['arrAllFeedback'] = $feedbackModel->getAllFeedback();
+
         // chi tiết tin
         $data['arrSingleArticle'] = $articleModel->getArticleInfo($id);
-        
+        // tin lien quan
+        $data['arrSingleArticleInvolve'] = $articleModel->getAllArticleInvolve($id, 'Product', 1, 6);
         return view('Frontend.singlePage')->with('dataView', $data);
     }
 
