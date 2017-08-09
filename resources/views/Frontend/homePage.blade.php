@@ -101,7 +101,9 @@
                                         </div>
                                         <div class="col-xs-7 article-right">
                                             <header>
-                                                <h2>{{$values->title}}</h2>
+                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->id, $values->slug, $values->catID, $values->catSlug)}}">
+                                                    <h2>{{$values->title}}</h2>
+                                                </a>
                                                 <div class="article-time">
                                                     <span>Cập nhật: <time>{{ Carbon\Carbon::parse($values->begin_date)->format('d-m-Y') }}</time></span>
                                                     @if ((int) $values->is_censored > 0)
@@ -237,7 +239,11 @@
                                             </div>
                                         </header>
                                         <section>
-                                            <h3 class="text-center">{{$dataView['arrArticleSticky'][$j]->title}}</h3>
+                                            <h3 class="text-center">
+                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->id, $values->slug, $values->catID, $values->catSlug)}}">
+                                                    {{$dataView['arrArticleSticky'][$j]->title}}
+                                                </a>
+                                            </h3>
                                             <div class="text-center">
                                                 {!! str_limit($dataView['arrArticleSticky'][$j]->content, $limit = 100, $end = '...') !!}
                                             </div>

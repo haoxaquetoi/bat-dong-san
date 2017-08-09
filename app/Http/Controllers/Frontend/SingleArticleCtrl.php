@@ -17,7 +17,9 @@ class SingleArticleCtrl extends Controller {
             return view('Frontend.errors.post', ['errorCode' => 'notFound']);
         }
         if ($articleInfo->type == 'Product') {
-            return $this->_render_view_product($articleInfo);
+            // tin liên quan
+            $articleInvolve = $articleModel->getAllArticleInvolve($artID, 'Product', 1, 6);
+            return $this->_render_view_product($articleInfo, $articleInvolve);
         } else {
             return $this->_render_view_news($articleInfo);
         }
@@ -44,10 +46,12 @@ class SingleArticleCtrl extends Controller {
      * @param type $articleInfo
      * @return type
      */
-    private function _render_view_product($articleInfo) {
+    private function _render_view_product($articleInfo, $articleInvolve) {
         $instanceFeedModel = new FeedbackModel;
         $data['arrSingleArticle'] = $articleInfo;
         $data['arrAllFeedback'] = $instanceFeedModel->getAllFeedback();
+        // tin lien quan
+        $data['arrSingleArticleInvolve'] = $articleInvolve;
 
         #Ưu tiên view theo id tin bài
         $view = "Frontend.singlePostProduct_{$articleInfo->id}";

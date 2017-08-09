@@ -32,62 +32,44 @@
             <div class="col-md-8 col-sm-12 col-xs-12 content-left">
                 <div class="row slide-single">
                     <div class="col-md-12">
-                        <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                        </ul>
+                        <div class="col-md-12">
+                            <!-- A wrapper DIV to center the Gallery -->
+                            <div style="text-align:center;">
+                                <!-- Define the Div for Gallery -->
+                                <!-- 1. Add class html5gallery to the Div -->
+                                <!-- 2. Define parameters with HTML5 data tags -->
+                                <div style="display:none;margin:0 auto;" class="html5gallery" data-skin="horizontal" data-width="700" data-height="400" data-resizemode="fill">
+
+                                    @isset($dataView['arrSingleArticle']->articleSlide->images)
+                                    @foreach($dataView['arrSingleArticle']->articleSlide->images as $values)
+                                    @if($values->type == 'images')
+                                    <a href="{{$values->path}}">
+                                        <img src="{{$values->path}}" alt="">
+                                    </a>
+                                    @endif
+                                    @endforeach
+                                    @endisset
+
+                                    @isset($dataView['arrSingleArticle']->articleSlide->video)
+                                    @foreach($dataView['arrSingleArticle']->articleSlide->video as $values)
+                                    <li data-thumb="{{$values->path}}"> 
+                                        @if($values->type == 'video')
+                                        <a href="{{$values->path}}">
+                                            <img src="{{url('Frontend')}}/images/video.png" alt="">
+                                        </a>
+                                        @elseif($values->type == 'youtube')
+                                        <a href="{{$values->path}}">
+                                            <img src="{{url('Frontend')}}/images/youtube.png" alt="Youtube Video">
+                                        </a>
+
+                                        @endif
+                                    </li>
+
+                                    @endforeach
+                                    @endisset
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="title-single">
@@ -412,159 +394,60 @@
                         <div class="content-left-col content-left-col-2">
                             <div class="content-left-col-border">
                                 <div class="text-uppercase title">
-                                    <h2 class="title-content" data-toggle="popover" title="Tin bất động sản tương tự" 
-                                        data-placement="top" data-trigger="hover"
-                                        data-content="Lorem Ipsum is simply dummy test of the printing and typesetting industry.
-                                        Lorem Ipsum has been the industry's standard dummy test ever since the 1500s,
-                                        When an unknowing printer took 
-                                        a gally of type and scrambled it to make a type specimen book.">
+                                    <h2 class="title-content">
                                         Tin bất động sản tương tự</h2>
                                 </div>
+                                @isset ($dataView['arrSingleArticleInvolve'])
+                                @foreach ($dataView['arrSingleArticleInvolve'] as $values)
                                 <article>
                                     <div class="row">
                                         <div class="col-xs-5 article-left">
                                             <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_1.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
+                                                @if (isset($values->thumbnail))
+                                                <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
+                                                @else
+                                                <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-xs-7 article-right">
                                             <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
+                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->id, $values->slug, $values->catID, $values->catSlug)}}">
+                                                    <h2>{{$values->title}}</h2>
+                                                </a>
                                                 <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
+                                                    <span>Cập nhật: <time>{{ Carbon\Carbon::parse($values->begin_date)->format('d-m-Y') }}</time></span>
+                                                    @if ((int) $values->is_censored > 0)
+                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
+                                                    @endif
                                                 </div>
-
                                             </header>
                                             <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
+                                                @isset($values->articleOther->floor_area)
+                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: {{$values->articleOther->floor_area}} m2</p>
+                                                @endisset
+                                                @if ((int) $values->articleOther->number_of_bedrooms > 0  || (int) $values->articleOther->number_of_wc > 0)
+                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 
+                                                    @if ((int) $values->articleOther->number_of_bedrooms > 0)
+                                                    {{$values->articleOther->number_of_bedrooms}} phòng ngủ, 
+                                                    @endif
+                                                    @if ((int) $values->articleOther->number_of_wc > 0)
+                                                    {{$values->articleOther->number_of_wc}} phòng tắm
+                                                    @endif
+                                                </p>
+                                                @endif
+                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> 
+                                                    {{$values->articleBase->district_name}}-{{$values->articleBase->city_name}}
+                                                </p>
+                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> 
+                                                    Giá: {{ number_format($values->articleBase->price, 0) }}
+                                                </p>
                                             </section>
                                         </div>
                                     </div>
                                 </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_3.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_5.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_7.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_9.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
+                                @endforeach
+                                @endisset
                                 <div class="text-right padding-right-15">
                                     <a class="btn btn-default btn-more-category" href="">Xem thêm <i class="fa fa-angle-right"></i></a>
                                 </div>
