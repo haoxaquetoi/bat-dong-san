@@ -32,62 +32,76 @@
             <div class="col-md-8 col-sm-12 col-xs-12 content-left">
                 <div class="row slide-single">
                     <div class="col-md-12">
-                        <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                        <div class="col-md-12">
+                            <!-- A wrapper DIV to center the Gallery -->
+                            <div style="text-align:center;">
+
+                                <!-- Define the Div for Gallery -->
+                                <!-- 1. Add class html5gallery to the Div -->
+                                <!-- 2. Define parameters with HTML5 data tags -->
+                                <div style="display:none;margin:0 auto;" class="html5gallery" data-skin="horizontal"  data-height="272" data-resizemode="fill">
+
+                                    @isset($dataView['arrSingleArticle']->articleSlide->images)
+                                    @foreach($dataView['arrSingleArticle']->articleSlide->images as $values)
+                                    @if($values->type == 'images')
+                                    <a href="{{$values->path}}">
+                                        <img src="{{$values->path}}" alt="Tulips">
+                                    </a>
+                                    @endif
+                                    @endforeach
+                                    @endisset
+
+                                    @isset($dataView['arrSingleArticle']->articleSlide->video)
+                                    @foreach($dataView['arrSingleArticle']->articleSlide->video as $values)
+                                    <li data-thumb="{{$values->path}}"> 
+                                        @if($values->type == 'video')
+                                        <a href="{{$values->path}}">
+                                            <img src="{{$values->path}}" alt="Youtube Video">
+                                        </a>
+                                        @elseif($values->type == 'youtube')
+                                        <a href="{{$values->path}}">
+                                            <img src="{{$values->path}}" alt="Youtube Video">
+                                        </a>
+                                        
+                                        @endif
+                                    </li>
+
+                                    @endforeach
+                                    @endisset
+                                </div>
+                            </div>
+                        </div>
+<!--                        <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                            @isset($dataView['arrSingleArticle']->articleSlide->images)
+                            @foreach($dataView['arrSingleArticle']->articleSlide->images as $values)
+                            @if($values->type == 'images')
+                            <li data-thumb="{{$values->path}}"> 
+                                <img src="{{$values->path}}" />
+                            </li>
+                            @endif
+                            @endforeach
+                            @endisset
                             <li data-thumb="{{url('Frontend')}}/images/single.png"> 
                                 <img src="{{url('Frontend')}}/images/single.png" />
                             </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
+
+                            @isset($dataView['arrSingleArticle']->articleSlide->video)
+                            @foreach($dataView['arrSingleArticle']->articleSlide->video as $values)
+                            <li data-thumb="{{$values->path}}"> 
+                                @if($values->type == 'video')
+                                <video width="100%" height="100">
+                                    <source src="{{$values->path}}" type="video/mp4">
+                                    <source src="movie.ogg" type="video/ogg">
+                                    Your browser does not support the video tag.
+                                </video>
+                                @elseif($values->type == 'youtube')
+                                <iframe width="100%" height="100" src="{{$values->path}}"></iframe>
+                                @endif
                             </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                            <li data-thumb="{{url('Frontend')}}/images/single.png"> 
-                                <img src="{{url('Frontend')}}/images/single.png" />
-                            </li>
-                        </ul>
+
+                            @endforeach
+                            @endisset
+                        </ul>-->
                     </div>
                 </div>
                 <div class="title-single">

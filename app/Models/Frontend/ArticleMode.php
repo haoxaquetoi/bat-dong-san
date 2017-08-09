@@ -77,23 +77,35 @@ class ArticleMode extends Model {
     function getArticleInfo($articleID) {
         $articleInfo = $this::with([
                     'articleBase', 'articleContact', 'articleOther'
-                ])->where('id', '=', $articleID)->get();
-        if (isset($articleInfo[0]->articleBase->city_id))
-            $articleInfo[0]->articleBase->city_name = DB::table('address_city')->find($articleInfo[0]->articleBase->city_id)->name;
-        if (isset($articleInfo[0]->articleBase->district_id))
-            $articleInfo[0]->articleBase->district_name = DB::table('address_district')->find($articleInfo[0]->articleBase->district_id)->name;
-        if (isset($articleInfo[0]->articleBase->village_id))
-            $articleInfo[0]->articleBase->village_name = DB::table('address_village')->find($articleInfo[0]->articleBase->village_id)->name;
-        if (isset($articleInfo[0]->articleBase->street_id))
-            $articleInfo[0]->articleBase->street_name = DB::table('address_street')->find($articleInfo[0]->articleBase->street_id)->name;
+                ])->where('id', '=', $articleID)->first();
+        if (isset($articleInfo->articleBase->city_id))
+            $articleInfo->articleBase->city_name = DB::table('address_city')->find($articleInfo->articleBase->city_id)->name;
+        if (isset($articleInfo->articleBase->district_id))
+            $articleInfo->articleBase->district_name = DB::table('address_district')->find($articleInfo->articleBase->district_id)->name;
+        if (isset($articleInfo->articleBase->village_id))
+            $articleInfo->articleBase->village_name = DB::table('address_village')->find($articleInfo->articleBase->village_id)->name;
+        if (isset($articleInfo->articleBase->street_id))
+            $articleInfo->articleBase->street_name = DB::table('address_street')->find($articleInfo->articleBase->street_id)->name;
 
+        $articleInfo->articleSlide = new \stdClass();
+
+        $articleInfo->articleSlide->images = DB::table('article_slide')->where([
+                    ['article_id', '=', $articleInfo->id],
+                    ['type', '=', 'images']
+                ])->get()->toArray();
+
+        $articleInfo->articleSlide->video = DB::table('article_slide')->where([
+                    ['article_id', '=', $articleInfo->id],
+                    ['type', '!=', 'images']
+                ])->get()->toArray();
+        
         $categoryTmp = array();
         $category = DB::table('category_article')->where('article_id', '=', $articleID)->select('category_id')->get();
         $category = collect($category)->toArray();
         foreach ($category as $key => $value) {
             $categoryTmp[] = (int) $value->category_id;
         }
-        $articleInfo[0]->category = $categoryTmp;
+        $articleInfo->category = $categoryTmp;
 
         $tags = DB::table('tag_article')->where('article_id', '=', $articleID)->select('tag_id')->get();
         $tags = collect($tags)->toArray();
@@ -104,14 +116,14 @@ class ArticleMode extends Model {
                 $tagsTmp[] = $tagInfo->code;
             }
         }
-        $articleInfo[0]->tags = $tagsTmp;
+        $articleInfo->tags = $tagsTmp;
 
-        if ($articleInfo[0]->begin_date != '')
-            $articleInfo[0]->begin_date = explode(' ', $articleInfo[0]->begin_date)[0];
+        if ($articleInfo->begin_date != '')
+            $articleInfo->begin_date = explode(' ', $articleInfo->begin_date)[0];
 
-        if ($articleInfo[0]->end_date != '')
-            $articleInfo[0]->end_date = explode(' ', $articleInfo[0]->end_date)[0];
-        return $articleInfo[0];
+        if ($articleInfo->end_date != '')
+            $articleInfo->end_date = explode(' ', $articleInfo->end_date)[0];
+        return $articleInfo;
     }
 
     /**

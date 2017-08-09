@@ -24,6 +24,7 @@ class FrontendCtrl extends Controller {
     function singlePage(ArticleMode $articleModel, FeedbackModel $feedbackModel, Request $request) {
         $id = isset($request->id) ? $request->id : 0;
         // kiểm tra mã tin bài
+
         $check = $articleModel->checkIdArticlePublish($id, 'Product');
         if (!$check) {
             echo 'Mã tin bài không hợp lệ';
@@ -31,7 +32,6 @@ class FrontendCtrl extends Controller {
         }
         // Tin thường
         $data['arrAllFeedback'] = $feedbackModel->getAllFeedback();
-
         // chi tiết tin
         $data['arrSingleArticle'] = $articleModel->getArticleInfo($id);
         // tin lien quan
