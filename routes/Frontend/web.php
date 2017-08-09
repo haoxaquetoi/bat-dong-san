@@ -14,8 +14,6 @@ Route::get('/{catSlug}/{catID}', 'Frontend\SingleCategoryCtrl@main')->where('cat
 Route::get('/tim-kiem', 'Frontend\SearchCtrl@main');
 
 
-//Route::get('/tin-bai/{id}', 'Frontend\FrontendCtrl@singlePage')->where('id', '[0-9]+');
-//Route::get('/chuyen-muc', 'Frontend\FrontendCtrl@singleCategory');
 //rest route
 
 Route::get('rest/getAllArticle', 'Frontend\Rest\ArticleCtrl@getAllArticle');

@@ -201,8 +201,8 @@ class ArticleMode extends Model {
                 ->first();
         if ($arrTagArticle->arr_tag_id) {
             // danh sách các tin liên quan có thẻ tag trùng với thẻ tag vừa $articleId
-            $db = DB::table($this->table)
-                    ->join(DB::raw("(SELECT 
+            
+            $db = $this ->join(DB::raw("(SELECT 
                                     GROUP_CONCAT(DISTINCT article_id) as article_id
                                   FROM
                                     tag_article 
