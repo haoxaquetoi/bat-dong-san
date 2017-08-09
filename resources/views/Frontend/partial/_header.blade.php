@@ -94,44 +94,54 @@
     <div class="container">                     
         <div class="row">
             <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                <select class="form-control">
+                <select class="form-control" name="selCategory">
                     <option value="">Loại nhà đất ...</option>
-                    <option value="">Đất sổ đỏ</option>
-                    <option value="">Đất sổ hồng</option>
-                    <option value="">Trung cư</option>
+                    <?php
+                    foreach ($dataView['paramsSearch']['category'] as $category) {
+                        echo "<option value='{$category->id}' >{$category->name}</option>";
+                    }
+                    ?>
                 </select>
             </div>
             <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                <select class="form-control">
+                <select class="form-control" name="selCity">
                     <option value="">Thành phố ...</option>
-                    <option value="">Hà Nội</option>
-                    <option value="">Hải Phòng</option>
-                    <option value="">Hồ Chí Minh</option>
+                    <?php
+                    foreach ($dataView['paramsSearch']['city'] as $city) {
+                        echo "<option value='{$city->id}' >{$city->name}</option>";
+                    }
+                    ?>
                 </select>
             </div>
             <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                <select class="form-control">
-                    <option value="">Giá thấp nhất ...</option>
-                    <option value="">500,000,000</option>
-                    <option value="">1,000,000,000</option>
-                    <option value="">2,000,000,000</option>
+                <select class="form-control" name="selPriceMin">
+                    <option value="">Giá thấp nhất ... </option>
+                    <?php
+                    foreach ($dataView['paramsSearch']['priceMin'] as $priceMinCode => $priceMin) {
+                        echo "<option value='$priceMinCode' >$priceMin</option>";
+                    }
+                    ?>
                 </select>
             </div>
             <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                <select class="form-control">
-                    <option value="">DT nhỏ nhất...</option>
-                    <option value="">100m</option>
-                    <option value="">200m</option>
-                    <option value="">300m</option>
+                <select class="form-control" name="selPriceMax">
+                    <option value="">Giá cao nhất ... </option>
+                    <?php
+                    foreach ($dataView['paramsSearch']['priceMax'] as $priceMaxCode => $priceMax) {
+                        echo "<option value='$priceMaxCode' >$priceMax</option>";
+                    }
+                    ?>
                 </select>
             </div>
             <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                <select class="form-control">
+
+                <select class="form-control" name="selDirectHour">
                     <option value="">Hướng nhà ...</option>
-                    <option value="">Đông</option>
-                    <option value="">Tây</option>
-                    <option value="">Nam</option>
-                    <option value="">Bắc</option>
+                    <?php
+                    foreach ($dataView['paramsSearch']['direction'] as $directionCode => $direction) {
+                        echo "<option value='$directionCode' >$direction</option>";
+                    }
+                    ?>
                 </select>
             </div>
         </div>

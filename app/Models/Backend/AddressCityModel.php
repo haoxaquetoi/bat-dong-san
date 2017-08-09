@@ -20,4 +20,5 @@ class AddressCityModel extends Model
         }
         return $this;
     }
+    
 }

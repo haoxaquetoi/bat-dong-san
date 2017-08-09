@@ -17,7 +17,15 @@ class CategoryModel extends Model {
         parent::insertAndSetId($query, $parans);
     }
 
-    function getAllCat($parent_id = 0, array &$catTmp = array(), $child = '') {
+    /**
+     * 
+     * @param type $parent_id
+     * @param array $catTmp
+     * @param string $child
+     * @param type $type
+     * @return type
+     */
+    function getAllCat($parent_id = 0, $type = NULL, array &$catTmp = array(), $child = '') {
 
         if ($parent_id != 0) {
             $child .= ' --- ';
@@ -28,9 +36,13 @@ class CategoryModel extends Model {
             $cat[$i]['name'] = $cat[$i]['name'];
             $catTmp[] = $cat[$i];
             $parent_id = $cat[$i]['id'];
+            if ($type !== NULL) {
+                $this->where('type', '=', $type);
+            }
             $catChild = $this->where('parent_id', '=', "$parent_id")->count();
+
             if ($catChild) {
-                $this->getAllCat($parent_id, $catTmp, $child);
+                $this->getAllCat($parent_id, $type, $catTmp, $child);
             }
         }
         return $catTmp;
