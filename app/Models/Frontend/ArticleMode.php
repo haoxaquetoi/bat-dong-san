@@ -99,15 +99,19 @@ class ArticleMode extends Model {
 
     /**
      * Xét còn hoạt động hay khong còn hoạt động
-     * @param NULL||boolean $chkType TRUE: Còn hạn <br/>FALSE: Hết hạn đăng không hiên thị <br/>Mặc định không xét
+     * @param NULL||boolean $chkdealine TRUE: Còn hạn <br/>FALSE: Hết hạn đăng không hiên thị <br/>Mặc định không xét
      * @return $this
      */
-    function checkDealine($chkType = NULL) {
-        if ($chkType === 'News') {
-            $this->where('status', '=', 'Publish');
-        } elseif ($chkType === 'Product') {
-            $this->where('status', '=', 'Publish');
+    function checkDealine($chkdealine = NULL) {
+        if ($chkdealine === TRUE) {
+            $this->whereRaw('DATEDIFF(begin_date, now())<=0')
+                    ->whereRaw('DATEDIFF(end_date, now())>=0');
+        } elseif ($chkdealine === FALSE) {
+            $this->whereRaw('DATEDIFF(begin_date, now())>0')
+                    ->whereRaw('DATEDIFF(end_date, now())<0');
         }
+
+
         return $this;
     }
 
@@ -124,7 +128,7 @@ class ArticleMode extends Model {
         $this::with([
             'articleBase', 'articleContact', 'articleOther'
         ]);
-        $this->checkDealine($chkType);
+        $this->checkDealine($checkDealine);
         $this->checkType($chkType);
         $this->checkDeleted($chkDeleted);
         $postInfo = $this->where('id', '=', $articleID)->first();
