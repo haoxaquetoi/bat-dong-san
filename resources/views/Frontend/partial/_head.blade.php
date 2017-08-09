@@ -15,5 +15,5 @@
 <script src="{{url('AdminLTE')}}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="{{url('AdminLTE')}}/plugins/lightslider/js/lightslider.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="{{url('AdminLTE')}}/plugins/html5_gallery/html5gallery/html5gallery.js" type="text/javascript"></script>
+<script src="{{url('AdminLTE')}}/plugins/html5_gallery/html5gallery.js" type="text/javascript"></script>
 <script src="{{url('AdminLTE')}}/bootstrap/js/bootstrap.min.js"></script>

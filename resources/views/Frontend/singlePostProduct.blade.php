@@ -55,13 +55,13 @@
                                     <li data-thumb="{{$values->path}}"> 
                                         @if($values->type == 'video')
                                         <a href="{{$values->path}}">
-                                           <img src="{{url('Frontend')}}/images/video.png" alt="">
+                                            <img src="{{url('Frontend')}}/images/video.png" alt="">
                                         </a>
                                         @elseif($values->type == 'youtube')
                                         <a href="{{$values->path}}">
                                             <img src="{{url('Frontend')}}/images/youtube.png" alt="Youtube Video">
                                         </a>
-                                        
+
                                         @endif
                                     </li>
 
@@ -412,7 +412,9 @@
                                         </div>
                                         <div class="col-xs-7 article-right">
                                             <header>
-                                                <h2>{{$values->title}}</h2>
+                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->id, $values->slug, $values->catID, $values->catSlug)}}">
+                                                    <h2>{{$values->title}}</h2>
+                                                </a>
                                                 <div class="article-time">
                                                     <span>Cập nhật: <time>{{ Carbon\Carbon::parse($values->begin_date)->format('d-m-Y') }}</time></span>
                                                     @if ((int) $values->is_censored > 0)
