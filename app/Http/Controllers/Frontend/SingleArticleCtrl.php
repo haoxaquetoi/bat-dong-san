@@ -31,8 +31,8 @@ class SingleArticleCtrl extends Controller {
      * @return type
      */
     private function _render_view_news($articleInfo) {
-        $data['arrSingleArticle'] = $articleInfo;
-
+        $data['arrSingleArticle'] = $articleInfo;	
+		$data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         #Ưu tiên view theo id tin bài
         $view = "Frontend.singlePostNews_{$articleInfo->id}";
         if (!view()->exists($view)) {
@@ -48,6 +48,7 @@ class SingleArticleCtrl extends Controller {
      */
     private function _render_view_product($articleInfo, $articleInvolve) {
         $instanceFeedModel = new FeedbackModel;
+		$data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         $data['arrSingleArticle'] = $articleInfo;
         $data['arrAllFeedback'] = $instanceFeedModel->getAllFeedback();
         // tin lien quan

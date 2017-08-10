@@ -28,7 +28,7 @@ class SingleCategoryCtrl extends Controller {
      */
     private function _render_view_news($catInfo) {
         $data['catInfo'] = $catInfo;
-
+		$data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         #Ưu tiên view theo id tin bài
         $view = "Frontend.singleCategoryNews_{$catInfo->id}";
         if (!view()->exists($view)) {
@@ -44,7 +44,7 @@ class SingleCategoryCtrl extends Controller {
      */
     private function _render_view_product($catInfo) {
         $data['catInfo'] = $catInfo;
-
+		$data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         #Ưu tiên view theo id tin bài
         $view = "Frontend.singleCategoryProduct_{$catInfo->id}";
         if (!view()->exists($view)) {
