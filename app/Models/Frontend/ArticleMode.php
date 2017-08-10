@@ -59,10 +59,10 @@ class ArticleMode extends Model {
         }
 
         $allArticle = $db->select('id')
-                ->orderBy('begin_date', 'ASC')
-                ->offset($offset)
-                ->limit($pageSize)
-                ->get()->toArray();
+                        ->orderBy('begin_date', 'ASC')
+                        ->offset($offset)
+                        ->limit($pageSize)
+                        ->get()->toArray();
         foreach ($allArticle as $key => $value) {
             $allArticle[$key] = $this->getArticleInfo($value->id);
         }
@@ -186,7 +186,9 @@ class ArticleMode extends Model {
         $postInfo->category = DB::table('category')
                 ->leftJoin('category_article', 'category_article.category_id', '=', 'category.id')
                 ->where('category_article.article_id', '=', $postInfo->id)
-                ->get();
+                ->where('category.status', '=', 1)
+                ->where('category.deleted', '=', 0)
+                ->get()->toArray();
         return $postInfo;
     }
 
