@@ -182,6 +182,8 @@ class ArticleMode extends Model {
 
         if ($postInfo->end_date != '')
             $postInfo->end_date = explode(' ', $postInfo->end_date)[0];
+            
+        $postInfo->category = DB::table('category')->leftJoin('category_article','category_article.article_id','=','category.id')->where('category_article.article_id','=',$postInfo->id)->get();        
         return $postInfo;
     }
 

@@ -10,6 +10,7 @@ use App\Models\Frontend\FeedbackModel;
 class FrontendCtrl extends Controller {
 
     function homePage(ArticleMode $articleModel, Request $request) {
+  
         $data = array();
 		$data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         // Tin thường
