@@ -188,6 +188,7 @@ class ArticleMode extends Model {
                 ->where('category_article.article_id', '=', $postInfo->id)
                 ->where('category.status', '=', 1)
                 ->where('category.deleted', '=', 0)
+                ->orderby('category.order')
                 ->get()->toArray();
         return $postInfo;
     }
