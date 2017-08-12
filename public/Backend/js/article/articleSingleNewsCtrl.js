@@ -36,6 +36,10 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope
             category: articleInfo.category || []
         };
         angular.forEach($scope.categorys, function (v, i) {
+            if(!articleInfo.category) 
+            {
+                articleInfo.category = [];
+            }
             if (articleInfo.category.indexOf(v.id) < 0)
             {
                 v.checked = false;

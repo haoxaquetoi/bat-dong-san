@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="col-xs-7 article-right">
                                             <header>
-                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->id, $values->slug, $values->catID, $values->catSlug)}}"><h2>{{$values->title}}</h2></a>
+                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->category[0]->slug,$values->category[0]->category_id, $values->slug,$values->id )}}"><h2>{{$values->title}}</h2></a>
                                                 <div class="article-time">
                                                     <span>Cập nhật: <time>{{ Carbon\Carbon::parse($values->begin_date)->format('d-m-Y') }}</time></span>
                                                     @if ((int) $values->is_censored > 0)

@@ -12,6 +12,7 @@ class SingleArticleCtrl extends Controller {
     function main(ArticleMode $articleModel, Request $request) {
 
         $artID = isset($request->artID) ? $request->artID : 0;
+       
         $articleInfo = $articleModel->getArticleInfo($artID, TRUE);
         if (!isset($articleInfo->id)) {
             return view('Frontend.errors.post', ['errorCode' => 'notFound']);

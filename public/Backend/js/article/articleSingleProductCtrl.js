@@ -24,7 +24,11 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
         articleInfo.article_base = articleInfo.article_base || {};
         articleInfo.article_contact = articleInfo.article_contact || {};
         articleInfo.article_other = articleInfo.article_other || {};
-
+        if(!articleInfo.article_slide)
+        {
+            articleInfo.article_slide = {};
+        }
+        
         if (articleInfo.article_slide && articleInfo.article_slide.images)
         {
             articleInfo.article_slide.images[articleInfo.article_slide.images.length] = {
@@ -106,8 +110,6 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
             }
 
         };
-
-
 
         angular.forEach($scope.categorys, function (v, i) {
             articleInfo.category = articleInfo.category || [];

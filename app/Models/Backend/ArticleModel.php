@@ -75,7 +75,7 @@ class ArticleModel extends Model {
 
         if ($articleInfo->end_date != '')
             $articleInfo->end_date = explode(' ', $articleInfo->end_date)[0];
-
+       
         return $articleInfo->toArray();
     }
 

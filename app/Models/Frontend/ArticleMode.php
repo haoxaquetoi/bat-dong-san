@@ -186,10 +186,12 @@ class ArticleMode extends Model {
                         ->where('category.deleted', '=', 0)
                         ->orderby('category.order')
                         ->get()->toArray();
+      
         return $postInfo;
     }
 
     function getAllArticleInvolve($articleId, $type, $page = 1, $pageSize = 10) {
+        
         // tin liên quan
         $arrArticleInvolve = array();
         // mảng id tin bag liên quan thr tag
@@ -203,6 +205,7 @@ class ArticleMode extends Model {
                 ->where('article_id', '=', $articleId)
                 ->selectRaw('group_concat(tag_id) as arr_tag_id')
                 ->first();
+        
         if ($arrTagArticle->arr_tag_id) {
             // danh sách các tin liên quan có thẻ tag trùng với thẻ tag vừa $articleId
 
@@ -213,21 +216,21 @@ class ArticleMode extends Model {
                                   WHERE tag_id IN 
                                     ($arrTagArticle->arr_tag_id) 
                                     AND article_id != $articleId
-                                    GROUP BY article_id
-                                  ORDER BY id DESC) ta"), function($join) {
+                                    GROUP BY article_id ) ta"), function($join) {
                         $join->on('article.id', '=', 'ta.article_id');
                     })
-                    ->where('status', '=', 'Publish')
+                    ->where('status', '=', '"Publish"')
                     ->whereRaw('DATEDIFF(begin_date, now())<=0')
                     ->whereRaw('DATEDIFF(end_date, now())>=0');
             if ($type !== '') {
-                $db->where('type', '=', $type);
+                $db->where('type', '=', "'$type'");
             }
+              
             // danh sách các tin liên quan có thẻ tag trùng với thẻ tag vừa $articleId
             $arrArticleInvolveTag = $db->where('deleted', '=', 0)
                     ->orderBy('begin_date', 'ASC')
                     ->paginate($limit, ['id'], 'page', $page);
-
+            
             $limit -= $arrArticleInvolveTag->count();
             //tổng số bản ghi liên quan tag
             $totalArticleTag = $arrArticleInvolveTag->total();
@@ -236,8 +239,10 @@ class ArticleMode extends Model {
                 $arrArticleInvolve[] = $this->getArticleInfo($value->id);
                 $arrIdArticleTag[] = $value->id;
             }
+           
         }
         if ($limit > 0) {
+            
             $stringIdArticleTag = (count($arrIdArticleTag)) ? implode(",", $arrIdArticleTag) : '0';
             // danh sách chuyên mục của tin bài
             $arrCategory = DB::table('category_article')
