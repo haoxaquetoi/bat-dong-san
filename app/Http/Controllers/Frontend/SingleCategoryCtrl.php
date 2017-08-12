@@ -5,17 +5,23 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\Models\Backend\CategoryModel;
+use App\Models\Frontend\ArticleMode;
 
 class SingleCategoryCtrl extends Controller {
 
-    function main(CategoryModel $catModel, Request $request) {
-
+    function main(ArticleMode $articleModel, CategoryModel $catModel, Request $request) {
+       
         $catInfo = $catModel->getCategoryInfo($request->catID);
         if (!isset($catInfo->id)) {
-            return view('Frontend.errors.category', ['errorCode' => 'notFound']);
+            $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
+            return view('Frontend.errors.category', ['errorCode' => 'notFound'])->with('dataView', $data);
         }
         if ($catInfo->type == 'Product') {
-            return $this->_render_view_product($catInfo);
+            $page = isset($request->page) ? $request->page : 1;
+            $censored = isset($request->censored) ? $request->censored : '';
+            $allArticle = $articleModel->getAllArticle('Product', '', '', $censored, 0, $page, 10);
+            
+            return $this->_render_view_product($catInfo, $allArticle);
         } else {
             return $this->_render_view_news($catInfo);
         }
@@ -28,7 +34,7 @@ class SingleCategoryCtrl extends Controller {
      */
     private function _render_view_news($catInfo) {
         $data['catInfo'] = $catInfo;
-		$data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
+        $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         #Ưu tiên view theo id tin bài
         $view = "Frontend.singleCategoryNews_{$catInfo->id}";
         if (!view()->exists($view)) {
@@ -42,10 +48,13 @@ class SingleCategoryCtrl extends Controller {
      * @param type $catInfo
      * @return type
      */
-    private function _render_view_product($catInfo) {
+    private function _render_view_product($catInfo, $allArticle) {
         $data['catInfo'] = $catInfo;
-		$data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
-        #Ưu tiên view theo id tin bài
+        $data['allArticle'] = $allArticle;
+//        dd( $allArticle->links());
+        $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
+        
+        #Ưu tiên view theo id chuyên mục
         $view = "Frontend.singleCategoryProduct_{$catInfo->id}";
         if (!view()->exists($view)) {
             $view = 'Frontend.singleCategoryProduct';
