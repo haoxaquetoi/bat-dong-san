@@ -17,3 +17,4 @@
 <!-- Bootstrap 3.3.6 -->
 <script src="{{url('AdminLTE')}}/plugins/html5_gallery/html5gallery.js" type="text/javascript"></script>
 <script src="{{url('AdminLTE')}}/bootstrap/js/bootstrap.min.js"></script>
+<script src="{{url('Frontend')}}/js/bds.js"></script>

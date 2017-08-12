@@ -23,8 +23,8 @@ class ParamsSearchConfig {
         'direction' => [],
         'priceMin' => [],
         'priceMax' => [],
-        'priceFloorAreaMin' => [],
-        'priceFloorAreaMax' => [],
+        'floorAreaMin' => [],
+        'floorAreaMax' => [],
         'roomNumber' => []
     );
 
@@ -130,20 +130,20 @@ class ParamsSearchConfig {
         return $this;
     }
 
-    function setFllorAreaMin(array $priceFloorAreaMin = []) {
-        if (count($priceFloorAreaMin) > 0) {
-            $this->_arrParams['priceFloorAreaMin'] = $priceFloorAreaMin;
+    function setFllorAreaMin(array $floorAreaMin = []) {
+        if (count($floorAreaMin) > 0) {
+            $this->_arrParams['floorAreaMin'] = $floorAreaMin;
         } else {
-            $this->_arrParams['priceFloorAreaMin'] = DB::table('article_other')->where('floor_area', '>', 0)->select('floor_area')->groupBy('floor_area')->get()->toArray();
+            $this->_arrParams['floorAreaMin'] = DB::table('article_other')->where('floor_area', '>', 0)->select('floor_area')->groupBy('floor_area')->get()->toArray();
         }
         return $this;
     }
 
-    function setFllorAreaMax(array $priceFloorAreaMax = []) {
-        if (count($priceFloorAreaMax) > 0) {
-            $this->_arrParams['priceFloorAreaMax'] = $priceFloorAreaMax;
+    function setFllorAreaMax(array $floorAreaMax = []) {
+        if (count($floorAreaMax) > 0) {
+            $this->_arrParams['floorAreaMax'] = $floorAreaMax;
         } else {
-            $this->_arrParams['priceFloorAreaMax'] = DB::table('article_other')->where('floor_area', '>', 0)->select('floor_area')->groupBy('floor_area')->get()->toArray();
+            $this->_arrParams['floorAreaMax'] = DB::table('article_other')->where('floor_area', '>', 0)->select('floor_area')->groupBy('floor_area')->get()->toArray();
         }
         return $this;
     }
