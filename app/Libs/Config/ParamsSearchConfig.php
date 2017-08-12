@@ -1,7 +1,12 @@
 <?php
 
-namespace App\Libs\Config;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
+namespace App\Libs\Config;
 use App\Models\Backend\CategoryModel;
 use Illuminate\Support\Facades\DB;
 

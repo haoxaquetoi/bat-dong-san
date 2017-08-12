@@ -12,7 +12,7 @@ class FrontendCtrl extends Controller {
     function homePage(ArticleMode $articleModel, Request $request) {
   
         $data = array();
-		$data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
+        $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         // Tin thường
         $data['arrArticle'] = $articleModel->getAllArticle('Product', '', '', 0, 0, 1, 10);
         // Tin đảm bảo

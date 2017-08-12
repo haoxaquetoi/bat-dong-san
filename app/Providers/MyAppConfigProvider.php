@@ -71,7 +71,8 @@ class MyAppConfigProvider extends ServiceProvider {
             'ThemeConfig',
             'DirectionConfig',
             'SettingConfig',
-            'BuildUrl'
+            'BuildUrl',
+            'ParamsSearchConfig'
         ];
     }
 
