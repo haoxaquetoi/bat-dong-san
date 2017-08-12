@@ -20,6 +20,7 @@ class SingleCategoryCtrl extends Controller {
             $page = isset($request->page) ? $request->page : 1;
             $censored = isset($request->censored) ? $request->censored : '';
             $allArticle = $articleModel->getAllArticle('Product', '', '', $censored, 0, $page, 10);
+            
             return $this->_render_view_product($catInfo, $allArticle);
         } else {
             return $this->_render_view_news($catInfo);
@@ -50,6 +51,7 @@ class SingleCategoryCtrl extends Controller {
     private function _render_view_product($catInfo, $allArticle) {
         $data['catInfo'] = $catInfo;
         $data['allArticle'] = $allArticle;
+//        dd( $allArticle->links());
         $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         
         #Ưu tiên view theo id chuyên mục

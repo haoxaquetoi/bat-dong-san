@@ -145,6 +145,9 @@
     width: calc(60% - 2px);
     font-size: 13px;
 }
+.box-category:nth-of-type(odd) {
+    clear: both;
+}
 /*end .content-right*/
 @media (min-width: 768px) {
     .content-left-col-border {

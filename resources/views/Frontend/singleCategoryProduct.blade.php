@@ -13,7 +13,7 @@
                 <div class="category-filter">
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-12 box-filter padding-bottom-10 category-censored">
-                            <a href="?censored=''" class="btn btn-success">Tất cả</a>
+                            <a href="?" class="btn btn-success all">Tất cả</a>
                             <a href="?censored=1" class="btn btn-grey">Tin đảm bảo</a>
                             <a  href="?censored=0" class="btn btn-grey">Tin thường</a>
                         </div>
@@ -42,17 +42,19 @@
                                 <div class="row">
                                     <div class="col-xs-5 article-left">
                                         <div class="article-left-relative">
-                                            @if (isset($values->thumbnail))
-                                            <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
-                                            @else
-                                            <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
-                                            @endif
+                                            <a href="{{app('BuildUrl')->buildArticleDetail( $values->category[0]->slug,$values->category[0]->id, $values->slug,  $values->id)}}" >
+                                                @if (isset($values->thumbnail))
+                                                <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
+                                                @else
+                                                <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                @endif
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="col-xs-7 article-right">
                                         <header>
                                             <h2>
-                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->id, $values->slug, $values->catID, $values->catSlug)}}">
+                                                <a href="{{app('BuildUrl')->buildArticleDetail( $values->category[0]->slug,$values->category[0]->id, $values->slug,  $values->id)}}" >
                                                     {{$values->title}}
                                                 </a>
                                             </h2>
@@ -63,21 +65,40 @@
                                         </header>
                                         <section>
                                             <p>
-                                                Lorem Ipsum is simply dummy text of the printing and 
-                                                typesetting industry
+                                                {!! str_limit($values->content, $limit = 100, $end = '...') !!}
                                             </p>
                                             <p class="bold article-right-content">
-                                                <span class="padding-right-10"><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</span>
-                                                <span class="padding-right-10"><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ</span>
-                                                <span class="padding-right-10"><i class="fa fa-bed" aria-hidden="true"></i> 2 phòng tắm</span>
-                                                <span class="padding-right-10"><i class="fa fa-bed" aria-hidden="true"></i> 1 Gara ô tô</span>
-                                                <span class="padding-right-10"><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ: Phường xã, huyện, tỉnh</span>
+                                                @if(isset($values->articleOther->floor_area) && $values->articleOther->floor_area > 0)
+                                                <span class="padding-right-15">
+                                                    <i class="fa fa-home" aria-hidden="true"></i> Diện tích: {{$values->articleOther->floor_area}} m2
+                                                </span>
+                                                @endif
+                                                @if(isset($values->articleOther->number_of_bedrooms) && $values->articleOther->number_of_bedrooms > 0)
+                                                <span class="padding-right-15"><i class="fa fa-bed" aria-hidden="true"></i> 
+                                                    {{$values->articleOther->number_of_bedrooms}} phòng ngủ
+                                                </span>
+                                                @endif
+                                                @if(isset($values->articleOther->number_of_wc) && $values->articleOther->number_of_wc > 0)
+                                                <span class="padding-right-15"><i class="fa fa-bed" aria-hidden="true"></i>  
+                                                    {{$values->articleOther->number_of_wc}} phòng tắm
+                                                </span>
+                                                @endif
+                                                @if(isset($values->articleOther->number_of_storeys) && $values->articleOther->number_of_storeys > 0)
+                                                <span class="padding-right-15"><i class="fa fa-home" aria-hidden="true"></i>  
+                                                    {{$values->articleOther->number_of_storeys}} Tầng
+                                                </span>
+                                                @endif
+                                                @if(isset($values->articleBase->address) && $values->articleBase->address != '')
+                                                <span class="padding-right-15"><i class="fa fa-map-marker" aria-hidden="true"></i>  
+                                                    {{$values->articleBase->address}}
+                                                </span>
+                                                @endif
                                             </p>
                                             <div class="text-right view-details">
                                                 @if ((int) $values->is_censored > 0)
                                                 <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-left" alt=""/>
                                                 @endif
-                                                <a class="btn btn-default btn-xs btn-more-category" href="">Xem chi tiết <i class="fa fa-angle-right"></i></a>
+                                                <a  href="{{app('BuildUrl')->buildArticleDetail( $values->category[0]->slug,$values->category[0]->id, $values->slug , $values->id)}}" class="btn btn-default btn-xs btn-more-category" href="">Xem chi tiết <i class="fa fa-angle-right"></i></a>
                                             </div>
                                         </section>
                                     </div>
