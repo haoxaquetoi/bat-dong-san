@@ -52,6 +52,7 @@ class SingleArticleCtrl extends Controller {
 		$data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         $data['arrSingleArticle'] = $articleInfo;
         $data['arrAllFeedback'] = $instanceFeedModel->getAllFeedback();
+        
         // tin lien quan
         $data['arrSingleArticleInvolve'] = $articleInvolve;
 

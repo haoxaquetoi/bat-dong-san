@@ -192,7 +192,9 @@ return [
         
         #myAppConfigProvider
         App\Providers\MyAppConfigProvider::class,
-
+        
+        
+        Mews\Captcha\CaptchaServiceProvider::class,
     ],
 
     /*
@@ -251,6 +253,8 @@ return [
         'Goutte' => Weidner\Goutte\GoutteFacade::class,
         #debugbar
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ],
 
 ];

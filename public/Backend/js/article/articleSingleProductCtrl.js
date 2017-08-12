@@ -9,7 +9,8 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
         tags,
         category,
         articleInfo,
-        direction
+        direction,
+        $http
         )
 {
     $scope.linkYoutube = '';
@@ -348,7 +349,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
         removeSlideVideo: function (index)
         {
             $scope.articleInfo.article_slide.video.splice(index, 1);
-        }
+        },
 
     };
     $scope.$watchCollection('articleInfo.title', function (oldVal, newVal) {

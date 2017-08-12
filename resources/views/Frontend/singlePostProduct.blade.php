@@ -4,13 +4,12 @@
 
 <link href="{{url('Frontend')}}/css/pageSingle.css" rel="stylesheet" type="text/css"/>
 <script>
-    $(document).ready(function () {
-        $(document).ready(function () {
-            $('[data-toggle="popover"]').popover();
-        });
 
-        $('#image-gallery').lightSlider({
-            gallery: true,
+    $(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+    });
+    $('#image-gallery').lightSlider({
+    gallery: true,
             item: 1,
             thumbItem: 5,
             slideMargin: 0,
@@ -19,10 +18,66 @@
             auto: true,
             loop: true,
             onSliderLoad: function () {
-                $('#image-gallery').removeClass('cS-hidden');
+            $('#image-gallery').removeClass('cS-hidden');
             }
-        });
     });
+    function refreshCaptcha()
+    {
+    $.ajax({
+    url: '<?php echo url('/rest/refreshCaptcha?') ?>' + (new Date()).toString(),
+            data: {},
+            type: 'GET',
+            success: function (data, textStatus, jqXHR) {
+            $('#imgCapChaFeedback img').attr('src', data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown)
+                    $('#feedbackCaptchaErr').text('Xảy ra lỗi không đổi được mã bảo vệ');
+            }
+    });
+    }
+
+    function sendFeedBack()
+    {
+    var feedBackID = $('#txtFeedBackID').val() || '';
+    var captChaVal = $('#txtCaptchaFeedback').val() || '';
+    if (feedBackID == '' || captChaVal == '')
+    {
+    $('#feedbackCaptchaErr').text('Bạn chưa nhập mã bảo vệ hoặc đối tượng phản hồi lựa chọn không hợp lệ');
+    return false;
+    }
+
+    $.ajax({
+        url: '<?php echo url('/rest/sendFeedBack') ?>',
+            data: {
+            articleID:{{$dataView['arrSingleArticle']->id}},
+                    feedBackID:feedBackID,
+                    captChaVal:captChaVal,
+                    _token:'{{csrf_token()}}'
+            },
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+            $('#imgCapChaFeedback img').attr('src', data);
+            $('#feedbackCaptchaErr').text('');
+            $('#modalConfirmFeedback').modal('hide');
+            alert('Cảm ơn bạn đã gửi thông tin phản hồi đến chúng tôi');
+            },
+            error: function (error) {
+            $('#feedbackCaptchaErr').text($.parseJSON(error.responseText));
+            refreshCaptcha();
+            }
+    });
+    }
+
+
+    function chooseFeedback(feedID)
+    {
+    $('#feedbackCaptchaErr').text('');
+    $('#txtFeedBackID').val(feedID);
+    $('#modalConfirmFeedback').modal('show');
+    refreshCaptcha();
+    }
+
 </script>
 <!--.content-->
 <section class="content">
@@ -97,33 +152,12 @@
                 <div class="content-single">
                     {!! $dataView['arrSingleArticle']->content !!}
                 </div>
-                <div class="row action-single">
+                Phản hồi:
+                <div class="row action-single">                    
                     @for ($i = 0; $i < count($dataView['arrAllFeedback']); $i ++)
-                    @if($i% 6 == 0)
                     <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
-                        <button  class="btn btn-sm btn-success">{{$dataView['arrAllFeedback'][$i]->name}}</button>
+                        <button  class="btn btn-sm btn-success" onclick="chooseFeedback({{$dataView['arrAllFeedback'][$i]->id}})"  >{{$dataView['arrAllFeedback'][$i]->name}}</button>
                     </div>
-                    @elseif($i% 6 == 1)
-                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
-                        <button  class="btn btn-sm btn-default">{{$dataView['arrAllFeedback'][$i]->name}}</button>
-                    </div>
-                    @elseif($i% 6 == 2)
-                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
-                        <button  class="btn btn-sm btn-danger">{{$dataView['arrAllFeedback'][$i]->name}}</button>
-                    </div>
-                    @elseif($i% 6 == 3)
-                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
-                        <button  class="btn btn-sm btn-info">{{$dataView['arrAllFeedback'][$i]->name}}</button>
-                    </div>
-                    @elseif($i% 6 == 4)
-                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
-                        <button  class="btn btn-sm btn-warning">{{$dataView['arrAllFeedback'][$i]->name}}</button>
-                    </div>
-                    @else
-                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
-                        <button  class="btn btn-sm btn-primary">{{$dataView['arrAllFeedback'][$i]->name}}</button>
-                    </div>
-                    @endif
                     @endfor
                 </div>
                 <div class="borber-img">
@@ -461,4 +495,31 @@
     </div>
 </section><!--end .content-->
 
+<!-- Modal -->
+<div id="modalConfirmFeedback" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nhập mã bảo vệ</h4>
+            </div>
+            <div class="modal-body clearfix">
+                <center style="width: 300px;margin: 0 auto;display: block;">
+                    <p id="imgCapChaFeedback" style="float: left; "><?php echo captcha_img(); ?>
+                        <input type="text" name="captcha" id="txtCaptchaFeedback" >
+                        <input type="hidden" name="txtFeedBackID" id="txtFeedBackID" >
+                        <a onclick="refreshCaptcha()" href="javascript:void(0);"><i class="glyphicon glyphicon-refresh"></i></a>
+                        <span  id="feedbackCaptchaErr"  class="has-error help-block" style="color: red"></span>
+                    </p>
+
+                </center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="sendFeedBack()"  ><i class="glyphicon glyphicon-send"></i> Gửi</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

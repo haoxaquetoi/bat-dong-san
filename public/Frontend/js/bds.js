@@ -9,6 +9,7 @@ $(document).ready(function () {
         }
         $(".filter-hide").toggle(1000);
     });
+
     $('#singleCategory .tow-column').click(function () {
         $('.box-category').removeClass('col-md-12 col-sm-12 col-md-6 col-sm-6');
         $('.article-left').removeClass('col-xs-4 col-xs-5');
@@ -29,3 +30,4 @@ $(document).ready(function () {
         
     });
 });
+

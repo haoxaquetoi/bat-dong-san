@@ -17,3 +17,11 @@ Route::get('/tim-kiem', 'Frontend\SearchCtrl@main');
 //rest route
 
 Route::get('rest/getAllArticle', 'Frontend\Rest\ArticleCtrl@getAllArticle');
+
+
+Route::get('rest/refreshCaptcha', 'Frontend\Rest\CaptchaCtrl@refreshCaptcha');
+Route::post('rest/sendFeedBack', 'Frontend\Rest\FrontendCtrl@sendFeedBack');
+
+
+
+

@@ -229,7 +229,7 @@ class ArticleCtrl extends Controller {
                     'number_of_storeys' => $request->article_other['number_of_storeys'],
                     'number_of_wc' => intval($request->article_other['number_of_wc']),
                     'number_of_bedrooms' => intval($request->article_other['number_of_bedrooms']),
-                    'furniture' => $request->article_other['furniture'] ? $request->article_other['furniture'] :null,
+                    'furniture' => $request->article_other['furniture'] ,
                     'floor_area' => intval($request->article_other['floor_area'])
         ]);
 

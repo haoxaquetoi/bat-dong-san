@@ -7,6 +7,7 @@
         $('[data-toggle="popover"]').popover();
     });
 </script>
+
 <!--.content-->
 <section class="content">
     <div class="container">
@@ -88,6 +89,7 @@
                                 </div>
                                 @if (count($dataView['arrArticle']) > 0)
                                 @foreach ($dataView['arrArticle'] as $values)
+
                                 <article>
                                     <div class="row">
                                         <div class="col-xs-5 article-left">
@@ -115,6 +117,8 @@
                                                 @isset($values->articleOther->floor_area)
                                                 <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: {{$values->articleOther->floor_area}} m2</p>
                                                 @endisset
+
+
                                                 @if ((int) $values->articleOther->number_of_bedrooms > 0  || (int) $values->articleOther->number_of_wc > 0)
                                                 <p><i class="fa fa-bed" aria-hidden="true"></i> 
                                                     @if ((int) $values->articleOther->number_of_bedrooms > 0)
