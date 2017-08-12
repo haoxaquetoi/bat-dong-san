@@ -19,6 +19,7 @@ class FrontendCtrl extends Controller {
         $data['arrArticleCensored'] = $articleModel->getAllArticle('Product', '', '', 1, 0, 1, 10);
         // Tin nổi bật
         $data['arrArticleSticky'] = $articleModel->getAllArticle('Product', '', 1, '', 0, 1, 10);
+//        dd($data);
         return view('Frontend.homePage')->with('dataView', $data);
     }
 

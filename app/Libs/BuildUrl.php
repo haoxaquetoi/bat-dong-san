@@ -10,14 +10,16 @@ class BuildUrl {
 
     /**
      * Render url detail article
+     * @param string $catSlug Đường dẫn slug chuyên mục
+     * @param int $catID ID chuyên mục
      * @param int $artID Mã tin bài
      * @param string $artSlug Đường dẫn slug tin bài
-     * @param int $catID ID chuyên mục
-     * @param string $catSlug Đường dẫn slug chuyên mục
+
+
      * @return $catSlug/$artID/$artSlug/$catID
      */
-    function buildArticleDetail($artID, $artSlug, $catID, $catSlug) {
-        return url("$catSlug/$artID/$artSlug/$catID");
+    function buildArticleDetail($catSlug, $catID, $artSlug, $artID) {
+        return url("$catSlug/$catID/$artSlug/$artID");
     }
 
     /**

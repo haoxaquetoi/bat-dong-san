@@ -33,7 +33,6 @@ class ArticleMode extends Model {
      * @return type
      */
     public function getAllArticle($type = '', $freeText = '', $sticky = '', $censored = '', $sold = '', $page = 1, $pageSize = 10) {
-        $offset = ($page - 1) * $pageSize;
         $db = DB::table($this->table)
                 ->where('status', '=', 'Publish')
                 ->whereRaw('DATEDIFF(begin_date, now())<=0')
@@ -58,11 +57,8 @@ class ArticleMode extends Model {
             $db->where('is_sold', '=', $sold);
         }
 
-        $allArticle = $db->select('id')
-                        ->orderBy('begin_date', 'ASC')
-                        ->offset($offset)
-                        ->limit($pageSize)
-                        ->get()->toArray();
+        $allArticle = $db->orderBy('begin_date', 'ASC')
+                ->paginate($pageSize, ['id'], 'page', $page);
         foreach ($allArticle as $key => $value) {
             $allArticle[$key] = $this->getArticleInfo($value->id);
         }
@@ -184,12 +180,12 @@ class ArticleMode extends Model {
             $postInfo->end_date = explode(' ', $postInfo->end_date)[0];
 
         $postInfo->category = DB::table('category')
-                ->leftJoin('category_article', 'category_article.category_id', '=', 'category.id')
-                ->where('category_article.article_id', '=', $postInfo->id)
-                ->where('category.status', '=', 1)
-                ->where('category.deleted', '=', 0)
-                ->orderby('category.order')
-                ->get()->toArray();
+                        ->leftJoin('category_article', 'category_article.category_id', '=', 'category.id')
+                        ->where('category_article.article_id', '=', $postInfo->id)
+                        ->where('category.status', '=', 1)
+                        ->where('category.deleted', '=', 0)
+                        ->orderby('category.order')
+                        ->get()->toArray();
         return $postInfo;
     }
 
