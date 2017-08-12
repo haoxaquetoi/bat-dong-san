@@ -59,10 +59,10 @@ class ArticleMode extends Model {
         }
 
         $allArticle = $db->select('id')
-                ->orderBy('begin_date', 'ASC')
-                ->offset($offset)
-                ->limit($pageSize)
-                ->get();
+                        ->orderBy('begin_date', 'ASC')
+                        ->offset($offset)
+                        ->limit($pageSize)
+                        ->get()->toArray();
         foreach ($allArticle as $key => $value) {
             $allArticle[$key] = $this->getArticleInfo($value->id);
         }
@@ -182,8 +182,14 @@ class ArticleMode extends Model {
 
         if ($postInfo->end_date != '')
             $postInfo->end_date = explode(' ', $postInfo->end_date)[0];
-            
-        $postInfo->category = DB::table('category')->leftJoin('category_article','category_article.article_id','=','category.id')->where('category_article.article_id','=',$postInfo->id)->get();        
+
+        $postInfo->category = DB::table('category')
+                ->leftJoin('category_article', 'category_article.category_id', '=', 'category.id')
+                ->where('category_article.article_id', '=', $postInfo->id)
+                ->where('category.status', '=', 1)
+                ->where('category.deleted', '=', 0)
+                ->orderby('category.order')
+                ->get()->toArray();
         return $postInfo;
     }
 
@@ -203,8 +209,8 @@ class ArticleMode extends Model {
                 ->first();
         if ($arrTagArticle->arr_tag_id) {
             // danh sách các tin liên quan có thẻ tag trùng với thẻ tag vừa $articleId
-            
-            $db = $this ->join(DB::raw("(SELECT 
+
+            $db = $this->join(DB::raw("(SELECT 
                                     GROUP_CONCAT(DISTINCT article_id) as article_id
                                   FROM
                                     tag_article 
