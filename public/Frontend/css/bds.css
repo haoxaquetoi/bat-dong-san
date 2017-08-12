@@ -634,3 +634,19 @@ h3.popover-title {
 }.filter-hide{
     display: none;
 }
+/*.pagination*/
+ul.pagination li a {
+    background: #f2f2f2;
+    border: 1px solid #f2f2f2;
+    margin-left: 3px;
+    color: #111111;
+}
+ul.pagination li.active a {
+    background: #89c355;
+    border-color: #4cae4c;
+}
+ul.pagination li.active:hover a, ul.pagination li.active:active a, ul.pagination li.active:focus a {
+    background-color: #398439;
+    border-color: #255625;
+}
+/*end .pagination*/

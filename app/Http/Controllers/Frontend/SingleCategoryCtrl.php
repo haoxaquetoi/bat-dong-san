@@ -10,7 +10,7 @@ use App\Models\Frontend\ArticleMode;
 class SingleCategoryCtrl extends Controller {
 
     function main(ArticleMode $articleModel, CategoryModel $catModel, Request $request) {
-       
+
         $catInfo = $catModel->getCategoryInfo($request->catID);
         if (!isset($catInfo->id)) {
             $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
@@ -19,9 +19,12 @@ class SingleCategoryCtrl extends Controller {
         if ($catInfo->type == 'Product') {
             $page = isset($request->page) ? $request->page : 1;
             $censored = isset($request->censored) ? $request->censored : '';
-            $allArticle = $articleModel->getAllArticle('Product', '', '', $censored, 0, $page, 10);
-            
-            return $this->_render_view_product($catInfo, $allArticle);
+            $params = array(
+                'censored' => $censored
+            );
+            $allArticle = $articleModel->getAllArticle('Product', '', '', $censored, 0, $page, 4);
+
+            return $this->_render_view_product($catInfo, $allArticle, $params);
         } else {
             return $this->_render_view_news($catInfo);
         }
@@ -48,11 +51,15 @@ class SingleCategoryCtrl extends Controller {
      * @param type $catInfo
      * @return type
      */
-    private function _render_view_product($catInfo, $allArticle) {
+    private function _render_view_product($catInfo, $allArticle, $params) {
         $data['catInfo'] = $catInfo;
         $data['allArticle'] = $allArticle;
 //        dd( $allArticle->links());
         $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
+        $data['paginator'] = array(
+            'paginator' => $allArticle,
+            'params' => $params
+        );
         
         #Ưu tiên view theo id chuyên mục
         $view = "Frontend.singleCategoryProduct_{$catInfo->id}";

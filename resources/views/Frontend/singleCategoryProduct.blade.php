@@ -18,13 +18,13 @@
                             <a  href="?censored=0" class="btn btn-grey">Tin thường</a>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 box-filter-right  padding-bottom-10">
-                            <div class="pull-left">
+<!--                            <div class="pull-left">
                                 <button class="btn btn-grey">Trước</button>
                                 <button class="btn btn-success">1</button>
                                 <button class="btn btn-grey">2</button>
                                 <button class="btn btn-grey">3</button>
                                 <button class="btn btn-grey">Sau</button>
-                            </div>
+                            </div>-->
                             <div class="pull-right  text-right">
                                 <button class="btn btn-grey tow-column"><i class="fa fa-th-list" aria-hidden="true"></i></button>
                                 <button class="btn btn-grey one-column"><i class="fa fa-th" aria-hidden="true"></i></button>
@@ -110,11 +110,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12 box-filter-right text-right pagging  padding-bottom-15">
-                            <button class="btn btn-grey">Trước</button>
-                            <button class="btn btn-success">1</button>
-                            <button class="btn btn-grey">2</button>
-                            <button class="btn btn-grey">3</button>
-                            <button class="btn btn-grey">Sau</button>
+                            @include('Frontend.partial._pagination_default', $dataView['paginator'])
                         </div>
                     </div>
                 </div>
