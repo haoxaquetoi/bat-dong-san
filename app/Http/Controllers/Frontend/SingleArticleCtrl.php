@@ -12,17 +12,22 @@ class SingleArticleCtrl extends Controller {
     function main(ArticleMode $articleModel, Request $request) {
 
         $artID = isset($request->artID) ? $request->artID : 0;
-       
+
         $articleInfo = $articleModel->getArticleInfo($artID, TRUE);
+
         if (!isset($articleInfo->id)) {
             return view('Frontend.errors.post', ['errorCode' => 'notFound']);
         }
+        
         if ($articleInfo->type == 'Product') {
             // tin liên quan
             $articleInvolve = $articleModel->getAllArticleInvolve($artID, 'Product', 1, 6);
             return $this->_render_view_product($articleInfo, $articleInvolve);
         } else {
-            return $this->_render_view_news($articleInfo);
+            // tin liên quan
+            $articleInvolve = $articleModel->getAllArticleInvolve($artID, 'News', 1, 6);
+            
+            return $this->_render_view_news($articleInfo, $articleInvolve);
         }
     }
 
@@ -31,9 +36,11 @@ class SingleArticleCtrl extends Controller {
      * @param type $articleInfo
      * @return type
      */
-    private function _render_view_news($articleInfo) {
-        $data['arrSingleArticle'] = $articleInfo;	
-		$data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
+    private function _render_view_news($articleInfo, $articleInvolve) {
+        $data['arrSingleArticle'] = $articleInfo;
+        $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
+        // tin lien quan
+        $data['arrSingleArticleInvolve'] = $articleInvolve;
         #Ưu tiên view theo id tin bài
         $view = "Frontend.singlePostNews_{$articleInfo->id}";
         if (!view()->exists($view)) {
@@ -49,21 +56,19 @@ class SingleArticleCtrl extends Controller {
      */
     private function _render_view_product($articleInfo, $articleInvolve) {
         $instanceFeedModel = new FeedbackModel;
-		$data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
+        $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         $data['arrSingleArticle'] = $articleInfo;
         $data['arrAllFeedback'] = $instanceFeedModel->getAllFeedback();
-        
         // tin lien quan
         $data['arrSingleArticleInvolve'] = $articleInvolve;
-        
-//        dd($data['arrSingleArticleInvolve']);
 
+//        dd($data['arrSingleArticleInvolve']);
         #Ưu tiên view theo id tin bài
         $view = "Frontend.singlePostProduct_{$articleInfo->id}";
         if (!view()->exists($view)) {
             $view = 'Frontend.singlePostProduct';
         }
-        
+
         return view($view)->with('dataView', $data);
     }
 

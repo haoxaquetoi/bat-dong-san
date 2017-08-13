@@ -12,22 +12,34 @@ class SingleCategoryCtrl extends Controller {
     function main(ArticleMode $articleModel, CategoryModel $catModel, Request $request) {
 
         $catInfo = $catModel->getCategoryInfo($request->catID);
+        $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         if (!isset($catInfo->id)) {
-            $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
             return view('Frontend.errors.category', ['errorCode' => 'notFound'])->with('dataView', $data);
         }
         if ($catInfo->type == 'Product') {
             $page = isset($request->page) ? $request->page : 1;
             $censored = isset($request->censored) ? $request->censored : '';
+            $data['allArticle'] = $articleModel->getAllArticle('Product', $request->catID, '', '', $censored, 0, $page, 10);
+            // thông tin chuyên mục
+            $data['catInfo'] = $catInfo;
             // dữ liệu cho pagging
-            $params = array(
-                'censored' => $censored
+            $data['paginator'] = array(
+                'paginator' => $data['allArticle'],
+                'params' => array(
+                    'censored' => $censored
+                )
             );
-            $allArticle = $articleModel->getAllArticle('Product', '', '', $censored, 0, $page, 4);
 
-            return $this->_render_view_product($catInfo, $allArticle, $params);
+            return $this->_render_view_product($data);
         } else {
-            return $this->_render_view_news($catInfo);
+            $data['catInfo'] = $catInfo;
+            $page = isset($request->page) ? $request->page : 1;
+            $data['allArticle'] = $articleModel->getAllArticle('News', $request->catID,  '', '', '', 0, $page, 4);
+            // dữ liệu cho pagging
+            $data['paginator'] = array(
+                'paginator' => $data['allArticle'],
+            );
+            return $this->_render_view_news($data);
         }
     }
 
@@ -36,11 +48,9 @@ class SingleCategoryCtrl extends Controller {
      * @param type $catInfo
      * @return type
      */
-    private function _render_view_news($catInfo) {
-        $data['catInfo'] = $catInfo;
-        $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
+    private function _render_view_news($data) {
         #Ưu tiên view theo id tin bài
-        $view = "Frontend.singleCategoryNews_{$catInfo->id}";
+        $view = "Frontend.singleCategoryNews_{$data['catInfo']->id}";
         if (!view()->exists($view)) {
             $view = 'Frontend.singleCategoryNews';
         }
@@ -52,20 +62,10 @@ class SingleCategoryCtrl extends Controller {
      * @param type $catInfo
      * @return type
      */
-    private function _render_view_product($catInfo, $allArticle, $params) {
-        // thông tin chuyên mục
-        $data['catInfo'] = $catInfo;
-        $data['allArticle'] = $allArticle;
-//        dd( $allArticle->links());
-        $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
-        // dữ liệu cho pagging
-        $data['paginator'] = array(
-            'paginator' => $allArticle,
-            'params' => $params
-        );
-        
+    private function _render_view_product($data) {
+
         #Ưu tiên view theo id chuyên mục
-        $view = "Frontend.singleCategoryProduct_{$catInfo->id}";
+        $view = "Frontend.singleCategoryProduct_{$data['catInfo']->id}";
         if (!view()->exists($view)) {
             $view = 'Frontend.singleCategoryProduct';
         }

@@ -24,6 +24,7 @@ class ArticleMode extends Model {
     /**
      * Danh sách tin bài
      * @param type $type Kiểu tin bài. News: Tin đăng, Product: Tin bất động sản
+     * @param type $idCategory Lọc theo chuyên mục
      * @param type $freeText Lọc theo tiều đề
      * @param type $sticky 1 Tin nổi bật, 0 Ngược lại
      * @param type $censored 1 Tin đảm bảo, 0 Ngược lại
@@ -32,7 +33,7 @@ class ArticleMode extends Model {
      * @param type $pageSize Số bản ghi trên 1 trang
      * @return type
      */
-    public function getAllArticle($type = '', $freeText = '', $sticky = '', $censored = '', $sold = '', $page = 1, $pageSize = 10) {
+    public function getAllArticle($type = '', $idCategory = '', $freeText = '', $sticky = '', $censored = '', $sold = '', $page = 1, $pageSize = 10) {
         $db = DB::table($this->table)
                 ->where('status', '=', 'Publish')
                 ->whereRaw('DATEDIFF(begin_date, now())<=0')
@@ -41,6 +42,12 @@ class ArticleMode extends Model {
 
         if ($type !== '') {
             $db->where('type', '=', $type);
+        }
+
+        if ($idCategory !== '') {
+
+             $idCategory = (int) $idCategory;
+            $db->whereRaw("id IN(SELECT article_id FROM category_article WHERE category_id = '$idCategory')");
         }
         if ($freeText != '') {
             $db->where('title', 'like', "%{$freeText}%");
@@ -55,6 +62,20 @@ class ArticleMode extends Model {
 
         if ($sold !== '') {
             $db->where('is_sold', '=', $sold);
+        }
+        if ($type == 'News') {
+            $allArticle = $db->orderBy('begin_date', 'DESC')
+                    ->paginate($pageSize, ['*'], 'page', $page);
+            foreach ($allArticle as $key => $value) {
+                $allArticle[$key]->category = DB::table('category')
+                                ->leftJoin('category_article', 'category_article.category_id', '=', 'category.id')
+                                ->where('category_article.article_id', '=', $value->id)
+                                ->where('category.status', '=', 1)
+                                ->where('category.deleted', '=', 0)
+                                ->orderby('category.order')
+                                ->get()->toArray();
+            }
+            return $allArticle;
         }
 
         $allArticle = $db->orderBy('begin_date', 'DESC')

@@ -275,8 +275,6 @@
                         @endif
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div> <!--end .article-highlights-->

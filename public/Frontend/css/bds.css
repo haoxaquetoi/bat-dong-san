@@ -653,3 +653,12 @@ ul.pagination li.active:hover a, ul.pagination li.active:active a, ul.pagination
 h2 a {
     color: #111111;
 }
+
+h1 {
+    font-size: 25px;
+}
+.article-time span {
+    font-size: 14px;
+    color: #89c355;
+    line-height: 26px;
+}

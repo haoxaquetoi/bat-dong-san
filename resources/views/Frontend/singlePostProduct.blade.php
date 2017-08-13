@@ -149,6 +149,9 @@
                     </span>
                     @endif
                 </div>
+                <h1>
+                    {!! $dataView['arrSingleArticle']->title !!}
+                </h1>
                 <div class="content-single">
                     {!! $dataView['arrSingleArticle']->content !!}
                 </div>
