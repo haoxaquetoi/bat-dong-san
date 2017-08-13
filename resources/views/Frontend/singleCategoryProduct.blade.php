@@ -42,7 +42,7 @@
                                 <div class="row">
                                     <div class="col-xs-5 article-left">
                                         <div class="article-left-relative">
-                                            <a href="{{app('BuildUrl')->buildArticleDetail( $values->category[0]->slug,$values->category[0]->id, $values->slug,  $values->id)}}" >
+                                            <a href="{{app('BuildUrl')->buildArticleDetail( $values->category[0]->slug,$values->category[0]->category_id, $values->slug,  $values->id)}}" >
                                                 @if (isset($values->thumbnail))
                                                 <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
                                                 @else
@@ -54,7 +54,7 @@
                                     <div class="col-xs-7 article-right">
                                         <header>
                                             <h2>
-                                                <a href="{{app('BuildUrl')->buildArticleDetail( $values->category[0]->slug,$values->category[0]->id, $values->slug,  $values->id)}}" >
+                                                <a href="{{app('BuildUrl')->buildArticleDetail( $values->category[0]->slug,$values->category[0]->category_id, $values->slug,  $values->id)}}" >
                                                     {{$values->title}}
                                                 </a>
                                             </h2>
@@ -98,7 +98,7 @@
                                                 @if ((int) $values->is_censored > 0)
                                                 <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-left" alt=""/>
                                                 @endif
-                                                <a  href="{{app('BuildUrl')->buildArticleDetail( $values->category[0]->slug,$values->category[0]->id, $values->slug , $values->id)}}" class="btn btn-default btn-xs btn-more-category" href="">Xem chi tiết <i class="fa fa-angle-right"></i></a>
+                                                <a  href="{{app('BuildUrl')->buildArticleDetail( $values->category[0]->slug,$values->category[0]->category_id, $values->slug , $values->id)}}" class="btn btn-default btn-xs btn-more-category" href="">Xem chi tiết <i class="fa fa-angle-right"></i></a>
                                             </div>
                                         </section>
                                     </div>

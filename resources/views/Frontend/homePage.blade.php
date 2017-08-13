@@ -30,16 +30,22 @@
                                     <div class="row">
                                         <div class="col-xs-5 article-left">
                                             <div class="article-left-relative">
-                                                @if (isset($values->thumbnail))
-                                                <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
-                                                @else
-                                                <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
-                                                @endif
+                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->category[0]->slug,$values->category[0]->category_id, $values->slug,$values->id )}}">
+                                                    @if (isset($values->thumbnail))
+                                                    <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
+                                                    @else
+                                                    <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                    @endif
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="col-xs-7 article-right">
                                             <header>
-                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->category[0]->slug,$values->category[0]->category_id, $values->slug,$values->id )}}"><h2>{{$values->title}}</h2></a>
+                                                <h2>
+                                                    <a href="{{app('BuildUrl')->buildArticleDetail($values->category[0]->slug,$values->category[0]->category_id, $values->slug,$values->id )}}">
+                                                        {{$values->title}}
+                                                    </a>
+                                                </h2>
                                                 <div class="article-time">
                                                     <span>Cập nhật: <time>{{ Carbon\Carbon::parse($values->begin_date)->format('d-m-Y') }}</time></span>
                                                     @if ((int) $values->is_censored > 0)
@@ -94,18 +100,22 @@
                                     <div class="row">
                                         <div class="col-xs-5 article-left">
                                             <div class="article-left-relative">
-                                                @if (isset($values->thumbnail))
-                                                <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
-                                                @else
-                                                <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
-                                                @endif
+                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->category[0]->slug,$values->category[0]->category_id, $values->slug,$values->id )}}">
+                                                    @if (isset($values->thumbnail))
+                                                    <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
+                                                    @else
+                                                    <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                    @endif
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="col-xs-7 article-right">
                                             <header>
-                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->id, $values->slug, $values->catID, $values->catSlug)}}">
-                                                    <h2>{{$values->title}}</h2>
-                                                </a>
+                                                <h2>
+                                                    <a href="{{app('BuildUrl')->buildArticleDetail($values->category[0]->slug,$values->category[0]->category_id, $values->slug,$values->id )}}">
+                                                        {{$values->title}}
+                                                    </a>
+                                                </h2>
                                                 <div class="article-time">
                                                     <span>Cập nhật: <time>{{ Carbon\Carbon::parse($values->begin_date)->format('d-m-Y') }}</time></span>
                                                     @if ((int) $values->is_censored > 0)
@@ -196,11 +206,14 @@
                                         <header>
                                             <div class="article-highlights-img">
                                                 <div class="article-left-relative">
-                                                    @if (isset($dataView['arrArticleSticky'][$j]->thumbnail))
-                                                    <img src="{{url('') . $dataView['arrArticleSticky'][$j]->thumbnail}}" class="pull-right" alt=""/>
-                                                    @else
-                                                    <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
-                                                    @endif
+                                                    <a href="{{app('BuildUrl')->buildArticleDetail($dataView['arrArticleSticky'][$j]->category[0]->slug,
+                                                                $dataView['arrArticleSticky'][$j]->category[0]->category_id, $dataView['arrArticleSticky'][$j]->slug,$dataView['arrArticleSticky'][$j]->id )}}">
+                                                        @if (isset($dataView['arrArticleSticky'][$j]->thumbnail))
+                                                        <img src="{{url('') . $dataView['arrArticleSticky'][$j]->thumbnail}}" class="pull-right" alt=""/>
+                                                        @else
+                                                        <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                        @endif
+                                                    </a>
                                                     <div class="sale-off">
                                                         <div class="btn-group">
                                                             <button class="btn btn-success btn-active-purple">
@@ -244,7 +257,8 @@
                                         </header>
                                         <section>
                                             <h3 class="text-center">
-                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->id, $values->slug, $values->catID, $values->catSlug)}}">
+                                                <a href="{{app('BuildUrl')->buildArticleDetail($dataView['arrArticleSticky'][$j]->category[0]->slug,
+                                                                $dataView['arrArticleSticky'][$j]->category[0]->category_id, $dataView['arrArticleSticky'][$j]->slug,$dataView['arrArticleSticky'][$j]->id )}}">
                                                     {{$dataView['arrArticleSticky'][$j]->title}}
                                                 </a>
                                             </h3>

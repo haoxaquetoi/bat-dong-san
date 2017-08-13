@@ -48,9 +48,9 @@
     }
 
     $.ajax({
-        url: '<?php echo url('/rest/sendFeedBack') ?>',
+    url: '<?php echo url('/rest/sendFeedBack') ?>',
             data: {
-            articleID:{{$dataView['arrSingleArticle']->id}},
+            articleID:{{$dataView['arrSingleArticle']-> id}},
                     feedBackID:feedBackID,
                     captChaVal:captChaVal,
                     _token:'{{csrf_token()}}'
@@ -128,32 +128,32 @@
                     </div>
                 </div>
                 <div class="title-single">
-                    @isset($dataView['arrSingleArticle']->articleOther->floor_area)
+                    @if(isset($dataView['arrSingleArticle']->articleOther->floor_area) && $dataView['arrSingleArticle']->articleOther->floor_area > 0)
                     <span class="padding-right-15">
                         <i class="fa fa-home" aria-hidden="true"></i> Diện tích: {{$dataView['arrSingleArticle']->articleOther->floor_area}} m2
                     </span>
-                    @endisset
-                    @isset($dataView['arrSingleArticle']->articleOther->number_of_bedrooms)
+                    @endif
+                    @if(isset($dataView['arrSingleArticle']->articleOther->number_of_bedrooms) && $dataView['arrSingleArticle']->articleOther->number_of_bedrooms > 0)
                     <span class="padding-right-15"><i class="fa fa-bed" aria-hidden="true"></i> 
                         {{$dataView['arrSingleArticle']->articleOther->number_of_bedrooms}} phòng ngủ
                     </span>
                     @endisset
-                    @isset($dataView['arrSingleArticle']->articleOther->number_of_wc)
+                    @if(isset($dataView['arrSingleArticle']->articleOther->number_of_wc) && $dataView['arrSingleArticle']->articleOther->number_of_wc > 0)
                     <span class="padding-right-15"><i class="fa fa-bed" aria-hidden="true"></i>  
                         {{$dataView['arrSingleArticle']->articleOther->number_of_wc}} phòng tắm
                     </span>
-                    @endisset
-                    @isset($dataView['arrSingleArticle']->articleOther->number_of_storeys)
+                    @endif
+                    @if(isset($dataView['arrSingleArticle']->articleOther->number_of_storeys) && $dataView['arrSingleArticle']->articleOther->number_of_storeys > 0)
                     <span class="padding-right-15"><i class="fa fa-home" aria-hidden="true"></i>  
                         {{$dataView['arrSingleArticle']->articleOther->number_of_storeys}} Tầng
                     </span>
-                    @endisset
+                    @endif
                 </div>
                 <div class="content-single">
                     {!! $dataView['arrSingleArticle']->content !!}
                 </div>
                 Phản hồi:
-                <div class="row action-single">                    
+                <div class="row action-single feedback">                    
                     @for ($i = 0; $i < count($dataView['arrAllFeedback']); $i ++)
                     <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
                         <button  class="btn btn-sm btn-success" onclick="chooseFeedback({{$dataView['arrAllFeedback'][$i]->id}})"  >{{$dataView['arrAllFeedback'][$i]->name}}</button>
@@ -200,27 +200,26 @@
                                             <i class="fa fa-check-square-o "></i> Hướng ban công: {{$dataView['arrSingleArticle']->articleOther->balcony_direction}}
                                         </div>
                                         @endisset
-
-                                        @isset($dataView['arrSingleArticle']->articleOther->number_of_storeys)
+                                        @if(isset($dataView['arrSingleArticle']->articleOther->number_of_storeys) && $dataView['arrSingleArticle']->articleOther->number_of_storeys > 0)
                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                             <i class="fa fa-check-square-o "></i> Số tầng: {{$dataView['arrSingleArticle']->articleOther->number_of_storeys}} tầng
                                         </div>
-                                        @endisset
-                                        @isset($dataView['arrSingleArticle']->articleOther->floor_area)
+                                        @endif
+                                        @if(isset($dataView['arrSingleArticle']->articleOther->floor_area) && $dataView['arrSingleArticle']->articleOther->floor_area > 0)
                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                             <i class="fa fa-check-square-o "></i> Diện tích: {{$dataView['arrSingleArticle']->articleOther->floor_area}} m2
                                         </div>
-                                        @endisset
-                                        @isset($dataView['arrSingleArticle']->articleOther->number_of_bedrooms)
+                                        @endif
+                                        @if(isset($dataView['arrSingleArticle']->articleOther->number_of_bedrooms) && $dataView['arrSingleArticle']->articleOther->number_of_bedrooms > 0)
                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                             <i class="fa fa-bed"></i> Số phòng: {{$dataView['arrSingleArticle']->articleOther->number_of_bedrooms}} phòng
                                         </div>
-                                        @endisset
-                                        @isset($dataView['arrSingleArticle']->articleOther->number_of_wc)
+                                        @endif
+                                        @if(isset($dataView['arrSingleArticle']->articleOther->number_of_wc) && $dataView['arrSingleArticle']->articleOther->number_of_wc > 0)
                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                             <i class="fa fa-bed"></i> Tolet: {{$dataView['arrSingleArticle']->articleOther->number_of_wc}} phòng
                                         </div>
-                                        @endisset
+                                        @endif
                                         @if($dataView['arrSingleArticle']->is_censored == 1)
                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                             <i class="fa fa-check-square-o "></i> Tin đảm bảo
@@ -437,18 +436,24 @@
                                     <div class="row">
                                         <div class="col-xs-5 article-left">
                                             <div class="article-left-relative">
-                                                @if (isset($values->thumbnail))
-                                                <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
-                                                @else
-                                                <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
-                                                @endif
+                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->category[0]->slug,$values->category[0]->category_id, $values->slug,  $values->id)}}">
+                                                    @if (isset($values->thumbnail))
+                                                    <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
+                                                    @else
+                                                    <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                    @endif
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="col-xs-7 article-right">
                                             <header>
-                                                <a href="{{app('BuildUrl')->buildArticleDetail($values->id, $values->slug, $values->catID, $values->catSlug)}}">
-                                                    <h2>{{$values->title}}</h2>
-                                                </a>
+
+                                                <h2>
+                                                    <a href="{{app('BuildUrl')->buildArticleDetail($values->category[0]->slug,$values->category[0]->category_id, $values->slug,  $values->id)}}">
+                                                        {{$values->title}}
+                                                    </a>
+                                                </h2>
+
                                                 <div class="article-time">
                                                     <span>Cập nhật: <time>{{ Carbon\Carbon::parse($values->begin_date)->format('d-m-Y') }}</time></span>
                                                     @if ((int) $values->is_censored > 0)
@@ -457,9 +462,9 @@
                                                 </div>
                                             </header>
                                             <section>
-                                                @isset($values->articleOther->floor_area)
+                                                @if(isset($values->articleOther->floor_area) && $values->articleOther->floor_area > 0)
                                                 <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: {{$values->articleOther->floor_area}} m2</p>
-                                                @endisset
+                                                @endif
                                                 @if ((int) $values->articleOther->number_of_bedrooms > 0  || (int) $values->articleOther->number_of_wc > 0)
                                                 <p><i class="fa fa-bed" aria-hidden="true"></i> 
                                                     @if ((int) $values->articleOther->number_of_bedrooms > 0)

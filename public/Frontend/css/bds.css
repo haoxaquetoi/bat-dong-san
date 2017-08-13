@@ -650,3 +650,6 @@ ul.pagination li.active:hover a, ul.pagination li.active:active a, ul.pagination
     border-color: #255625;
 }
 /*end .pagination*/
+h2 a {
+    color: #111111;
+}

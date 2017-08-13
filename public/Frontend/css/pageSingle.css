@@ -61,30 +61,6 @@
     margin-bottom: 10px;
     color: #fff;
 }
-.action-single .btn-success {
-    background: #88af4e;
-    border: #88af4e;
-}
-.action-single .btn-default {
-    background: #666666;
-    border: #666666;
-}
-.action-single .btn-danger {
-    background: #bf0000;
-    border: #bf0000;
-}
-.action-single .btn-info {
-    background: #00aa9c;
-    border: #00aa9c;
-}
-.action-single .btn-warning {
-    background: #e79e01;
-    border: #e79e01;
-}
-.action-single .btn-primary {
-    background: #6666e8;
-    border: #6666e8;
-}
 .borber-img{
     height: 44px;
     background: url(../images/background-title2.png);
@@ -249,4 +225,28 @@
 @media (min-width: 769px) and (max-width: 991px) {
 }
 @media (max-width: 767px) {
+}
+.action-single.feedback>div:nth-child(6n+1) button{
+    background: #88af4e;
+    border: #88af4e;
+}
+.action-single.feedback > div:nth-child(6n+2) button{
+    background: #666666;
+    border: #666666;
+}
+.action-single.feedback>div:nth-child(6n+3) button{
+     background: #bf0000;
+    border: #bf0000;
+}
+.action-single.feedback > div:nth-child(6n+4) button{
+    background: #00aa9c;
+    border: #00aa9c;
+}
+.action-single.feedback>div:nth-child(6n+5) button{
+    background: #e79e01;
+    border: #e79e01;
+}
+.action-single.feedback > div:nth-child(6n+6) button{
+    background: #6666e8;
+    border: #6666e8;
 }

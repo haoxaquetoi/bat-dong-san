@@ -55,13 +55,15 @@ class SingleArticleCtrl extends Controller {
         
         // tin lien quan
         $data['arrSingleArticleInvolve'] = $articleInvolve;
+        
+//        dd($data['arrSingleArticleInvolve']);
 
         #Ưu tiên view theo id tin bài
         $view = "Frontend.singlePostProduct_{$articleInfo->id}";
         if (!view()->exists($view)) {
             $view = 'Frontend.singlePostProduct';
         }
-
+        
         return view($view)->with('dataView', $data);
     }
 
