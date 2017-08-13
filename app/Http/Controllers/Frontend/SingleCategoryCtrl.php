@@ -19,6 +19,7 @@ class SingleCategoryCtrl extends Controller {
         if ($catInfo->type == 'Product') {
             $page = isset($request->page) ? $request->page : 1;
             $censored = isset($request->censored) ? $request->censored : '';
+            // dữ liệu cho pagging
             $params = array(
                 'censored' => $censored
             );
@@ -52,10 +53,12 @@ class SingleCategoryCtrl extends Controller {
      * @return type
      */
     private function _render_view_product($catInfo, $allArticle, $params) {
+        // thông tin chuyên mục
         $data['catInfo'] = $catInfo;
         $data['allArticle'] = $allArticle;
 //        dd( $allArticle->links());
         $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
+        // dữ liệu cho pagging
         $data['paginator'] = array(
             'paginator' => $allArticle,
             'params' => $params
