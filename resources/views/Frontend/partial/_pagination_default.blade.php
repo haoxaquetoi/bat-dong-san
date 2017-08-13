@@ -4,11 +4,12 @@ $link_limit = 7; // maximum number of links (a little bit inaccurate, but will b
 $url = '';
 if (isset($params)) {
     foreach ($params as $key => $value) {
-        $url .= "&$key=$value";
+        if($key != 'page'){
+            $url .= "&$key=$value";
+        }
     }
 }
 ?>
-
 @if ($paginator->lastPage() > 1)
 <ul class="pagination">
     <li class="{{ ($paginator->currentPage() == 1) ? ' disabled' : '' }}">

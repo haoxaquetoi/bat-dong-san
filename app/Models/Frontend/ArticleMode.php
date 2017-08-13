@@ -57,7 +57,7 @@ class ArticleMode extends Model {
             $db->where('is_sold', '=', $sold);
         }
 
-        $allArticle = $db->orderBy('begin_date', 'ASC')
+        $allArticle = $db->orderBy('begin_date', 'DESC')
                 ->paginate($pageSize, ['id'], 'page', $page);
         foreach ($allArticle as $key => $value) {
             $allArticle[$key] = $this->getArticleInfo($value->id);
@@ -186,12 +186,20 @@ class ArticleMode extends Model {
                         ->where('category.deleted', '=', 0)
                         ->orderby('category.order')
                         ->get()->toArray();
-      
+
         return $postInfo;
     }
 
+    /**
+     * Danh sách tin liên quan
+     * @param type $articleId : id tin bài
+     * @param type $type kiểu tin bài
+     * @param type $page trang
+     * @param type $pageSize số bản ghi trên 1 trang
+     * @return type
+     */
     function getAllArticleInvolve($articleId, $type, $page = 1, $pageSize = 10) {
-        
+
         // tin liên quan
         $arrArticleInvolve = array();
         // mảng id tin bag liên quan thr tag
@@ -205,7 +213,7 @@ class ArticleMode extends Model {
                 ->where('article_id', '=', $articleId)
                 ->selectRaw('group_concat(tag_id) as arr_tag_id')
                 ->first();
-        
+
         if ($arrTagArticle->arr_tag_id) {
             // danh sách các tin liên quan có thẻ tag trùng với thẻ tag vừa $articleId
 
@@ -225,12 +233,12 @@ class ArticleMode extends Model {
             if ($type !== '') {
                 $db->where('type', '=', "'$type'");
             }
-              
+
             // danh sách các tin liên quan có thẻ tag trùng với thẻ tag vừa $articleId
             $arrArticleInvolveTag = $db->where('deleted', '=', 0)
-                    ->orderBy('begin_date', 'ASC')
+                    ->orderBy('begin_date', 'DESC')
                     ->paginate($limit, ['id'], 'page', $page);
-            
+
             $limit -= $arrArticleInvolveTag->count();
             //tổng số bản ghi liên quan tag
             $totalArticleTag = $arrArticleInvolveTag->total();
@@ -239,10 +247,9 @@ class ArticleMode extends Model {
                 $arrArticleInvolve[] = $this->getArticleInfo($value->id);
                 $arrIdArticleTag[] = $value->id;
             }
-           
         }
         if ($limit > 0) {
-            
+
             $stringIdArticleTag = (count($arrIdArticleTag)) ? implode(",", $arrIdArticleTag) : '0';
             // danh sách chuyên mục của tin bài
             $arrCategory = DB::table('category_article')
@@ -274,7 +281,7 @@ class ArticleMode extends Model {
 
                 $offset = $offset - $totalArticleTag;
                 $arrArticleInvolveCategory = $db->where('deleted', '=', 0)
-                        ->orderBy('begin_date', 'ASC')
+                        ->orderBy('begin_date', 'DESC')
                         ->offset($offset)
                         ->limit($limit)
                         ->get();
@@ -285,6 +292,78 @@ class ArticleMode extends Model {
             }
         }
         return $arrArticleInvolve;
+    }
+
+    /**
+     * Tiemf kiếm tin bất động sản
+     * @param type $params
+     * @param type $page
+     * @param type $pageSize
+     * @return type
+     */
+    public function searchArticleProduct($params, $page = 1, $pageSize = 10) {
+        $db = DB::table($this->table)
+                ->leftJoin('article_base', 'article.id', '=', 'article_base.article_id')
+                ->leftJoin('article_contact', 'article.id', '=', 'article_contact.article_id')
+                ->leftJoin('article_other', 'article.id', '=', 'article_other.article_id')
+                ->leftJoin('category_article', 'article.id', '=', 'category_article.article_id')
+                ->where('article.type', '=', 'Product')
+                ->where('article.status', '=', 'Publish')
+                ->whereRaw('DATEDIFF(article.begin_date, now())<=0')
+                ->whereRaw('DATEDIFF(article.end_date, now())>=0')
+                ->where('deleted', '=', 0);
+
+        if ($params->censored) {
+            $db->where('article.is_censored', '=', $params->censored);
+        }
+        if ($params->sticky) {
+            $db->where('article.is_sticky', '=', $params->sticky);
+        }
+        if ($params->txtKeyWord) {
+            $db->where('article.title', 'like', "%{$params->txtKeyWord}%");
+        }
+        if ($params->selCategory) {
+            $db->where('category_article.category_id', '=', $params->selCategory);
+        }
+        if ($params->selCity) {
+            $db->where('article_base.city_id', '=', $params->selCity);
+        }
+        if ($params->selDistrict) {
+            $db->where('article_base.district_id', '=', $params->selDistrict);
+        }
+        if ($params->selVillage) {
+            $db->where('article_base.village_id', '=', $params->selVillage);
+        }
+        if ($params->selStreet) {
+            $db->where('article_base.street_id', '=', $params->selStreet);
+        }
+        if ($params->txtAddress) {
+            $db->where('article_base.address', 'like', "%{$params->txtAddress}%");
+        }
+        if ($params->selPriceMin) {
+            $db->where('article_base.price', '>=', $params->selPriceMin);
+        }
+        if ($params->selPriceMax) {
+            $db->where('article_base.price', '<=', $params->selPriceMax);
+        }
+        if ($params->selFloorAreaMin) {
+            $db->where('article_other.floor_area', '>=', $params->selFloorAreaMin);
+        }
+        if ($params->selFloorAreaMax) {
+            $db->where('article_other.floor_area', '<=', $params->selFloorAreaMax);
+        }
+        if ($params->selDirectHour) {
+            $db->where('article_other.house_direction', '=', $params->selDirectHour);
+        }
+        if ($params->selRoomNumber) {
+            $db->where('article_other.number_of_bedrooms', '=', $params->selRoomNumber);
+        }
+        $allArticle = $db->orderBy('begin_date', 'DESC')
+                ->paginate($pageSize, ['article.id'], 'page', $page);
+        foreach ($allArticle as $key => $value) {
+            $allArticle[$key] = $this->getArticleInfo($value->id);
+        }
+        return $allArticle;
     }
 
 }
