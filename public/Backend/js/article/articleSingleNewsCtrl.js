@@ -36,7 +36,7 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope
             category: articleInfo.category || []
         };
         angular.forEach($scope.categorys, function (v, i) {
-            if(!articleInfo.category) 
+            if (!articleInfo.category)
             {
                 articleInfo.category = [];
             }
@@ -170,7 +170,7 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope
     };
 
     $scope.$watchCollection('articleInfo.title', function (oldVal, newVal) {
-        if (oldVal != newVal)
+        if (oldVal != newVal && $scope.articleInfo.slug == '')
             $scope.articleInfo.slug = Slug.slugify($scope.articleInfo.title);
     });
 });

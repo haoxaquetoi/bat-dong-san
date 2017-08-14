@@ -10,7 +10,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
         category,
         articleInfo,
         direction,
-        $http
+        $http,
         )
 {
     $scope.linkYoutube = '';
@@ -25,11 +25,11 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
         articleInfo.article_base = articleInfo.article_base || {};
         articleInfo.article_contact = articleInfo.article_contact || {};
         articleInfo.article_other = articleInfo.article_other || {};
-        if(!articleInfo.article_slide)
+        if (!articleInfo.article_slide)
         {
             articleInfo.article_slide = {};
         }
-        
+
         if (articleInfo.article_slide && articleInfo.article_slide.images)
         {
             articleInfo.article_slide.images[articleInfo.article_slide.images.length] = {
@@ -353,7 +353,7 @@ ngApp.controller('articleSingleProductCtrl', function ($scope
 
     };
     $scope.$watchCollection('articleInfo.title', function (oldVal, newVal) {
-        if (oldVal != newVal)
+        if (oldVal != newVal && $scope.articleInfo.slug == '')
             $scope.articleInfo.slug = Slug.slugify($scope.articleInfo.title);
     });
 });

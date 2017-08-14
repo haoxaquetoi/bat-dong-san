@@ -19,7 +19,9 @@ class CreateFeedbackArticleTable extends Migration
             $table->integer('article_id');
             $table->integer('feedback_id');
             $table->tinyInteger('readed')->default(0);
-            $table->text('value');
+            $table->text('value')->nullable();
+            $table->text('IPClient',25);
+            $table->timestamp('created_at');
             $table->unique(['article_id', 'feedback_id']);
         });
     }
