@@ -25,7 +25,9 @@ class ParamsSearchConfig {
         'priceMax' => [],
         'floorAreaMin' => [],
         'floorAreaMax' => [],
-        'roomNumber' => []
+        'roomNumber' => [],
+        'storeysNumber' => [],
+        'street'=>[]
     );
 
     function getParamsSearch() {
@@ -43,7 +45,9 @@ class ParamsSearchConfig {
                         ->setFllorAreaMin()
                         ->setPriceMax()
                         ->setPriceMin()
-                        ->setRoomNumber();
+                        ->setRoomNumber()
+                        ->setStoreysNumber()
+                        ->setStreet();
     }
 
     /**
@@ -88,6 +92,16 @@ class ParamsSearchConfig {
         }
         return $this;
     }
+    
+    function setStreet(array $street = []) {
+        if (count($street) > 0) {
+            $this->_arrParams['street'] = $street;
+        } else {
+            $this->_arrParams['street'] = DB::table('address_street')->get()->toArray();
+        }
+        return $this;
+    }
+    
 
     function setDirection(array $direction = []) {
         if (count($direction) > 0) {
@@ -156,5 +170,14 @@ class ParamsSearchConfig {
         }
         return $this;
     }
+    function setStoreysNumber(array $roomNumber = []) {
+        if (count($roomNumber) > 0) {
+            $this->_arrParams['storeysNumber'] = $roomNumber;
+        } else {
+            $this->_arrParams['storeysNumber'] = DB::table('article_other')->where('number_of_storeys', '>', 0)->select('number_of_storeys')->groupBy('number_of_storeys')->get()->toArray();
+        }
+        return $this;
+    }
 
+    
 }

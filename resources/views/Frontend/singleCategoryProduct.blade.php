@@ -13,18 +13,11 @@
                 <div class="category-filter">
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-12 box-filter padding-bottom-10 category-censored">
-                            <a href="?" class="btn btn-success all">Tất cả</a>
-                            <a href="?censored=1" class="btn btn-grey">Tin đảm bảo</a>
-                            <a  href="?censored=0" class="btn btn-grey">Tin thường</a>
+                            <a href="?" class="btn btn-grey all {{ (old( 'cs' ) == '') ? 'active' : '' }}">Tất cả</a>
+                            <a href="?cs=1" class="btn btn-grey {{ (old( 'cs' ) == 1 ) ? 'active' : '' }}">Tin đảm bảo</a>
+                            <a  href="?cs=0" class="btn btn-grey {{(old ( 'cs' ) == 0 && old( 'cs' ) != '') ? 'active' : ''}}">Tin thường</a>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 box-filter-right  padding-bottom-10">
-<!--                            <div class="pull-left">
-                                <button class="btn btn-grey">Trước</button>
-                                <button class="btn btn-success">1</button>
-                                <button class="btn btn-grey">2</button>
-                                <button class="btn btn-grey">3</button>
-                                <button class="btn btn-grey">Sau</button>
-                            </div>-->
                             <div class="pull-right  text-right">
                                 <button class="btn btn-grey tow-column"><i class="fa fa-th-list" aria-hidden="true"></i></button>
                                 <button class="btn btn-grey one-column"><i class="fa fa-th" aria-hidden="true"></i></button>

@@ -13,14 +13,14 @@ class DirectionConfig {
 
     function __construct() {
         $this->direction = [
-            'north' => 'Hướng bắc',
-            'northeast' => 'Hướng đông bắc',
-            'east' => 'hướng đông',
-            'southeast' => 'hướng đông nam',
-            'southwest' => 'hướng tây nam',
-            'south' => 'hướng nam',
-            'west' => 'hướng tây',
-            'northwest' => 'hướng tây bắc',
+            'north' => 'Bắc',
+            'northeast' => 'Đông bắc',
+            'east' => 'Đông',
+            'southeast' => 'Đông nam',
+            'southwest' => 'Tây nam',
+            'south' => 'Nam',
+            'west' => 'Tây',
+            'northwest' => 'Tây bắc',
         ];
     }
 

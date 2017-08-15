@@ -46,7 +46,7 @@ class ArticleMode extends Model {
 
         if ($idCategory !== '') {
 
-             $idCategory = (int) $idCategory;
+            $idCategory = (int) $idCategory;
             $db->whereRaw("id IN(SELECT article_id FROM category_article WHERE category_id = '$idCategory')");
         }
         if ($freeText != '') {
@@ -318,8 +318,23 @@ class ArticleMode extends Model {
     /**
      * Tiemf kiếm tin bất động sản
      * @param type $params
-     * @param type $page
-     * @param type $pageSize
+     * $params->cs: tin đảm bảo
+     * $params->st: Tin nổi bật
+     * $params->kw từ khóa 
+     * $params->cg: Lọai nhà đất
+     * $params->ct Huyện, Thành phố
+     * $params->dt Quận, huyện
+     * $params->vil Phường, xã
+     * $params->st : đường
+     * $params->ad địa chỉ
+     * $params->pmi Giá thấp nhất
+     * $params->mpa Giá cáo nhất
+     * $params->fami Diện tích nhỏ nhất
+     * $params->fama Diện tích lớn nhất
+     * $params->dh  Hướng nhà
+     * $params->rn  Số phòng
+     * @param type $page trang
+     * @param type $pageSize số bản ghi trên một trang
      * @return type
      */
     public function searchArticleProduct($params, $page = 1, $pageSize = 10) {
@@ -334,50 +349,53 @@ class ArticleMode extends Model {
                 ->whereRaw('DATEDIFF(article.end_date, now())>=0')
                 ->where('deleted', '=', 0);
 
-        if ($params->censored) {
-            $db->where('article.is_censored', '=', $params->censored);
+        if ($params->cs) {
+            $db->where('article.is_censored', '=', $params->cs);
         }
-        if ($params->sticky) {
-            $db->where('article.is_sticky', '=', $params->sticky);
+        if ($params->st) {
+            $db->where('article.is_sticky', '=', $params->st);
         }
-        if ($params->txtKeyWord) {
-            $db->where('article.title', 'like', "%{$params->txtKeyWord}%");
+        if ($params->kw) {
+            $db->where('article.title', 'like', "%{$params->kw}%");
         }
-        if ($params->selCategory) {
-            $db->where('category_article.category_id', '=', $params->selCategory);
+        if ($params->cg) {
+            $db->where('category_article.category_id', '=', $params->cg);
         }
-        if ($params->selCity) {
-            $db->where('article_base.city_id', '=', $params->selCity);
+        if ($params->ct) {
+            $db->where('article_base.city_id', '=', $params->ct);
         }
-        if ($params->selDistrict) {
-            $db->where('article_base.district_id', '=', $params->selDistrict);
+        if ($params->dt) {
+            $db->where('article_base.district_id', '=', $params->dt);
         }
-        if ($params->selVillage) {
-            $db->where('article_base.village_id', '=', $params->selVillage);
+        if ($params->vil) {
+            $db->where('article_base.village_id', '=', $params->vil);
         }
-        if ($params->selStreet) {
-            $db->where('article_base.street_id', '=', $params->selStreet);
+        if ($params->st) {
+            $db->where('article_base.street_id', '=', $params->st);
         }
-        if ($params->txtAddress) {
-            $db->where('article_base.address', 'like', "%{$params->txtAddress}%");
+        if ($params->ad) {
+            $db->where('article_base.address', 'like', "%{$params->ad}%");
         }
-        if ($params->selPriceMin) {
-            $db->where('article_base.price', '>=', $params->selPriceMin);
+        if ($params->pmi) {
+            $db->where('article_base.price', '>=', $params->pmi);
         }
-        if ($params->selPriceMax) {
-            $db->where('article_base.price', '<=', $params->selPriceMax);
+        if ($params->pma) {
+            $db->where('article_base.price', '<=', $params->pma);
         }
-        if ($params->selFloorAreaMin) {
-            $db->where('article_other.floor_area', '>=', $params->selFloorAreaMin);
+        if ($params->fami) {
+            $db->where('article_other.floor_area', '>=', $params->fami);
         }
-        if ($params->selFloorAreaMax) {
-            $db->where('article_other.floor_area', '<=', $params->selFloorAreaMax);
+        if ($params->fama) {
+            $db->where('article_other.floor_area', '<=', $params->fama);
         }
-        if ($params->selDirectHour) {
-            $db->where('article_other.house_direction', '=', $params->selDirectHour);
+        if ($params->dh) {
+            $db->where('article_other.house_direction', '=', $params->dh);
         }
-        if ($params->selRoomNumber) {
-            $db->where('article_other.number_of_bedrooms', '=', $params->selRoomNumber);
+        if ($params->rn) {
+            $db->where('article_other.number_of_bedrooms', '=', $params->rn);
+        }
+        if ($params->sn) {
+            $db->where('article_other.number_of_storeys', '=', $params->sn);
         }
         $allArticle = $db->orderBy('begin_date', 'DESC')
                 ->paginate($pageSize, ['article.id'], 'page', $page);

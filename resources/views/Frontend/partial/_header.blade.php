@@ -33,13 +33,13 @@
                     <span class="icon-bar"></span>
                 </button>
                 <span class="helper"></span>
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{{ url('') }}">
                     <img src="{{url('Frontend')}}/images/logo2.png" class="img-responsive" alt="" alt="logo"/> 
                 </a>
             </div>
             <div id="navbar" class="navbar-collapse collapse" aria-expanded="false">
                 <ul class="nav navbar-nav navbar-right width-sm-50">
-                    <li class="active"><a href="">Trang chủ</a></li>
+                    <li class="active"><a href="{{ url('') }}">Trang chủ</a></li>
                     <li><a href="">Tin rao bán</a></li>
                     <li><a href="">Dịch vụ</a></li>
                     <li><a href="">Liên hệ</a></li>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="banner-search ">
                     <div class="input-group">
-                        <input value="{{ old('txtKeyWord') }}" type="text" name="txtKeyWord" class="input-banner-search form-control" placeholder="Tìm kiếm: Tên đường, quận, huyện, thành phố ..."/> 
+                        <input value="{{ old('kw') }}" type="text" name="kw" class="input-banner-search form-control" placeholder="Tìm kiếm: Tên đường, quận, huyện, thành phố ..."/> 
                         <div class="input-group-btn">
                             <button class="btn btn-success" type="button">Tìm đảm bảo</button>
                             <button class="btn btn-success filter"  type="submit">Tìm kiếm</button>
@@ -82,84 +82,84 @@
         <div class="container">                     
             <div class="row">
                 <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                    <select class="form-control" name="selCategory">
+                    <select class="form-control" name="cg">
                         <option value="">Loại nhà đất ...</option>
                         @foreach ($dataView['paramsSearch']['category'] as $category) 
-                        <option value='{{$category->id}}' {{($category->id == old ( 'selCategory' ) ? 'selected' : '')}}>{{$category->name}}</option>
+                        <option value='{{$category->id}}' {{($category->id == old ( 'cg' ) ? 'selected' : '')}}>{{$category->name}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                    <select class="form-control" name="selCity">
+                    <select class="form-control" name="ct">
                         <option value="">Thành phố ...</option>
                         @foreach ($dataView['paramsSearch']['city'] as $city) 
-                        <option value='{{$city->id}}' {{($city->id == old ( 'selCity' ) ? 'selected' : '')}}>{{$city->name}}</option>
+                        <option value='{{$city->id}}' {{($city->id == old ( 'ct' ) ? 'selected' : '')}}>{{$city->name}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                    <select class="form-control" name="selPriceMin">
+                    <select class="form-control" name="pmi">
                         <option value="">Giá thấp nhất ... </option>
                         @foreach ($dataView['paramsSearch']['priceMin'] as $priceMinCode => $priceMin) 
-                        <option value='{{$priceMinCode}}' {{($priceMinCode == old ( 'selPriceMin' ) ? 'selected' : '')}}>{{$priceMin}}</option>
+                        <option value='{{$priceMinCode}}' {{($priceMinCode == old ( 'pmi' ) ? 'selected' : '')}}>{{$priceMin}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                    <select class="form-control" name="selPriceMax">
+                    <select class="form-control" name="pma">
                         <option value="">Giá cao nhất ... </option>
                         @foreach ($dataView['paramsSearch']['priceMax'] as $priceMaxCode => $priceMax)
-                        <option value='{{$priceMaxCode}}' {{($priceMaxCode == old ( 'selPriceMax' ) ? 'selected' : '')}}>{{$priceMax}}</option>
+                        <option value='{{$priceMaxCode}}' {{($priceMaxCode == old ( 'pma' ) ? 'selected' : '')}}>{{$priceMax}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
 
-                    <select class="form-control" name="selDirectHour">
+                    <select class="form-control" name="dh">
                         <option value="">Hướng nhà ...</option>
                         @foreach ($dataView['paramsSearch']['direction'] as $directionCode => $direction) 
-                        <option value='{{$directionCode}}' {{($directionCode == old ( 'selDirectHour' ) ? 'selected' : '')}}>{{$direction}}</option>
+                        <option value='{{$directionCode}}' {{($directionCode == old ( 'dh' ) ? 'selected' : '')}}>{{$direction}}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                    <select class="form-control" name="selDistrict">
+                    <select class="form-control" name="dt">
                         <option value="">Quận, huyện ...</option>
                         @foreach ($dataView['paramsSearch']['district'] as $values) 
-                        <option value='{{$values->id}}' {{($values->id == old ( 'selDistrict' ) ? 'selected' : '')}}>{{$values->name}}</option>
+                        <option value='{{$values->id}}' {{($values->id == old ( 'dt' ) ? 'selected' : '')}}>{{$values->name}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                    <select class="form-control" name="selVillage">
+                    <select class="form-control" name="vil">
                         <option value="">Phường, xã ...</option>
                         @foreach ($dataView['paramsSearch']['village'] as $values) 
-                        <option value='{{$values->id}}' {{($values->id == old ( 'selVillage' ) ? 'selected' : '')}}>{{$values->name}}</option>
+                        <option value='{{$values->id}}' {{($values->id == old ( 'vil' ) ? 'selected' : '')}}>{{$values->name}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                    <select class="form-control" name="selFloorAreaMin">
+                    <select class="form-control" name="fami">
                         <option value="">Diện tích nhỏ nhất ... </option>
                         @foreach ($dataView['paramsSearch']['floorAreaMin'] as $values) 
-                        <option value='{{$values->floor_area}}' {{($values->floor_area == old ( 'selFloorAreaMin' ) ? 'selected' : '')}}>{{$values->floor_area}}</option>
+                        <option value='{{$values->floor_area}}' {{($values->floor_area == old ( 'fami' ) ? 'selected' : '')}}>{{$values->floor_area}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                    <select class="form-control" name="selFloorAreaMax">
+                    <select class="form-control" name="fama">
                         <option value="">Diện tích lớn nhất ... </option>
                         @foreach ($dataView['paramsSearch']['floorAreaMax'] as $values)
-                        <option value='{{$values->floor_area}}'  {{($values->floor_area == old ( 'selFloorAreaMax' ) ? 'selected' : '')}}>{{$values->floor_area}}</option>
+                        <option value='{{$values->floor_area}}'  {{($values->floor_area == old ( 'fama' ) ? 'selected' : '')}}>{{$values->floor_area}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                    <select class="form-control" name="selRoomNumber">
+                    <select class="form-control" name="rn">
                         <option value="">Số phòng ...</option>
                         @foreach ($dataView['paramsSearch']['roomNumber'] as $values) 
-                        <option value='{{$values->number_of_bedrooms}}'  {{($values->number_of_bedrooms == old ( 'selRoomNumber' ) ? 'selected' : '')}}>{{$values->number_of_bedrooms}}</option>
+                        <option value='{{$values->number_of_bedrooms}}'  {{($values->number_of_bedrooms == old ( 'rn' ) ? 'selected' : '')}}>{{$values->number_of_bedrooms}}</option>
                         @endforeach
                     </select>
                 </div>
