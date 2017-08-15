@@ -121,7 +121,7 @@ categorys
                                                 <a ng-click="actions.updateCensored(article.id)" ng-show="article.type == 'Product'" ng-if="article.is_censored == 0" href="javascript:;"href="javascript:;"><i class="fa fa-star-o text-yellow"></i></a>
                                             </td>
                                             <td class="comments column-comments text-center" data-colname="Bình luận">		
-                                                <div class="post-com-count-wrapper">
+                                                <div class="post-com-count-wrapper" ng-click="actions.detailFeedback(article.id)" >
                                                     <a href=""
                                                        class="post-com-count post-com-count-approved">
                                                         <span class="comment-count-approved" aria-hidden="true">1</span>
@@ -158,6 +158,32 @@ categorys
         <!-- /.col -->
     </div>
     <!-- /.row -->
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalListFeedBack">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalListFeedBack" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Chi tiết thông tin phản hồi</h4>
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+                <div class="modal-footer">
+                    
+                    <button type="button" class="btn btn-primary">Đánh dấu đã đọc</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 

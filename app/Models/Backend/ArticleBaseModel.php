@@ -3,6 +3,7 @@
 namespace App\Models\Backend;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class ArticleBaseModel extends Model {
 
