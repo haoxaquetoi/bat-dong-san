@@ -662,3 +662,12 @@ h1 {
     color: #89c355;
     line-height: 26px;
 }
+.btn.btn-grey.active {
+    background: #89c355;
+    border-color: #4cae4c;
+    color: #fff;
+}
+.btn.btn-grey.actice:hover, .btn.btn-grey.actice:focus {
+    background-color: #71a843;
+    border-color: #71a843;
+}

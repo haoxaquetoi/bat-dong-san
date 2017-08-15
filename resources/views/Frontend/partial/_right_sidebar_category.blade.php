@@ -2,26 +2,26 @@
 <div class="col-md-3 col-sm-12  col-xs-12 content-right">
     <div class="row content-right-single-page">
         <div class="row">
-            <div class="col-md-12 col-sm-6 col-xs-12 padding-bottom-45">
-                <div class="title-border">
-                    Chế độ hiển thị
-                    <button class="borber-radius-bottom"></button>
-                </div>
-                <form class="form-horizontal form-magic">
-                    <div class="form-magic padding-bottom-5">
-                        <input id="checkbox-0" type="checkbox" name="rdRating" class="magic-checkbox" checked="">
-                        <label for="checkbox-0" class="padding-right-20">
-                            Hiển thị tin đảm bảo
-                        </label>
-                    </div>
-                    <div class="form-magic">
-                        <input id="checkbox-1" type="checkbox" name="rdRating" class="magic-checkbox" value="386">
-                        <label for="checkbox-1" class="padding-right-20">
-                            Hiển thị tin thường
-                        </label>
-                    </div>
-                </form>
-            </div>
+            <!--            <div class="col-md-12 col-sm-6 col-xs-12 padding-bottom-45">
+                            <div class="title-border">
+                                Chế độ hiển thị
+                                <button class="borber-radius-bottom"></button>
+                            </div>
+                            <form class="form-horizontal form-magic">
+                                <div class="form-magic padding-bottom-5">
+                                    <input id="checkbox-0" type="checkbox" name="rdRating" class="magic-checkbox" checked="">
+                                    <label for="checkbox-0" class="padding-right-20">
+                                        Hiển thị tin đảm bảo
+                                    </label>
+                                </div>
+                                <div class="form-magic">
+                                    <input id="checkbox-1" type="checkbox" name="rdRating" class="magic-checkbox" value="386">
+                                    <label for="checkbox-1" class="padding-right-20">
+                                        Hiển thị tin thường
+                                    </label>
+                                </div>
+                            </form>
+                        </div>-->
             <div class="col-md-12 col-sm-6 col-xs-12 padding-bottom-45">
                 <div class="title-border">
                     Chọn địa điểm
@@ -30,44 +30,43 @@
                 <form class="form-horizontal select-group">
                     <div class="row">
                         <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <select class="form-control">
+                            <select class="form-control" name="cg">
                                 <option value="">Loại nhà đất ...</option>
-                                <option value="">Đất sổ đỏ</option>
-                                <option value="">Đất sổ hồng</option>
-                                <option value="">Trung cư</option>
+                                @foreach ($dataView['paramsSearch']['category'] as $category) 
+                                <option value='{{$category->id}}' {{($category->id == old ( 'cg' ) ? 'selected' : '')}}>{{$category->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <select class="form-control">
+                            <select class="form-control" name="ct">
                                 <option value="">Thành phố ...</option>
-                                <option value="">Hà Nội</option>
-                                <option value="">Hải Phòng</option>
-                                <option value="">Hồ Chí Minh</option>
+                                @foreach ($dataView['paramsSearch']['city'] as $city) 
+                                <option value='{{$city->id}}' {{($city->id == old ( 'ct' ) ? 'selected' : '')}}>{{$city->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <select class="form-control">
-                                <option value="">Quận/Huyện ...</option>
-                                <option value="">500,000,000</option>
-                                <option value="">1,000,000,000</option>
-                                <option value="">2,000,000,000</option>
+                            <select class="form-control" name="dt">
+                                <option value="">Quận, huyện ...</option>
+                                @foreach ($dataView['paramsSearch']['district'] as $values) 
+                                <option value='{{$values->id}}' {{($values->id == old ( 'dt' ) ? 'selected' : '')}}>{{$values->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <select class="form-control">
-                                <option value="">Phường/xá...</option>
-                                <option value="">100m</option>
-                                <option value="">200m</option>
-                                <option value="">300m</option>
+                            <select class="form-control" name="vil">
+                                <option value="">Phường, xã ...</option>
+                                @foreach ($dataView['paramsSearch']['village'] as $values) 
+                                <option value='{{$values->id}}' {{($values->id == old ( 'vil' ) ? 'selected' : '')}}>{{$values->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 padding-bottom-15">
-                            <select class="form-control">
+                            <select class="form-control" name="vil">
                                 <option value="">Đường ...</option>
-                                <option value="">Đông</option>
-                                <option value="">Tây</option>
-                                <option value="">Nam</option>
-                                <option value="">Bắc</option>
+                                @foreach ($dataView['paramsSearch']['street'] as $values) 
+                                <option value='{{$values->id}}' {{($values->id == old ( 'st' ) ? 'selected' : '')}}>{{$values->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -80,54 +79,14 @@
                 </div>
                 <form class="form-horizontal form-magic">
                     <div class="row">
+                        @for($i = 0 ;$i < count($dataView['paramsSearch']['priceMin']); $i ++)
                         <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="checkbox-3" type="checkbox" name="rdRating" class="magic-checkbox" checked="">
+                            <input id="checkbox-3" type="radio" name='pmia' value="" class="magic-radio" checked="">
                             <label for="checkbox-3" class="padding-right-20">
                                 Dưới 1 tỷ
                             </label>
                         </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="checkbox-4" type="checkbox" name="rdRating" class="magic-checkbox">
-                            <label for="checkbox-4" class="padding-right-20">
-                                1 tỷ - 3 tỷ
-                            </label>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="checkbox-5" type="checkbox" name="rdRating" class="magic-checkbox">
-                            <label for="checkbox-5" class="padding-right-20">
-                                3 tỷ - 5 tỷ
-                            </label>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="checkbox-6" type="checkbox" name="rdRating" class="magic-checkbox">
-                            <label for="checkbox-6" class="padding-right-20">
-                                5 tỷ - 8 tỷ
-                            </label>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="checkbox-7" type="checkbox" name="rdRating" class="magic-checkbox">
-                            <label for="checkbox-7" class="padding-right-20">
-                                8 tỷ - 10 tỷ
-                            </label>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="checkbox-8" type="checkbox" name="rdRating" class="magic-checkbox">
-                            <label for="checkbox-8" class="padding-right-20">
-                                10 tỷ - 20 tỷ
-                            </label>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="checkbox-9" type="checkbox" name="rdRating" class="magic-checkbox">
-                            <label for="checkbox-9" class="padding-right-20">
-                                20 tỷ - 35 tỷ
-                            </label>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="checkbox-10" type="checkbox" name="rdRating" class="magic-checkbox">
-                            <label for="checkbox-10" class="padding-right-20">
-                                trên 35 tỷ
-                            </label>
-                        </div>
+                        @endfor
                     </div>
                 </form>
             </div>
@@ -138,54 +97,14 @@
                 </div>
                 <form class="form-horizontal form-magic">
                     <div class="row">
+                        @foreach ($dataView['paramsSearch']['direction'] as $directionCode => $direction) 
                         <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="Directional-3" type="checkbox" name="Directional-3" class="magic-checkbox" checked="">
-                            <label for="Directional-3" class="padding-right-20">
-                                Đông
+                            <input id="dh-{{$directionCode}}" type="radio" name='dh' value="{{$directionCode}}" class="magic-radio"  {{($directionCode == old ( 'dh' ) ? 'checked' : '')}}>
+                                   <label for="dh-{{$directionCode}}" class="padding-right-20">
+                                {{$direction}}
                             </label>
                         </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="Directional-4" type="checkbox" name="Directional-3" class="magic-checkbox">
-                            <label for="Directional-4" class="padding-right-20">
-                                Tây
-                            </label>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="Directional-5" type="checkbox" name="Directional-3" class="magic-checkbox">
-                            <label for="Directional-5" class="padding-right-20">
-                                Nam
-                            </label>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="Directional-6" type="checkbox" name="Directional-3" class="magic-checkbox">
-                            <label for="Directional-6" class="padding-right-20">
-                                Bắc
-                            </label>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="Directional-7" type="checkbox" name="Directional-3" class="magic-checkbox">
-                            <label for="Directional-7" class="padding-right-20">
-                                Đông nam
-                            </label>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="Directional-8" type="checkbox" name="Directional-3" class="magic-checkbox">
-                            <label for="Directional-8" class="padding-right-20">
-                                Đông bắc
-                            </label>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="Directional-9" type="checkbox" name="Directional-3" class="magic-checkbox">
-                            <label for="Directional-9" class="padding-right-20">
-                                Tây nam
-                            </label>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
-                            <input id="Directional-10" type="checkbox" name="Directional-3" class="magic-checkbox">
-                            <label for="Directional-10" class="padding-right-20">
-                                Tây bắc
-                            </label>
-                        </div>
+                        @endforeach
                     </div>
                 </form>
             </div>
@@ -206,11 +125,21 @@
                     Chọn số tầng, Số phòng
                     <button class="borber-radius-bottom"></button>
                 </div>
-                <form class="form-horizontal">
+                <form class="form-horizontal select-group">
                     <label class="control-label">Số tầng</label>
-                    <input type="text" class="form-control text-center margin-bottom-15" value="5 tầng" />
+                    <select class="form-control" name="sn">
+                        <option value="">Số tầng ...</option>
+                        @foreach ($dataView['paramsSearch']['storeysNumber'] as $values) 
+                        <option value='{{$values->number_of_storeys}}'  {{($values->number_of_storeys == old ( 'sn' ) ? 'selected' : '')}}>{{$values->number_of_storeys}}</option>
+                        @endforeach
+                    </select>
                     <label class="control-label">Số phòng</label>
-                    <input type="text" class="form-control text-center margin-bottom-15" value="5 phòng" />
+                    <select class="form-control" name="rn">
+                        <option value="">Số phòng ...</option>
+                        @foreach ($dataView['paramsSearch']['roomNumber'] as $values) 
+                        <option value='{{$values->number_of_bedrooms}}'  {{($values->number_of_bedrooms == old ( 'rn' ) ? 'selected' : '')}}>{{$values->number_of_bedrooms}}</option>
+                        @endforeach
+                    </select>
                 </form>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">

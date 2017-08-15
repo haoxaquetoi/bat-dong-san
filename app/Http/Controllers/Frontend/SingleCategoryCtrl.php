@@ -11,14 +11,16 @@ class SingleCategoryCtrl extends Controller {
 
     function main(ArticleMode $articleModel, CategoryModel $catModel, Request $request) {
 
+        $request->flash();
         $catInfo = $catModel->getCategoryInfo($request->catID);
         $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
+        
         if (!isset($catInfo->id)) {
             return view('Frontend.errors.category', ['errorCode' => 'notFound'])->with('dataView', $data);
         }
         if ($catInfo->type == 'Product') {
             $page = isset($request->page) ? $request->page : 1;
-            $censored = isset($request->censored) ? $request->censored : '';
+            $censored = isset($request->cs) ? $request->cs : '';
             $data['allArticle'] = $articleModel->getAllArticle('Product', $request->catID, '', '', $censored, 0, $page, 10);
             // thông tin chuyên mục
             $data['catInfo'] = $catInfo;
@@ -26,7 +28,7 @@ class SingleCategoryCtrl extends Controller {
             $data['paginator'] = array(
                 'paginator' => $data['allArticle'],
                 'params' => array(
-                    'censored' => $censored
+                    'cs' => $censored
                 )
             );
 
