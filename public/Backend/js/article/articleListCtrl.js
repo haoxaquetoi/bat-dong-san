@@ -13,7 +13,8 @@ ngApp.controller('articleListCtrl', function ($scope, $apply, $articleService,
         arrArticle: arrArticle,
         filter: filter || {},
         post_date: post_date,
-        category: category
+        category: category,
+        listPostFB: {}
     };
     $scope.actions = {
         getAll: function ()
@@ -84,12 +85,31 @@ ngApp.controller('articleListCtrl', function ($scope, $apply, $articleService,
             $scope.data.filter[sorting] = $scope.data.filter[sorting] == 'asc' ? 'desc' : 'asc';
             $scope.actions.getAll();
         },
-        detailFeedback:function(postID)
+        detailFeedback: function (postInfo)
         {
+            $scope.postSelectd = postInfo;
+            $scope.data.listPostFB = [];
             //load danh sách feedback_article
-            
-            
+            $articleService.actions.getFeedback($scope.postSelectd.id).then(function (resp) {
+                $apply(function () {
+                    $scope.data.listPostFB = resp.data;
+                });
+            }, function (error) {
+            });
             $('#modalListFeedBack').modal('show');
+        },
+        doReadedFB: function ()
+        {
+            $articleService.actions.doReadedFB($scope.postSelectd.id).then(function (resp) {
+                $apply(function () {
+                    $scope.actions.getAll();
+                    $('#modalListFeedBack').modal('hide');
+                });
+            }, function (error) {
+                console.log(error);
+                $.notify('Xảy ra lỗi công cập nhật được đối tượng đã chọn!', 'error');
+            });
+
         }
     };
 });

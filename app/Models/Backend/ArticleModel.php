@@ -75,7 +75,7 @@ class ArticleModel extends Model {
 
         if ($articleInfo->end_date != '')
             $articleInfo->end_date = explode(' ', $articleInfo->end_date)[0];
-       
+
         return $articleInfo->toArray();
     }
 
@@ -107,6 +107,7 @@ class ArticleModel extends Model {
             $artModel = $artModel->leftJoin('category_article', 'article.id', '=', 'category_article.article_id');
             $arr_where[] = ['category_article.category_id', '=', intval($category_id)];
         }
+
         $artModel = $artModel->where($arr_where);
         if ($ord_crat) {
 
@@ -118,6 +119,8 @@ class ArticleModel extends Model {
         if ($ord_cd) {
             $artModel = $artModel->orderBy('is_censored', $ord_cd);
         }
+        //đếm số feedback
+        $artModel->select(DB::Raw('(select count(id) from feedback_article where article.id = feedback_article.article_id and readed!= 1 ) as feedBackReaded,(select count(id) from feedback_article where article.id = feedback_article.article_id) as totalFeedBack ,article.*'));
 
         return $artModel->paginate()->toArray();
     }

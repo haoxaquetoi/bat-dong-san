@@ -257,13 +257,14 @@ class MenuCtrl extends Controller {
      * @return type
      */
     function listMenu(Request $request, $positionId, MenuModel $menuModel) {
+        
         Validator::make(
                 ['positionId' => $positionId], ['positionId' => 'required|exists:menu_position,id'], [
             'positionId.required' => 'Bắt buộc phải có vị trí menu',
             'positionId.exists' => 'Vị trí menu không tồn tại'
                 ]
         )->validate();
-
+        $arrMenuType = app('MenuConfig')->getMenuType();
         $data = $menuModel->filterFreeText($request->freeText)->where('position_id', $positionId)->orderBy('depth', 'asc')->orderBy('order')->get();
         foreach ($data as &$singleMenu) {
             $arrdepth = explode('/', $singleMenu->depth);
@@ -271,6 +272,7 @@ class MenuCtrl extends Controller {
             for ($i = 2; $i < count($arrdepth); $i++) {
                 $singleMenu->split_child .= ' -- ';
             }
+            $singleMenu->menuTypeText = $arrMenuType[$singleMenu->type];
         }
         return response()->json($data);
     }
