@@ -325,9 +325,15 @@ class MenuCtrl extends Controller {
         $curMenuInfo = MenuModel::find($id);
         $parentMaxOrder = MenuModel::where('parent', $parent)
                         ->where('id', '<>', $id)->orderBy('order', 'desc')->first();
-        if (isset($parentMaxOrder->order) && $order > $parentMaxOrder->order) {
+        $parentMaxOrder = isset($parentMaxOrder) ? $parentMaxOrder : 0;
+        if (!isset($parentMaxOrder->order)) {
+            $order = 1;
+        }
+        elseif($parentMaxOrder->order <= $order)
+        {
             $order = $parentMaxOrder->order + 1;
         }
+            
         $listMenuOrder = MenuModel::where('parent', $parent)->orderBy('order')->get();
         //thuc hien sap xep lai order      
         $newOrder = 0;
@@ -349,7 +355,7 @@ class MenuCtrl extends Controller {
             }
             $listMenuOrder[$i]->depth = $depth;
             $listMenuOrder[$i]->save();
-            if (MenuModel::where('parent', '=', $listMenuOrder[$i]->id)->count() > 0) {
+            if (MenuModel::where('parent',  $listMenuOrder[$i]->id)->count() > 0) {
                 $this->_reorderChild($listMenuOrder[$i]->id, $listMenuOrder[$i]->depth);
             }
         }
@@ -357,11 +363,12 @@ class MenuCtrl extends Controller {
 
     private function _reorderChild($parent, $depth) {
         if (intval($parent) > 0) {
-            $listMenuOrder = MenuModel::where('parent', '=', $parent)->orderBy('order')->get();
+            $listMenuOrder = MenuModel::where('parent',$parent)->orderBy('order')->get();
             for ($i = 0; $i < count($listMenuOrder); $i ++) {
+                $listMenuOrder[$i]->order = $i + 1;
                 $listMenuOrder[$i]->depth = $depth . '/' . $listMenuOrder[$i]->order;
                 $listMenuOrder[$i]->save();
-                if (MenuModel::where('parent', '=', $listMenuOrder[$i]->id)->count() > 0) {
+                if (MenuModel::where('parent', $listMenuOrder[$i]->id)->count() > 0) {
                     $this->_reorderChild($listMenuOrder[$i]->id, $listMenuOrder[$i]->depth);
                 }
             }
