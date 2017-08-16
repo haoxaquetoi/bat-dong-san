@@ -11,9 +11,9 @@ class MenuConfig{
     
     function __construct() {
         $this->menuType = [
-            'url' => 'url',
-            'article' => 'Tin bài',
+            'link' => 'Liên kết',
             'category' => 'Chuyên mục',
+            'article' => 'Tin đăng',
         ];
     }
     
@@ -24,7 +24,7 @@ class MenuConfig{
     function buildHref($type, $data){
         $href = '';
         switch ($type){
-            case 'url':
+            case 'link':
                 $href = url(urldecode($data->url));
                 break;
             case 'article':

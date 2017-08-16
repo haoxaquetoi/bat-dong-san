@@ -159,11 +159,6 @@ categorys
     </div>
     <!-- /.row -->
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalListFeedBack">
-        Launch demo modal
-    </button>
-
     <!-- Modal -->
     <div class="modal fade" id="modalListFeedBack" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">

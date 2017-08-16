@@ -86,7 +86,9 @@ ngApp.controller('articleListCtrl', function ($scope, $apply, $articleService,
         },
         detailFeedback:function(postID)
         {
-            console.log(postID)
+            //load danh sách feedback_article
+            
+            
             $('#modalListFeedBack').modal('show');
         }
     };

@@ -241,7 +241,13 @@ class MenuCtrl extends Controller {
      * @return type
      */
     function deleteMenu($id) {
-        MenuModel::find($id)->delete();
+        $countChild = MenuModel::where('parent', '=', $id)->count();
+        if ($countChild) {
+            return response()->json(array('type' => ['Đang tồn tại menu con không được phép xóa']), 422);
+        } else {
+            MenuModel::find($id)->delete();
+        }
+
         return response()->json(array());
     }
 
@@ -317,43 +323,47 @@ class MenuCtrl extends Controller {
      * @param type $order
      */
     private function _reorder($id, $parent, $order) {
+        $order = intval($order) > 0 ? intval($order) : 1;
         $curMenuInfo = MenuModel::find($id);
-
         $parentMaxOrder = MenuModel::where('parent', $parent)
                         ->where('id', '<>', $id)->orderBy('order', 'desc')->first();
         if (isset($parentMaxOrder->order) && $order > $parentMaxOrder->order) {
             $order = $parentMaxOrder->order + 1;
-        } else {
-            $order = 1;
         }
-        $listMenuOrder = MenuModel::where('parent', $parent)
-                        ->where('id', '<>', $id)->orderBy('order')->get();
-
-        //thuc hien sap xep lai order        
+        $listMenuOrder = MenuModel::where('parent', $parent)->orderBy('order')->get();
+        //thuc hien sap xep lai order      
+        $newOrder = 0;
         for ($i = 0; $i < count($listMenuOrder); $i ++) {
-            if ($listMenuOrder[$i]->order >= $order) {
-                $listMenuOrder[$i]->order = $listMenuOrder[$i]->order + 1;
-                $depth = '/' . ($listMenuOrder[$i]->order);
-                if ((int) $listMenuOrder[$i]->parent > 0) {
-                    $parentMenuInfo = MenuModel::find($listMenuOrder[$i]->parent);
-                    $depth = $parentMenuInfo->depth . $depth;
+
+            if ($id != $listMenuOrder[$i]->id) {
+                $newOrder += 1;
+                if (intval($newOrder) == intval($order)) {
+                    $newOrder += 1;
                 }
-                $listMenuOrder[$i]->depth = $depth;
+            } else {
+                $newOrder = $order;
+            }
+            $listMenuOrder[$i]->order = $newOrder;
+            $depth = '/' . ($listMenuOrder[$i]->order);
+            if ((int) $listMenuOrder[$i]->parent > 0) {
+                $parentMenuInfo = MenuModel::find($listMenuOrder[$i]->parent);
+                $depth = $parentMenuInfo->depth . $depth;
+            }
+            $listMenuOrder[$i]->depth = $depth;
+            $listMenuOrder[$i]->save();
+            $this->_reorderChild($listMenuOrder[$i]->id, $listMenuOrder[$i]->depth);
+        }
+    }
+
+    private function _reorderChild($parent, $depth) {
+        if (intval($parent) > 0) {
+            $listMenuOrder = MenuModel::where('parent', '=', $parent)->orderBy('order')->get();
+            for ($i = 0; $i < count($listMenuOrder); $i ++) {
+                $listMenuOrder[$i]->depth = $depth . '/' . $listMenuOrder[$i]->order;
                 $listMenuOrder[$i]->save();
+                $this->_reorderChild($listMenuOrder[$i]->id, $listMenuOrder[$i]->depth);
             }
         }
-
-
-        //cap nhat curMenuInfo
-        $curMenuInfo->parent = $parent;
-        $curMenuInfo->order = $order;
-        $depth = '/' . $order;
-        if ((int) $parent > 0) {
-            $parentMenuInfo = MenuModel::find($parent);
-            $depth = $parentMenuInfo->depth . $depth;
-        }
-        $curMenuInfo->depth = $depth;
-        $curMenuInfo->save();
     }
 
     /**

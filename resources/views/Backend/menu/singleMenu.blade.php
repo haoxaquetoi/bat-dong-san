@@ -24,9 +24,13 @@
                                 <label for="typeMenu" class="col-sm-2 col-xs-12 control-label">Loại menu  <span class="text-danger">*</span></label>
                                 <div class="col-sm-4 col-xs-12">
                                     <select class="form-control" name="typeMenu" ng-model="data.menuInfo.type">
-                                        <option value="link">Liên kết</option>
-                                        <option value="category">Chuyên mục</option>
-                                        <option value="article">Tin đăng</option>
+                                        <?php
+                                            $arrMenuType = app('MenuConfig')->getMenuType();
+                                            foreach ($arrMenuType as $menuCode =>$menuName )
+                                            {
+                                                echo "<option value='$menuCode'>$menuName</option>";
+                                            }
+                                        ?>
                                     </select>
                                     <span class="help-block">@{{actions.showError('type')}}</span>
                                 </div>
