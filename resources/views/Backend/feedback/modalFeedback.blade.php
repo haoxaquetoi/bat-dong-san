@@ -7,42 +7,32 @@
             </div>
             <div class="modal-body form-horizontal">
                 <div class="form-group">
-                    <label class="col-sm-4 col-xs-12 control-label">Tin bài</label>
+                    <label class="col-sm-4 col-xs-12 control-label">Tiêu đề tin bài</label>
                     <div class="col-sm-8 col-xs-12 padding-top-7">
-                        <a>Tin bài 1</a>
+                        <a>@{{data.singlePostFb.postTitle}}</a>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 col-xs-12 control-label">Tiêu đề</label>
+                    <label class="col-sm-4 col-xs-12 control-label">Tiêu đề/Nội dung góp ý</label>
                     <div class="col-sm-8 col-xs-12 padding-top-7">
-                        <a>Tiêu đề 1</a>
+                        <a>@{{data.singlePostFb.title != ''  ? data.singlePostFb.feedbackTitle  :data.singlePostFb.value}}</a>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-4 col-xs-12 control-label">Nội dung góp ý</label>
-                    <div class="col-sm-8 col-xs-12 padding-top-7">
-                        Nội dung ý 5
-                    </div>
-                </div>
+                </div>               
                 <div class="form-group">
                     <label class="col-sm-4 col-xs-12 control-label">Thời gian gửi</label>
                     <div class="col-sm-8 col-xs-12 padding-top-7">
-                        20/07/2017 12:01
+                        @{{data.singlePostFb.created_at_dmY}}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 col-xs-12 control-label"></label>
-                    <div class="col-sm-8 col-xs-12">
-                        <input id="status" type="checkbox" name="status" checked="" class="magic-checkbox" />
-                        <label for="status" class="padding-right-20">
-                            Đã đọc
-                        </label>
-                    </div>
+                        <label class="col-sm-4 col-xs-12 control-label">Trạng thái</label>
+                        <div class="col-sm-8 col-xs-12 padding-top-7">
+                            @{{data.singlePostFb.readed ==1 ?'Đã đọc' : 'Chưa đọc'}}
+                        </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" ><i class="fa fa-save"></i>&nbsp;Cập nhật</button>
-                <button type="button" class="btn btn-default" class="close" data-dismiss="modal" aria-label="Close" ><i class="fa fa-close"></i>&nbsp;Hủy bỏ</button>
+                <button type="button" class="btn btn-default" class="close" data-dismiss="modal" aria-label="Close" ><i class="fa fa-close"></i>&nbsp;Đóng</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

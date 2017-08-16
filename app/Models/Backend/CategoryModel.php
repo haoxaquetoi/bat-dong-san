@@ -30,16 +30,26 @@ class CategoryModel extends Model {
         if ($parent_id != 0) {
             $child .= ' --- ';
         }
-        $cat = $this->where('parent_id', '=', "$parent_id")->orderBy('order', 'asc')->get();
+        $whereParent = [];
+        if($type !== NULL)
+        {
+            $whereParent[] = ['type','=',"$type"];
+        }
+        $whereParent[] = ['parent_id', '=', "$parent_id"];
+        
+        $cat = $this->where($whereParent)->orderBy('order', 'asc')->get();
         for ($i = 0; $i < count($cat); $i++) {
             $cat[$i]['children'] = $child;
             $cat[$i]['name'] = $cat[$i]['name'];
             $catTmp[] = $cat[$i];
             $parent_id = $cat[$i]['id'];
+            $whereChild = [];
             if ($type !== NULL) {
-                $this->where('type', '=', $type);
+               
+                $whereChild[] = ['type','=',"$type"];
             }
-            $catChild = $this->where('parent_id', '=', "$parent_id")->count();
+            $whereChild[] = ['parent_id', '=', "$parent_id"];
+            $catChild = $this->where($whereChild)->count();
 
             if ($catChild) {
                 $this->getAllCat($parent_id, $type, $catTmp, $child);

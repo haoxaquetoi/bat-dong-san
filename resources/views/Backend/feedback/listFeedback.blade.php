@@ -1,3 +1,4 @@
+
 <angular>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -14,31 +15,26 @@
                         <div class="dataTables_wrapper dt-bootstrap">
                             <div class="row padding-bottom-10">
                                 <div class="col-xs-12">
-                                    <a href="">Tất cả (20)</a> | <a href="" class="text-black">Đã đọc (5)</a> | <a href="" class="text-black">Chưa đọc (5)</a>
+                                    <a ng-class="(data.filter.readed != 0 && data.filter.readed != 1) ? '' : 'text-black'" ng-click="data.filter.readed = -1;actions.getAllPostFd()">Tất cả (@{{count.total}})</a> | <a ng-click="data.filter.readed = 1;actions.getAllPostFd()" ng-class="data.filter.readed == 1 ? '' : 'text-black'"  href="" class="text-black">Đã đọc (@{{count.totalReaded}})</a> | <a ng-class="data.filter.readed == 0 ? '' : 'text-black'" ng-click="data.filter.readed = 0;actions.getAllPostFd()" class="text-black">Chưa đọc (@{{count.totalUnReaded}})</a>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-9 padding-bottom-5">
-                                    <form class="form-inline" role="form">
-                                        <select class="form-control">
-                                            <option value="">--Chọn loại bình luận--</option>
-                                            <option value="">--feedback1--</option>
-                                            <option value="">--feedback2--</option>
+                                <div class="col-xs-9 padding-bottom-5 form-inline">
+                                   
+                                    <select class="form-control" ng-model="data.filter.fbID">
+                                            <option value="">--Chọn loại góp ý--</option>
+                                            <option ng-repeat="fbInfo in data.allFeedBack.data"  ng-value="fbInfo.id">@{{fbInfo.name}}</option>
                                         </select>
-                                        <select class="form-control">
-                                            <option value="">--Trạng thái--</option>
-                                            <option value="">Đã đọc</option>
-                                            <option value="">Chưa đọc</option>
-                                        </select>
-                                        <button type="button" class="btn btn-default btn-sm">Lọc</button>
-                                    </form>
+                                        
+                                        <button type="button" class="btn btn-default btn-sm" ng-click="actions.getAllPostFd()">Lọc</button>
+                                   
                                 </div>
                                 <div class="col-md-3 col-xs-12 padding-bottom-5">
                                     <div class="box-tools pull-right">
                                         <div class="input-group input-group-sm" style="width: 250px;">
-                                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm">
+                                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm tin bài"  ng-model="data.filter.freeText" >
                                             <div class="input-group-btn">
-                                                <button type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                                <button type="button" class="btn btn-default" ng-click="actions.getAllPostFd()" ><i class="fa fa-search"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -49,96 +45,33 @@
                                     <table  class="table table-bordered table-hover dataTable" role="grid" >
                                         <colgroup>
                                             <col width='5%' />
-                                            <col width='5%' />
                                             <col width='*' />
-                                            <col width='20%' />
+                                            <col width='30%' />
                                             <col width='17%' />
                                             <col width='17%' />
                                             <col width='15%' />
                                         </colgroup>
                                         <thead>
-                                            <tr role="row">
-                                                <th class="sorting">STT</th>
-                                                <th>#</th>
-                                                <th class="sorting_asc">Nội dung</th>
-                                                <th class="sorting">Tiêu đề tin bài</th>
-                                                <th class="sorting">Ngày gửi</th>
-                                                <th class="sorting">Trạng thái</th>
+                                            <tr role="row" >
+                                                <th >STT</th>
+                                               
+                                                <th >Nội dung/Tiêu đề feedback</th>
+                                                <th >Tiêu đề tin bài</th>
+                                                <th >Ngày gửi</th>
+                                                <th >Trạng thái</th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr role="row">
-                                                <td >1</td>
-                                                <td class="tbl-actions text-center">
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                            <li><a href="javascript:void(0);">Xóa</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
+                                            <tr role="row" ng-repeat=" singleFbPost in data.allFbPost.data">
+                                                <td >@{{$index + 1}}</td>
+                                                
                                                 <td>
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modalFeedback">Nội dung 1</a>
+                                                    <a  ng-click="actions.detailPostFb(singleFbPost)"  href="javascript:void(0);" >@{{singleFbPost.value?singleFbPost.value :singleFbPost.feedbackTitle}}</a>
                                                 </td>
-                                                <td>Tin bài 1</td>
-                                                <td>09/08/2017</td>
-                                                <td><a>Hoạt động</a></td>
-                                            </tr>
-                                            <tr role="row">
-                                                <td >1</td>
-                                                <td class="tbl-actions text-center">
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                            <li><a href="javascript:void(0);">Xóa</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modalFeedback">Nội dung 1</a>
-                                                </td>
-                                                <td>Tin bài 1</td>
-                                                <td>09/08/2017</td>
-                                                <td><a>Hoạt động</a></td>
-                                            </tr>
-                                            <tr role="row">
-                                                <td >1</td>
-                                                <td class="tbl-actions text-center">
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                            <li><a href="javascript:void(0);">Xóa</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modalFeedback">Nội dung 1</a>
-                                                </td>
-                                                <td>Tin bài 1</td>
-                                                <td>09/08/2017</td>
-                                                <td><a>Hoạt động</a></td>
-                                            </tr>
-                                            <tr role="row">
-                                                <td >1</td>
-                                                <td class="tbl-actions text-center">
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="{{url('admin/advertising/single')}}">Chi tiết</a></li>
-                                                            <li><a href="javascript:void(0);">Xóa</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modalFeedback">Nội dung 1</a>
-                                                </td>
-                                                <td>Tin bài 1</td>
-                                                <td>09/08/2017</td>
-                                                <td><a>Hoạt động</a></td>
+                                                <td>@{{singleFbPost.postTitle}}</td>
+                                                <td>@{{singleFbPost.created_at_dmY}}</td>
+                                                <td><a>@{{singleFbPost.readedText}}</a></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -147,16 +80,12 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                        <ul class="pagination">
-                                            <li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li>
-                                            <li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li>
-                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li>
-                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li>
-                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a></li>
-                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a></li>
-                                            <li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a></li>
-                                            <li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a></li>
-                                        </ul>
+                                        <div paging
+                                             page="data.allFbPost.current_page" 
+                                             page-size="data.allFbPost.per_page" 
+                                             total="data.allFbPost.total"
+                                             paging-action="actions.changePage(page)">
+                                        </div> 
                                     </div>
                                 </div>
                             </div>

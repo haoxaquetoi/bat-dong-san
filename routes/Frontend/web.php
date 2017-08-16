@@ -31,3 +31,5 @@ Route::get('frontend/widget/type/{type}', 'Frontend\WidgetCtrl@typeWidget')->whe
 
 
 
+
+

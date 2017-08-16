@@ -79,10 +79,17 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::put('/article/updateSticky/{id}', 'Backend\Rest\ArticleCtrl@updateSticky');
     Route::put('/article/updateCensored/{id}', 'Backend\Rest\ArticleCtrl@updateCensored');
     Route::get('/article/{id}', 'Backend\Rest\ArticleCtrl@getSingleArticle');
-    
+
 
     #Tags
     Route::get('/tags', 'Backend\Rest\TagCtrl@getAll');
+
+
+    ######feedback
+    Route::get('/post/feedback', 'Backend\Rest\FeedbackCtrl@postFeedkback');
+    Route::get('/post/feedback/{fdPostID}', 'Backend\Rest\FeedBackCtrl@postFeedkbackInfo');
+    Route::put('/post/feedback/{fdPostID}', 'Backend\Rest\FeedBackCtrl@readedFeedBack');
+    Route::delete('/post/feedback/{fdPostID}', 'Backend\Rest\FeedBackCtrl@deletePostFb');
 });
 
 Route::get('/test', 'Controller@test');

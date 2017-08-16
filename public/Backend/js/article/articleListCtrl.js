@@ -83,6 +83,11 @@ ngApp.controller('articleListCtrl', function ($scope, $apply, $articleService,
 
             $scope.data.filter[sorting] = $scope.data.filter[sorting] == 'asc' ? 'desc' : 'asc';
             $scope.actions.getAll();
+        },
+        detailFeedback:function(postID)
+        {
+            console.log(postID)
+            $('#modalListFeedBack').modal('show');
         }
     };
 });

@@ -33,9 +33,9 @@
                 <div class="category-filter">
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-12 box-filter padding-bottom-10">
-                            <button class="btn btn-success">Tất cả</button>
-                            <button class="btn btn-grey">Tin thường</button>
-                            <button class="btn btn-grey">Tin đảm bảo</button>
+                            <a href="?" class="btn btn-grey all {{ (old( 'cs' ) == '') ? 'active' : '' }}">Tất cả</a>
+                            <a href="?cs=1" class="btn btn-grey {{ (old( 'cs' ) == 1 ) ? 'active' : '' }}">Tin đảm bảo</a>
+                            <a  href="?cs=0" class="btn btn-grey {{(old ( 'cs' ) == 0 && old( 'cs' ) != '') ? 'active' : ''}}">Tin thường</a>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 box-filter-right  padding-bottom-10">
                             <div class="pull-right  text-right">

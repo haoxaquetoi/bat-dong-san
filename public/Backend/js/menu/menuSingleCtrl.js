@@ -46,12 +46,13 @@ ngApp.controller('menuSingleCtrl', function ($scope, $menuService, $apply, $loca
 
                 $apply(function () {
                     $scope.data.menuInfo = resp.data;
-                    $scope.data.menuInfo.value = $scope.data.menuInfo.value ? JSON.parse($scope.data.menuInfo.value) : {};
+                    $scope.data.menuInfo.value = $scope.data.menuInfo.value ? $scope.data.menuInfo.value : {};
                     $scope.data.menuInfo.parent = $scope.data.menuInfo.parent == 0 ? $scope.data.menuInfo.parent.toString() : $scope.data.menuInfo.parent;
                     if ($scope.data.menuInfo.type == 'article')
                     {
                         $articleService.actions.getSingleArticle($scope.data.menuInfo.value.articleID).then(function (resp) {
                             $scope.data.article.articleSelected = resp.data;
+                           
                         }, function (error) {
                             console.log(error);
                             $scope.errors = error.data;

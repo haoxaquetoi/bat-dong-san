@@ -36,7 +36,7 @@
                                 <div class="col-sm-4 col-xs-12">
                                     <select class="form-control" ng-model="data.menuInfo.parent">
                                         <option value="0">--Thư mục gốc--</option>
-                                        <option ng-repeat=" menu in data.listMenu" value="@{{menu.id}}">@{{menu.split_child}} @{{menu.name}}</option>
+                                        <option ng-repeat=" menu in data.listMenu" ng-value="@{{menu.id}}">@{{menu.split_child}} @{{menu.name}}</option>
                                     </select>
                                     <span class="help-block">@{{actions.showError('parent')}}</span>
                                 </div>

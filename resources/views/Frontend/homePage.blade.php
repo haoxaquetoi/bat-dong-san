@@ -7,7 +7,6 @@
         $('[data-toggle="popover"]').popover();
     });
 </script>
-
 <!--.content-->
 <section class="content">
     <div class="container">
@@ -21,7 +20,9 @@
                             <div class="content-left-col-border">
                                 <div class="text-uppercase title">
                                     <h2 class="title-content">
-                                        Tin đảm bảo
+                                        <a href="{{ url('tim-kiem?cs=1') }}">
+                                            Tin đảm bảo
+                                        </a>
                                     </h2>
                                 </div>
                                 @if (count($dataView['arrArticleCensored']) > 0)
@@ -80,7 +81,7 @@
                                 @endforeach
                                 @endif
                                 <div class="text-right padding-right-15">
-                                    <a class="btn btn-default btn-more-category" href="">Xem thêm <i class="fa fa-angle-right"></i></a>
+                                    <a class="btn btn-default btn-more-category" href="{{ url('tim-kiem?cs=1') }}">Xem thêm <i class="fa fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div> <!-- end .content-left-col -->
@@ -91,7 +92,10 @@
                             <div class="content-left-col-border">
                                 <div class="text-uppercase title">
                                     <h2 class="title-content">
-                                        Tin thường</h2>
+                                        <a href="{{ url('tim-kiem?cs=0') }}">
+                                            Tin thường
+                                        </a>
+                                    </h2>
                                 </div>
                                 @if (count($dataView['arrArticle']) > 0)
                                 @foreach ($dataView['arrArticle'] as $values)
@@ -152,7 +156,7 @@
                                 @endforeach
                                 @endif
                                 <div class="text-right padding-right-15">
-                                    <a class="btn btn-default btn-more-category" href="">Xem thêm <i class="fa fa-angle-right"></i></a>
+                                    <a class="btn btn-default btn-more-category" href="{{ url('tim-kiem?cs=0') }}">Xem thêm <i class="fa fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div><!-- end .content-left-col -->

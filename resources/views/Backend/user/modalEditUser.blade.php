@@ -32,7 +32,7 @@
                         <span class="help-block">@{{actions.showError('password')}}</span>
                     </div>
                     <div class="form-group" ng-class="actions.hasError('confirm_password') ? 'has-error' : ''">
-                        <label for="confirm_password">Mật khẩu <span class="text-red">*</span></label>
+                        <label for="confirm_password">Nhập lại mật khẩu <span class="text-red">*</span></label>
                         <input type="password" class="form-control" id="confirm_password" placeholder="Xác nhận mật khẩu" ng-model="data.users.userInfoSelected.confirm_password">
                         <span class="help-block">@{{actions.showError('confirm_password')}}</span>
                     </div>

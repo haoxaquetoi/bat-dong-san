@@ -277,7 +277,11 @@ class MenuCtrl extends Controller {
      * @return type
      */
     function infoMenu($id) {
+
         $data = MenuModel::find($id);
+        $value = json_decode($data->value);
+        $value->url = urldecode($value->url);
+        $data->value = $value;
         return response()->json($data);
     }
 
