@@ -120,16 +120,14 @@ class MenuCtrl extends Controller {
                 'articleID' => ''
             ];
         } elseif ($request->type == 'category') {
-            $categoryInfo = \App\Models\Backend\CategoryModel::find($request->value['categoryID']);
             $request->value = [
-                'url' => urlencode(app('BuildUrl')->buildCategoryDetail($categoryInfo->id, $categoryInfo->slug)),
+                'url' => '',
                 'categoryID' => $request->value['categoryID'],
                 'articleID' => ''
             ];
         } elseif ($request->type == 'article') {
-            $articleInfo = \App\Models\Frontend\ArticleMode::find($request->value['articleID']);
             $request->value = [
-                'url' => urlencode(app('BuildUrl')->buildArticleDetail($articleInfo->id, $articleInfo->slug, $articleInfo->catID, $articleInfo->catSlug)),
+                'url' => '',
                 'categoryID' => '',
                 'articleID' => $request->value['articleID']
             ];
@@ -351,7 +349,9 @@ class MenuCtrl extends Controller {
             }
             $listMenuOrder[$i]->depth = $depth;
             $listMenuOrder[$i]->save();
-            $this->_reorderChild($listMenuOrder[$i]->id, $listMenuOrder[$i]->depth);
+            if (MenuModel::where('parent', '=', $listMenuOrder[$i]->id)->count() > 0) {
+                $this->_reorderChild($listMenuOrder[$i]->id, $listMenuOrder[$i]->depth);
+            }
         }
     }
 
@@ -361,7 +361,9 @@ class MenuCtrl extends Controller {
             for ($i = 0; $i < count($listMenuOrder); $i ++) {
                 $listMenuOrder[$i]->depth = $depth . '/' . $listMenuOrder[$i]->order;
                 $listMenuOrder[$i]->save();
-                $this->_reorderChild($listMenuOrder[$i]->id, $listMenuOrder[$i]->depth);
+                if (MenuModel::where('parent', '=', $listMenuOrder[$i]->id)->count() > 0) {
+                    $this->_reorderChild($listMenuOrder[$i]->id, $listMenuOrder[$i]->depth);
+                }
             }
         }
     }
