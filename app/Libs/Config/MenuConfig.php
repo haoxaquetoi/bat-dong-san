@@ -43,11 +43,6 @@ class MenuConfig{
                 $href = route('frontendCategory', ['catSlug' => $categoryInfo->slug, 'catID' => $categoryInfo->id]);
                 break;
         }
-        echo __FILE__;
-        echo '<pre>';
-        var_dump($href);
-        echo '</pre>';
-        echo __LINE__;
         return $href;
     }
 }

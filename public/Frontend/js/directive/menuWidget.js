@@ -9,6 +9,9 @@ ngApp.directive('menuWidget', function ($apply, $widgetService) {
                 $apply(function(){
                     scope.menus = scope.widgetData.cache;
                 });
+            },
+            checkUrl: function(href){
+                return (window.location.href == href)? true: false;
             }
         }
         scope.$watchCollection('widgetData', function(newVal, oldVal){
