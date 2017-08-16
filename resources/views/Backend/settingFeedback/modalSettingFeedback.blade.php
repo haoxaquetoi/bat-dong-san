@@ -19,7 +19,7 @@
                             <input type="text" id="order" name="order" ng-model="data.feedback.info.order" required  class="form-control" />
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-show="data.feedback.info.id !=1">
                         <label class="col-sm-4 col-xs-12 control-label"></label>
                         <div class="col-sm-8 col-xs-12">
                             <input id="status" type="checkbox" name="status" ng-model="data.feedback.info.status" class="magic-checkbox" />

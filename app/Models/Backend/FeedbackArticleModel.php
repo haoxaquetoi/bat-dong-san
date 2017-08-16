@@ -41,7 +41,7 @@ class FeedbackArticleModel extends Model {
     function getFbByPost($postID) {
         $resp['other'] = $this->where([
                     ['feedback_article.article_id', $postID],
-                    ['feedback_article.id', 1]
+                    ['feedback_article.feedback_id', 1]
                 ])
                 ->leftJoin('feedback', 'feedback.id', '=', 'feedback_article.feedback_id')
                 ->select(DB::raw('DATE_FORMAT(feedback_article.created_at, "%d-%m-%Y") as created_at_dmY'), DB::raw('CASE  feedback_article.readed when 1 then "Đã đọc" ELSE  "Chưa đọc" end as readedText,feedback_article.*,feedback.name as feedbackTitle '))

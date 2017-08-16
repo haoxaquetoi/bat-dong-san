@@ -83,7 +83,7 @@ class ArticleModel extends Model {
         return $this->select(DB::raw("DATE_FORMAT(created_at,'%m-%Y') as post_date"))->groupBy('post_date')->orderBy('post_date', 'desc')->get()->toArray();
     }
 
-    function getAll($category_id = '', $type = '', $option = '', $freeText = '', $post_date = '', $ord_crat = '', $ord_sk = '', $ord_cd = '') {
+    function getAll($category_id = '', $type = '', $option = '', $freeText = '', $post_date = '', $ord_crat = '', $ord_sk = '', $ord_cd = '',$ord_fb='') {
         $arr_where = [];
         if ($type) {
             $arr_where[] = ['type', '=', $type];
@@ -118,6 +118,9 @@ class ArticleModel extends Model {
         }
         if ($ord_cd) {
             $artModel = $artModel->orderBy('is_censored', $ord_cd);
+        }
+        if ($ord_fb) {
+            $artModel = $artModel->orderBy('feedBackReaded', $ord_fb);
         }
         //đếm số feedback
         $artModel->select(DB::Raw('(select count(id) from feedback_article where article.id = feedback_article.article_id and readed!= 1 ) as feedBackReaded,(select count(id) from feedback_article where article.id = feedback_article.article_id) as totalFeedBack ,article.*'));

@@ -185,7 +185,7 @@ categorys
                     <div class="clearfix"></div>
                     <h5><strong>Danh sách góp ý khác:</strong></h5>
                     <ol>
-                        <li ng-repeat="fbOther in data.listPostFB.other">
+                        <li ng-repeat="fbOther in data.listPostFB.other" style="border-bottom: 2px solid #f4f4f4;">
                             <p>@{{fbOther.value}}
                                 <br/>
                                 <i>(Ngày gửi: @{{fbOther.created_at_dmY}})</i>

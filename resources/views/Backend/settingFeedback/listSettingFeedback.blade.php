@@ -61,7 +61,7 @@
                                                         <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                                                         <ul class="dropdown-menu">
                                                             <li><a href="javascript:void(0);"  ng-click="action.showModal(item.id);">Chi tiết</a></li>
-                                                            <li><a href="javascript:void(0);" ng-click="action.delete(item.id)">Xóa</a></li>
+                                                            <li ng-show="item.id != 1" ><a href="javascript:void(0);" ng-click="action.delete(item.id)">Xóa</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
