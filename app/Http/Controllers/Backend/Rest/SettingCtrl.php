@@ -50,7 +50,7 @@ class SettingCtrl extends Controller {
                 ]
         )->validate();
         //kiem tra da co key chua
-        $setting = MetadataModel::where('key', $request->key)->get();
+        $setting = MetadataModel::where('key', $request->key)->first();
         if ((int) $setting->count() > 0) {//thuc hien update
             $setting->value = json_encode($request->value);
             $setting->save();

@@ -27,6 +27,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="email" class="col-sm-2 col-xs-12 control-label">Email</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" class="form-control" id="email" placeholder="Email" ng-model="email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="slogan" class="col-sm-2 col-xs-12 control-label">slogan</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" class="form-control" id="slogan" placeholder="Slogan" ng-model="slogan">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="port" class="col-sm-2 col-xs-12 control-label"></label>
                                 <div class="col-sm-4 col-xs-12">
                                     <button type="button" class="btn btn-primary" ng-click="action.update()">Lưu</button>

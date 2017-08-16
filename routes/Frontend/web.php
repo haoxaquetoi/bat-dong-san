@@ -15,12 +15,18 @@ Route::get('/tim-kiem', 'Frontend\SearchCtrl@main');
 
 
 //rest route
+Route::group(['prefix' => 'rest', 'middleware' => []], function () {
+    Route::get('getAllArticle', 'Frontend\Rest\ArticleCtrl@getAllArticle');
+    Route::get('refreshCaptcha', 'Frontend\Rest\CaptchaCtrl@refreshCaptcha');
+    Route::post('sendFeedBack', 'Frontend\Rest\FrontendCtrl@sendFeedBack');
+    
+    //widget
+    Route::get('frontend/widget/{positionCode}', 'Frontend\Rest\WidgetCtrl@listWidget')->where('positionCode', '[\w]+');
+});
 
-Route::get('rest/getAllArticle', 'Frontend\Rest\ArticleCtrl@getAllArticle');
 
-
-Route::get('rest/refreshCaptcha', 'Frontend\Rest\CaptchaCtrl@refreshCaptcha');
-Route::post('rest/sendFeedBack', 'Frontend\Rest\FrontendCtrl@sendFeedBack');
+Route::get('frontend/widget', 'Frontend\WidgetCtrl@index');
+Route::get('frontend/widget/type/{type}', 'Frontend\WidgetCtrl@typeWidget')->where('type', '[\w]+');
 
 
 

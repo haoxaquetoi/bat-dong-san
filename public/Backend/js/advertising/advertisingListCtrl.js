@@ -41,7 +41,7 @@ ngApp.controller('advertisingListCtrl', function ($scope, $apply, $routeParams, 
                 console.log(err);
             });
         },
-        changePage(page) {
+        changePage: function(page) {
             $scope.data.adv.filter.page = page;
             $scope.data.getList();
         }

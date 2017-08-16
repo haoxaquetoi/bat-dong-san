@@ -125,7 +125,7 @@
             </ul>
         </li>
         <li class="treeview">
-            <a href="javascript:void(0)">
+            <a href="{{route('setting')}}">
                 <i class="fa fa-cog"></i> <span>Cài đặt</span>
             </a>
         </li>

@@ -7,6 +7,8 @@ ngApp.controller('settingInfoCtrl', function ($scope, $apply, $settingService, $
                 $scope.name = data.name || '';
                 $scope.phone = data.phone || '';
                 $scope.address = data.address || '';
+                $scope.email = data.email || '';
+                $scope.slogan = data.slogan || '';
             });
             
         }
@@ -18,6 +20,8 @@ ngApp.controller('settingInfoCtrl', function ($scope, $apply, $settingService, $
                 name: $scope.name,
                 phone: $scope.phone,
                 address: $scope.address,
+                email: $scope.email,
+                slogan: $scope.slogan
             }
             $settingService.action.update($scope.key, value).then(function(resp){
                 $.notify('Cập nhật thành công', 'success');
