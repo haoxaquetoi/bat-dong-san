@@ -264,7 +264,7 @@ class MenuCtrl extends Controller {
                 ]
         )->validate();
 
-        $data = $menuModel->filterFreeText($request->freeText)->where('position_id', $positionId)->orderBy('depth', 'asc')->get();
+        $data = $menuModel->filterFreeText($request->freeText)->where('position_id', $positionId)->orderBy('depth', 'asc')->orderBy('order')->get();
         foreach ($data as &$singleMenu) {
             $arrdepth = explode('/', $singleMenu->depth);
             $singleMenu->split_child = '';

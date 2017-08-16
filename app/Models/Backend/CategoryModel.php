@@ -26,36 +26,15 @@ class CategoryModel extends Model {
      * @return type
      */
     function getAllCat($parent_id = 0, $type = NULL, array &$catTmp = array(), $child = '') {
-
-        if ($parent_id != 0) {
-            $child .= ' --- ';
-        }
-        $whereParent = [];
-        if($type !== NULL)
-        {
-            $whereParent[] = ['type','=',"$type"];
-        }
-        $whereParent[] = ['parent_id', '=', "$parent_id"];
-        
-        $cat = $this->where($whereParent)->orderBy('order', 'asc')->get();
-        for ($i = 0; $i < count($cat); $i++) {
-            $cat[$i]['children'] = $child;
-            $cat[$i]['name'] = $cat[$i]['name'];
-            $catTmp[] = $cat[$i];
-            $parent_id = $cat[$i]['id'];
-            $whereChild = [];
-            if ($type !== NULL) {
-               
-                $whereChild[] = ['type','=',"$type"];
-            }
-            $whereChild[] = ['parent_id', '=', "$parent_id"];
-            $catChild = $this->where($whereChild)->count();
-
-            if ($catChild) {
-                $this->getAllCat($parent_id, $type, $catTmp, $child);
+        $data = CategoryModel::where('deleted', '!=', 1)->orderBy('depth')->orderBy('order')->get();
+        foreach ($data as &$cat) {
+            $arrdepth = explode('/', $cat->depth);
+            $cat->children = '';
+            for ($i = 2; $i < count($arrdepth); $i++) {
+                $cat->children .= ' -- ';
             }
         }
-        return $catTmp;
+        return $data;
     }
 
     function getCategoryInfo($catId) {
