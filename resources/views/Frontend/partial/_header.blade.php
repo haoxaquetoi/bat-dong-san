@@ -39,12 +39,6 @@
                     </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse" aria-expanded="false">
-                    <ul class="nav navbar-nav navbar-right width-sm-50">
-                        <li class="active"><a href="{{ url('')}}">Trang chủ</a></li>
-                        <li><a href="">Tin rao bán</a></li>
-                        <li><a href="">Dịch vụ</a></li>
-                        <li><a href="">Liên hệ</a></li>
-                    </ul>
                     <widget position-code="positionCode" widget-data="widgetData"></widget>
                 </div><!--/.nav-collapse -->
                 
