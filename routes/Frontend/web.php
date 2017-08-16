@@ -8,9 +8,9 @@ Route::get('/thong-tin-lien-he', 'Frontend\ContactCtrl@main');
 Route::get('/{catSlug}/{catID}/{artSlug}/{artID}', 'Frontend\SingleArticleCtrl@main')->where([
     'catID' => '[0-9]+',
     'artID' => '[0-9]+'
-]);
+])->name('frontendArticle');
 Route::get('/tags/{tagName}', 'Frontend\SingleTagCtrl@main');
-Route::get('/{catSlug}/{catID}', 'Frontend\SingleCategoryCtrl@main')->where('catID', '[0-9]+');
+Route::get('/{catSlug}/{catID}', 'Frontend\SingleCategoryCtrl@main')->where('catID', '[0-9]+')->name('frontendCategory');
 Route::get('/tim-kiem', 'Frontend\SearchCtrl@main');
 
 

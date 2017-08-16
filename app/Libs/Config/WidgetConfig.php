@@ -68,13 +68,20 @@ class WidgetConfig{
         if(isset($arrValue->menuPositionId) && !empty($arrValue->menuPositionId))
         {
             $menuPositionId = $arrValue->menuPositionId;
-        
-            $widgetInfo->cache = MenuModel::where('position_id', $menuPositionId)->orderBy('depth')->orderBy('order')->get()->toJson();
+            $instance = $this;
+            $widgetInfo->cache = MenuModel::where('position_id', $menuPositionId)->orderBy('depth')->orderBy('order')->get()->map(function($item, $key) use ($instance) {
+                $item->href = $instance->buildMenuHref($item->type, json_decode($item->value));
+                return $item;
+            })->toJson();
         }
         else
         {
             $widgetInfo->cache = '{}';
         }
         return $widgetInfo->save();
+    }
+    
+    private function buildMenuHref($type, $data){
+        return app('MenuConfig')->buildHref($type, $data);
     }
 }

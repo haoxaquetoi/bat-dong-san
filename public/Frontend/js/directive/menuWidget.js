@@ -3,6 +3,17 @@ ngApp.directive('menuWidget', function ($apply, $widgetService) {
     var restrict = 'C';
     var scope = {widgetData: '='};
     var link = function (scope) {
+        scope.menus;
+        scope.data = {
+            loadMenu: function(){
+                $apply(function(){
+                    scope.menus = scope.widgetData.cache;
+                });
+            }
+        }
+        scope.$watchCollection('widgetData', function(newVal, oldVal){
+            scope.data.loadMenu();
+        });
     };
     return {
         restrict: restrict,

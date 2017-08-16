@@ -45,8 +45,9 @@
                         <li><a href="">Dịch vụ</a></li>
                         <li><a href="">Liên hệ</a></li>
                     </ul>
+                    <widget position-code="positionCode" widget-data="widgetData"></widget>
                 </div><!--/.nav-collapse -->
-                <widget position-code="positionCode" widget-data="widgetData"></widget>
+                
             </div>
         </nav>
     </div><!--end .menu-top-->
