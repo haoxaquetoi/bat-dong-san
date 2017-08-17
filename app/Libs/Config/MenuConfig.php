@@ -25,7 +25,7 @@ class MenuConfig{
         $href = '';
         switch ($type){
             case 'link':
-                $href = url(urldecode($data->url));
+                $href = url('/') . urldecode($data->url);
                 break;
             case 'article':
                 $articleInfo = ArticleModel::find($data->articleID);

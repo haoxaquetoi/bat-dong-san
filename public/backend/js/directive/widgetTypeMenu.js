@@ -13,6 +13,7 @@ ngApp.directive('widgetTypeMenu', function ($apply, $widgetService, $menuService
                 var value = JSON.parse(data.value) || {};
                 $apply(function(){
                     scope.menuPositionId = value.menuPositionId || '';
+                    scope.title = value.title || '';
                     scope.widgetId = data.id || '';
                 });
             },
@@ -40,7 +41,7 @@ ngApp.directive('widgetTypeMenu', function ($apply, $widgetService, $menuService
 
         scope.action = {
             update: function(){
-                $widgetService.action.updateItem(scope.widgetId, {menuPositionId: scope.menuPositionId})
+                $widgetService.action.updateItem(scope.widgetId, {menuPositionId: scope.menuPositionId, title: scope.title})
                     .then(function(resp){
                         $.notify("Cập nhật thành công!", "success");
                         scope.data.setMytitle();

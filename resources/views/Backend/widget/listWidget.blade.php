@@ -63,6 +63,8 @@
                                                         <div ng-switch-when="freeText" class="widget-type-free-text" widget-data="widgetItem"></div>
                                                         <div ng-switch-when="menu" class="widget-type-menu" widget-data="widgetItem"></div>
                                                         <div ng-switch-when="adv" class="widget-type-adv" widget-data="widgetItem"></div>
+                                                        <div ng-switch-when="webInfo" class="widget-type-web-info" widget-data="widgetItem"></div>
+                                                        <div ng-switch-when="analytics" class="widget-type-analytics" widget-data="widgetItem"></div>
                                                     </div>
                                                 </div>
                                             </div>

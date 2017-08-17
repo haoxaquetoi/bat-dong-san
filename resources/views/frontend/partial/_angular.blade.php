@@ -16,3 +16,6 @@
 <!--directive-->
 <script src="{{ URL::asset('Frontend/js/directive/widget.js') }}"></script>
 <script src="{{ URL::asset('Frontend/js/directive/menuWidget.js') }}"></script>
+<script src="{{ URL::asset('Frontend/js/directive/freeTextWidget.js') }}"></script>
+<script src="{{ URL::asset('Frontend/js/directive/webInfoWidget.js') }}"></script>
+<script src="{{ URL::asset('Frontend/js/directive/analyticsWidget.js') }}"></script>

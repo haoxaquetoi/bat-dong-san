@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
+use Illuminate\Support\Facades\View;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,8 +12,15 @@ class WidgetCtrl extends Controller
         return view('frontend.widget.main');
     }
     
-    function typeWidget($type){
-        $view = 'frontend.widget.' . $type . 'Widget';
+    function typeWidget($positionCode, $type){
+        $defaultView = 'frontend.widget.' . $type . 'Widget';
+        $positionView = 'frontend.widget.' . $positionCode . '.' . $type . 'Widget';
+        if(View::exists($positionView)){
+            $view = $positionView;
+        }
+        else {
+            $view = $defaultView;
+        }
         return view($view);
     }
 }

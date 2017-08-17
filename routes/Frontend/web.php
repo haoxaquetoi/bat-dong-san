@@ -26,7 +26,7 @@ Route::group(['prefix' => 'rest', 'middleware' => []], function () {
 
 
 Route::get('frontend/widget', 'Frontend\WidgetCtrl@index');
-Route::get('frontend/widget/type/{type}', 'Frontend\WidgetCtrl@typeWidget')->where('type', '[\w]+');
+Route::get('frontend/widget/type/{positionCode}/{type}', 'Frontend\WidgetCtrl@typeWidget')->where(['type', '[\w]+', 'positionCode', '[\w]+']);
 
 
 
