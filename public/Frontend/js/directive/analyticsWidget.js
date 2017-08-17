@@ -5,6 +5,8 @@ ngApp.directive('analyticsWidget', function ($apply, $widgetService) {
     var link = function (scope) {
         scope.info;
         scope.title;
+        scope.class;
+        
         scope.getView = function(){
             return SiteUrl + '/frontend/widget/type/'+ scope.widgetPosition + '/analytics';
         };
@@ -13,6 +15,7 @@ ngApp.directive('analyticsWidget', function ($apply, $widgetService) {
             load: function(){
                 $apply(function(){
                     scope.title = scope.widgetData.cache.title;
+                    scope.class = scope.widgetData.cache.class;
                 });
             }
         }

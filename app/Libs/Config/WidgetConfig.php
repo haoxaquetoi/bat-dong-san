@@ -69,10 +69,12 @@ class WidgetConfig{
         $settingConfig = app('SettingConfig');
         $value = json_decode($widgetInfo->value);
         $title = (isset($value->title) && !empty($value->title))? $value->title: '';
+        $class = (isset($value->class) && !empty($value->class))? $value->class: '';
         $info = MetadataModel::where('key', $settingConfig::WEBINFO_CODE)->first();
         $widgetInfo->cache = json_encode([
             'title' => $title,
-            'info' => json_decode($info->value)
+            'class' => $class,
+            'info' => json_decode($info->value),
         ]);
         return $widgetInfo->save();
     }
@@ -84,8 +86,10 @@ class WidgetConfig{
     private function _cacheANALYTICS($widgetInfo){
         $value = json_decode($widgetInfo->value);
         $title = (isset($value->title) && !empty($value->title))? $value->title: '';
+        $class = (isset($value->class) && !empty($value->class))? $value->class: '';
         $widgetInfo->cache = json_encode([
-            'title' => $title
+            'title' => $title,
+            'class' => $class,
         ]);
         return $widgetInfo->save();
     }
@@ -100,7 +104,8 @@ class WidgetConfig{
         if(isset($arrValue->menuPositionId) && !empty($arrValue->menuPositionId))
         {
             $menuPositionId = $arrValue->menuPositionId;
-            $title = $arrValue->title;
+            $title = (isset($arrValue->title) && !empty($arrValue->title))? $arrValue->title: '';
+            $class = (isset($arrValue->class) && !empty($arrValue->class))? $arrValue->class: '';
             $instance = $this;
             $menus = MenuModel::where('position_id', $menuPositionId)->orderBy('depth')->orderBy('order')->get()->map(function($item, $key) use ($instance) {
                 $item->href = $instance->buildMenuHref($item->type, json_decode($item->value));
@@ -108,6 +113,7 @@ class WidgetConfig{
             })->toArray();
             $widgetInfo->cache = json_encode([
                 'title' => $title,
+                'class' => $class,
                 'menus' => $menus
             ]);
         }

@@ -5,13 +5,16 @@ ngApp.directive('widgetTypeAdv', function ($apply, $widgetService) {
     var link = function (scope) {
         scope.advModal;
         scope.updateData = {};
+        scope.widgetId;
+        scope.class;
         
         scope.data = {
             set: function (data) {
                 var value = JSON.parse(data.value) || {};
                 $apply(function () {
                     scope.widgetId = data.id || '';
-                    scope.updateData = value;
+                    scope.updateData = value.adv;
+                    scope.class = value.class;
                     scope.data.setMytitle();
                 });
             },
@@ -48,7 +51,7 @@ ngApp.directive('widgetTypeAdv', function ($apply, $widgetService) {
                 })
             },
             update: function(){
-                $widgetService.action.updateItem(scope.widgetId, scope.updateData)
+                $widgetService.action.updateItem(scope.widgetId, {class: scope.class, adv: scope.updateData})
                     .then(function(resp){
                         $.notify("Cập nhật thành công!", "success");
                         scope.data.setMytitle();

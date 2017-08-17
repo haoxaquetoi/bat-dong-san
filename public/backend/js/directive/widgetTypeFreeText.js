@@ -5,6 +5,7 @@ ngApp.directive('widgetTypeFreeText', function ($apply, $widgetService) {
     var link = function (scope) {
         scope.formFreeText;
         scope.freeText;
+        scope.class;
         scope.widgetId;
         
         scope.data = {
@@ -12,6 +13,7 @@ ngApp.directive('widgetTypeFreeText', function ($apply, $widgetService) {
                 var value = JSON.parse(data.value) || {};
                 $apply(function(){
                     scope.freeText = value.freeText || '';
+                    scope.class = value.class || '';
                     scope.widgetId = data.id || '';
                 });
             }
@@ -19,7 +21,7 @@ ngApp.directive('widgetTypeFreeText', function ($apply, $widgetService) {
 
         scope.action = {
             update: function(){
-                $widgetService.action.updateItem(scope.widgetId, {freeText: scope.freeText})
+                $widgetService.action.updateItem(scope.widgetId, {class: scope.class, freeText: scope.freeText})
                     .then(function(resp){
                         $.notify("Cập nhật thành công!", "success");
                     })

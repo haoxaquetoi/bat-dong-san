@@ -5,6 +5,8 @@ ngApp.directive('menuWidget', function ($apply, $widgetService) {
     var link = function (scope) {
         scope.menus;
         scope.title;
+        scope.class;
+        
         scope.getView = function(){
             return SiteUrl + '/frontend/widget/type/'+ scope.widgetPosition + '/menu';
         };
@@ -14,6 +16,7 @@ ngApp.directive('menuWidget', function ($apply, $widgetService) {
                 $apply(function(){
                     scope.menus = scope.widgetData.cache.menus;
                     scope.title = scope.widgetData.cache.title;
+                    scope.class = scope.widgetData.cache.class;
                 });
             },
             checkUrl: function(href){

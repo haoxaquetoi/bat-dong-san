@@ -4,6 +4,8 @@ ngApp.directive('freeTextWidget', function ($apply, $widgetService) {
     var scope = {widgetData: '=', widgetPosition: "="};
     var link = function (scope) {
         scope.freeText;
+        scope.class;
+        
         scope.getView = function(){
             return SiteUrl + '/frontend/widget/type/'+ scope.widgetPosition + '/freeText';
         };
@@ -12,6 +14,7 @@ ngApp.directive('freeTextWidget', function ($apply, $widgetService) {
             load: function(){
                 $apply(function(){
                     scope.freeText = scope.widgetData.cache.freeText;
+                    scope.class = scope.widgetData.cache.class;
                 });
             }
         }
