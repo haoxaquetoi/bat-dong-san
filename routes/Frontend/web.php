@@ -10,9 +10,12 @@ Route::get('/{catSlug}/{catID}/{artSlug}/{artID}', 'Frontend\SingleArticleCtrl@m
     'artID' => '[0-9]+'
 ])->name('frontendArticle');
 Route::get('/tags/{tagName}', 'Frontend\SingleTagCtrl@main');
+
+// danh sach tin lien quan
+Route::get('/tin-lien-quan/{artID}', 'Frontend\ArticleProductInvolveCtrl@main')->where('artID', '[0-9]+');
+
 Route::get('/{catSlug}/{catID}', 'Frontend\SingleCategoryCtrl@main')->where('catID', '[0-9]+')->name('frontendCategory');
 Route::get('/tim-kiem', 'Frontend\SearchCtrl@main');
-
 
 //rest route
 Route::group(['prefix' => 'rest', 'middleware' => []], function () {

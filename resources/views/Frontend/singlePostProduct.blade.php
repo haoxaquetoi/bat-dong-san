@@ -431,7 +431,10 @@
                             <div class="content-left-col-border">
                                 <div class="text-uppercase title">
                                     <h2 class="title-content">
-                                        Tin bất động sản tương tự</h2>
+                                        <a href="{{ url('tin-lien-quan') }}/{{$dataView['arrSingleArticle']->id}}">
+                                             Tin bất động sản tương tự
+                                        </a>
+                                    </h2>
                                 </div>
                                 @isset ($dataView['arrSingleArticleInvolve'])
                                 @foreach ($dataView['arrSingleArticleInvolve'] as $values)
@@ -491,7 +494,7 @@
                                 @endforeach
                                 @endisset
                                 <div class="text-right padding-right-15">
-                                    <a class="btn btn-default btn-more-category" href="">Xem thêm <i class="fa fa-angle-right"></i></a>
+                                    <a class="btn btn-default btn-more-category" href="{{ url('tin-lien-quan') }}/{{$dataView['arrSingleArticle']->id}}">Xem thêm <i class="fa fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div><!-- end .content-left-col -->
