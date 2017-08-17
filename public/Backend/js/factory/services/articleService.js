@@ -51,5 +51,15 @@ ngApp.factory('$articleService', function ($rootScope, $http)
         var url = SiteUrl + '/rest/article/getAllPostDate';
         return $http.get(url);
     }
+    service.actions.getFeedback = function (postID)
+    {
+        var url = SiteUrl + '/rest/article/getFeedback/' + postID;
+        return $http.get(url);
+    }
+    service.actions.doReadedFB = function (postID)
+    {
+        var url = SiteUrl + '/rest/article/doReadedFB/' + postID;
+        return $http.put(url);
+    }
     return service;
 });

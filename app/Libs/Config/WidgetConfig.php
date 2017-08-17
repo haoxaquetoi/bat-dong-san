@@ -4,6 +4,7 @@ namespace App\Libs\Config;
 
 use App\Models\Backend\MenuModel;
 use App\Models\Backend\AdvertisingModel;
+use App\Models\Backend\MetadataModel;
 
 class WidgetConfig{
     
@@ -15,6 +16,8 @@ class WidgetConfig{
             'freeText' => 'Free Text',
             'adv' => 'Quảng cáo',
             'menu' => 'Menu',
+            'webInfo' => 'Thông tin website',
+            'analytics' => 'Thống kê truy cập',
         ];
     }
     
@@ -59,6 +62,35 @@ class WidgetConfig{
     }
     
     /**
+     * thuc hien luu cache widget website info
+     * @param type $widgetInfo
+     */
+    private function _cacheWEBINFO($widgetInfo){
+        $settingConfig = app('SettingConfig');
+        $value = json_decode($widgetInfo->value);
+        $title = (isset($value->title) && !empty($value->title))? $value->title: '';
+        $info = MetadataModel::where('key', $settingConfig::WEBINFO_CODE)->first();
+        $widgetInfo->cache = json_encode([
+            'title' => $title,
+            'info' => json_decode($info->value)
+        ]);
+        return $widgetInfo->save();
+    }
+    
+    /**
+     * thuc hien luu cache widget website info
+     * @param type $widgetInfo
+     */
+    private function _cacheANALYTICS($widgetInfo){
+        $value = json_decode($widgetInfo->value);
+        $title = (isset($value->title) && !empty($value->title))? $value->title: '';
+        $widgetInfo->cache = json_encode([
+            'title' => $title
+        ]);
+        return $widgetInfo->save();
+    }
+    
+    /**
      * thuc hien luu cache widget menu
      * @param type $widgetInfo
      * @return type
@@ -68,11 +100,16 @@ class WidgetConfig{
         if(isset($arrValue->menuPositionId) && !empty($arrValue->menuPositionId))
         {
             $menuPositionId = $arrValue->menuPositionId;
+            $title = $arrValue->title;
             $instance = $this;
-            $widgetInfo->cache = MenuModel::where('position_id', $menuPositionId)->orderBy('depth')->orderBy('order')->get()->map(function($item, $key) use ($instance) {
+            $menus = MenuModel::where('position_id', $menuPositionId)->orderBy('depth')->orderBy('order')->get()->map(function($item, $key) use ($instance) {
                 $item->href = $instance->buildMenuHref($item->type, json_decode($item->value));
                 return $item;
-            })->toJson();
+            })->toArray();
+            $widgetInfo->cache = json_encode([
+                'title' => $title,
+                'menus' => $menus
+            ]);
         }
         else
         {
@@ -81,7 +118,14 @@ class WidgetConfig{
         return $widgetInfo->save();
     }
     
+    /**
+     * thuc hien tao href cho widget menu
+     * @param type $type
+     * @param type $data
+     * @return type
+     */
     private function buildMenuHref($type, $data){
         return app('MenuConfig')->buildHref($type, $data);
     }
+    
 }

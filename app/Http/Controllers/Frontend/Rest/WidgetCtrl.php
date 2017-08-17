@@ -9,7 +9,7 @@ use App\Models\Backend\WidgetModel;
 class WidgetCtrl extends Controller
 {
     function listWidget($positionCode, WidgetModel $widgetModel){
-        $data = $widgetModel->where('position_code', $positionCode)->get()->map(function($item, $key) {
+        $data = $widgetModel->where('position_code', $positionCode)->orderBy('order')->get()->map(function($item, $key) {
             $item->cache = json_decode($item->cache);
             return $item;
         });

@@ -228,3 +228,8 @@ a.link {color: #337ab7;}
     background: white;
     display: block !important;
 }
+
+section .unreaded .comment-count-approved
+{
+    background: red !important;
+}

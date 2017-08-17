@@ -41,6 +41,18 @@
     {
     var feedBackID = $('#txtFeedBackID').val() || '';
     var captChaVal = $('#txtCaptchaFeedback').val() || '';
+    var params = {
+    articleID:{{$dataView['arrSingleArticle'] -> id}},
+            feedBackID:feedBackID,
+            captChaVal:captChaVal,
+            _token:'{{csrf_token()}}'
+    };
+    if (parseInt(feedBackID) == 1)
+    {
+        var txtContenFb = $('#txtContenFb').val() || '';
+        params.txtContenFb = $('#txtContenFb').val() || '';
+    }
+
     if (feedBackID == '' || captChaVal == '')
     {
     $('#feedbackCaptchaErr').text('Bạn chưa nhập mã bảo vệ hoặc đối tượng phản hồi lựa chọn không hợp lệ');
@@ -49,12 +61,7 @@
 
     $.ajax({
     url: '<?php echo url('/rest/sendFeedBack') ?>',
-            data: {
-            articleID:{{$dataView['arrSingleArticle']-> id}},
-                    feedBackID:feedBackID,
-                    captChaVal:captChaVal,
-                    _token:'{{csrf_token()}}'
-            },
+            data: params,
             type: 'POST',
             success: function (data, textStatus, jqXHR) {
             $('#imgCapChaFeedback img').attr('src', data);
@@ -72,6 +79,12 @@
 
     function chooseFeedback(feedID)
     {
+    $('#boxFeedbackOther').hide();
+    if (feedID == 1)
+    {
+    $('#boxFeedbackOther').show();
+    }
+
     $('#feedbackCaptchaErr').text('');
     $('#txtFeedBackID').val(feedID);
     $('#modalConfirmFeedback').modal('show');
@@ -512,20 +525,28 @@
 
         <!-- Modal content-->
         <div class="modal-content">
+
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Nhập mã bảo vệ</h4>
+                <h4 class="modal-title">Gửi thông tin góp ý</h4>
             </div>
             <div class="modal-body clearfix">
+                <div id="boxFeedbackOther">
+                    <h4 class="modal-title">Nhập nội dung góp ý <span style="color: red">*</span></h4>
+                    <textarea class="form-control" name="txtContenFb" id="txtContenFb" ></textarea>
+                </div>
+                <br/>
                 <center style="width: 300px;margin: 0 auto;display: block;">
+                    <span class="modal-title">Nhập mã bảo vệ</span>
                     <p id="imgCapChaFeedback" style="float: left; "><?php echo captcha_img(); ?>
-                        <input type="text" name="captcha" id="txtCaptchaFeedback" >
+                        <input  type="text" name="captcha" id="txtCaptchaFeedback" >
                         <input type="hidden" name="txtFeedBackID" id="txtFeedBackID" >
                         <a onclick="refreshCaptcha()" href="javascript:void(0);"><i class="glyphicon glyphicon-refresh"></i></a>
                         <span  id="feedbackCaptchaErr"  class="has-error help-block" style="color: red"></span>
                     </p>
-
                 </center>
+
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="sendFeedBack()"  ><i class="glyphicon glyphicon-send"></i> Gửi</button>

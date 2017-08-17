@@ -1,27 +1,24 @@
-ngApp.directive('menuWidget', function ($apply, $widgetService) {
+ngApp.directive('webInfoWidget', function ($apply, $widgetService) {
     var template = '<div ng-include="getView()"></div>';
     var restrict = 'C';
     var scope = {widgetData: '=', widgetPosition: "="};
     var link = function (scope) {
-        scope.menus;
+        scope.info;
         scope.title;
         scope.getView = function(){
-            return SiteUrl + '/frontend/widget/type/'+ scope.widgetPosition + '/menu';
+            return SiteUrl + '/frontend/widget/type/'+ scope.widgetPosition + '/webInfo';
         };
         
         scope.data = {
-            loadMenu: function(){
+            load: function(){
                 $apply(function(){
-                    scope.menus = scope.widgetData.cache.menus;
+                    scope.info = scope.widgetData.cache.info;
                     scope.title = scope.widgetData.cache.title;
                 });
-            },
-            checkUrl: function(href){
-                return (window.location.href == href)? true: false;
             }
         }
         scope.$watchCollection('widgetData', function(newVal, oldVal){
-            scope.data.loadMenu();
+            scope.data.load();
         });
     };
     return {

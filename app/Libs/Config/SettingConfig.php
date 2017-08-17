@@ -10,11 +10,14 @@ namespace App\Libs\Config;
 class SettingConfig {
 
     private $listSetting;
+    
+    const WEBINFO_CODE = 'WebInfoSetting';
+    const EMAIL_CODE = 'EmailSetting';
 
     function __construct() {
         $this->listSetting = [
-            'WebInfoSetting' => 'Thông tin website',
-            'EmailSetting' => 'Thông tin Email',
+            self::WEBINFO_CODE => 'Thông tin website',
+            self::EMAIL_CODE => 'Thông tin Email',
         ];
     }
 

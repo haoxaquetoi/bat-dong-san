@@ -83,7 +83,7 @@
                                         <td>
                                             <a href="javascript:void(0);" ng-click="actions.singleMenu(menu.position_id, menu.id)" >@{{menu.split_child}} @{{menu.name}}</a>
                                         </td>
-                                        <td>Link</td>
+                                        <td>@{{menu.menuTypeText}}</td>
                                     </tr>
                                 </tbody>
                             </table>

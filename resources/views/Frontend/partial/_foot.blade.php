@@ -1,5 +1,5 @@
 <!--footer-->
-<footer class="footer">
+<footer class="footer" ng-controller="footerCtrl">
     <div class="container">
         <div class="footer-content">
             <div class="row">
@@ -76,8 +76,11 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
-
+            <div class="row">
+                <widget position-code="positionCode" widget-data="widgetData"></widget>
+            </div>
         </div>
         <div class="footer-footer">
             <p>	&#64; 2013 <span class="text-white">Name</span><span class="name-company">Company</span>, All right Reserved. Designed by me</p>

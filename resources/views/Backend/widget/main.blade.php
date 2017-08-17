@@ -19,6 +19,8 @@
 <script src="{{ URL::asset('backend/js/directive/widgetTypeAdv.js') }}"></script>
 <script src="{{ URL::asset('backend/js/directive/widgetTypeFreeText.js') }}"></script>
 <script src="{{ URL::asset('backend/js/directive/widgetTypeMenu.js') }}"></script>
+<script src="{{ URL::asset('backend/js/directive/widgetTypeWebInfo.js') }}"></script>
+<script src="{{ URL::asset('backend/js/directive/widgetTypeAnalytics.js') }}"></script>
 
 <script src="{{ URL::asset('backend/js/directive/chosseAdvModal.js') }}"></script>
 

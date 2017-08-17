@@ -3,4 +3,9 @@ var ngApp = angular.module('ngApp', ['bw.paging', 'ngRoute'])
                 return function (val) {
                     return $sce.trustAsResourceUrl(val);
                 };
+            }])
+        .filter('trustedHtml', ['$sce', function ($sce) {
+                return function (text) {
+                    return $sce.trustAsHtml(text);
+                };
             }]);

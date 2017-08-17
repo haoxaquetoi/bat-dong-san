@@ -1,13 +1,29 @@
 ngApp.directive('freeTextWidget', function ($apply, $widgetService) {
-    var templateUrl = SiteUrl + '/frontend/widget/type/menu';
+    var template = '<div ng-include="getView()"></div>';
     var restrict = 'C';
-    var scope = {widgetData: '='};
+    var scope = {widgetData: '=', widgetPosition: "="};
     var link = function (scope) {
+        scope.freeText;
+        scope.getView = function(){
+            return SiteUrl + '/frontend/widget/type/'+ scope.widgetPosition + '/freeText';
+        };
+        
+        scope.data = {
+            load: function(){
+                $apply(function(){
+                    scope.freeText = scope.widgetData.cache.freeText;
+                });
+            }
+        }
+        scope.$watchCollection('widgetData', function(newVal, oldVal){
+            scope.data.load();
+        });
+        
     };
     return {
         restrict: restrict,
         scope: scope,
-        templateUrl: templateUrl,
+        template: template,
         link: link,
     };
 });
