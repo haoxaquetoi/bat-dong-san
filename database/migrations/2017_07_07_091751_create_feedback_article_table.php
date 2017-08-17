@@ -22,7 +22,6 @@ class CreateFeedbackArticleTable extends Migration
             $table->text('value')->nullable();
             $table->text('IPClient',25);
             $table->timestamp('created_at');
-            $table->unique(['article_id', 'feedback_id']);
         });
     }
 

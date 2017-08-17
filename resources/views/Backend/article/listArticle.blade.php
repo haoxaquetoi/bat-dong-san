@@ -120,12 +120,12 @@ categorys
                                                 <a ng-click="actions.updateCensored(article.id)" ng-show="article.type == 'Product'"  ng-if="article.is_censored == 1" href="javascript:;"><i class="fa fa-star text-yellow"></i></a>
                                                 <a ng-click="actions.updateCensored(article.id)" ng-show="article.type == 'Product'" ng-if="article.is_censored == 0" href="javascript:;"href="javascript:;"><i class="fa fa-star-o text-yellow"></i></a>
                                             </td>
-                                            <td class="comments column-comments text-center" data-colname="Bình luận">		
-                                                <div class="post-com-count-wrapper" ng-click="actions.detailFeedback(article.id)" >
-                                                    <a href=""
+                                            <td class="comments column-comments text-center" data-colname="Bình luận"  >		
+                                                <div class="post-com-count-wrapper" ng-click="actions.detailFeedback(article)" title="@{{article.totalFeedBack|number}} Góp ý" ng-class="article.feedBackReaded ? 'unreaded' :''">
+                                                    <a href="javascript:void(0);"
                                                        class="post-com-count post-com-count-approved">
-                                                        <span class="comment-count-approved" aria-hidden="true">1</span>
-                                                        <span class="screen-reader-text">1 Bình luận</span>
+                                                        <span class="comment-count-approved" aria-hidden="true">@{{article.totalFeedBack|number}}</span>
+                                              
                                                     </a>
                                                 </div>
                                             </td>
@@ -168,11 +168,33 @@ categorys
                     <h4 class="modal-title" id="myModalLabel">Chi tiết thông tin phản hồi</h4>
                 </div>
                 <div class="modal-body">
-                    
+                    <table class="table">
+                        <thead>
+                        <th style="">Loại góp ý</th>
+                        <th style="width: 200px">Tổng số góp ý</th>
+                        </thead>
+                        <tr ng-repeat=" fb in data.listPostFB.fb">
+                            <td>@{{fb.name}}</td>
+                            <td>@{{fb.total|number}}</td>
+                        </tr>
+                        <tr>
+                            <td>Tin không có thật</td>
+                            <td>50</td>
+                        </tr>
+                    </table>
+                    <div class="clearfix"></div>
+                    <h5><strong>Danh sách góp ý khác:</strong></h5>
+                    <ol>
+                        <li ng-repeat="fbOther in data.listPostFB.other" style="border-bottom: 2px solid #f4f4f4;">
+                            <p>@{{fbOther.value}}
+                                <br/>
+                                <i>(Ngày gửi: @{{fbOther.created_at_dmY}})</i>
+                            </p>
+                        </li>
+                    </ol>
                 </div>
                 <div class="modal-footer">
-                    
-                    <button type="button" class="btn btn-primary">Đánh dấu đã đọc</button>
+                    <button ng-show=" postSelectd.feedBackReaded" type="button" class="btn btn-primary" ng-click="actions.doReadedFB()">Đánh dấu đã đọc</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </div>

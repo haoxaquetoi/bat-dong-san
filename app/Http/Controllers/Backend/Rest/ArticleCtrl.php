@@ -14,6 +14,7 @@ use App\Models\Backend\CategoryArticleModel;
 use Illuminate\Support\Facades\DB;
 use App\Models\Backend\TagsAricleModel;
 use App\Models\Backend\TagsModel;
+use App\Models\Backend\FeedbackArticleModel;
 
 class ArticleCtrl extends Controller {
 
@@ -229,7 +230,7 @@ class ArticleCtrl extends Controller {
                     'number_of_storeys' => $request->article_other['number_of_storeys'],
                     'number_of_wc' => intval($request->article_other['number_of_wc']),
                     'number_of_bedrooms' => intval($request->article_other['number_of_bedrooms']),
-                    'furniture' => $request->article_other['furniture'] ,
+                    'furniture' => $request->article_other['furniture'],
                     'floor_area' => intval($request->article_other['floor_area'])
         ]);
 
@@ -496,6 +497,19 @@ class ArticleCtrl extends Controller {
     function getAllArticle(ArticleModel $artModel, Request $request) {
 
         return $artModel->getAll($request->category_id, $request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd);
+    }
+
+    function getFeedback(FeedbackArticleModel $FeedbackArticleModel, Request $request) {
+        return $FeedbackArticleModel->getFbByPost($request->id);
+    }
+
+    function doReadedFB(Request $request) {
+        $fb = FeedbackArticleModel::where('article_id',$request->id)->get();
+        foreach ($fb as $singleFb) {
+            $singleFb->readed = 1;
+            $singleFb->save();
+        }
+        return response()->json([]);
     }
 
 }

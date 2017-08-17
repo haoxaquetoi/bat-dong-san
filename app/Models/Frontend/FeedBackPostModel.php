@@ -9,7 +9,7 @@ class FeedBackPostModel extends Model {
     protected $table = 'feedback_article';
     public $timestamps = false;
 
-    function updateFeedBack($articleID, $feedBackID) {
+    function updateFeedBack($articleID, $feedBackID,$value = null) {
         $ipClient = $this->getRealIpAddr();
         //Chặn không cho gửi liên tục trong vòng 5 phút
         //Không làm vì đã có captcha
@@ -17,7 +17,7 @@ class FeedBackPostModel extends Model {
             'article_id' => $articleID,
             'feedback_id' => $feedBackID,
             'readed' => 0,
-            'value' => '',
+            'value' => $value,
             'created_at' => date('Y-m-d H:i:s'),
             'IPClient' => $ipClient
         ]);

@@ -27,8 +27,7 @@ class ArticleCtrl extends Controller {
         $viewData['count']['total_trash'] = $artModel::where('status', 'Trash')->count();
         $viewData['count']['total_deleted'] = $artModel::where('deleted', '1')->count();
         
-        $viewData['arrArticle'] = $artModel->getAll($request->category_id, $request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd);
-
+        $viewData['arrArticle'] = $artModel->getAll($request->category_id, $request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd,$request->ord_fb);
         return view('backend/article/listArticle', $viewData);
     }
 

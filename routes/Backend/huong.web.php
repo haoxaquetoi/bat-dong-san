@@ -79,6 +79,8 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::put('/article/updateSticky/{id}', 'Backend\Rest\ArticleCtrl@updateSticky');
     Route::put('/article/updateCensored/{id}', 'Backend\Rest\ArticleCtrl@updateCensored');
     Route::get('/article/{id}', 'Backend\Rest\ArticleCtrl@getSingleArticle');
+    Route::get('/article/getFeedback/{id}', 'Backend\Rest\ArticleCtrl@getFeedback');
+    Route::put('/article/doReadedFB/{id}', 'Backend\Rest\ArticleCtrl@doReadedFB');
 
 
     #Tags

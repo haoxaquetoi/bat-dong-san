@@ -19,12 +19,16 @@ class FrontendCtrl extends Controller {
             $articleID = $request->articleID;
             $feedBackID = $request->feedBackID;
             $captChaVal = $request->captChaVal;
+            $txtContenFb = isset($request->txtContenFb) ? $request->txtContenFb : '';
             $rules = ['captChaVal' => 'required|captcha'];
+            if (intval($feedBackID) == 1 && trim($txtContenFb) == '') {
+                return response()->json('Nội góp ý không được để trống', 422);
+            }
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return response()->json('Mã bảo vệ không hợp lệ, Xin vui lòng nhập lại', 422);
             } else {
-                $feedPostModel->updateFeedBack($articleID, $feedBackID);
+                $feedPostModel->updateFeedBack($articleID, $feedBackID, $txtContenFb);
                 return response()->json('');
             }
         } else {
