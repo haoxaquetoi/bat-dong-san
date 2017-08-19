@@ -12,10 +12,10 @@
                 <!--.category-filter-->
                 <div class="category-filter">
                     <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-12 box-filter padding-bottom-10 category-censored">
-                            <a href="?" class="btn btn-grey all {{ (old( 'cs' ) == '') ? 'active' : '' }}">Tất cả</a>
-                            <a href="?cs=1" class="btn btn-grey {{ (old( 'cs' ) == 1 ) ? 'active' : '' }}">Tin đảm bảo</a>
-                            <a  href="?cs=0" class="btn btn-grey {{(old ( 'cs' ) == 0 && old( 'cs' ) != '') ? 'active' : ''}}">Tin thường</a>
+                        <div class="col-md-6 col-sm-6 col-xs-12   padding-bottom-10">
+                            <h1 class="margin-0 padding-bottom-15">
+                                Tin tương tự
+                            </h1>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 box-filter-right  padding-bottom-10">
                             <div class="pull-right  text-right">
@@ -27,8 +27,8 @@
                 </div>
                 <div class="content-category">
                     <div class="row">
-                        @if (count($dataView['allArticle']) > 0)
-                        @foreach ($dataView['allArticle'] as $values)
+                        @if (count($dataView['allArticleInvolve']) > 0)
+                        @foreach ($dataView['allArticleInvolve'] as $values)
                         <div class="col-md-6 col-sm-6 col-xs-12 padding-bottom-45 box-category">
 
                             <article>
@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div> <!--end .content-left-->
-            @includeif('Frontend.partial._right_sidebar_search')
+            @includeif('Frontend.partial._right_sidebar_news')
         </div>
     </div>
 </section><!--end .content-->

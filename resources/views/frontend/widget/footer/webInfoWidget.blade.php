@@ -1,4 +1,4 @@
-<div class="col-md-3 col-sm-6 col-xs-12 address">
+<div class="col-md-3 col-sm-6 col-xs-12 address" ng-class="class">
     <h4 class="text-uppercase">@{{title}}</h4>
     <ul class="list-unstyled">
         <li>

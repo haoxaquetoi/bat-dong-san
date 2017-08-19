@@ -671,3 +671,13 @@ h1 {
     background-color: #71a843;
     border-color: #71a843;
 }
+
+.box-article-new-involve:nth-of-type(even) {
+    clear: both;
+}
+.box-article-new-involve{
+    padding-bottom: 10px;
+}
+.magic-radio:disabled +label, .magic-checkbox:disabled +label{
+    cursor: no-drop;
+}

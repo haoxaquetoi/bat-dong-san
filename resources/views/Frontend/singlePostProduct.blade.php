@@ -6,89 +6,89 @@
 <script>
 
     $(document).ready(function () {
-    $('[data-toggle="popover"]').popover();
+        $('[data-toggle="popover"]').popover();
     });
     $('#image-gallery').lightSlider({
-    gallery: true,
-            item: 1,
-            thumbItem: 5,
-            slideMargin: 0,
-            speed: 1000,
-            pause: 5000,
-            auto: true,
-            loop: true,
-            onSliderLoad: function () {
+        gallery: true,
+        item: 1,
+        thumbItem: 5,
+        slideMargin: 0,
+        speed: 1000,
+        pause: 5000,
+        auto: true,
+        loop: true,
+        onSliderLoad: function () {
             $('#image-gallery').removeClass('cS-hidden');
-            }
+        }
     });
     function refreshCaptcha()
     {
-    $.ajax({
-    url: '<?php echo url('/rest/refreshCaptcha?') ?>' + (new Date()).toString(),
+        $.ajax({
+            url: '<?php echo url('/rest/refreshCaptcha?') ?>' + (new Date()).toString(),
             data: {},
             type: 'GET',
             success: function (data, textStatus, jqXHR) {
-            $('#imgCapChaFeedback img').attr('src', data);
+                $('#imgCapChaFeedback img').attr('src', data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown)
-                    $('#feedbackCaptchaErr').text('Xảy ra lỗi không đổi được mã bảo vệ');
+                console.log(jqXHR, textStatus, errorThrown)
+                $('#feedbackCaptchaErr').text('Xảy ra lỗi không đổi được mã bảo vệ');
             }
-    });
+        });
     }
 
     function sendFeedBack()
     {
-    var feedBackID = $('#txtFeedBackID').val() || '';
-    var captChaVal = $('#txtCaptchaFeedback').val() || '';
-    var params = {
-    articleID:{{$dataView['arrSingleArticle'] -> id}},
-            feedBackID:feedBackID,
-            captChaVal:captChaVal,
-            _token:'{{csrf_token()}}'
-    };
-    if (parseInt(feedBackID) == 1)
-    {
-        var txtContenFb = $('#txtContenFb').val() || '';
-        params.txtContenFb = $('#txtContenFb').val() || '';
-    }
+        var feedBackID = $('#txtFeedBackID').val() || '';
+        var captChaVal = $('#txtCaptchaFeedback').val() || '';
+        var params = {
+            articleID: '<?php echo $dataView['arrSingleArticle']->id ?>',
+            feedBackID: feedBackID,
+            captChaVal: captChaVal,
+            _token: '{{csrf_token()}}'
+        };
+        if (parseInt(feedBackID) == 1)
+        {
+            var txtContenFb = $('#txtContenFb').val() || '';
+            params.txtContenFb = $('#txtContenFb').val() || '';
+        }
 
-    if (feedBackID == '' || captChaVal == '')
-    {
-    $('#feedbackCaptchaErr').text('Bạn chưa nhập mã bảo vệ hoặc đối tượng phản hồi lựa chọn không hợp lệ');
-    return false;
-    }
+        if (feedBackID == '' || captChaVal == '')
+        {
+            $('#feedbackCaptchaErr').text('Bạn chưa nhập mã bảo vệ hoặc đối tượng phản hồi lựa chọn không hợp lệ');
+            return false;
+        }
 
-    $.ajax({
-    url: '<?php echo url('/rest/sendFeedBack') ?>',
+        $.ajax({
+            url: '<?php echo url('/rest/sendFeedBack') ?>',
             data: params,
             type: 'POST',
             success: function (data, textStatus, jqXHR) {
-            $('#imgCapChaFeedback img').attr('src', data);
-            $('#feedbackCaptchaErr').text('');
-            $('#modalConfirmFeedback').modal('hide');
-            alert('Cảm ơn bạn đã gửi thông tin phản hồi đến chúng tôi');
+                $('#imgCapChaFeedback img').attr('src', data);
+                $('#feedbackCaptchaErr').text('');
+                $('#modalConfirmFeedback').modal('hide');
+                alert('Cảm ơn bạn đã gửi thông tin phản hồi đến chúng tôi');
             },
             error: function (error) {
-            $('#feedbackCaptchaErr').text($.parseJSON(error.responseText));
-            refreshCaptcha();
+                $('#feedbackCaptchaErr').text($.parseJSON(error.responseText));
+                refreshCaptcha();
             }
-    });
+        });
     }
 
 
     function chooseFeedback(feedID)
     {
-    $('#boxFeedbackOther').hide();
-    if (feedID == 1)
-    {
-    $('#boxFeedbackOther').show();
-    }
+        $('#boxFeedbackOther').hide();
+        if (feedID == 1)
+        {
+        $('#boxFeedbackOther').show();
+        }
 
-    $('#feedbackCaptchaErr').text('');
-    $('#txtFeedBackID').val(feedID);
-    $('#modalConfirmFeedback').modal('show');
-    refreshCaptcha();
+        $('#feedbackCaptchaErr').text('');
+        $('#txtFeedBackID').val(feedID);
+        $('#modalConfirmFeedback').modal('show');
+        refreshCaptcha();
     }
 
 </script>
@@ -98,46 +98,44 @@
         <div class="row">
             <!--.content-left-->
             <div class="col-md-8 col-sm-12 col-xs-12 content-left">
+                @if(
+                (isset($dataView['arrSingleArticle']->articleSlide->images) && count($dataView['arrSingleArticle']->articleSlide->images) > 0) ||
+                (isset($dataView['arrSingleArticle']->articleSlide->video) && count($dataView['arrSingleArticle']->articleSlide->video) > 0)
+                )
                 <div class="row slide-single">
                     <div class="col-md-12">
-                        <div class="col-md-12">
-                            <!-- A wrapper DIV to center the Gallery -->
-                            <div style="text-align:center;">
-                                <!-- Define the Div for Gallery -->
-                                <!-- 1. Add class html5gallery to the Div -->
-                                <!-- 2. Define parameters with HTML5 data tags -->
-                                <div style="display:none;margin:0 auto;" class="html5gallery" data-skin="horizontal" data-width="700" data-height="400" data-resizemode="fill">
 
-                                    @isset($dataView['arrSingleArticle']->articleSlide->images)
-                                    @foreach($dataView['arrSingleArticle']->articleSlide->images as $values)
-                                    @if($values->type == 'images')
-                                    <a href="{{$values->path}}">
-                                        <img src="{{$values->path}}" alt="">
-                                    </a>
-                                    @endif
-                                    @endforeach
-                                    @endisset
+                        <div style="display:none;margin:0 auto;" class="html5gallery" data-skin="horizontal" data-width="700" data-height="400" data-resizemode="fill">
 
-                                    @isset($dataView['arrSingleArticle']->articleSlide->video)
-                                    @foreach($dataView['arrSingleArticle']->articleSlide->video as $values)
-                                    <li data-thumb="{{$values->path}}"> 
-                                        @if($values->type == 'video')
-                                        <a href="{{$values->path}}">
-                                            <img src="{{url('Frontend')}}/images/video.png" alt="">
-                                        </a>
-                                        @elseif($values->type == 'youtube')
-                                        <a href="{{$values->path}}">
-                                            <img src="{{url('Frontend')}}/images/youtube.png" alt="Youtube Video">
-                                        </a>
+                            @isset($dataView['arrSingleArticle']->articleSlide->images)
+                            @foreach($dataView['arrSingleArticle']->articleSlide->images as $values)
+                            @if($values->type == 'images')
+                            <a href="{{$values->path}}">
+                                <img src="{{$values->path}}" alt="">
+                            </a>
+                            @endif
+                            @endforeach
+                            @endisset
 
-                                        @endif
-                                    </li>
+                            @isset($dataView['arrSingleArticle']->articleSlide->video)
+                            @foreach($dataView['arrSingleArticle']->articleSlide->video as $values)
+                            <li data-thumb="{{$values->path}}"> 
+                                @if($values->type == 'video')
+                                <a href="{{$values->path}}">
+                                    <img src="{{url('Frontend')}}/images/video.png" alt="">
+                                </a>
+                                @elseif($values->type == 'youtube')
+                                <a href="{{$values->path}}">
+                                    <img src="{{url('Frontend')}}/images/youtube.png" alt="Youtube Video">
+                                </a>
 
-                                    @endforeach
-                                    @endisset
-                                </div>
-                            </div>
+                                @endif
+                            </li>
+
+                            @endforeach
+                            @endisset
                         </div>
+
                     </div>
                 </div>
                 <div class="title-single">
@@ -162,6 +160,7 @@
                     </span>
                     @endif
                 </div>
+                @endif
                 <h1>
                     {!! $dataView['arrSingleArticle']->title !!}
                 </h1>
@@ -445,7 +444,7 @@
                                 <div class="text-uppercase title">
                                     <h2 class="title-content">
                                         <a href="{{ url('tin-lien-quan') }}/{{$dataView['arrSingleArticle']->id}}">
-                                             Tin bất động sản tương tự
+                                            Tin bất động sản tương tự
                                         </a>
                                     </h2>
                                 </div>

@@ -3,6 +3,7 @@
 @section('content')
 
 <link href="{{url('Frontend')}}/css/category.css" rel="stylesheet" type="text/css"/>
+<script src="{{url('Frontend')}}/js/ctrl/searchProductCtrl.js"></script>
 <script>
     $(document).ready(function () {
         $('.tow-column').click(function () {
@@ -24,7 +25,7 @@
     });
 </script>
 <!--.content-->
-<section class="content">
+<section class="content" ng-controller="searchProductCtrl">
     <div class="container">
         <div class="row">
             <!--.content-left-->
@@ -33,9 +34,9 @@
                 <div class="category-filter">
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-12 box-filter padding-bottom-10">
-                            <a href="?" class="btn btn-grey all {{ (old( 'cs' ) == '') ? 'active' : '' }}">Tất cả</a>
-                            <a href="?cs=1" class="btn btn-grey {{ (old( 'cs' ) == 1 ) ? 'active' : '' }}">Tin đảm bảo</a>
-                            <a  href="?cs=0" class="btn btn-grey {{(old ( 'cs' ) == 0 && old( 'cs' ) != '') ? 'active' : ''}}">Tin thường</a>
+                            <button ng-click="action.search('')" class="btn btn-grey all" ng-class="(paramsUrl.cs != 1 && (paramsUrl.cs != 0 || paramsUrl.cs == ''))?'active':''">Tất cả</button>
+                            <button ng-click="action.search(1)" class="btn btn-grey" ng-class="(paramsUrl.cs == 1)?'active':''">Tin đảm bảo</button>
+                            <button ng-click="action.search(0)" class="btn btn-grey" ng-class="(paramsUrl.cs == 0 && paramsUrl.cs != '')?'active':''">Tin thường</button>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 box-filter-right  padding-bottom-10">
                             <div class="pull-right  text-right">
@@ -128,7 +129,7 @@
                     </div>
                 </div>
             </div> <!--end .content-left-->
-            @includeif('Frontend.partial._right_sidebar_category')
+            @includeif('Frontend.partial._right_sidebar_search')
         </div>
     </div>
 </section><!--end .content-->

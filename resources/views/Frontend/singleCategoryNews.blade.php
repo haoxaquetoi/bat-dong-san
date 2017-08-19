@@ -77,7 +77,7 @@
                     </div>
                 </div>
             </div> <!--end .content-left-->
-            @includeif('Frontend.partial._right_sidebar_category')
+            @includeif('Frontend.partial._right_sidebar_news')
         </div>
     </div>
 </section><!--end .content-->

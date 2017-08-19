@@ -25,6 +25,8 @@ Route::group(['prefix' => 'rest', 'middleware' => []], function () {
     
     //widget
     Route::get('frontend/widget/{positionCode}', 'Frontend\Rest\WidgetCtrl@listWidget')->where('positionCode', '[\w]+');
+    // search
+    Route::get('frontend/getParamsSearch', 'Frontend\Rest\SearchCtrl@getParamsSearch');
 });
 
 

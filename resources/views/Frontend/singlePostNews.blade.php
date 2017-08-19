@@ -52,11 +52,14 @@
                         <div class="content-left-col-border">
                             <div class="text-uppercase title">
                                 <h2 class="title-content">
-                                    Tin bất động sản tương tự</h2>
+                                    <a href="{{ url('tin-lien-quan') }}/{{$dataView['arrSingleArticle']->id}}">
+                                        Tin tương tự
+                                    </a>
+                                </h2>
                             </div>
                             @isset ($dataView['arrSingleArticleInvolve'])
                             @foreach ($dataView['arrSingleArticleInvolve'] as $values)
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-6 col-sm-6 col-xs-12 box-article-new-involve">
                                 <article>
                                     <div class="row">
                                         <div class="col-xs-5 article-left">
@@ -93,13 +96,13 @@
                             @endforeach
                             @endisset
                             <div class="col-md-12 col-sm-12 col-xs-12 text-right padding-right-15 padding-top-15">
-                                <a class="btn btn-default btn-more-category" href="">Xem thêm <i class="fa fa-angle-right"></i></a>
+                                <a class="btn btn-default btn-more-category" href="{{ url('tin-lien-quan') }}/{{$dataView['arrSingleArticle']->id}}">Xem thêm <i class="fa fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div><!-- end .content-left-col -->
                 </div>
             </div> <!--end .content-left-->
-            @includeif('Frontend.partial._right_sidebar_category')
+            @includeif('Frontend.partial._right_sidebar_news')
         </div>
     </div>
 </section><!--end .content-->

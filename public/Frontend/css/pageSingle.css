@@ -191,7 +191,7 @@
     display: inline;
 }
 .box-search-right .box-search-right-action .btn-search{
-    width: calc(40% - 2px);
+    /* width: calc(40% - 2px); */
     font-size: 14px;
 }
 .box-search-right .box-search-right-action .btn-search-more{

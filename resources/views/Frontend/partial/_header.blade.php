@@ -46,7 +46,8 @@
         </nav>
     </div><!--end .menu-top-->
     <!--.banner-->
-    <form action="{{url('/tim-kiem')}}" method="GET">
+    <form  ng-submit="action.search(0)" id="form-seach-header">
+        <input type="hidden" name="cs" class="cs" value="" />
         <div class="container-fluid">
             <div class="row">
                 <div class="banner">
@@ -64,9 +65,9 @@
                     </div>
                     <div class="banner-search ">
                         <div class="input-group">
-                            <input value="{{ old('kw')}}" type="text" name="kw" class="input-banner-search form-control" placeholder="Tìm kiếm: Tên đường, quận, huyện, thành phố ..."/> 
+                            <input ng-model="paramsUrl.kw" type="text" name="kw" class="input-banner-search form-control" placeholder="Tìm kiếm: Tên đường, quận, huyện, thành phố ..."/> 
                             <div class="input-group-btn">
-                                <button class="btn btn-success" type="button">Tìm đảm bảo</button>
+                                <button class="btn btn-success" type="button" ng-click="action.search(1)">Tìm đảm bảo</button>
                                 <button class="btn btn-success filter"  type="submit">Tìm kiếm</button>
                             </div><!-- /btn-group -->
                         </div><!-- /input-group -->
@@ -79,85 +80,85 @@
             <div class="container">                     
                 <div class="row">
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                        <select class="form-control" name="cg">
+                        <select class="form-control" name="cg" ng-model="paramsUrl.cg">
                             <option value="">Loại nhà đất ...</option>
-                            @foreach ($dataView['paramsSearch']['category'] as $category) 
-                            <option value='{{$category-> id}}' {{($category->id == old ( 'cg' ) ? 'selected' : '')}}>{{$category->name}}</option>
-                            @endforeach
+                            <option ng-repeat="item in paramsSearch.category" value="@{{item.id}}">
+                                @{{item.name}}
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                        <select class="form-control" name="ct">
+                        <select class="form-control" name="ct" ng-model="paramsUrl.ct">
                             <option value="">Thành phố ...</option>
-                            @foreach ($dataView['paramsSearch']['city'] as $city) 
-                            <option value='{{$city->id}}' {{($city->id == old ( 'ct' ) ? 'selected' : '')}}>{{$city->name}}</option>
-                            @endforeach
+                            <option ng-repeat="item in paramsSearch.city" value="@{{item.id}}">
+                                @{{item.name}}
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                        <select class="form-control" name="pmi">
+                        <select class="form-control" name="pmi" ng-model="paramsUrl.pmi">
                             <option value="">Giá thấp nhất ... </option>
-                            @foreach ($dataView['paramsSearch']['priceMin'] as $priceMinCode => $priceMin) 
-                            <option value='{{$priceMinCode}}' {{($priceMinCode == old ( 'pmi' ) ? 'selected' : '')}}>{{$priceMin}}</option>
-                            @endforeach
+                            <option ng-repeat="(key, value) in paramsSearch.priceMin" value="@{{key}}">
+                                @{{value}}
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                        <select class="form-control" name="pma">
+                        <select class="form-control" name="pma" ng-model="paramsUrl.pma">
                             <option value="">Giá cao nhất ... </option>
-                            @foreach ($dataView['paramsSearch']['priceMax'] as $priceMaxCode => $priceMax)
-                            <option value='{{$priceMaxCode}}' {{($priceMaxCode == old ( 'pma' ) ? 'selected' : '')}}>{{$priceMax}}</option>
-                            @endforeach
+                            <option ng-repeat="(key, value) in paramsSearch.priceMax" value="@{{key}}">
+                                @{{value}}
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
 
-                        <select class="form-control" name="dh">
+                        <select class="form-control" name="dh" ng-model="paramsUrl.dh">
                             <option value="">Hướng nhà ...</option>
-                            @foreach ($dataView['paramsSearch']['direction'] as $directionCode => $direction) 
-                            <option value='{{$directionCode}}' {{($directionCode == old ( 'dh' ) ? 'selected' : '')}}>{{$direction}}</option>
-                            @endforeach
+                            <option ng-repeat="(key, value) in paramsSearch.direction" value="@{{key}}">
+                                @{{value}}
+                            </option>
                         </select>
                     </div>
 
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                        <select class="form-control" name="dt">
+                        <select class="form-control" name="dt" ng-model="paramsUrl.dt">
                             <option value="">Quận, huyện ...</option>
-                            @foreach ($dataView['paramsSearch']['district'] as $values) 
-                            <option value='{{$values->id}}' {{($values->id == old ( 'dt' ) ? 'selected' : '')}}>{{$values->name}}</option>
-                            @endforeach
+                            <option ng-repeat="item in paramsSearch.district" value="@{{item.id}}" ng-if="(paramsUrl.ct == item.city_id) || !paramsUrl.ct">
+                                @{{item.name}}
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                        <select class="form-control" name="vil">
+                        <select class="form-control" name="vil" ng-model="paramsUrl.vil">
                             <option value="">Phường, xã ...</option>
-                            @foreach ($dataView['paramsSearch']['village'] as $values) 
-                            <option value='{{$values->id}}' {{($values->id == old ( 'vil' ) ? 'selected' : '')}}>{{$values->name}}</option>
-                            @endforeach
+                            <option ng-repeat="item in paramsSearch.village" value="@{{item.id}}" ng-if="(paramsUrl.dt == item.district_id) || !paramsUrl.dt">
+                                @{{item.name}}
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                        <select class="form-control" name="fami">
+                        <select class="form-control" name="fami" ng-model="paramsUrl.fami">
                             <option value="">Diện tích nhỏ nhất ... </option>
-                            @foreach ($dataView['paramsSearch']['floorAreaMin'] as $values) 
-                            <option value='{{$values->floor_area}}' {{($values->floor_area == old ( 'fami' ) ? 'selected' : '')}}>{{$values->floor_area}}</option>
-                            @endforeach
+                            <option ng-repeat="item in paramsSearch.floorAreaMin" value="@{{item.floor_area}}">
+                                @{{item.floor_area}}
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                        <select class="form-control" name="fama">
+                        <select class="form-control" name="fama" ng-model="paramsUrl.fama">
                             <option value="">Diện tích lớn nhất ... </option>
-                            @foreach ($dataView['paramsSearch']['floorAreaMax'] as $values)
-                            <option value='{{$values->floor_area}}'  {{($values->floor_area == old ( 'fama' ) ? 'selected' : '')}}>{{$values->floor_area}}</option>
-                            @endforeach
+                            <option ng-repeat="item in paramsSearch.floorAreaMax" value="@{{item.floor_area}}">
+                                @{{item.floor_area}}
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                        <select class="form-control" name="rn">
+                        <select class="form-control" name="rn" ng-model="paramsUrl.rn">
                             <option value="">Số phòng ...</option>
-                            @foreach ($dataView['paramsSearch']['roomNumber'] as $values) 
-                            <option value='{{$values->number_of_bedrooms}}'  {{($values->number_of_bedrooms == old ( 'rn' ) ? 'selected' : '')}}>{{$values->number_of_bedrooms}}</option>
-                            @endforeach
+                            <option ng-repeat="item in paramsSearch.roomNumber" value="@{{item.number_of_bedrooms}}">
+                                @{{item.number_of_bedrooms}}
+                            </option>
                         </select>
                     </div>
                 </div>

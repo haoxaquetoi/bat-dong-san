@@ -5,6 +5,8 @@ ngApp.directive('webInfoWidget', function ($apply, $widgetService) {
     var link = function (scope) {
         scope.info;
         scope.title;
+        scope.class;
+        
         scope.getView = function(){
             return SiteUrl + '/frontend/widget/type/'+ scope.widgetPosition + '/webInfo';
         };
@@ -14,6 +16,7 @@ ngApp.directive('webInfoWidget', function ($apply, $widgetService) {
                 $apply(function(){
                     scope.info = scope.widgetData.cache.info;
                     scope.title = scope.widgetData.cache.title;
+                    scope.class = scope.widgetData.cache.class;
                 });
             }
         }

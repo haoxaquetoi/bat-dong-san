@@ -18,6 +18,7 @@ ngApp.directive('widgetTypeImage', function ($apply, $widgetService) {
                     scope.image = value.image;
                     scope.title = value.title;
                     scope.link = value.link;
+                    scope.class = value.class;
                 });
             },
             checkImage: function () {
@@ -30,7 +31,8 @@ ngApp.directive('widgetTypeImage', function ($apply, $widgetService) {
                 var data = {
                     image: $(scope.hdnImage).val(),
                     title: scope.title,
-                    link: scope.link
+                    link: scope.link,
+                    class: scope.class
                 };
                 
                 $widgetService.action.updateItem(scope.widgetId, data)

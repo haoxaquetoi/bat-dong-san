@@ -2,7 +2,7 @@
 <footer class="footer" ng-controller="footerCtrl">
     <div class="container">
         <div class="footer-content">
-            <div class="row">
+<!--            <div class="row">
                 <div class="col-md-6 col-sm-12 col-xs-12">
                     <div class="row">
                         <div class="col-md-5 col-sm-6 col-xs-12">
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 
-            </div>
+            </div>-->
             <div class="row">
                 <widget position-code="positionCode" widget-data="widgetData"></widget>
             </div>
