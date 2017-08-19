@@ -33,10 +33,16 @@ class ArticleProductInvolveCtrl extends Controller {
                     'cs' => $censored
                 )
             );
-
             return $this->_render_view_product($data);
         } else {
-            $data = '';
+            $page = isset($request->page) ? $request->page : 1;
+            // danh sách tin liên quan
+            $data['allArticleInvolve'] = $articleModel->getAllArticleInvolve($artID, 'News', $page, 10);
+            // dữ liệu cho pagging
+            $data['paginator'] = array(
+                'paginator' => $data['allArticleInvolve'],
+                'params' => array()
+            );
             return $this->_render_view_news($data);
         }
     }
@@ -47,7 +53,7 @@ class ArticleProductInvolveCtrl extends Controller {
      * @return type
      */
     private function _render_view_news($data) {
-        return view('Frontend.singleCategoryProduct')->with('dataView', $data);
+        return view('Frontend.listArticleInvolveNews')->with('dataView', $data);
     }
 
     /**

@@ -25,6 +25,11 @@
                         </div>
                     </div>
                 </div>
+                <div>
+                    <h1 class="margin-0 padding-bottom-15">
+                        Tin bất động sản tương tự
+                    </h1>
+                </div>
                 <div class="content-category">
                     <div class="row">
                         @if (count($dataView['allArticleInvolve']) > 0)
