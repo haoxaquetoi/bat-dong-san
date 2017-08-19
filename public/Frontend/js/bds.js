@@ -27,7 +27,31 @@ $(document).ready(function () {
         $('.article-right').addClass('col-xs-8');
     });
     $('category-censored').click(function () {
-        
+
     });
+
 });
+function parse_query_string(query) {
+    var vars = query.split("&");
+    var query_string = {};
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (typeof pair[0] === "undefined" || pair[0] === '') {
+            continue;
+        }
+        // If first entry with this name
+        if (typeof query_string[pair[0]] === "undefined") {
+//            console.log(query_string[pair[0]]);
+            query_string[pair[0]] = decodeURIComponent(pair[1]);
+            // If second entry with this name
+        } else if (typeof query_string[pair[0]] === "string") {
+            var arr = [query_string[pair[0]], decodeURIComponent(pair[1])];
+            query_string[pair[0]] = arr;
+            // If third or later entry with this name
+        } else {
+            query_string[pair[0]].push(decodeURIComponent(pair[1]));
+        }
+    }
+    return query_string;
+}
 

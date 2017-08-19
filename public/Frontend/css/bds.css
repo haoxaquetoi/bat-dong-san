@@ -678,3 +678,6 @@ h1 {
 .box-article-new-involve{
     padding-bottom: 10px;
 }
+.magic-radio:disabled +label, .magic-checkbox:disabled +label{
+    cursor: no-drop;
+}

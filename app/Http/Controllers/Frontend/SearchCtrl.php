@@ -10,7 +10,6 @@ class SearchCtrl extends Controller {
 
     function main(Request $request, ArticleMode $articleModel) {
         $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
-        $request->flash();
         if ($request->type == 'News') {
             return $this->_render_view_news($data);
         } else {

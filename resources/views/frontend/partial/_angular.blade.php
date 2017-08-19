@@ -12,6 +12,7 @@
 
 <!--service-->
 <script src="{{ URL::asset('Frontend/js/factory/services/widgetService.js') }}"></script>
+<script src="{{ URL::asset('Frontend/js/factory/services/searchService.js') }}"></script>
 
 <!--directive-->
 <script src="{{ URL::asset('Frontend/js/directive/widget.js') }}"></script>

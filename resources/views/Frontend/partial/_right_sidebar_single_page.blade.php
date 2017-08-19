@@ -1,5 +1,6 @@
+<script src="{{url('Frontend')}}/js/ctrl/rightSidebarSingleCtrl.js"></script>
 <!--.content-right-->
-<div class="col-md-4 col-sm-12  col-xs-12 content-right">
+<div class="col-md-4 col-sm-12  col-xs-12 content-right" ng-controller="rightSidebarSingleCtrl">
     <div class="row content-right-single-page">
         <div class="row">
             <div class="col-md-12 col-sm-6 col-xs-12">
@@ -46,16 +47,21 @@
                         Tìm kiếm nhanh
                         <button class="borber-radius-bottom"></button>
                     </div>
-                    <form class="form-horizontal">
-                        <input type="text" class="form-control margin-bottom-5" placeholder="Loại nhà đất"/>
-                        <input type="text" class="form-control margin-bottom-5" placeholder="Địa chỉ"/>
+                    <form class="form-horizontal select-group" ng-submit="action.search()">
+                        <select class="form-control  margin-bottom-5" name="cg" ng-model="paramsUrl.cg">
+                            <option value="">Loại nhà đất ...</option>
+                            <option ng-repeat="item in paramsSearch.category" value="@{{item.id}}">
+                                @{{item.name}}
+                            </option>
+                        </select>
+                        <input type="text" name="ad" ng-model="paramsUrl.ad" class="form-control margin-bottom-5" placeholder="Địa chỉ"/>
                         <div class="form-inline margin-bottom-5">
-                            <input type="text" class="form-control" placeholder="Giá từ"/>
-                            <input type="text" class="form-control" placeholder="Đến"/>
+                            <input type="text" ng-model="paramsUrl.pmi" name="pmi" class="form-control" placeholder="Giá từ"/>
+                            <input type="text" ng-model="paramsUrl.pma" name="pma" class="form-control" placeholder="Đến"/>
                         </div>
                         <div class="box-search-right-action">
-                            <button class="btn btn-success btn-search">Tìm kiếm</button>
-                            <button class="btn btn-success btn-search-more">Tìm kiếm thêm</button>
+                            <button class="btn btn-success btn-search width-100" type="submit">Tìm kiếm</button>
+                            <!--<button class="btn btn-success btn-search-more">Tìm kiếm thêm</button>-->
                         </div>
                     </form>
                 </div>

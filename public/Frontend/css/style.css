@@ -76,6 +76,7 @@ a.link {color: #337ab7;}
     padding: 7px;
     border-radius: 50%;
 }
+.width-100{width: 100%;}
 .btn-icon.btn-circle:before, .btn-icon.btn-circle>i {
     display: block;
     width: 1.4em;
