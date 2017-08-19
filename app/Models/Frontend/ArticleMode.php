@@ -219,98 +219,46 @@ class ArticleMode extends Model {
      * @param type $pageSize số bản ghi trên 1 trang
      * @return type
      */
-    function getAllArticleInvolve($articleId, $type, $page = 1, $pageSize = 10) {
+    function getAllArticleInvolve($articleId, $type, $page = 1, $pageSize = 10, $censored = '') {
 
-        // tin liên quan
-        $arrArticleInvolve = array();
-        // mảng id tin bag liên quan thr tag
-        $arrIdArticleTag = array();
-        $offset = ($page - 1) * $pageSize;
-        $limit = $pageSize;
-        //tổng số bản ghi liên quan tag
-        $totalArticleTag = 0;
-        // danh sách thẻ tag của tin bài
-        $arrTagArticle = DB::table('tag_article')
-                ->where('article_id', '=', $articleId)
-                ->selectRaw('group_concat(tag_id) as arr_tag_id')
-                ->first();
-
-        if ($arrTagArticle->arr_tag_id) {
-            // danh sách các tin liên quan có thẻ tag trùng với thẻ tag vừa $articleId
-
-            $db = $this->join(DB::raw("(SELECT 
-                                    GROUP_CONCAT(DISTINCT article_id) as article_id
-                                  FROM
-                                    tag_article 
-                                  WHERE tag_id IN 
-                                    ($arrTagArticle->arr_tag_id) 
-                                    AND article_id != $articleId
-                                    GROUP BY article_id ) ta"), function($join) {
-                        $join->on('article.id', '=', 'ta.article_id');
-                    })
-                    ->where('status', '=', '"Publish"')
-                    ->whereRaw('DATEDIFF(begin_date, now())<=0')
-                    ->whereRaw('DATEDIFF(end_date, now())>=0');
-            if ($type !== '') {
-                $db->where('type', '=', "'$type'");
-            }
-
-            // danh sách các tin liên quan có thẻ tag trùng với thẻ tag vừa $articleId
-            $arrArticleInvolveTag = $db->where('deleted', '=', 0)
-                    ->orderBy('begin_date', 'DESC')
-                    ->paginate($limit, ['id'], 'page', $page);
-
-            $limit -= $arrArticleInvolveTag->count();
-            //tổng số bản ghi liên quan tag
-            $totalArticleTag = $arrArticleInvolveTag->total();
-
-            foreach ($arrArticleInvolveTag as $value) {
-                $arrArticleInvolve[] = $this->getArticleInfo($value->id);
-                $arrIdArticleTag[] = $value->id;
-            }
+        $db = $this->join(DB::raw("(
+                                (SELECT  
+                                  DISTINCT article_id,
+                                  1 AS stt 
+                                FROM
+                                  tag_article 
+                                WHERE tag_id IN (SELECT tag_id AS arr_tag_id FROM tag_article WHERE article_id = {$articleId}) 
+                                  AND article_id != {$articleId} 
+                                GROUP BY article_id) 
+                                UNION
+                                (SELECT  
+                                  DISTINCT article_id,
+                                  2 AS stt 
+                                FROM
+                                  category_article 
+                                WHERE category_id IN (SELECT category_id AS arr_category_id FROM category_article WHERE article_id  = {$articleId}) 
+                                  AND article_id != {$articleId} 
+                                GROUP BY article_id)
+                              ) sl "), function($join) {
+                    $join->on('article.id', '=', 'sl.article_id');
+                })
+                ->where('status', '=', 'Publish')
+                ->whereRaw('DATEDIFF(begin_date, now())<=0')
+                ->whereRaw('DATEDIFF(end_date, now())>=0');
+        if ($type !== '') {
+            $db->where('type', '=', "$type");
         }
-        if ($limit > 0) {
-
-            $stringIdArticleTag = (count($arrIdArticleTag)) ? implode(",", $arrIdArticleTag) : '0';
-            // danh sách chuyên mục của tin bài
-            $arrCategory = DB::table('category_article')
-                    ->where('article_id', '=', $articleId)
-                    ->selectRaw('group_concat(category_id) as arr_category_id')
-                    ->first();
-
-            // danh sách các tin liên quan cùng category
-            if ($arrCategory->arr_category_id) {
-                $db = DB::table($this->table)
-                        ->join(DB::raw("(SELECT 
-                                    GROUP_CONCAT(DISTINCT article_id) as article_id
-                                  FROM
-                                    category_article 
-                                  WHERE category_id IN 
-                                    ($arrCategory->arr_category_id) 
-                                    AND article_id != $articleId
-                                        AND article_id NOT IN ($stringIdArticleTag)
-                                    GROUP BY article_id
-                                  ORDER BY id DESC) ca"), function($join) {
-                            $join->on('article.id', '=', 'ca.article_id');
-                        })
-                        ->where('status', '=', 'Publish')
-                        ->whereRaw('DATEDIFF(begin_date, now())<=0')
-                        ->whereRaw('DATEDIFF(end_date, now())>=0');
-                if ($type !== '') {
-                    $db->where('type', '=', $type);
-                }
-
-                $offset = $offset - $totalArticleTag;
-                $arrArticleInvolveCategory = $db->where('deleted', '=', 0)
-                        ->orderBy('begin_date', 'DESC')
-                        ->offset($offset)
-                        ->limit($limit)
-                        ->get();
-                foreach ($arrArticleInvolveCategory as $value) {
-                    $arrArticleInvolve[] = $this->getArticleInfo($value->id, TRUE, $value->type, FALSE);
-                    $arrIdArticleTag[] = $value->id;
-                }
-            }
+        if ($censored !== '') {
+            $db->where('is_censored', '=', "$censored");
+        }
+        // danh sách các tin liên quan có thẻ tag trùng với thẻ tag $articleId và cùng chuyên mục với $articleId
+        $arrArticleInvolve = $db->where('deleted', '=', 0)
+                ->orderBy('sl.stt', 'ASC')
+                ->orderBy('article.begin_date', 'DESC')
+                ->paginate($pageSize, ['id'], 'page', $page);
+//        dd($arrArticleInvolveTag);
+        foreach ($arrArticleInvolve as $key => $value) {
+            $arrArticleInvolve[$key] = $this->getArticleInfo($value->id);
         }
         return $arrArticleInvolve;
     }

@@ -25,47 +25,6 @@
 </script>
 <!--.content-->
 <section class="content">
-    <!--.banner-->
-<!--    <div class="container-fluid">
-        <div class="row">
-            <div class="banner">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000" data-pause="null">
-                     Wrapper for slides 
-                    <div class="carousel-inner" role="listbox">
-                        <div class="item active">
-                            <img src="{{url('Frontend')}}/images/banner.png" class="img-responsive" alt="banner"/>
-                        </div>
-                        <div class="item">
-                            <img src="{{url('Frontend')}}/images/banner.png" class="img-responsive" alt="banner"/>
-                        </div>
-                    </div>
-                </div>
-                <div class=" text-uppercase banner-contact">
-                    <img src="{{url('Frontend')}}/images/check.png" alt=""/>
-                    Liên hệ thẳng, giao dịch thật
-                </div>
-                <div class="container article-price">
-                    <div class="">
-                        <div class="btn-article-price text-uppercase">
-                            Tin rao bán
-                        </div>
-                        <div class="article-price-content">
-                            <span>Lorem Ipsum is simply dummy test of the printing and typesetting.</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-search ">
-                    <div class="input-group">
-                        <input type="text" class="input-banner-search form-control" placeholder="Tìm kiếm: Tên đường, quận, huyện, thành phố ..."/> 
-                        <div class="input-group-btn">
-                            <button class="btn btn-success">Tìm đảm bảo</button>
-                            <button class="btn btn-success filter">Tìm kiếm</button>
-                        </div> /btn-group 
-                    </div> /input-group 
-                </div>
-            </div>
-        </div>
-    </div>end .banner-->
     <div class="container">
         <div class="row">
             <!--.content-left-->
@@ -1229,7 +1188,7 @@
                     </div>
                 </div>
             </div> <!--end .content-left-->
-            @includeif('Frontend.partial._right_sidebar_category')
+            @includeif('Frontend.partial._right_sidebar_news')
         </div>
     </div>
 </section><!--end .content-->

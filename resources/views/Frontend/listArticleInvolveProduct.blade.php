@@ -13,6 +13,9 @@
                 <div class="category-filter">
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-12 box-filter padding-bottom-10 category-censored">
+                            <a href="?" class="btn btn-grey all {{ (old( 'cs' ) == '') ? 'active' : '' }}">Tất cả</a>
+                            <a href="?cs=1" class="btn btn-grey {{ (old( 'cs' ) == 1 ) ? 'active' : '' }}">Tin đảm bảo</a>
+                            <a  href="?cs=0" class="btn btn-grey {{(old ( 'cs' ) == 0 && old( 'cs' ) != '') ? 'active' : ''}}">Tin thường</a>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 box-filter-right  padding-bottom-10">
                             <div class="pull-right  text-right">
@@ -22,10 +25,15 @@
                         </div>
                     </div>
                 </div>
+                <div>
+                    <h1 class="margin-0 padding-bottom-15">
+                        Tin bất động sản tương tự
+                    </h1>
+                </div>
                 <div class="content-category">
                     <div class="row">
-                        @if (count($dataView['allArticle']) > 0)
-                        @foreach ($dataView['allArticle'] as $values)
+                        @if (count($dataView['allArticleInvolve']) > 0)
+                        @foreach ($dataView['allArticleInvolve'] as $values)
                         <div class="col-md-6 col-sm-6 col-xs-12 padding-bottom-45 box-category">
 
                             <article>
@@ -55,12 +63,40 @@
                                         </header>
                                         <section>
                                             <p>
-                                                {!! str_limit($values->content, $limit = 200, $end = '...') !!}
+                                                {!! str_limit($values->content, $limit = 100, $end = '...') !!}
                                             </p>
                                             <p class="bold article-right-content">
+                                                @if(isset($values->articleOther->floor_area) && $values->articleOther->floor_area > 0)
+                                                <span class="padding-right-15">
+                                                    <i class="fa fa-home" aria-hidden="true"></i> Diện tích: {{$values->articleOther->floor_area}} m2
+                                                </span>
+                                                @endif
+                                                @if(isset($values->articleOther->number_of_bedrooms) && $values->articleOther->number_of_bedrooms > 0)
+                                                <span class="padding-right-15"><i class="fa fa-bed" aria-hidden="true"></i> 
+                                                    {{$values->articleOther->number_of_bedrooms}} phòng ngủ
+                                                </span>
+                                                @endif
+                                                @if(isset($values->articleOther->number_of_wc) && $values->articleOther->number_of_wc > 0)
+                                                <span class="padding-right-15"><i class="fa fa-bed" aria-hidden="true"></i>  
+                                                    {{$values->articleOther->number_of_wc}} phòng tắm
+                                                </span>
+                                                @endif
+                                                @if(isset($values->articleOther->number_of_storeys) && $values->articleOther->number_of_storeys > 0)
+                                                <span class="padding-right-15"><i class="fa fa-home" aria-hidden="true"></i>  
+                                                    {{$values->articleOther->number_of_storeys}} Tầng
+                                                </span>
+                                                @endif
+                                                @if(isset($values->articleBase->address) && $values->articleBase->address != '')
+                                                <span class="padding-right-15"><i class="fa fa-map-marker" aria-hidden="true"></i>  
+                                                    {{$values->articleBase->address}}
+                                                </span>
+                                                @endif
                                             </p>
                                             <div class="text-right view-details">
-                                                <a class="btn btn-default btn-xs btn-more-category" href="{{app('BuildUrl')->buildArticleDetail( $values->category[0]->slug,$values->category[0]->category_id, $values->slug,  $values->id)}}">Xem chi tiết <i class="fa fa-angle-right"></i></a>
+                                                @if ((int) $values->is_censored > 0)
+                                                <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-left" alt=""/>
+                                                @endif
+                                                <a  href="{{app('BuildUrl')->buildArticleDetail( $values->category[0]->slug,$values->category[0]->category_id, $values->slug , $values->id)}}" class="btn btn-default btn-xs btn-more-category" href="">Xem chi tiết <i class="fa fa-angle-right"></i></a>
                                             </div>
                                         </section>
                                     </div>
@@ -77,7 +113,7 @@
                     </div>
                 </div>
             </div> <!--end .content-left-->
-            @includeif('Frontend.partial._right_sidebar_news')
+            @includeif('Frontend.partial._right_sidebar_category')
         </div>
     </div>
 </section><!--end .content-->

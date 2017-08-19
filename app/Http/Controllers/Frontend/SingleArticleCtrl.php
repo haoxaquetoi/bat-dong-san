@@ -25,8 +25,7 @@ class SingleArticleCtrl extends Controller {
             return $this->_render_view_product($articleInfo, $articleInvolve);
         } else {
             // tin liên quan
-            $articleInvolve = $articleModel->getAllArticleInvolve($artID, 'News', 1, 6);
-            
+            $articleInvolve = $articleModel->getAllArticleInvolve($artID, 'News', 1, 10);
             return $this->_render_view_news($articleInfo, $articleInvolve);
         }
     }
