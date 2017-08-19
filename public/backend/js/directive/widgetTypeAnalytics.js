@@ -5,6 +5,7 @@ ngApp.directive('widgetTypeAnalytics', function ($apply, $widgetService) {
     var link = function (scope) {
         scope.formAnalytics;
         scope.title;
+        scope.class;
         scope.widgetId;
         
         scope.data = {
@@ -12,6 +13,7 @@ ngApp.directive('widgetTypeAnalytics', function ($apply, $widgetService) {
                 var value = JSON.parse(data.value) || {};
                 $apply(function(){
                     scope.title = value.title || '';
+                    scope.class = value.class || '';
                     scope.widgetId = data.id || '';
                 });
             }
@@ -19,7 +21,7 @@ ngApp.directive('widgetTypeAnalytics', function ($apply, $widgetService) {
 
         scope.action = {
             update: function(){
-                $widgetService.action.updateItem(scope.widgetId, {title: scope.title})
+                $widgetService.action.updateItem(scope.widgetId, {class: scope.class, title: scope.title})
                     .then(function(resp){
                         $.notify("Cập nhật thành công!", "success");
                     })

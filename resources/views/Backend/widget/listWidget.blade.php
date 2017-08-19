@@ -42,7 +42,7 @@
                                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                     </div>
                                 </div>
-                                <div class="box-body" ng-drop="true" ng-drop-success="actions.insertItem($data,$event,code)">
+                                <div class="box-body" ng-drop="true" ng-drop-success="actions.insertItem($data,$event,code)" style="min-height: 50px;">
                                     <div class="row" >
                                         <div class="col-md-12">
                                             <div class="box collapsed-box single-widget" 
