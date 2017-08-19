@@ -46,7 +46,7 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::get('/adv/{id}', 'Backend\Rest\AdvCtrl@infoAdv')->where('id', '[\d]+');
     Route::post('/adv', 'Backend\Rest\AdvCtrl@insertAdv');
     Route::put('/adv', 'Backend\Rest\AdvCtrl@updateAdv');
-    Route::delete('/adv', 'Backend\Rest\AdvCtrl@deleteAdv');
+    Route::delete('/adv/{id}', 'Backend\Rest\AdvCtrl@deleteAdv');
     
     //setting
     Route::get('/setting', 'Backend\Rest\SettingCtrl@listSetting');

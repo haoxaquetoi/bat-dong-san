@@ -31,12 +31,7 @@ ngApp.controller('advertisingListCtrl', function ($scope, $apply, $routeParams, 
     $scope.action = {
         delete: function (id) {
             $advService.action.delete(id).then(function (resp) {
-                if(resp.data.status){
-                    $scope.data.getList();
-                }else{
-                    console.log(resp);
-                }
-                
+                $scope.data.getList();
             }, function (err) {
                 console.log(err);
             });

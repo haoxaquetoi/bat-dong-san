@@ -112,7 +112,7 @@ class AdvCtrl extends Controller {
         )->validate();
         
         //thuc hien xoa adv
-        $advModel::find($id)->delete;
+        $advModel::find($id)->delete();
         
         return response()->json(['id' => $id]);
     }

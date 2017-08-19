@@ -47,6 +47,12 @@ class MyAppConfigProvider extends ServiceProvider {
         $this->app->singleton('DirectionConfig', function($app) {
             return new \App\Libs\Config\DirectionConfig();
         });
+        
+        //register direction
+        $this->app->singleton('SettingCrawler', function($app) {
+            return new \App\Libs\Config\SettingCrawler();
+        });
+        
         //register direction
         $this->app->singleton('ParamsSearchConfig', function($app) {
             return new \App\Libs\Config\ParamsSearchConfig();
@@ -70,6 +76,7 @@ class MyAppConfigProvider extends ServiceProvider {
             'WidgetConfig',
             'ThemeConfig',
             'DirectionConfig',
+            'SettingCrawler',
             'SettingConfig',
             'BuildUrl',
             'ParamsSearchConfig'

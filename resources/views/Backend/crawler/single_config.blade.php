@@ -6,8 +6,9 @@
 <script src="{{url('backend')}}/js/crawler/crawlerCtrl.js"></script>
 <script src="{{url('backend')}}/js/factory/services/crawlerService.js"></script>
 @endpush
-
-
+<?php
+$SettingCrawler = app('SettingCrawler')->getColumnConfig();
+?>
 <angular ng-cloak="">
 
     <section class="content-header">
@@ -20,7 +21,25 @@
         <form role="form">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Thông tin website lấy tin</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <label for="txtSlug">Tên website:</label>&nbsp;&nbsp;<?php echo $crawlerInfo->website_name ?>
+                            <br/>
+                            <label for="txtSlug">Đường dẫn truy cập:</label>&nbsp;&nbsp;<?php echo $crawlerInfo->website_url ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Cấu hình chuyên mục</h3>
@@ -32,28 +51,84 @@
                         <!-- form start -->
                         <div class="box-body">
                             <div class="form-group" ng-class="actions.hasError('title') ? 'has-error' : ''">
-                                <label for="txtTitle">Tiêu đề <span class="text-danger">*</span></label>
+                                <label for="txtTitle">Chọn chuyên mục lấy tin <span class="text-danger">*</span></label>
                                 <select class="form-control">
-                                    <option>Chuyện mục 1</option>
-                                    <option>Chuyện mục 1</option>
-                                    <option>Chuyện mục 1</option>
+                                    <?php
+                                    for ($i = 0; $i < count($category); $i ++) {
+                                        $name = $category[$i]['name'];
+                                        $catID = $category[$i]['id'];
+                                        $splitChild = $category[$i]['children'];
+                                        echo "<option value='$catID'>{$splitChild}{$name}</option>";
+                                    }
+                                    ?>
+
                                 </select>
                                 <span class="help-block">@{{actions.showError('title')}}</span>
                             </div>
+
                             <div class="form-group" ng-class="actions.hasError('slug') ? 'has-error' : ''">
-                                <label for="txtSlug">Đường dẫn chuyên mục<span class="text-danger">*</span></label>
+                                <label for="txtSlug">Xpath lọc danh sách tin<span class="text-danger">*</span></label>
                                 <input placeholder="Đường dẫn"  ng-model="articleInfo.slug"  type="text" class="form-control" id="txtSlug"  name="txtSlug" />
                                 <span class="help-block">@{{actions.showError('slug')}}</span>
                             </div>
 
                             <div class="form-group" ng-class="actions.hasError('content') ? 'has-error' : ''">
-                                <label for="txtCatXpath">Xpath lọc tinh trong chuyên mục<span class="text-danger">*</span></label>
+                                <label for="txtCatXpath">Xpath lấy chi tiết tin<span class="text-danger">*</span></label>
                                 <input placeholder="Đường dẫn"  ng-model="articleInfo.txtContent"  type="text" class="form-control" id="txtContent"  name="txtContent" />
                                 <span class="help-block">@{{actions.showError('content')}}</span>
                             </div>
                         </div>
 
                     </div>
+
+
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Thông tin cơ bản</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <?php
+                            foreach ($SettingCrawler['base'] as $key => $name) {
+                                echo "<div class='form-group' ng-class='actions.hasError('$key') ? 'has-error' : '''>
+                                            <label for='txt{$key}'>$name<span class='text-danger'>*</span></label>
+                                                    <input placeholder='Xpath $name' ng-model='crawlerConfig.$key' type='text' class='form-control' id='txt{$key}' name='txt{$key}' />
+                                            <span class='help-block'>{{actions.showError('$key')}}</span>
+                                    </div>";
+                            }
+                            ?>
+                        </div>
+
+                    </div>
+
+                    <div class="box box-primary">   
+
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Thông tin liên hệ</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <?php
+                            foreach ($SettingCrawler['contact'] as $key => $name) {
+                                echo "<div class='form-group' ng-class='actions.hasError('$key') ? 'has-error' : '''>
+                                            <label for='txt{$key}'>$name<span class='text-danger'>*</span></label>
+                                                    <input placeholder='Xpath $name' ng-model='crawlerConfig.$key' type='text' class='form-control' id='txt{$key}' name='txt{$key}' />
+                                            <span class='help-block'>{{actions.showError('$key')}}</span>
+                                    </div>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-6">
+
 
                     <div class="box box-primary">
                         <div class="box-header with-border">
@@ -65,367 +140,63 @@
                         <!-- /.box-header -->
                         <!-- form start -->
                         <div class="box-body">
-                            <div class="form-group" ng-class="actions.hasError('title') ? 'has-error' : ''">
-                                <label for="txtTitle">Tiêu đề <span class="text-danger">*</span></label>
-                                <input placeholder="Tiêu đề" ng-model="articleInfo.title" type="text" class="form-control" id="txtTitle" name="txtTitle" />
-                                <span class="help-block">@{{actions.showError('title')}}</span>
-                            </div>
-                            <div class="form-group" ng-class="actions.hasError('slug') ? 'has-error' : ''">
-                                <label for="txtSlug">Đường dẫn <span class="text-danger">*</span></label>
-                                <input placeholder="Đường dẫn"  ng-model="articleInfo.slug"  type="text" class="form-control" id="txtSlug"  name="txtSlug" />
-                                <span class="help-block">@{{actions.showError('slug')}}</span>
-                            </div>
-
-                            <div class="form-group" ng-class="actions.hasError('content') ? 'has-error' : ''">
-                                <label for="txtContent">Nội dung <span class="text-danger">*</span></label>
-                                <input placeholder="Đường dẫn"  ng-model="articleInfo.txtContent"  type="text" class="form-control" id="txtContent"  name="txtContent" />
-                                <span class="help-block">@{{actions.showError('content')}}</span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Thông tin cơ bản</h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            </div>
-                        </div>
-                        <!-- /.box-header -->
-                        <!-- form start -->
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-sm-6 col-xs-12" >
-                                    <div class="form-group" ng-class="actions.hasError('article_base.city_id') ? 'has-error' : ''">
-                                        <label for="">Tỉnh/Thành phố <span class="text-danger">*</span></label>
-                                        <input placeholder="Đường dẫn"  ng-model="articleInfo.article_base.city_id"  type="text" class="form-control" id="txtCity"  name="txtCity" />
-                                        <span class="help-block">@{{actions.showError('article_base.city_id')}}</span>
-
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xs-12" >
-                                    <div class="form-group" ng-class="actions.hasError('article_base.district_id') ? 'has-error' : ''">
-                                        <label for="">Quận/Huyện <span class="text-danger">*</span></label>
-                                        <input placeholder="Đường dẫn"  ng-model="articleInfo.article_base.city_id"  type="text" class="form-control" id="district_id"  name="district_id" />
-                                        <span class="help-block">@{{actions.showError('article_base.district_id')}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" >
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('article_base.village_id') ? 'has-error' : ''">
-                                        <label for="">Phường/Xã <span class="text-danger">*</span></label>
-                                        <input placeholder="Đường dẫn"  ng-model="articleInfo.article_base.village_id"  type="text" class="form-control" id="village_id"  name="village_id" />
-                                        <span class="help-block">@{{actions.showError('article_base.village_id')}}</span>
-                                    </div>
-
-                                </div>
-                                <div class="col-sm-6 col-xs-12" >
-                                    <div class="form-group" ng-class="actions.hasError('article_base.street_id') ? 'has-error' : ''">
-                                        <label for="">Đường/Phố</label>
-                                        <input placeholder="Đường dẫn"  ng-model="articleInfo.article_base.street_id"  type="text" class="form-control" id="street_id"  name="street_id" />
-                                        <span class="help-block">@{{actions.showError('article_base.street_id')}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('article_base.address') ? 'has-error' : ''">
-                                        <label for="">Địa chỉ <span class="text-danger">*</span></label>
-
-                                        <input type="text" class="form-control" id="txtAddress" value="@{{articleInfo.article_base.address}}"  />
-                                        <span class="help-block">@{{actions.showError('article_base.address')}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('article_base.price') ? 'has-error' : ''">
-                                        <label for="">Giá</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_base.price" />
-                                        <span class="help-block">@{{actions.showError('article_base.price')}}</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!--                            <div class="form-group">
-                                                            <label for="">Tổng tiền: 1,000,000,000</label>
-                                                        </div>-->
-                            <div class="form-group">
-                                <label for=""> Chính chủ</label>
-                                <input type="text" class="form-control" ng-model="articleInfo.article_base.myself" />
-                            </div>
+                            <?php
+                            foreach ($SettingCrawler['content'] as $key => $name) {
+                                echo "<div class='form-group' ng-class='actions.hasError('$key') ? 'has-error' : '''>
+                                            <label for='txt{$key}'>$name<span class='text-danger'>*</span></label>
+                                                    <input placeholder='Xpath $name' ng-model='crawlerConfig.$key' type='text' class='form-control' id='txt{$key}' name='txt{$key}' />
+                                            <span class='help-block'>{{actions.showError('$key')}}</span>
+                                    </div>";
+                            }
+                            ?>
                         </div>
                     </div>
+
                     <div class="box box-primary">
+
                         <div class="box-header with-border">
                             <h3 class="box-title">Thông tin khác</h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             </div>
                         </div>
-                        <!-- /.box-header -->
-                        <!-- form start -->
                         <div class="box-body">
-                            <div class="row">
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">Mặt tiền</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.facade" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">Hướng vào</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.entry_width" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">Hướng nhà</label>
-                                        <select class="form-control"  ng-model="articleInfo.article_other.house_direction">
-                                            <option value="">--Chọn hướng nhà--</option>
-                                            <option ng-repeat="(k, v) in direction" value="@{{k}}" >@{{v}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">Hướng ban công</label>
-                                        <select class="form-control" ng-model="articleInfo.article_other.balcony_direction">
-                                            <option value="">--Chọn hướng ban công--</option>
-                                            <option ng-repeat="(k, v) in direction" value="@{{k}}" >@{{v}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">Số tầng</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_storeys" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">Số phòng ngủ</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_bedrooms" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">Số tolet</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_wc" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">Mô tả nội thất</label>
-                                        <textarea name="txtContentFurniture" class="form-control my-ckeditor" ></textarea>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php
+                            foreach ($SettingCrawler['other'] as $key => $name) {
+                                echo "<div class='form-group' ng-class='actions.hasError('$key') ? 'has-error' : '''>
+                                            <label for='txt{$key}'>$name<span class='text-danger'>*</span></label>
+                                                    <input placeholder='Xpath $name' ng-model='crawlerConfig.$key' type='text' class='form-control' id='txt{$key}' name='txt{$key}' />
+                                            <span class='help-block'>{{actions.showError('$key')}}</span>
+                                    </div>";
+                            }
+                            ?>
                         </div>
                     </div>
-                    <div class="box box-primary">
+
+                    <div class="box box-primary">    
+
                         <div class="box-header with-border">
-                            <h3 class="box-title">Thông tin liên hệ</h3>
+                            <h3 class="box-title">Danh sách ảnh/video slide</h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             </div>
                         </div>
-                        <!-- /.box-header -->
-                        <!-- form start -->
                         <div class="box-body">
-                            <div class="row">
-                                <div class="col-sm-12 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('article_contact.name') ? 'has-error' : ''">
-                                        <label for="">Tên liên hệ <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.name" />
-                                        <span class="help-block">@{{actions.showError('article_contact.name')}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('article_contact.address') ? 'has-error' : ''">
-                                        <label for="">Địa chỉ <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.address" />
-                                        <span class="help-block">@{{actions.showError('article_contact.address')}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('article_contact.phone') ? 'has-error' : ''">
-                                        <label for="">Số điện thoại</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.phone" />
-                                        <span class="help-block">@{{actions.showError('article_contact.phone')}}</span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('article_contact.mobile') ? 'has-error' : ''">
-                                        <label for="">Di động <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.mobile" />
-                                        <span class="help-block">@{{actions.showError('article_contact.mobile')}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6 col-xs-12">
-                                    <div class="form-group" ng-class="actions.hasError('article_contact.email') ? 'has-error' : ''">
-                                        <label for="">Email <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_contact.email" />
-                                        <span class="help-block">@{{actions.showError('article_contact.email')}}</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php
+                            foreach ($SettingCrawler['slide'] as $key => $name) {
+                                echo "<div class='form-group' ng-class='actions.hasError('$key') ? 'has-error' : '''>
+                                            <label for='txt{$key}'>$name<span class='text-danger'>*</span></label>
+                                                    <input placeholder='Xpath $name' ng-model='crawlerConfig.$key' type='text' class='form-control' id='txt{$key}' name='txt{$key}' />
+                                            <span class='help-block'>{{actions.showError('$key')}}</span>
+                                    </div>";
+                            }
+                            ?>
                         </div>
+
                     </div>
+
                 </div>
-
-
-                <div class="col-md-4">
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Lịch đăng</h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            </div>
-                        </div>
-                        <div class="box-body">
-                            <div class="form-group">
-                                <div class="col-xs-6" style="padding: 0 3px 10px 0" ng-class="actions.hasError('begin_date') ? 'has-error' : ''">
-                                    <label for="txtbegin_date">Từ ngày</label>
-                                    <input type="date" class="form-control" id="txtbegin_date" value="@{{articleInfo.begin_date}}" />
-                                    <span class="help-block">@{{actions.showError('begin_date')}}</span>
-                                </div>
-                                <div class="col-xs-6" style="padding: 0 0 10px 3px" ng-class="actions.hasError('end_date') ? 'has-error' : ''">
-                                    <label for="txtend_date">Đến ngày</label>
-                                    <input type="date" class="form-control" id="txtend_date" value="@{{articleInfo.end_date}}"  />
-                                    <span class="help-block">@{{actions.showError('end_date')}}</span>
-                                </div>
-
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-6" style="padding: 0 3px 10px 0">
-                                    <div class="form-group">
-                                        <input  type="checkbox"  class="magic-checkbox" ng-checked="articleInfo.is_sticky == 1"  ng-click="articleInfo.is_sticky = !articleInfo.is_sticky"  name=chkSticky" id="chkSticky" />
-                                        <label for="chkSticky" class="padding-right-20" >
-                                            Tin nổi bật
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6" style="padding: 0 0 10px 3px">
-                                    <div class="form-group">
-                                        <input  type="checkbox"  class="magic-checkbox" ng-checked="articleInfo.is_censored == 1" ng-click="articleInfo.is_censored = !articleInfo.is_censored" name=chkCensored" id="chkCensored" >
-                                        <label for="chkCensored" class="padding-right-20" >
-                                            Tin đảm bảo
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group clearfix">
-                                <div class="col-xs-6" style="padding: 0 3px 10px 0">
-                                    <div class="form-group">
-                                        <input  type="checkbox" name="chkSold" id='chkSold' class="magic-checkbox" ng-checked="articleInfo.is_sold == 1" ng-click="articleInfo.is_sold = !articleInfo.is_sold"  name=chkSold" id="chkSold" >
-                                        <label for="chkSold" class="padding-right-20" >
-                                            Đã bán
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group clearfix">
-                                <div class="col-xs-6" style="padding: 0 3px 10px 0">
-                                    <label>Trạng thái</label>
-                                    <select class="form-control" ng-model="articleInfo.status">
-                                        <option value="Publish">Công khai</option>
-                                        <option value="Trash">Viết nháp</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group text-center">
-                                <button type="button" class="btn btn-primary" ng-click="actions.update()">Lưu</button>
-                                <button type="button" class="btn btn-default" ng-click="actions.cancel()">hủy bỏ</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Chuyên mục <span class="text-danger">*</span></h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            </div>
-                        </div>
-                        <div class="box-body" style="max-height: 150px;overflow-y: auto">
-                            <div class="form-group">
-
-                                <div ng-repeat="cat in categorys">
-                                    <label><input type="checkbox" class="chkCat" ng-checked="cat.checked" ng-click="cat.checked = !cat.checked"  value="@{{cat.id}}" >@{{cat.children}}&nbsp;@{{cat.name}}</label>
-                                </div>
-                                <span style="color: #dd4b39" class="help-block">@{{actions.showError('category')}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Tag</h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            </div>
-                        </div>
-                        <div class="box-body">
-                            <div class="form-group">
-                                <input type="text" name="txtTag" id="txtTag" value="" />
-                                <button type="button" ng-click="actions.addTags()"  >Lưu</button>
-                                <br/>
-                                <p>Danh sách thẻ tag đã chọn</p>
-                                <div id="newTags">
-                                    <a hre="javascript:;" ng-repeat="tag in articleInfo.tags" >
-                                        <i class="glyphicon glyphicon-remove-sign" ng-click="actions.removeTags($index)" ></i> @{{tag}}&nbsp;&nbsp;
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Danh sách thẻ tag đã sử dụng</label><br/>
-                                <div style="margin: 5px 0 10px;
-                                     padding: 8px;
-                                     border: 1px solid #ddd;
-                                     line-height: 1.8em;
-                                     word-spacing: 3px;">
-                                    <a hre="javascript:;" ng-repeat="tagOld in allTagsOlds" ng-click="actions.chooseTagsOld(tagOld.code)" ><u>@{{tagOld.code}}</u>&nbsp;</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Ảnh minh họa</h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            </div>
-                        </div>
-                        <div class="box-body">
-                            <div class="form-group text-center">
-                                <div>
-                                    <a data-input="thumbnail" data-preview="holder" class="btn btn-primary my-lfm-img">
-                                        <i class="fa fa-picture-o"></i> Chọn ảnh/video
-                                    </a>
-                                    <input id="thumbnail" class="form-control " type="hidden" name="filepath" ng-model="articleInfo.thumbnail"  >
-                                </div>
-                                <img  id="holder" class="img-responsive margin-top-15" src="@{{actions.build_thumnail(articleInfo.thumbnail)}}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row (main row) -->
+                <!-- /.row (main row) -->
         </form>
     </section>
     <!-- /.content -->

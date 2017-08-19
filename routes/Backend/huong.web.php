@@ -17,7 +17,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
 
     #Crawler
     Route::get('/crawler', 'Backend\Crawler\CrawlerCtrl@index')->name('crawler');
-    Route::get('/crawler/configCrawler', 'Backend\Crawler\CrawlerCtrl@configCrawler');
+    Route::get('/crawler/configCrawler/{id}', 'Backend\Crawler\CrawlerCtrl@configCrawler');
 
     #article
     Route::get('/article', 'Backend\Article\ArticleCtrl@main')->name('article');
