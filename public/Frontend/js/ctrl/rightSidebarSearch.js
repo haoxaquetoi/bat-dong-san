@@ -12,8 +12,8 @@ ngApp.controller('rightSidebarSearch', function ($scope)
         dt: searchObject.dt || '',
         vil: searchObject.vil || '',
         st: searchObject.st || '',
-        fami: searchObject.fami || '',
-        fama: searchObject.fama || '',
+        fami: parseInt(searchObject.fami) || '',
+        fama: parseInt(searchObject.fama) || '',
         sn: searchObject.sn || '',
         rn: searchObject.rn || ''
     };

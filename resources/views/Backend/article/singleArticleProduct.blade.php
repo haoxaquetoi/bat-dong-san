@@ -168,7 +168,10 @@
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Mặt tiền</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.facade" />
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="articleInfo.article_other.facade" />
+                                            <span class="input-group-addon">m</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
@@ -202,13 +205,19 @@
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Số tầng</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_storeys" />
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_storeys" />
+                                            <span class="input-group-addon">tầng</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Diện tích nhà</label>
-                                        <input type="text"  class="form-control" ng-model="articleInfo.article_other.floor_area" />
+                                        <div class="input-group">
+                                            <input type="text"  class="form-control" ng-model="articleInfo.article_other.floor_area" />
+                                            <span class="input-group-addon">m</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -216,13 +225,19 @@
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Số phòng ngủ</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_bedrooms" />
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_bedrooms" />
+                                            <span class="input-group-addon">phòng</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">Số tolet</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_wc" />
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="articleInfo.article_other.number_of_wc" />
+                                            <span class="input-group-addon">phòng</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -465,7 +480,7 @@
                                             <source src="movie.ogg" type="video/ogg">
                                             Your browser does not support the video tag.
                                         </video>
-                                        <iframe ng-if="video.type == 'youtube'" width="100" height="100" src="@{{video.path | trustAsResourceUrl}}" style="float: left;margin: 3px;"></iframe>
+                                        <iframe ng-if="video.type == 'youtube'" width="100" height="100" src="@{{video.path| trustAsResourceUrl}}" style="float: left;margin: 3px;"></iframe>
                                     </li>
 
                                     <li  ng-repeat=" video in  articleInfo.article_slide.video" style="display: none">

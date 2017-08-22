@@ -34,7 +34,6 @@ ngApp.controller('headerCtrl', function ($scope, $rootScope, $apply, $widgetServ
             $searchService.action.getParamsSearch().then(function (resp) {
                 $apply(function () {
                     $rootScope.paramsSearch = resp.data;
-                    console.log($rootScope.paramsSearch)
                 });
             }).catch(function (err) {
                 console.log(err);

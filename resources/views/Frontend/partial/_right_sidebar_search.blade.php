@@ -128,6 +128,12 @@
                 </div>
                 <form class="form-horizontal form-magic">
                     <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
+                            <input id="0-dh" type="radio" name='dh' value="" class="magic-radio" ng-model="paramsUrl.dh" ng-change="action.search()">
+                            <label for="0-dh" class="padding-right-20">
+                                Tất cả
+                            </label>
+                        </div>
                         <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15" ng-repeat="(key, value) in paramsSearch.direction">
                             <input id="@{{key}}-dh" type="radio" name='dh' value="@{{key}}" class="magic-radio" ng-model="paramsUrl.dh" ng-change="action.search()">
                             <label for="@{{key}}-dh" class="padding-right-20">

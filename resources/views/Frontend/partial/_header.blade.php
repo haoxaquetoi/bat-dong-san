@@ -80,7 +80,7 @@
             <div class="container">                     
                 <div class="row">
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                        <select class="form-control" name="cg" ng-model="paramsUrl.cg">
+                        <select class="form-control" name="cg" ng-model="paramsUrl.cg" ng-change="action.search()">
                             <option value="">Loại nhà đất ...</option>
                             <option ng-repeat="item in paramsSearch.category" value="@{{item.id}}">
                                 @{{item.name}}
@@ -88,7 +88,7 @@
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                        <select class="form-control" name="ct" ng-model="paramsUrl.ct">
+                        <select class="form-control" name="ct" ng-model="paramsUrl.ct" ng-change="action.search()">
                             <option value="">Thành phố ...</option>
                             <option ng-repeat="item in paramsSearch.city" value="@{{item.id}}">
                                 @{{item.name}}
@@ -96,7 +96,7 @@
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                        <select class="form-control" name="pmi" ng-model="paramsUrl.pmi">
+                        <select class="form-control" name="pmi" ng-model="paramsUrl.pmi" ng-change="action.search()">
                             <option value="">Giá thấp nhất ... </option>
                             <option ng-repeat="(key, value) in paramsSearch.priceMin" value="@{{key}}">
                                 @{{value}}
@@ -104,7 +104,7 @@
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
-                        <select class="form-control" name="pma" ng-model="paramsUrl.pma">
+                        <select class="form-control" name="pma" ng-model="paramsUrl.pma" ng-change="action.search()">
                             <option value="">Giá cao nhất ... </option>
                             <option ng-repeat="(key, value) in paramsSearch.priceMax" value="@{{key}}">
                                 @{{value}}
@@ -113,7 +113,7 @@
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10">
 
-                        <select class="form-control" name="dh" ng-model="paramsUrl.dh">
+                        <select class="form-control" name="dh" ng-model="paramsUrl.dh" ng-change="action.search()">
                             <option value="">Hướng nhà ...</option>
                             <option ng-repeat="(key, value) in paramsSearch.direction" value="@{{key}}">
                                 @{{value}}
@@ -122,7 +122,7 @@
                     </div>
 
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                        <select class="form-control" name="dt" ng-model="paramsUrl.dt">
+                        <select class="form-control" name="dt" ng-model="paramsUrl.dt" ng-change="action.search()">
                             <option value="">Quận, huyện ...</option>
                             <option ng-repeat="item in paramsSearch.district" value="@{{item.id}}" ng-if="(paramsUrl.ct == item.city_id) || !paramsUrl.ct">
                                 @{{item.name}}
@@ -130,7 +130,7 @@
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                        <select class="form-control" name="vil" ng-model="paramsUrl.vil">
+                        <select class="form-control" name="vil" ng-model="paramsUrl.vil" ng-change="action.search()">
                             <option value="">Phường, xã ...</option>
                             <option ng-repeat="item in paramsSearch.village" value="@{{item.id}}" ng-if="(paramsUrl.dt == item.district_id) || !paramsUrl.dt">
                                 @{{item.name}}
@@ -138,7 +138,7 @@
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                        <select class="form-control" name="fami" ng-model="paramsUrl.fami">
+                        <select class="form-control" name="fami" ng-model="paramsUrl.fami" ng-change="action.search()">
                             <option value="">Diện tích nhỏ nhất ... </option>
                             <option ng-repeat="item in paramsSearch.floorAreaMin" value="@{{item.floor_area}}">
                                 @{{item.floor_area}}
@@ -146,7 +146,7 @@
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                        <select class="form-control" name="fama" ng-model="paramsUrl.fama">
+                        <select class="form-control" name="fama" ng-model="paramsUrl.fama" ng-change="action.search()">
                             <option value="">Diện tích lớn nhất ... </option>
                             <option ng-repeat="item in paramsSearch.floorAreaMax" value="@{{item.floor_area}}">
                                 @{{item.floor_area}}
@@ -154,7 +154,7 @@
                         </select>
                     </div>
                     <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
-                        <select class="form-control" name="rn" ng-model="paramsUrl.rn">
+                        <select class="form-control" name="rn" ng-model="paramsUrl.rn" ng-change="action.search()">
                             <option value="">Số phòng ...</option>
                             <option ng-repeat="item in paramsSearch.roomNumber" value="@{{item.number_of_bedrooms}}">
                                 @{{item.number_of_bedrooms}}
