@@ -52,15 +52,15 @@ class ArticleMode extends Model {
         if ($freeText != '') {
             $db->where('title', 'like', "%{$freeText}%");
         }
-        if ($sticky != '') {
+        if ($sticky != '' && !is_null($sticky)) {
             $db->where('is_sticky', '=', $sticky);
         }
 
-        if ($censored !== '') {
+        if ($censored !== '' && !is_null($censored)) {
             $db->where('is_censored', '=', $censored);
         }
 
-        if ($sold !== '') {
+        if ($sold !== '' && !is_null($sold)) {
             $db->where('is_sold', '=', $sold);
         }
         if ($type == 'News') {
@@ -264,7 +264,7 @@ class ArticleMode extends Model {
     }
 
     /**
-     * Tiemf kiếm tin bất động sản
+     * Tìm kiếm tin bất động sản
      * @param type $params
      * $params->cs: tin đảm bảo
      * $params->st: Tin nổi bật
@@ -297,10 +297,10 @@ class ArticleMode extends Model {
                 ->whereRaw('DATEDIFF(article.end_date, now())>=0')
                 ->where('deleted', '=', 0);
 
-        if ($params->cs) {
+        if ($params->cs !== '' && !is_null($params->cs)) {
             $db->where('article.is_censored', '=', $params->cs);
         }
-        if ($params->st) {
+        if ($params->st !== '' && !is_null($params->st)) {
             $db->where('article.is_sticky', '=', $params->st);
         }
         if ($params->kw) {
@@ -350,6 +350,36 @@ class ArticleMode extends Model {
         foreach ($allArticle as $key => $value) {
             $allArticle[$key] = $this->getArticleInfo($value->id);
         }
+        return $allArticle;
+    }
+
+    /**
+     * Tìm kiếm tin đăng
+     * @param type $params
+     * $params->kw từ khóa 
+     * $params->cg: Lọai nhà đất
+     * @param type $page trang
+     * @param type $pageSize số bản ghi trên một trang
+     * @return type
+     */
+    public function searchArticleNews($params, $page = 1, $pageSize = 10) {
+        $db = DB::table($this->table)
+                ->leftJoin('category_article', 'article.id', '=', 'category_article.article_id')
+                ->where('article.type', '=', 'News')
+                ->where('article.status', '=', 'Publish')
+                ->whereRaw('DATEDIFF(article.begin_date, now())<=0')
+                ->whereRaw('DATEDIFF(article.end_date, now())>=0')
+                ->where('deleted', '=', 0);
+
+        if ($params->kw) {
+            $db->where('article.title', 'like', "%{$params->kw}%");
+        }
+        if ($params->cg) {
+            $db->where('category_article.category_id', '=', $params->cg);
+        }
+        $allArticle = $db->orderBy('begin_date', 'DESC')
+                ->paginate($pageSize, ['*'], 'page', $page);
+
         return $allArticle;
     }
 

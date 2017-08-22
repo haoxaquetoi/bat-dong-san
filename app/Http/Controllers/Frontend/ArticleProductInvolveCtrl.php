@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Frontend\ArticleMode;
-use App\Models\Frontend\FeedbackModel;
 
 class ArticleProductInvolveCtrl extends Controller {
 
@@ -15,7 +14,6 @@ class ArticleProductInvolveCtrl extends Controller {
 
         $artID = isset($request->artID) ? $request->artID : 0;
         $articleInfo = $articleModel->getArticleInfo($artID, TRUE);
-        $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         if (!isset($articleInfo->id)) {
             return view('Frontend.errors.post', ['errorCode' => 'notFound']);
         }
@@ -34,6 +32,7 @@ class ArticleProductInvolveCtrl extends Controller {
                 )
             );
             return $this->_render_view_product($data);
+            
         } else {
             $page = isset($request->page) ? $request->page : 1;
             // danh sách tin liên quan
@@ -49,7 +48,7 @@ class ArticleProductInvolveCtrl extends Controller {
 
     /**
      * Hiển thị giao diện trường hợp tin liên quan của tin tức
-     * @param type $catInfo
+     * @param type 
      * @return type
      */
     private function _render_view_news($data) {
@@ -58,7 +57,7 @@ class ArticleProductInvolveCtrl extends Controller {
 
     /**
      * Hiển thị giao diện trường hợp tin iên quan của tin đăng
-     * @param type $catInfo
+     * @param type 
      * @return type
      */
     private function _render_view_product($data) {

@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 class SingleTagCtrl extends Controller {
 
     function main() {
-		$data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
         echo 'tags';
     }
 

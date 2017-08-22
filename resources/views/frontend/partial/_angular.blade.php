@@ -9,7 +9,8 @@
 <!--factory-->
 <script src="{{ URL::asset('js/factory/apply.js') }}"></script>
 <script src="{{ URL::asset('js/factory/myFunc.js') }}"></script>
-
+<!--directive-->
+<script src="{{ URL::asset('js/directives/index.php') }}"></script>
 <!--service-->
 <script src="{{ URL::asset('Frontend/js/factory/services/widgetService.js') }}"></script>
 <script src="{{ URL::asset('Frontend/js/factory/services/searchService.js') }}"></script>

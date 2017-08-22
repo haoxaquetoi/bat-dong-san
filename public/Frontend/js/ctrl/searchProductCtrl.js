@@ -10,10 +10,10 @@ ngApp.controller('searchProductCtrl', function ($scope)
 
     $scope.action = {
         search: function (cs) {
-            if (cs != searchObject.cs) {
+            if (cs !== searchObject.cs) {
                 searchObject.cs = cs;
                 var str = jQuery.param(searchObject);
-                window.location.href = SiteUrl + '/tim-kiem?' + str;
+                window.location.href = SiteUrl + '/tim-kiem-tin-bat-dong-san?' + str;
             }
         }
     };
