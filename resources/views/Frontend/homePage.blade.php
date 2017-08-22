@@ -20,7 +20,7 @@
                             <div class="content-left-col-border">
                                 <div class="text-uppercase title">
                                     <h2 class="title-content">
-                                        <a href="{{ url('tim-kiem?cs=1') }}">
+                                        <a href="{{ url('tim-kiem-tin-bat-dong-san?cs=1') }}">
                                             Tin đảm bảo
                                         </a>
                                     </h2>
@@ -81,7 +81,7 @@
                                 @endforeach
                                 @endif
                                 <div class="text-right padding-right-15">
-                                    <a class="btn btn-default btn-more-category" href="{{ url('tim-kiem?cs=1') }}">Xem thêm <i class="fa fa-angle-right"></i></a>
+                                    <a class="btn btn-default btn-more-category" href="{{ url('tim-kiem-tin-bat-dong-san?cs=1') }}">Xem thêm <i class="fa fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div> <!-- end .content-left-col -->
@@ -92,7 +92,7 @@
                             <div class="content-left-col-border">
                                 <div class="text-uppercase title">
                                     <h2 class="title-content">
-                                        <a href="{{ url('tim-kiem?cs=0') }}">
+                                        <a href="{{ url('tim-kiem-tin-bat-dong-san?cs=0') }}">
                                             Tin thường
                                         </a>
                                     </h2>
@@ -154,7 +154,7 @@
                                 @endforeach
                                 @endif
                                 <div class="text-right padding-right-15">
-                                    <a class="btn btn-default btn-more-category" href="{{ url('tim-kiem?cs=0') }}">Xem thêm <i class="fa fa-angle-right"></i></a>
+                                    <a class="btn btn-default btn-more-category" href="{{ url('tim-kiem-tin-bat-dong-san?cs=0') }}">Xem thêm <i class="fa fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div><!-- end .content-left-col -->

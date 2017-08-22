@@ -17,7 +17,7 @@ ngApp.controller('rightSidebarSingleCtrl', function ($scope)
             searchObject.pma = $scope.paramsUrl.pma;
             searchObject.ad = $scope.paramsUrl.ad;
             var str = jQuery.param(searchObject);
-            window.location.href = SiteUrl + '/tim-kiem?' + str;
+            window.location.href = SiteUrl + '/tim-kiem-tin-bat-dong-san?' + str;
         }
     };
 });

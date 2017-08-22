@@ -85,6 +85,12 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12 padding-bottom-15">
                                     <label class=" padding-left-15 bold">Giá từ</label>
                                 </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 padding-bottom-15">
+                                    <input id="0-pmi" type="radio" name='pmi' value="" class="magic-radio" ng-model="paramsUrl.pmi" ng-change="action.search()">
+                                    <label for="0-pmi" class="padding-right-20">
+                                        Tất cả
+                                    </label>
+                                </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 padding-bottom-15" ng-repeat="(key, value) in paramsSearch.priceMin">
                                     <input id="@{{key}}-pmi" type="radio" name='pmi' value="@{{key}}" ng-disabled="(1 * key > 1 * paramsUrl.pma && paramsUrl.pma)" class="magic-radio" ng-model="paramsUrl.pmi" ng-change="action.search()">
                                     <label for="@{{key}}-pmi" class="padding-right-20">
@@ -97,6 +103,12 @@
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12 padding-bottom-15">
                                     <label class=" padding-left-15 bold">Đến</label>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 padding-bottom-15">
+                                    <input id="0-pma" type="radio" name='pma' value="" class="magic-radio" ng-model="paramsUrl.pma" ng-change="action.search()">
+                                    <label for="0-pma" class="padding-right-20">
+                                        Tất cả
+                                    </label>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 padding-bottom-15" ng-repeat="(key, value) in paramsSearch.priceMax">
                                     <input id="@{{key}}-pma" type="radio" name='pma' value="@{{key}}" ng-disabled="(1 * key < 1 * paramsUrl.pmi)" class="magic-radio" ng-model="paramsUrl.pma" ng-change="action.search()">
@@ -132,11 +144,11 @@
                 </div>
                 <form class="form-horizontal">
                     <label class="control-label">Diện tích nhỏ nhất</label>
-                    <input type="text" ng-model="paramsUrl.fami" class="form-control text-center margin-bottom-15"
-                            ng-change="action.search()" placeholder="50"/>
+                    <input type="number" ng-model="paramsUrl.fami" class="form-control text-center margin-bottom-15"
+                           ng-enter="action.search()" placeholder="Diện tích nhỏ nhất"/>
                     <label class="control-label">Diện tích lớn nhất</label>
-                    <input type="text"  ng-model="paramsUrl.fama" class="form-control text-center margin-bottom-15"
-                            ng-change="action.search()"placeholder="100" />
+                    <input type="number"  ng-model="paramsUrl.fama" class="form-control text-center margin-bottom-15"
+                           ng-enter="action.search()" placeholder="Diện tích lớn nhất" />
                 </form>
             </div>
             <div class="col-md-12 col-sm-6 col-xs-12 padding-bottom-45">

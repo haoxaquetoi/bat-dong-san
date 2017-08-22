@@ -15,7 +15,8 @@ Route::get('/tags/{tagName}', 'Frontend\SingleTagCtrl@main');
 Route::get('/tin-lien-quan/{artID}', 'Frontend\ArticleProductInvolveCtrl@main')->where('artID', '[0-9]+');
 
 Route::get('/{catSlug}/{catID}', 'Frontend\SingleCategoryCtrl@main')->where('catID', '[0-9]+')->name('frontendCategory');
-Route::get('/tim-kiem', 'Frontend\SearchCtrl@main');
+Route::get('/tim-kiem-tin-dang', 'Frontend\SearchCtrl@searchArticleNews');
+Route::get('/tim-kiem-tin-bat-dong-san', 'Frontend\SearchCtrl@searchArticleProduct');
 
 //rest route
 Route::group(['prefix' => 'rest', 'middleware' => []], function () {

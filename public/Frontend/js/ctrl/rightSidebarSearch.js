@@ -29,12 +29,12 @@ ngApp.controller('rightSidebarSearch', function ($scope)
             searchObject.vil = $scope.paramsUrl.vil;
             searchObject.st = $scope.paramsUrl.st;
             searchObject.fami = $scope.paramsUrl.fami;
-            searchObject.fama = $scope.paramsUrl.cg;
+            searchObject.fama = $scope.paramsUrl.fama;
             searchObject.sn = $scope.paramsUrl.sn;
             searchObject.rn = $scope.paramsUrl.rn;
             
             var str = jQuery.param(searchObject);
-            window.location.href = SiteUrl + '/tim-kiem?' + str;
+            window.location.href = SiteUrl + '/tim-kiem-tin-bat-dong-san?' + str;
         }
     };
 });

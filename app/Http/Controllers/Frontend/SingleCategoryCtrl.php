@@ -13,10 +13,8 @@ class SingleCategoryCtrl extends Controller {
 
         $request->flash();
         $catInfo = $catModel->getCategoryInfo($request->catID);
-        $data['paramsSearch'] = app('ParamsSearchConfig')->getParamsSearch();
-        
         if (!isset($catInfo->id)) {
-            return view('Frontend.errors.category', ['errorCode' => 'notFound'])->with('dataView', $data);
+            return view('Frontend.errors.category', ['errorCode' => 'notFound'])->with('dataView', array());
         }
         if ($catInfo->type == 'Product') {
             $page = isset($request->page) ? $request->page : 1;

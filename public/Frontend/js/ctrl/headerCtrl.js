@@ -57,7 +57,7 @@ ngApp.controller('headerCtrl', function ($scope, $rootScope, $apply, $widgetServ
             searchObject.cs = cs;
             
             var str = jQuery.param(searchObject);
-            window.location.href = SiteUrl + '/tim-kiem?' + str;
+            window.location.href = SiteUrl + '/tim-kiem-tin-bat-dong-san?' + str;
         }
     };
 

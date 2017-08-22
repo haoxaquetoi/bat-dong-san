@@ -4,19 +4,19 @@
         <div class="container">
             <div class="row ">
                 <div class="col-sm-6 col-xs-12 borber-xs-1">
-                    <ul class="nav navbar-nav">
+<!--                    <ul class="nav navbar-nav">
                         <li><a href=""><i class="fa fa-twitter"></i></a></li>
                         <li class="active"><a href=""><i class="fa fa-facebook"></i></a></li>
                         <li><a href=""><i class="fa fa-skype"></i></a></li>
                         <li><a href=""><i class="fa fa-envelope-square"></i></a></li>
                         <li><a href=""><i class="fa fa-rss"></i></a></li>
-                    </ul>
+                    </ul>-->
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href=""><i class="fa fa-phone"></i> Gọi ngay : 01230.456.789</a></li>
-                        <li><a href=""><i class="fa fa-user"></i> Đăng nhập</a></li>
-                        <li><a href=""><i class="fa fa-search"></i></a></li>
+<!--                        <li><a href=""><i class="fa fa-user"></i> Đăng nhập</a></li>
+                        <li><a href=""><i class="fa fa-search"></i></a></li>-->
                     </ul>
                 </div>
             </div>
