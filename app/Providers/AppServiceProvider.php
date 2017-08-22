@@ -4,16 +4,19 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
-{
+class AppServiceProvider extends ServiceProvider {
+
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot()
-    {
-        //
+    public function boot() {
+        view()->composer('*', function ($view) {
+            $routerUri = \Request::route()->uri;
+            $uri = explode('/', $routerUri);
+            $view->with('current_route_name', $uri[1]);
+        });
     }
 
     /**
@@ -21,8 +24,8 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         //
     }
+
 }

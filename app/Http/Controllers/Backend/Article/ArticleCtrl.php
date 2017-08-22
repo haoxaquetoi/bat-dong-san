@@ -26,8 +26,8 @@ class ArticleCtrl extends Controller {
         $viewData['count']['total_publish'] = $artModel::where('status', 'Publish')->count();
         $viewData['count']['total_trash'] = $artModel::where('status', 'Trash')->count();
         $viewData['count']['total_deleted'] = $artModel::where('deleted', '1')->count();
-        
-        $viewData['arrArticle'] = $artModel->getAll($request->category_id, $request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd,$request->ord_fb);
+
+        $viewData['arrArticle'] = $artModel->getAll($request->category_id, $request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd, $request->ord_fb);
         return view('backend/article/listArticle', $viewData);
     }
 
@@ -40,8 +40,8 @@ class ArticleCtrl extends Controller {
         $viewData['village'] = AddressVillageModel::select('id', 'name', 'district_id')->get()->toArray();
         $viewData['street'] = AddressStreetModel::select('id', 'name', 'village_id')->get()->toArray();
         $viewData['tags'] = TagsModel::select('id', 'code')->get()->toArray();
-        $category = $catModel->getAllCat(0,'News');
-     
+        $category = $catModel->getAllCat(0, 'News');
+
         $viewData['category'] = collect($category);
 
         return view('backend/article/singleArticleNews', $viewData);
@@ -51,14 +51,14 @@ class ArticleCtrl extends Controller {
 
         $id = isset($request->id) ? $request->id : 0;
         $viewData['articleInfo'] = $artModel->getArticleInfo($id);
-        
+
         $viewData['city'] = AddressCityModel::select('id', 'name')->get()->toArray();
         $viewData['district'] = AddressDistrictModel::select('id', 'name', 'city_id')->get()->toArray();
         $viewData['village'] = AddressVillageModel::select('id', 'name', 'district_id')->get()->toArray();
         $viewData['street'] = AddressStreetModel::select('id', 'name', 'village_id')->get()->toArray();
         $viewData['tags'] = TagsModel::select('id', 'code')->get()->toArray();
         $viewData['direction'] = app('DirectionConfig')->getDirection();
-        $category = $catModel->getAllCat(0,'Product');
+        $category = $catModel->getAllCat(0, 'Product');
         $viewData['category'] = collect($category);
         return view('backend/article/singleArticleProduct', $viewData);
     }
