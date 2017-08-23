@@ -1,4 +1,4 @@
-<div class="col-md-3 col-sm-6 col-xs-12 statistical" ng-class="class">
+<div class="col-md-12 col-sm-6 col-xs-6">
     <h4 class="text-uppercase">@{{title}}</h4>
     <div class="row">
         <div class="col-xs-12 text-center padding-bottom-10 statistical-table">

@@ -185,13 +185,14 @@
                     <button class="borber-radius-bottom"></button>
                 </div>
             </div>
-            <div class="col-md-12 col-sm-6 col-xs-6">
+            <widget position-code="positionCode" widget-data="widgetData"></widget>
+<!--            <div class="col-md-12 col-sm-6 col-xs-6">
                 <aside>
                     <div class="margin-bottom-15 content-right-img">
                         <img src="{{url('Frontend')}}/images/article-right1.png" class="img-responsive" alt=""/>
                     </div>
                 </aside>
-            </div>
+            </div>-->
         </div>
     </div>
 </div><!--.end content-right-->

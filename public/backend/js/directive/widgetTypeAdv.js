@@ -13,8 +13,8 @@ ngApp.directive('widgetTypeAdv', function ($apply, $widgetService) {
                 var value = JSON.parse(data.value) || {};
                 $apply(function () {
                     scope.widgetId = data.id || '';
-                    scope.updateData = value.adv;
-                    scope.class = value.class;
+                    scope.updateData = value.adv || {};
+                    scope.class = value.class || '';
                     scope.data.setMytitle();
                 });
             },
@@ -27,12 +27,10 @@ ngApp.directive('widgetTypeAdv', function ($apply, $widgetService) {
                 return (file_path.length > 0) ? true : false;
             },
             setMytitle: function(){
-                if(scope.updateData.name)
-                {
-                    $apply(function(){
-                        scope.widgetData.myTitle = scope.updateData.name;
-                    });
-                }
+                
+                $apply(function(){
+                    scope.widgetData.myTitle = scope.updateData.title || '';
+                });
             }
         };
         

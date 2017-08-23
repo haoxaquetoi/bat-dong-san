@@ -11,7 +11,7 @@ class ThemeConfig{
             'header' => 'Header',
             'footer' => 'Footer',
             'homeSideBar' => 'SideBar Trang chủ',
-            'categorySideBar' => 'SideBar Chuyên mục',
+            'categorySideBar' => 'SideBar Chuyên mục, Tìm kiếm',
             'articleSideBar' => 'SideBar Tin bài',
             
         ];
