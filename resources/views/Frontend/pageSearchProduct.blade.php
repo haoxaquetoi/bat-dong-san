@@ -1,5 +1,5 @@
 @extends('Frontend.Layouts.default')
-@section('title', 'Chi tiết chuyên mục')
+@section('title', 'Tìm kiếm')
 @section('content')
 
 <link href="{{url('Frontend')}}/css/category.css" rel="stylesheet" type="text/css"/>

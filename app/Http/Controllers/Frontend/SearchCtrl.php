@@ -17,6 +17,7 @@ class SearchCtrl extends Controller {
             'paginator' => $data['allArticle'],
             'params' => $request->request
         );
+        $data['type'] = 'News';
         return view('Frontend.pageSearchNews')->with('dataView', $data);
     }
 

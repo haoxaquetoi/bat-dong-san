@@ -34,7 +34,7 @@ class SingleCategoryCtrl extends Controller {
         } else {
             $data['catInfo'] = $catInfo;
             $page = isset($request->page) ? $request->page : 1;
-            $data['allArticle'] = $articleModel->getAllArticle('News', $request->catID,  '', '', '', 0, $page, 4);
+            $data['allArticle'] = $articleModel->getAllArticle('News', $request->catID, '', '', '', 0, $page, 4);
             // dữ liệu cho pagging
             $data['paginator'] = array(
                 'paginator' => $data['allArticle'],
@@ -51,6 +51,8 @@ class SingleCategoryCtrl extends Controller {
     private function _render_view_news($data) {
         #Ưu tiên view theo id tin bài
         $view = "Frontend.singleCategoryNews_{$data['catInfo']->id}";
+        // loại tin
+        $data['type'] = 'News';
         if (!view()->exists($view)) {
             $view = 'Frontend.singleCategoryNews';
         }
