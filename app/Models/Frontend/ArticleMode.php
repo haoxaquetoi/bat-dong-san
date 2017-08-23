@@ -377,9 +377,19 @@ class ArticleMode extends Model {
         if ($params->cg) {
             $db->where('category_article.category_id', '=', $params->cg);
         }
-        $allArticle = $db->orderBy('begin_date', 'DESC')
-                ->paginate($pageSize, ['*'], 'page', $page);
-
+        $allArticle = $db->selectRaw('article.*')->orderBy('begin_date', 'DESC')
+                ->paginate($pageSize, [ '*'], 'page', $page);
+       
+        foreach ($allArticle as $key => $value) {
+            $allArticle[$key]->category = DB::table('category')
+                            ->leftJoin('category_article', 'category_article.category_id', '=', 'category.id')
+                            ->where('category_article.article_id', '=', $value->id)
+                            ->where('category.status', '=', 1)
+                            ->where('category.deleted', '=', 0)
+                            ->orderby('category.order')
+                            ->get()->toArray();
+        }
+        
         return $allArticle;
     }
 

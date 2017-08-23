@@ -39,6 +39,8 @@ class SingleArticleCtrl extends Controller {
         $data['arrSingleArticle'] = $articleInfo;
         // tin lien quan
         $data['arrSingleArticleInvolve'] = $articleInvolve;
+         // loại tin
+        $data['type'] = 'News';
         #Ưu tiên view theo id tin bài
         $view = "Frontend.singlePostNews_{$articleInfo->id}";
         if (!view()->exists($view)) {
@@ -58,7 +60,6 @@ class SingleArticleCtrl extends Controller {
         $data['arrAllFeedback'] = $instanceFeedModel->getAllFeedback();
         // tin lien quan
         $data['arrSingleArticleInvolve'] = $articleInvolve;
-
 //        dd($data['arrSingleArticleInvolve']);
         #Ưu tiên view theo id tin bài
         $view = "Frontend.singlePostProduct_{$articleInfo->id}";

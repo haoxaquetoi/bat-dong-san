@@ -49,7 +49,7 @@
                         <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
                             <select class="form-control" name="dt" ng-model="paramsUrl.dt" ng-change="action.search()">
                                 <option value="">Quận, huyện ...</option>
-                                <option ng-repeat="item in paramsSearch.district" value="@{{item.id}}">
+                                <option ng-repeat="item in paramsSearch.district" value="@{{item.id}}" ng-show="(paramsUrl.ct == item.city_id)">
                                     @{{item.name}}
                                 </option>
                             </select>
@@ -57,15 +57,15 @@
                         <div class="col-md-6 col-sm-12 col-xs-12 padding-bottom-15">
                             <select class="form-control" name="vil" ng-model="paramsUrl.vil" ng-change="action.search()">
                                 <option value="">Phường, xã ...</option>
-                                <option ng-repeat="item in paramsSearch.village" value="@{{item.id}}">
+                                <option ng-repeat="item in paramsSearch.village" value="@{{item.id}}" ng-show="(paramsUrl.dt == item.district_id)">
                                     @{{item.name}}
                                 </option>
                             </select>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 padding-bottom-15">
-                            <select class="form-control" name="st" ng-model="paramsUrl.st"> ng-change="action.search()"
+                            <select class="form-control" name="st" ng-model="paramsUrl.st" ng-change="action.search()"> 
                                 <option value="">Đường ...</option>
-                                <option ng-repeat="item in paramsSearch.street" value="@{{item.id}}">
+                                <option ng-repeat="item in paramsSearch.street" value="@{{item.id}}" ng-show="(paramsUrl.vil == item.village_id)">
                                     @{{item.name}}
                                 </option>
                             </select>

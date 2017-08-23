@@ -58,34 +58,7 @@
                                         </header>
                                         <section>
                                             <p>
-                                                {!! str_limit($values->content, $limit = 100, $end = '...') !!}
-                                            </p>
-                                            <p class="bold article-right-content">
-                                                @if(isset($values->articleOther->floor_area) && $values->articleOther->floor_area > 0)
-                                                <span class="padding-right-15">
-                                                    <i class="fa fa-home" aria-hidden="true"></i> Diện tích: {{$values->articleOther->floor_area}} m2
-                                                </span>
-                                                @endif
-                                                @if(isset($values->articleOther->number_of_bedrooms) && $values->articleOther->number_of_bedrooms > 0)
-                                                <span class="padding-right-15"><i class="fa fa-bed" aria-hidden="true"></i> 
-                                                    {{$values->articleOther->number_of_bedrooms}} phòng ngủ
-                                                </span>
-                                                @endif
-                                                @if(isset($values->articleOther->number_of_wc) && $values->articleOther->number_of_wc > 0)
-                                                <span class="padding-right-15"><i class="fa fa-bed" aria-hidden="true"></i>  
-                                                    {{$values->articleOther->number_of_wc}} phòng tắm
-                                                </span>
-                                                @endif
-                                                @if(isset($values->articleOther->number_of_storeys) && $values->articleOther->number_of_storeys > 0)
-                                                <span class="padding-right-15"><i class="fa fa-home" aria-hidden="true"></i>  
-                                                    {{$values->articleOther->number_of_storeys}} Tầng
-                                                </span>
-                                                @endif
-                                                @if(isset($values->articleBase->address) && $values->articleBase->address != '')
-                                                <span class="padding-right-15"><i class="fa fa-map-marker" aria-hidden="true"></i>  
-                                                    {{$values->articleBase->address}}
-                                                </span>
-                                                @endif
+                                                {!! str_limit($values->content, $limit = 200, $end = '...') !!}
                                             </p>
                                             <div class="text-right view-details">
                                                 @if ((int) $values->is_censored > 0)
