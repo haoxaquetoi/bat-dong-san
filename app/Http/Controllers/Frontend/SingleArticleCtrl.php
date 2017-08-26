@@ -18,7 +18,7 @@ class SingleArticleCtrl extends Controller {
         if (!isset($articleInfo->id)) {
             return view('Frontend.errors.post', ['errorCode' => 'notFound']);
         }
-        
+
         if ($articleInfo->type == 'Product') {
             // tin liên quan
             $articleInvolve = $articleModel->getAllArticleInvolve($artID, 'Product', 1, 6);
@@ -39,7 +39,7 @@ class SingleArticleCtrl extends Controller {
         $data['arrSingleArticle'] = $articleInfo;
         // tin lien quan
         $data['arrSingleArticleInvolve'] = $articleInvolve;
-         // loại tin
+        // loại tin
         $data['type'] = 'News';
         #Ưu tiên view theo id tin bài
         $view = "Frontend.singlePostNews_{$articleInfo->id}";

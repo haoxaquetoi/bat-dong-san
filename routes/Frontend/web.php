@@ -5,6 +5,8 @@ Route::get('/', 'Frontend\FrontendCtrl@homePage');
 
 
 Route::get('/thong-tin-lien-he', 'Frontend\ContactCtrl@main');
+Route::get('/tin-quan-tam', 'Frontend\ArticleProductInvolveCtrl@articleCare');
+
 Route::get('/{catSlug}/{catID}/{artSlug}/{artID}', 'Frontend\SingleArticleCtrl@main')->where([
     'catID' => '[0-9]+',
     'artID' => '[0-9]+'
@@ -28,6 +30,10 @@ Route::group(['prefix' => 'rest', 'middleware' => []], function () {
     Route::get('frontend/widget/{positionCode}', 'Frontend\Rest\WidgetCtrl@listWidget')->where('positionCode', '[\w]+');
     // search
     Route::get('frontend/getParamsSearch', 'Frontend\Rest\SearchCtrl@getParamsSearch');
+    // article
+    Route::post('frontend/updateListCare/{artID}', 'Frontend\Rest\ArticleCtrl@updateListCare');
+    Route::get('frontend/getAllArticleCare', 'Frontend\Rest\ArticleCtrl@getAllArticleCare');
+    Route::get('frontend/checkArticleCare/{artID}', 'Frontend\Rest\ArticleCtrl@checkArticleCare');
 });
 
 

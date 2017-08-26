@@ -1,9 +1,14 @@
 @extends('Frontend.Layouts.default')
 @section('title', 'Chi tiết tin bài')
 @section('content')
-
 <link href="{{url('Frontend')}}/css/pageSingle.css" rel="stylesheet" type="text/css"/>
+@section('myJs')
+<script src="{{ URL::asset('Frontend/js/ctrl/singlePostProductCtrl.js') }}"></script>
+<script src="{{ URL::asset('Frontend/js/factory/services/articleService.js') }}"></script>
+@endsection
 <script>
+    ngApp.value('$artID', <?php echo $dataView['arrSingleArticle']->id ?>);
+    ngApp.value('$token', '<?php echo csrf_token() ?>');
 
     $(document).ready(function () {
         $('[data-toggle="popover"]').popover();
@@ -82,7 +87,7 @@
         $('#boxFeedbackOther').hide();
         if (feedID == 1)
         {
-        $('#boxFeedbackOther').show();
+            $('#boxFeedbackOther').show();
         }
 
         $('#feedbackCaptchaErr').text('');
@@ -93,7 +98,7 @@
 
 </script>
 <!--.content-->
-<section class="content">
+<section class="content" ng-controller="singlePostProductCtrl">
     <div class="container">
         <div class="row">
             <!--.content-left-->
@@ -102,7 +107,7 @@
                 (isset($dataView['arrSingleArticle']->articleSlide->images) && count($dataView['arrSingleArticle']->articleSlide->images) > 0) ||
                 (isset($dataView['arrSingleArticle']->articleSlide->video) && count($dataView['arrSingleArticle']->articleSlide->video) > 0)
                 )
-                <div class="row slide-single">
+                <div class="row slide-single ">
                     <div class="col-md-12">
 
                         <div style="display:none;margin:0 auto;" class="html5gallery" data-skin="horizontal" data-width="700" data-height="400" data-resizemode="fill">
@@ -168,11 +173,10 @@
                     {!! $dataView['arrSingleArticle']->content !!}
                 </div>
                 Phản hồi:
-                <div class="row action-single feedback">                    
+                <div class="row action-single feedback">      
+                    <button  class="btn btn-sm btn-success care" ng-click="action.updateListCare()"  >Quan tâm</button>
                     @for ($i = 0; $i < count($dataView['arrAllFeedback']); $i ++)
-                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
-                        <button  class="btn btn-sm btn-success" onclick="chooseFeedback({{$dataView['arrAllFeedback'][$i]->id}})"  >{{$dataView['arrAllFeedback'][$i]->name}}</button>
-                    </div>
+                    <button  class="btn btn-sm btn-success" onclick="chooseFeedback({{$dataView['arrAllFeedback'][$i]->id}})"  >{{$dataView['arrAllFeedback'][$i]->name}}</button>
                     @endfor
                 </div>
                 <div class="borber-img">
@@ -272,20 +276,18 @@
                         <div class="content-left-col">
                             <div class="content-left-col-border">
                                 <div class="text-uppercase title">
-                                    <h2 class="title-content" data-toggle="popover" title="Danh sách quan tâm" 
-                                        data-placement="top" data-trigger="hover"
-                                        data-content="Lorem Ipsum is simply dummy test of the printing and typesetting industry.
-                                        Lorem Ipsum has been the industry's standard dummy test ever since the 1500s,
-                                        When an unknowing printer took 
-                                        a gally of type and scrambled it to make a type specimen book.">
+                                    <h2 class="title-content">
                                         Danh sách quan tâm
                                     </h2>
                                 </div>
-                                <article>
+                                <article ng-cloak="listArticleCare" ng-repeat="article in listArticleCare">
                                     <div class="row">
                                         <div class="col-xs-5 article-left">
                                             <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_1a.png" class="img-responsive" alt=""/>
+                                                <a href="{{url('')}}/@{{article.slug + '/' + article.category[0].category_id + '/' + article.slug + '/' +   article.id}}">
+                                                    <img ng-if="article.thumbnail" src="{{url('')}}  @{{article.thumbnail}}" class="pull-right" alt=""/>
+                                                    <img ng-if="!article.thumbnail" src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                </a>
                                                 <div class="article-rectangle"></div>
                                                 <div class="article-action">
                                                     <button class="btn btn-success" ><i class="fa fa-search"></i></button>
@@ -295,144 +297,41 @@
                                         </div>
                                         <div class="col-xs-7 article-right">
                                             <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
+                                                <h2>
+                                                    <a href="{{url('')}}/@{{article.slug + '/' + article.category[0].category_id + '/' + article.slug + '/' +   article.id}}">
+                                                        @{{article.title}}
+                                                    </a>
+                                                </h2>
                                                 <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
+                                                    <span>Cập nhật: <time>@{{article.begin_date}}</time></span>
+                                                    <img ng-if="article.is_censored > 0" src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
                                                 </div>
-
                                             </header>
                                             <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/single.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_4.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_6.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div class="row">
-                                        <div class="col-xs-5 article-left">
-                                            <div class="article-left-relative">
-                                                <img src="{{url('Frontend')}}/images/article1_8.png" class="img-responsive" alt=""/>
-                                                <div class="article-rectangle"></div>
-                                                <div class="article-action">
-                                                    <button class="btn btn-success" ><i class="fa fa-search"></i></button>
-                                                    <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7 article-right">
-                                            <header>
-                                                <h2>Bán nhà mặt phố Quang Trung, Hà Nội - chính chủ</h2>
-                                                <div class="article-time">
-                                                    <span>Cập nhật: <time>6 tiếng trước</time></span>
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
-                                                </div>
-
-                                            </header>
-                                            <section>
-                                                <p><i class="fa fa-home" aria-hidden="true"></i> Diện tích: 85 m2</p>
-                                                <p><i class="fa fa-bed" aria-hidden="true"></i> 3 phòng ngủ, 2 phòng tắm</p>
-                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Quận/Huyện, Phường/Xã</p>
-                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> Giá: 3 tỷ/căn</p>
+                                                <p ng-if="article.articleOther.floor_area > 0">
+                                                    <i class="fa fa-home" aria-hidden="true"></i> Diện tích: @{{article.articleOther.floor_area}} m2
+                                                </p>
+                                                <p ng-if="article.articleOther.number_of_bedrooms > 0   || article.articleOther.number_of_wc > 0">
+                                                    <i class="fa fa-bed" aria-hidden="true"></i> 
+                                                    <span ng-if="article.articleOther.number_of_bedrooms > 0">
+                                                        @{{article.articleOther.number_of_bedrooms}} phòng ngủ, 
+                                                    </span>
+                                                    <span ng-if="article.articleOther.number_of_wc > 0">
+                                                        @{{article.articleOther.number_of_wc}} phòng tắm, 
+                                                    </span>
+                                                </p>
+                                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> 
+                                                    @{{article.article_base.district_name}}-@{{article.article_base.city_name}}
+                                                </p>
+                                                <p><i class="fa fa-dollar" aria-hidden="true"></i> 
+                                                    Giá: @{{ article.article_base.price | number:0 }}
+                                                </p>
                                             </section>
                                         </div>
                                     </div>
                                 </article>
                                 <div class="text-right padding-right-15">
-                                    <a class="btn btn-default btn-more-category" href="">Xem thêm <i class="fa fa-angle-right"></i></a>
+                                    <a class="btn btn-default btn-more-category" href="{{ url('tin-quan-tam') }}">Xem thêm <i class="fa fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div> <!-- end .content-left-col -->
