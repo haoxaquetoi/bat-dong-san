@@ -46,7 +46,7 @@ class ArticleCtrl extends Controller {
                     break;
                 }
                 if ($request->artID != $id) {
-                    $article = $articleModel->getArticleInfo($id);
+                    $article = $articleModel->getArticleInfo($id, TRUE, TRUE, 'Product');
                     if (isset($article->id)) {
                         $data[] = $article;
                     }

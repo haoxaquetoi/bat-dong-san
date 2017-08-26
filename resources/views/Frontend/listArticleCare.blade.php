@@ -27,13 +27,13 @@
                 </div>
                 <div>
                     <h1 class="margin-0 padding-bottom-15">
-                        Tin bất động sản tương tự
+                        Danh sách tin quan tâm
                     </h1>
                 </div>
                 <div class="content-category">
                     <div class="row">
-                        @if (count($dataView['allArticleInvolve']) > 0)
-                        @foreach ($dataView['allArticleInvolve'] as $values)
+                        @if (count($dataView['allArticle']) > 0)
+                        @foreach ($dataView['allArticle'] as $values)
                         <div class="col-md-6 col-sm-6 col-xs-12 padding-bottom-45 box-category">
 
                             <article>
@@ -105,11 +105,6 @@
                         </div>
                         @endforeach
                         @endif
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12 box-filter-right text-right pagging  padding-bottom-15">
-                            @include('Frontend.partial._pagination_default', $dataView['paginator'])
-                        </div>
                     </div>
                 </div>
             </div> <!--end .content-left-->

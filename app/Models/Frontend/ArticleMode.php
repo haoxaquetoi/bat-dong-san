@@ -93,9 +93,22 @@ class ArticleMode extends Model {
      */
     function checkDeleted($chkDeleted = NULL) {
         if ($chkDeleted === TRUE) {
-            $this->where('deleted', '=', 0);
-        } elseif ($chkDeleted === FALSE) {
             $this->where('deleted', '=', 1);
+        } elseif ($chkDeleted === FALSE) {
+            $this->where('deleted', '=', 0);
+        }
+        return $this;
+    }
+    /**
+     * Xét điều kiện tin đảm bảo
+     * @param NULL||boolean $chkCensored 1 -  Tin đảm bảo <br/>0 - Tin thường <br/>Mặc định không xét
+     * @return $this
+     */
+    function checkCensored($chkCensored = NULL) {
+        if ($chkCensored == 1) {
+            $this->where('is_censored', '=', 1);
+        } elseif ($chkCensored == 0) {
+            $this->where('is_censored', '=', 0);
         }
         return $this;
     }
@@ -124,8 +137,7 @@ class ArticleMode extends Model {
             $this->whereRaw('DATEDIFF(begin_date, now())<=0')
                     ->whereRaw('DATEDIFF(end_date, now())>=0');
         } elseif ($chkdealine === FALSE) {
-            $this->whereRaw('DATEDIFF(begin_date, now())>0')
-                    ->whereRaw('DATEDIFF(end_date, now())<0');
+            $this->whereRaw('(DATEDIFF(begin_date, now())>0) OR (DATEDIFF(end_date, now())<0)');
         }
 
 
@@ -136,11 +148,12 @@ class ArticleMode extends Model {
      * Chi tiết tin bài
      * @param int $articleID Mã tin bài
      * @param any $checkDealine <br/>TRUE: Còn hạn <br/>FALSE: Hết hạn đăng không hiên thị <br/>Mặc định không xét
-     * @param string $chkType <br/>News: Tin tức <br/>Product:Tin bất động sản <br/>Mặc định không xét
      * @param NULL||boolean $chkDeleted TRUE -  Đã xóa <br/>FALSE - Chưa xóa <br/>Mặc định không xét
+     * @param string $chkType <br/>News: Tin tức <br/>Product:Tin bất động sản <br/>Mặc định không xét
+     * @param string $chkCensored <br/>1: Tin đảm bảo <br/>0: tin thường <br/>Mặc định không xét
      * @return 
      */
-    function getArticleInfo($articleID, $checkDealine = NULL, $chkType = NULL, $chkDeleted = NULL) {
+    function getArticleInfo($articleID, $checkDealine = NULL, $chkDeleted = NULL, $chkType = NULL, $chkCensored = NULL) {
 
         $this::with([
             'articleBase', 'articleContact', 'articleOther'
@@ -148,6 +161,7 @@ class ArticleMode extends Model {
         $this->checkDealine($checkDealine);
         $this->checkType($chkType);
         $this->checkDeleted($chkDeleted);
+        $this->checkCensored($chkCensored);
         $postInfo = $this->where('id', '=', $articleID)->first();
 
         if (!isset($postInfo->id)) {

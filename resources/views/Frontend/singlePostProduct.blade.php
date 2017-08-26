@@ -277,7 +277,7 @@
                             <div class="content-left-col-border">
                                 <div class="text-uppercase title">
                                     <h2 class="title-content">
-                                        Danh sách quan tâm
+                                        <a href="{{ url('tin-quan-tam') }}">Danh sách quan tâm</a>
                                     </h2>
                                 </div>
                                 <article ng-cloak="listArticleCare" ng-repeat="article in listArticleCare">

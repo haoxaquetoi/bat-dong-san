@@ -5,8 +5,13 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Frontend\ArticleMode;
+use App\Http\Controllers\Frontend\Rest\ArticleCtrl;
 
 class ArticleProductInvolveCtrl extends Controller {
+    /*
+     * Danh sach sach tin lien qua
+     * artID: ma tin bai
+     */
 
     function main(ArticleMode $articleModel, Request $request) {
 
@@ -19,7 +24,6 @@ class ArticleProductInvolveCtrl extends Controller {
         }
 
         if ($articleInfo->type == 'Product') {
-
             $page = isset($request->page) ? $request->page : 1;
             $censored = isset($request->cs) ? $request->cs : '';
             // danh sách tin liên quan
@@ -32,7 +36,6 @@ class ArticleProductInvolveCtrl extends Controller {
                 )
             );
             return $this->_render_view_product($data);
-            
         } else {
             $page = isset($request->page) ? $request->page : 1;
             // danh sách tin liên quan
@@ -63,6 +66,24 @@ class ArticleProductInvolveCtrl extends Controller {
     private function _render_view_product($data) {
 
         return view('Frontend.listArticleInvolveProduct')->with('dataView', $data);
+    }
+
+    public function articleCare(ArticleMode $articleModel, Request $request) {
+        $request->flash();
+         // tin quan tâm
+        $data = array();
+        if (isset($_COOKIE['list_id_care'])) {
+            $list_id_care = json_decode($_COOKIE['list_id_care'], true);
+            foreach ($list_id_care as $id) {
+                if ($request->artID != $id) {
+                    $article = $articleModel->getArticleInfo($id, TRUE, TRUE, 'Product', (int) $request->cs);
+                    if (isset($article->id)) {
+                        $data['allArticle'][] = $article;
+                    }
+                }
+            }
+        }
+        return view('Frontend.listArticleCare')->with('dataView', $data);
     }
 
 }
