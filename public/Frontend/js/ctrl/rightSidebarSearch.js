@@ -1,8 +1,11 @@
-ngApp.controller('rightSidebarSearch', function ($scope)
+ngApp.controller('rightSidebarSearch', function ($scope, $widgetService)
 {
     var query = window.location.search.substring(1);
     var searchObject = parse_query_string(query);
-
+    
+    $scope.positionCode = 'categorySideBar';
+    $scope.widgetData = {};
+    
     $scope.paramsUrl = {
         cg: searchObject.cg || '',
         ct: searchObject.ct || '',
@@ -37,4 +40,19 @@ ngApp.controller('rightSidebarSearch', function ($scope)
             window.location.href = SiteUrl + '/tim-kiem-tin-bat-dong-san?' + str;
         }
     };
+    $scope.data = {
+        widget: function(){
+            $widgetService.action.widget($scope.positionCode).then(function(resp){
+                $apply(function(){
+                    $scope.widgetData = resp.data;
+                    console.log(resp.data);
+                });
+            }).catch(function(err){
+                console.log(err);
+            });
+        }
+    };
+    
+    $scope.data.widget();
+    
 });

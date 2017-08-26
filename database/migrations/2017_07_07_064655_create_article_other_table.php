@@ -25,7 +25,6 @@ class CreateArticleOtherTable extends Migration
             $table->integer('number_of_wc')->nullable();
             $table->integer('number_of_bedrooms')->nullable();
             $table->text('furniture')->nullable();
-            $table->integer('floor_area')->nullable();
         });
     }
 
