@@ -41,6 +41,15 @@
                                     <span class="text-danger" ng-show="error.district_id" ng-repeat ="item in error.district_id">@{{item}}. </span>
                                 </div>
                             </div>
+                            <div class="form-group" ng-if="data.village.id <= 0">
+                                <label class="col-sm-2 col-xs-12 control-label"></label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input  type="checkbox" name="saveAndAddNew" id='saveAndAddNew' class="magic-checkbox" ng-model="data.saveAndAddNew">
+                                    <label for="saveAndAddNew" class="padding-right-20" >
+                                        Lưu và thêm mới
+                                    </label>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="port" class="col-sm-2 col-xs-12 control-label"></label>
                                 <div class="col-sm-4 col-xs-12">

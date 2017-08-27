@@ -31,11 +31,7 @@ ngApp.controller('villageSingleCtrl', function ($scope, $apply, $routeParams, $a
             };
             $addressService.action.listDistrict(dataPost).then(function (resp) {
                 $apply(function () {
-                    if (resp.status == 200) {
-                        $scope.data.district.list = resp.data;
-                    } else {
-                        console.log(resp);
-                    }
+                    $scope.data.district.list = resp.data;
 
                 });
             }, function (err) {
@@ -48,7 +44,8 @@ ngApp.controller('villageSingleCtrl', function ($scope, $apply, $routeParams, $a
                 code: '',
                 district_id: ''
             };
-        }
+        },
+        saveAndAddNew: true
     };
 
     $scope.action = {
@@ -62,9 +59,10 @@ ngApp.controller('villageSingleCtrl', function ($scope, $apply, $routeParams, $a
                 id: $scope.data.village.id,
                 name: $scope.data.village.info.name,
                 code: $scope.data.village.info.code,
-                district_id : $scope.data.village.info.district_id 
+                district_id: $scope.data.village.info.district_id
             };
             $addressService.action.updateVillage($scope.data.village.id, dataPost).then(function (resp) {
+                $.notify('Cập nhật thành công', 'success');
                 window.location.href = '#!/';
             }, function (errors) {
                 $scope.error = errors.data;
@@ -79,10 +77,17 @@ ngApp.controller('villageSingleCtrl', function ($scope, $apply, $routeParams, $a
             var dataPost = {
                 name: $scope.data.village.info.name,
                 code: $scope.data.village.info.code,
-                district_id : $scope.data.village.info.district_id 
+                district_id: $scope.data.village.info.district_id
             };
             $addressService.action.insertVillage(dataPost).then(function (resp) {
-                window.location.href = '#!/';
+                $.notify('Thêm mới thành công', 'success');
+                if ($scope.data.saveAndAddNew) {
+                    $scope.data.village.info.name = '';
+                    $scope.data.village.info.code = '';
+                    $scope.data.village.info.district_id = '';
+                } else {
+                    window.location.href = '#!/';
+                }
             }, function (errors) {
                 $scope.error = errors.data;
             });

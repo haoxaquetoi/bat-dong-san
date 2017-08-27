@@ -13,12 +13,8 @@ ngApp.controller('districtListCtrl', function ($scope, $apply, $addressService)
         getList: function () {
             $addressService.action.listDistrict($scope.data.district.filter).then(function (resp) {
                 $apply(function () {
-                    if (resp.status == 200) {
-                        $scope.data.district.list = resp.data.data;
-                        $scope.data.district.total = resp.data.total;
-                    } else {
-                        console.log(resp);
-                    }
+                    $scope.data.district.list = resp.data.data;
+                    $scope.data.district.total = resp.data.total;
 
                 });
             }, function (err) {
@@ -30,12 +26,12 @@ ngApp.controller('districtListCtrl', function ($scope, $apply, $addressService)
     $scope.action = {
         delete: function (id) {
             $addressService.action.deleteDistrict(id).then(function (resp) {
-                if(resp.data && resp.data.status){
+                if (resp.data && resp.data.status) {
                     $scope.data.getList();
-                }else{
+                } else {
                     console.log(resp);
                 }
-                
+
             }, function (err) {
                 console.log(err);
             });
