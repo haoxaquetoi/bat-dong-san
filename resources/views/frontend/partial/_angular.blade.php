@@ -22,3 +22,4 @@
 <script src="{{ URL::asset('Frontend/js/directive/webInfoWidget.js') }}"></script>
 <script src="{{ URL::asset('Frontend/js/directive/analyticsWidget.js') }}"></script>
 <script src="{{ URL::asset('Frontend/js/directive/imageWidget.js') }}"></script>
+<script src="{{ URL::asset('Frontend/js/directive/advWidget.js') }}"></script>

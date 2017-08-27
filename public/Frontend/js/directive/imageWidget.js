@@ -9,7 +9,7 @@ ngApp.directive('imageWidget', function ($apply, $widgetService) {
         scope.action = {
             imgLink: function(){
                 if(scope.link != ''){
-                    window.location.href = scope.link;
+                    window.open(scope.link, '_blank');
                     return true;
                 }
                 
