@@ -1,10 +1,10 @@
 ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $addressService)
 {
     $scope.generalInfoDom;
-	$scope.error = {
-		name: '',
-		code: ''
-	};
+    $scope.error = {
+        name: '',
+        code: ''
+    };
     $scope.data = {
         city: {
             id: $routeParams.id,
@@ -19,18 +19,18 @@ ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $addr
                 console.log(err);
             });
         },
-		resetError: function(){
-			$scope.error = {
-				name: '',
-				code: ''
-			};
-		}
+        resetError: function () {
+            $scope.error = {
+                name: '',
+                code: ''
+            };
+        },
+        saveAndAddNew: true
     };
-
     $scope.action = {
         update: function () {
-			$scope.data.resetError();
-			if (!$($scope.generalInfoDom).parsley().validate())
+            $scope.data.resetError();
+            if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
             }
@@ -40,14 +40,15 @@ ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $addr
                 code: $scope.data.city.info.code
             };
             $addressService.action.updateCity($scope.data.city.id, dataPost).then(function (resp) {
+                $.notify('Cập nhật thành công', 'success');
                 window.location.href = '#!/';
             }, function (errors) {
-				$scope.error = errors.data;
+                $scope.error = errors.data;
                 console.log(errors);
             });
         },
         insert: function () {
-			$scope.data.resetError();
+            $scope.data.resetError();
             if (!$($scope.generalInfoDom).parsley().validate())
             {
                 return false;
@@ -57,9 +58,15 @@ ngApp.controller('citySingleCtrl', function ($scope, $apply, $routeParams, $addr
                 code: $scope.data.city.info.code
             };
             $addressService.action.insertCity(dataPost).then(function (resp) {
-                window.location.href = '#!/';
+                $.notify('Thêm mới thành công', 'success');
+                if ($scope.data.saveAndAddNew) {
+                    $scope.data.city.info.name = '';
+                    $scope.data.city.info.code = '';
+                } else {
+                    window.location.href = '#!/';
+                }
             }, function (errors) {
-				$scope.error = errors.data;
+                $scope.error = errors.data;
                 console.log(errors);
             });
         }

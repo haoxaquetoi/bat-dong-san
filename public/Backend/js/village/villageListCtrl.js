@@ -1,6 +1,6 @@
 ngApp.controller('villageListCtrl', function ($scope, $apply, $addressService)
 {
-     $scope.data = {
+    $scope.data = {
         village: {
             list: {},
             filter: {
@@ -12,15 +12,9 @@ ngApp.controller('villageListCtrl', function ($scope, $apply, $addressService)
         },
         getList: function () {
             $addressService.action.listVillage($scope.data.village.filter).then(function (resp) {
-                console.log(resp);
                 $apply(function () {
-                    if (resp.status == 200) {
-                        $scope.data.village.list = resp.data.data;
-                        $scope.data.village.total = resp.data.total;
-                    } else {
-                        console.log(resp);
-                    }
-
+                    $scope.data.village.list = resp.data.data;
+                    $scope.data.village.total = resp.data.total;
                 });
             }, function (err) {
                 console.log(err);
@@ -31,12 +25,12 @@ ngApp.controller('villageListCtrl', function ($scope, $apply, $addressService)
     $scope.action = {
         delete: function (id) {
             $addressService.action.deleteVillage(id).then(function (resp) {
-                if(resp.data && resp.data.status){
+                if (resp.data && resp.data.status) {
                     $scope.data.getList();
-                }else{
+                } else {
                     console.log(resp);
                 }
-                
+
             }, function (err) {
                 console.log(err);
             });

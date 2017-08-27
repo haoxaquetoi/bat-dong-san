@@ -216,7 +216,7 @@
                                         <label for="">Diện tích nhà</label>
                                         <div class="input-group">
                                             <input type="text"  class="form-control" ng-model="articleInfo.article_other.floor_area" />
-                                            <span class="input-group-addon">m</span>
+                                            <span class="input-group-addon">m<sup>2</sup></span>
                                         </div>
                                     </div>
                                 </div>
@@ -344,7 +344,8 @@
                                 </div>
                                 <div class="col-xs-6" style="padding: 0 0 10px 3px">
                                     <div class="form-group">
-                                        <input  type="checkbox"  class="magic-checkbox" ng-checked="articleInfo.is_censored == 1" ng-click="articleInfo.is_censored = !articleInfo.is_censored" name=chkCensored" id="chkCensored" >
+                                        <input  type="checkbox"  class="magic-checkbox" ng-checked="articleInfo.is_censored == 1"
+                                                ng-click="articleInfo.is_censored = !articleInfo.is_censored" name=chkCensored" id="chkCensored" >
                                         <label for="chkCensored" class="padding-right-20" >
                                             Tin đảm bảo
                                         </label>
@@ -354,11 +355,12 @@
                             <div class="form-group clearfix">
                                 <div class="col-xs-6" style="padding: 0 3px 10px 0">
                                     <div class="form-group">
-                                        <input  type="checkbox" name="chkSold" id='chkSold' class="magic-checkbox" ng-checked="articleInfo.is_sold == 1" ng-click="articleInfo.is_sold = !articleInfo.is_sold"  name=chkSold" id="chkSold" >
+                                        
+                                    </div><input  type="checkbox" name="chkSold" id='chkSold' class="magic-checkbox" ng-checked="articleInfo.is_sold == 1" 
+                                           ng-click="articleInfo.is_sold = !articleInfo.is_sold" >
                                         <label for="chkSold" class="padding-right-20" >
                                             Đã bán
                                         </label>
-                                    </div>
                                 </div>
                             </div>
                             <div class="form-group clearfix">

@@ -43,7 +43,8 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
                 code: '',
                 city_id: ''
             };
-        }
+        },
+        saveAndAddNew: true
     };
 
     $scope.action = {
@@ -60,6 +61,7 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
                 city_id: $scope.data.district.info.city_id
             };
             $addressService.action.updateDistrict($scope.data.district.id, dataPost).then(function (resp) {
+                $.notify('Cập nhật thành công', 'success');
                 window.location.href = '#!/';
             }, function (errors) {
                 $scope.error = errors.data;
@@ -77,7 +79,14 @@ ngApp.controller('districtSingleCtrl', function ($scope, $apply, $routeParams, $
                 city_id: $scope.data.district.info.city_id
             };
             $addressService.action.insertDistrict(dataPost).then(function (resp) {
-                window.location.href = '#!/';
+                $.notify('Thêm mới thành công', 'success');
+                if ($scope.data.saveAndAddNew) {
+                    $scope.data.district.info.name = '';
+                    $scope.data.district.info.code = '';
+                    $scope.data.district.info.city_id = '';
+                } else {
+                    window.location.href = '#!/';
+                }
             }, function (errors) {
                 $scope.error = errors.data;
             });

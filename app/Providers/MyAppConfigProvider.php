@@ -67,6 +67,11 @@ class MyAppConfigProvider extends ServiceProvider {
         $this->app->singleton('BuildUrl', function($app) {
             return new \App\Libs\BuildUrl();
         });
+        
+        //register Myfunc
+        $this->app->singleton('MyFunc', function($app) {
+            return new \App\Libs\MyFunc();
+        });
     }
 
     public function provides() {
@@ -79,7 +84,8 @@ class MyAppConfigProvider extends ServiceProvider {
             'SettingCrawler',
             'SettingConfig',
             'BuildUrl',
-            'ParamsSearchConfig'
+            'ParamsSearchConfig',
+            'MyFunc'
         ];
     }
 

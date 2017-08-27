@@ -31,8 +31,8 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope
             tags: articleInfo.tags || [],
             is_censored: articleInfo.is_censored || 0,
             status: articleInfo.status || 'Trash',
-            begin_date: articleInfo.begin_date || '', //Y-m-d H:i:s
-            end_date: articleInfo.end_date || '', //Y-m-d H:i:s
+            begin_date: articleInfo.begin_date || $scope.actions.getFormattedDateYMD(new Date()), //Y-m-d H:i:s
+            end_date: articleInfo.end_date || $scope.actions.getFormattedDateYMD(new Date(2100, 0, 1)), //Y-m-d H:i:s
             category: articleInfo.category || []
         };
         angular.forEach($scope.categorys, function (v, i) {
@@ -165,6 +165,18 @@ ngApp.controller('articleSingleNewsCtrl', function ($scope
             if (path != '')
                 return SiteUrl + path;
             return '';
+        },
+        getFormattedDateYMD: function (date)
+        {
+            console.log(date);
+            if (date)
+            {
+                var month = (1 + date.getMonth()) > 9 ? (1 + date.getMonth()) : '0' + (1 + date.getMonth());
+                var day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
+                return date.getFullYear() + '-' + month + '-' + day;
+            }
+
+            return date;
         }
 
     };
