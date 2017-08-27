@@ -216,7 +216,7 @@
                                         <label for="">Diện tích nhà</label>
                                         <div class="input-group">
                                             <input type="text"  class="form-control" ng-model="articleInfo.article_other.floor_area" />
-                                            <span class="input-group-addon">m</span>
+                                            <span class="input-group-addon">m<sup>2</sup></span>
                                         </div>
                                     </div>
                                 </div>
