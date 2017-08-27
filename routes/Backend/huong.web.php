@@ -17,7 +17,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
 
     #Crawler
     Route::get('/crawler', 'Backend\Crawler\CrawlerCtrl@index')->name('crawler');
-    Route::get('/crawler/configCrawler/{id}', 'Backend\Crawler\CrawlerCtrl@configCrawler');
+    Route::get('/crawler/configCrawler/{id}/{catID}', 'Backend\Crawler\CrawlerCtrl@configCrawler');
+    Route::post('/crawler/updateCrawler', 'Backend\Crawler\CrawlerCtrl@updateCrawler');
 
     #article
     Route::get('/article', 'Backend\Article\ArticleCtrl@main')->name('article');
@@ -26,6 +27,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
 
     Route::get('/article/singleNews/{id}', 'Backend\Article\ArticleCtrl@singleArticleNews')->where('id', '[\d]+');
     Route::get('/article/singleProduct/{id}', 'Backend\Article\ArticleCtrl@singleArticleProduct')->where('id', '[\d]+');
+    
+    
+    #article crawler
+    Route::get('/articleCrawler', 'Backend\Article\articleCtrl@listCrawler')->name('articleCrawler');
+    Route::get('/articleCrawler/singleProductCrawler/{id}', 'Backend\Article\ArticleCtrl@singleProductCrawler')->where('id', '[\d]+');
 });
 
 
@@ -74,6 +80,7 @@ Route::group(['prefix' => 'rest', 'middleware' => ['web', 'auth']], function () 
     Route::get('/article', 'Backend\Rest\ArticleCtrl@getAllArticle');
     Route::post('/article', 'Backend\Rest\ArticleCtrl@addNew');
     Route::put('/article', 'Backend\Rest\ArticleCtrl@edit');
+    Route::put('/articleCrawler', 'Backend\Rest\ArticleCtrl@editCrawler');
     Route::delete('/article/{id}', 'Backend\Rest\ArticleCtrl@deleted');
     Route::put('/article/undelete{id}', 'Backend\Rest\ArticleCtrl@undelete');
     Route::put('/article/updateSticky/{id}', 'Backend\Rest\ArticleCtrl@updateSticky');

@@ -8,6 +8,7 @@ MySQL - 5.7.19-log : Database - bds
 
 /*!40101 SET SQL_MODE=''*/;
 
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 /*Table structure for table `address_city` */
@@ -592,3 +593,4 @@ CREATE TABLE `widget` (
 insert  into `widget`(`id`,`position_code`,`type`,`value`,`order`,`cache`) values (2,'header','menu','{\"menuPositionId\":4}',1,'[{\"id\":16,\"name\":\"B\\u00e1n nh\\u00e0 \\u0111\\u1ea5t\",\"type\":\"link\",\"position_id\":4,\"parent\":0,\"order\":1,\"depth\":\"\\/1\",\"value\":\"{\\\"url\\\":\\\"http%3A%2F%2Flocalhost%2Fbds%2Fadmin%2Fmenu%23%21%2F\\\",\\\"categoryID\\\":\\\"\\\",\\\"articleID\\\":\\\"\\\"}\",\"href\":\"http:\\/\\/localhost\\/bds\\/admin\\/menu#!\\/\"},{\"id\":18,\"name\":\"B\\u00e1n nh\\u00e0 ri\\u00eang\",\"type\":\"link\",\"position_id\":4,\"parent\":16,\"order\":1,\"depth\":\"\\/1\\/1\",\"value\":\"{\\\"url\\\":\\\"%2F\\\",\\\"categoryID\\\":\\\"\\\",\\\"articleID\\\":\\\"\\\"}\",\"href\":\"http:\\/\\/localhost\\/bds\"},{\"id\":17,\"name\":\"B\\u00e1n c\\u0103n h\\u1ed9 trung c\\u01b0\",\"type\":\"article\",\"position_id\":4,\"parent\":18,\"order\":1,\"depth\":\"\\/1\\/1\\/1\",\"value\":\"{\\\"url\\\":\\\"\\\",\\\"categoryID\\\":\\\"\\\",\\\"articleID\\\":22}\",\"href\":\"http:\\/\\/localhost\\/bds\\/ban-nha-d-an\\/4\\/1213\\/22\"}]'),(4,'footer','menu','{\"menuPositionId\":4}',1,'{}');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

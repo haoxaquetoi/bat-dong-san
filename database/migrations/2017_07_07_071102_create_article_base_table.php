@@ -16,10 +16,10 @@ class CreateArticleBaseTable extends Migration
         Schema::create('article_base', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('article_id');
-            $table->integer('city_id');
-            $table->integer('district_id');
-            $table->integer('village_id');
-            $table->integer('street_id');
+            $table->integer('city_id')->nullable();
+            $table->integer('district_id')->nullable();
+            $table->integer('village_id')->nullable();
+            $table->integer('street_id')->nullable();
             $table->text('address')->nullable();
             $table->double('price')->default(0);
             $table->integer('myself')->default(0);

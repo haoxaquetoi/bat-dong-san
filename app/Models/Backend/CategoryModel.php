@@ -26,7 +26,14 @@ class CategoryModel extends Model {
      * @return type
      */
     function getAllCat($parent_id = 0, $type = NULL, array &$catTmp = array(), $child = '') {
-        $data = CategoryModel::where('deleted', '!=', 1)->orderBy('depth')->orderBy('order')->get();
+        $whereParent = [];
+        if($type !== NULL)
+        {
+            $whereParent[] = ['type','=',"$type"];
+        }
+        $whereParent[] = ['deleted', '!=', 1];
+        
+        $data = $this->where($whereParent)->orderBy('depth')->orderBy('order')->get();
         foreach ($data as &$cat) {
             $arrdepth = explode('/', $cat->depth);
             $cat->children = '';

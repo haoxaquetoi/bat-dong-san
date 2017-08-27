@@ -16,12 +16,11 @@ class CreateArticleContactTable extends Migration
         Schema::create('article_contact', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('article_id');
-            $table->string('name', 255);
+            $table->string('name', 255)->nullable();
             $table->text('address')->nullable();
             $table->string('phone', 50)->nullable();
-            $table->string('mobile', 50);
-            $table->string('email', 255);
-            $table->timestamps();
+            $table->string('mobile', 50)->nullable();
+            $table->string('email', 255)->nullable();
         });
     }
 

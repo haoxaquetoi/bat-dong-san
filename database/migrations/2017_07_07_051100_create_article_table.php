@@ -30,6 +30,8 @@ class CreateArticleTable extends Migration {
             $table->tinyInteger('is_sold')->default(0);
             $table->string('thumbnail', 500)->nullable();
             $table->string('type', 7)->default('Product');
+            $table->string('parent_url', 255)->nullable();
+            $table->tinyInteger('crawlerPublish')->nullable(); //1: Đã duyêt
         });
     }
 

@@ -8,7 +8,7 @@ use DB;
 class ArticleBaseModel extends Model {
 
     protected $table = 'article_base';
-
+    public $timestamps = false;
 
    
 }

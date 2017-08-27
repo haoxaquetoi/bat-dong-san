@@ -22,13 +22,73 @@ class ArticleCtrl extends Controller {
         $viewData['category'] = collect($category);
         $viewData['post_date'] = $artModel->get_all_post_date();
         $viewData['count'] = [];
-        $viewData['count']['total'] = $artModel::count();
-        $viewData['count']['total_publish'] = $artModel::where('status', 'Publish')->count();
-        $viewData['count']['total_trash'] = $artModel::where('status', 'Trash')->count();
-        $viewData['count']['total_deleted'] = $artModel::where('deleted', '1')->count();
-
-        $viewData['arrArticle'] = $artModel->getAll($request->category_id, $request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd, $request->ord_fb);
+        $viewData['count']['total'] = $artModel::where(function($query) {
+                    $query->where(function($querySub) {
+                        $querySub->whereNull('parent_url');
+                    });
+                    $query->orWhere(function($querySub) {
+                        $querySub->where('crawlerPublish', 1);
+                    });
+                })->count();
+        $viewData['count']['total_publish'] = $artModel::where('status', 'Publish')
+                        ->where('deleted', '!=', 1)
+                        ->where(function($query) {
+                            $query->where(function($querySub) {
+                                $querySub->whereNull('parent_url');
+                            });
+                            $query->orWhere(function($querySub) {
+                                $querySub->where('crawlerPublish', 1);
+                            });
+                        })->count();
+        $viewData['count']['total_trash'] = $artModel::where('status', 'Trash')
+                    ->where('deleted', '!=', 1)
+                    ->where(function($query) {
+                        $query->where(function($querySub) {
+                            $querySub->whereNull('parent_url');
+                        });
+                        $query->orWhere(function($querySub) {
+                            $querySub->where('crawlerPublish', 1);
+                        });
+                })->count();
+        $viewData['count']['total_deleted'] = $artModel::where('deleted', '1')
+                        ->where(function($query) {
+                            $query->where(function($querySub) {
+                                $querySub->whereNull('parent_url');
+                            });
+                            $query->orWhere(function($querySub) {
+                                $querySub->where('crawlerPublish', 1);
+                            });
+                        })->count();
+        $viewData['arrArticle'] = $artModel->getAll($request->category_id, $request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd, $request->ord_fb, FALSE);
         return view('backend/article/listArticle', $viewData);
+    }
+
+    function listCrawler(ArticleModel $artModel, CategoryModel $catModel, Request $request) {
+
+        $category = $catModel->getAllCat(0);
+        $viewData['category'] = collect($category);
+        $viewData['post_date'] = $artModel->get_all_post_date();
+        $viewData['count'] = [];
+        $viewData['count']['total'] = $artModel::where(function($query) {
+                    $query->where(function($querySub) {
+                        $querySub->whereNotNull('parent_url');
+                    });
+                })->count();
+        $viewData['count']['total_trash'] = $artModel::where('status', 'Trash')
+                ->where('deleted', '!=', 1)
+                ->whereNotNull('parent_url')
+                ->where('crawlerPublish', 0)
+                ->count();
+        $viewData['count']['total_deleted'] = $artModel::where('deleted', '1')->where(function($query) {
+                    $query->where(function($querySub) {
+                        $querySub->whereNotNull('parent_url');
+                    });
+                    $query->orWhere(function($querySub) {
+                        $querySub->where('crawlerPublish', 0);
+                    });
+                })->count();
+        $viewData['arrArticle'] = $artModel->getAll($request->category_id, 'Product', $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd, $request->ord_fb, TRUE);
+        return view('backend/article/listArticleCrawler', $viewData);
     }
 
     function singleArticleNews(ArticleModel $artModel, CategoryModel $catModel, Request $request) {
@@ -61,6 +121,25 @@ class ArticleCtrl extends Controller {
         $category = $catModel->getAllCat(0, 'Product');
         $viewData['category'] = collect($category);
         return view('backend/article/singleArticleProduct', $viewData);
+    }
+
+    function singleProductCrawler(ArticleModel $artModel, CategoryModel $catModel, Request $request) {
+
+        $id = isset($request->id) ? $request->id : 0;
+        $viewData['articleInfo'] = $artModel->getArticleInfo($id);
+        if (!isset($viewData['articleInfo']['parent_url']) || trim($viewData['articleInfo']['parent_url']) == '') {
+            die('Đối tượng lựa chọn không hợp lệ');
+        }
+
+        $viewData['city'] = AddressCityModel::select('id', 'name')->get()->toArray();
+        $viewData['district'] = AddressDistrictModel::select('id', 'name', 'city_id')->get()->toArray();
+        $viewData['village'] = AddressVillageModel::select('id', 'name', 'district_id')->get()->toArray();
+        $viewData['street'] = AddressStreetModel::select('id', 'name', 'village_id')->get()->toArray();
+        $viewData['tags'] = TagsModel::select('id', 'code')->get()->toArray();
+        $viewData['direction'] = app('DirectionConfig')->getDirection();
+        $category = $catModel->getAllCat(0, 'Product');
+        $viewData['category'] = collect($category);
+        return view('backend/article/singleProductCrawler', $viewData);
     }
 
 }

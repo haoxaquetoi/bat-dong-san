@@ -30,6 +30,8 @@ class SettingCrawler {
             'facade' => 'Mặt tiền',
             'entry_width' => 'Chiều rộng nối vào',
             'balcony_direction' => 'Hướng ban công',
+            'house_direction'=>'Hướng nhà',
+            'number_of_wc' => 'Số phòng WC',
             'number_of_storeys' => 'Số tầng',
             'number_of_bedrooms' => 'Số phòng',
             'furniture' => 'Nội thất',
@@ -48,20 +50,93 @@ class SettingCrawler {
         ]
     ];
     public $arrWebsiteGetData = [
-        ['name' => 'NGuồn 1',
-            'url' => 'http://batdongsan.com.vn',
+        'bds1' => ['name' => 'batdongsan.com.vn',
+            'url' => 'https://batdongsan.com.vn',
             'status' => true,
-            'code' => 'bds1'
+            'mappAddress' => [
+                'city' => [
+                    'SG' =>
+                    [
+                        'mapp' => [
+                            'code' => '1',
+                            'name' => 'Hồ Chí Minh'
+                        ],
+                        'name' => 'Hồ Chí Minh'
+                    ],
+                    'HN' =>
+                    [
+                        'mapp' => [
+                            'code' => '2',
+                            'name' => 'Hà Nội'
+                        ],
+                        'name' => 'Hà Nội'
+                    ],
+                    'DDN' =>
+                    [
+                        'mapp' => [
+                            'code' => '3',
+                            'name' => 'Đà Nẵng'
+                        ],
+                        'name' => 'Đà Nẵng'
+                    ],
+                    'BD' =>
+                    [
+                        'mapp' => [
+                            'code' => '4',
+                            'name' => 'Bình Dương'
+                        ],
+                        'name' => 'Bình Dương'
+                    ],
+                    'KH' =>
+                    [
+                        'mapp' => [
+                            'code' => '5',
+                            'name' => 'Đồng Nai'
+                        ],
+                        'name' => 'Đồng Nai'
+                    ],
+                    'HN' =>
+                    [
+                        'mapp' => [
+                            'code' => '6',
+                            'name' => 'Khánh Hòa'
+                        ],
+                        'name' => 'Khánh Hòa'
+                    ],
+                    'HP' =>
+                    [
+                        'mapp' => [
+                            'code' => '7',
+                            'name' => 'Hải Phòng'
+                        ],
+                        'name' => 'Hải Phòng'
+                    ],
+                    'LA' =>
+                    [
+                        'mapp' => [
+                            'code' => '8',
+                            'name' => 'Long An'
+                        ],
+                        'name' => 'Long An'
+                    ],
+                    'QNA' =>
+                    [
+                        'mapp' => [
+                            'code' => '9',
+                            'name' => 'Quảng Nam'
+                        ],
+                        'name' => 'Quảng Nam'
+                    ]
+                ]
+            ]
         ],
-        ['name' => 'NGuồn 2',
+        'bds2' => ['name' => 'NGuồn 2',
             'url' => 'http://batdongsan.com.vn',
             'status' => true,
-            'code' => 'bds2'
         ],
-        ['name' => 'NGuồn 3',
+        'bds3' => ['name' => 'NGuồn 3',
             'url' => 'http://batdongsan.com.vn',
-            'status' => true,
-            'code' => 'bds3'
+            'status' => true
         ]
     ];
 

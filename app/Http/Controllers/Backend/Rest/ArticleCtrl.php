@@ -29,7 +29,7 @@ class ArticleCtrl extends Controller {
 
         $articleID = $articleModel::insertGetId([
                     'title' => $request->title,
-                    'slug' => $request->slug,
+                    'slug' => str_slug($request->slug, '-'),
                     'summary' => $request->summary,
                     'content' => $request->content,
                     'thumbnail' => $request->thumbnail,
@@ -90,6 +90,36 @@ class ArticleCtrl extends Controller {
         $this->update_category_article($catArtModel, $articleID, $arrCatID);
 
 
+        $this->updateTag($tagArtModel, $TagsModel, $request, $articleID);
+        $articleInfo = $this->getArticleInfo($articleModel, $articleID);
+        return response()->json($articleInfo);
+    }
+
+    function editCrawler(TagsAricleModel $tagArtModel, TagsModel $TagsModel, CategoryArticleModel $catArtModel, ArticleBaseModel $artBase, ArticleContactModel $artContact, ArticleOtherModel $artOther, CategoryModel $catModel, ArticleModel $articleModel, Request $request) {
+        $this->_chkValidation($articleModel, $catModel, $request);
+        $articleID = $request->id;
+        $articleInfo = $articleModel::find($articleID);
+        $articleInfo->title = $request->title;
+        $articleInfo->slug = $request->slug;
+        $articleInfo->summary = $request->summary;
+        $articleInfo->content = $request->content;
+        $articleInfo->thumbnail = $request->thumbnail;
+        $articleInfo->type = $request->type;
+        $articleInfo->is_sticky = $request->is_sticky ? '1' : '0';
+        $articleInfo->is_censored = $request->is_censored ? '1' : '0';
+        $articleInfo->crawlerPublish = $request->crawlerPublish ? '1' : '0';
+        $articleInfo->status = ($request->status == 'Publish') ? 'Publish' : 'Trash';
+        $articleInfo->begin_date = trim($request->begin_date) != '' ? $request->begin_date : null;
+        $articleInfo->end_date = trim($request->end_date) != '' ? $request->end_date : null;
+        $articleInfo->save();
+
+        if ($articleID == NULL) {
+            return response()->json(array('other' => ['Xảy ra lỗi, bạn vui lòng tải lại trang sau đó thao tác lại']), 422);
+        }
+
+        $this->_update_product($artBase, $artContact, $artOther, $catModel, $articleModel, $request);
+        $arrCatID = $request->category;
+        $this->update_category_article($catArtModel, $articleID, $arrCatID);
         $this->updateTag($tagArtModel, $TagsModel, $request, $articleID);
         $articleInfo = $this->getArticleInfo($articleModel, $articleID);
         return response()->json($articleInfo);
@@ -504,7 +534,7 @@ class ArticleCtrl extends Controller {
     }
 
     function doReadedFB(Request $request) {
-        $fb = FeedbackArticleModel::where('article_id',$request->id)->get();
+        $fb = FeedbackArticleModel::where('article_id', $request->id)->get();
         foreach ($fb as $singleFb) {
             $singleFb->readed = 1;
             $singleFb->save();

@@ -1,12 +1,6 @@
 @extends('backend.layouts.default')
 @section('title', 'Quản lý người dùng')
 @section('content')
-
-@push('scripts')
-<script src="{{url('backend')}}/js/crawler/crawlerCtrl.js"></script>
-<script src="{{url('backend')}}/js/factory/services/crawlerService.js"></script>
-@endpush
-
 <?php
 $arrWebsite = app('SettingCrawler')->arrWebsiteGetData;
 ?>
@@ -40,7 +34,6 @@ $arrWebsite = app('SettingCrawler')->arrWebsiteGetData;
                                     <thead>
                                         <tr role="row">
                                             <th>STT</th>
-                                            <th>#</th>
                                             <th>Tên website</th>
                                             <th>Url</th>
                                             <th>Trạng thái</th>
@@ -48,26 +41,21 @@ $arrWebsite = app('SettingCrawler')->arrWebsiteGetData;
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @for($i = 0; $i < count($arrWebsite); $i++)
+                                        <?php
+                                            $i =1;
+                                        ?>
+                                        @foreach ($arrWebsite as $key=>$val)
                                         <tr role="row" class="odd" >
                                             <td >{{$i + 1}}</td>
-                                            <td class="tbl-actions center">
-                                                <div class="dropdown">
-                                                    <a href="javascript:void(0);" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="{{URL::asset('/admin/crawler/configCrawler/').$arrWebsite[$i]['code']}}" >Cấu hình chi tiết</a></li>
-                                                    </ul>
-                                                </div>
+                                            <td>
+                                                <a href="{{URL::asset('/admin/crawler/configCrawler').'/'.$key.'/0'}}" >&nbsp;{{$val['name']}}</a>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0);" ng-click="actions.singleModalCrawler('#modalSingleCrawler', crawlerInfo)">&nbsp;{{$arrWebsite[$i]['name']}}</a>
+                                                {{$val['url']}}
                                             </td>
-                                            <td>
-                                                {{$arrWebsite[$i]['url']}}
-                                            </td>
-                                            <td>{{($arrWebsite[$i]['status'] ==true) ? 'Đã xóa' :'Hoạt động'}}</td>
+                                            <td>{{($val['status'] ==true) ? 'Hoạt động' :'Không hoạt động'}}</td>
                                         </tr>
-                                        @endfor;
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -84,6 +72,5 @@ $arrWebsite = app('SettingCrawler')->arrWebsiteGetData;
     <!-- /.row -->
 </section>
 <!-- /.content -->
-@include('backend.crawler.modalSingleCrawler')
 @endsection
 
