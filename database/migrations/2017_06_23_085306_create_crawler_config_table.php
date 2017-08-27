@@ -15,7 +15,6 @@ class CreateCrawlerConfigTable extends Migration {
         Schema::create('crawler_config', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('category_id');
-            $table->integer('category_id');
             $table->string('website_code', 255);
             $table->text('value');
         });

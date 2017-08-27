@@ -14,7 +14,7 @@ class CrawlerCtrl extends Controller {
      * Hien thi cac tin đã lấy
      */
     function index() {
-        return view('backend/crawler/main');
+        return view('Backend/crawler/main',[]);
     }
 
     /**
@@ -35,7 +35,7 @@ class CrawlerCtrl extends Controller {
         if (isset($viewData['config']->value)) {
             $viewData['config']->value = json_decode($viewData['config']->value, true);
         }
-        return view('backend/crawler/single_config', $viewData);
+        return view('Backend/crawler/single_config', $viewData);
     }
 
     /**
@@ -77,7 +77,7 @@ class CrawlerCtrl extends Controller {
             $val = $request->{$key};
         }
 
-        DB::table('crawler_config')->where('website_code', $websiteCode)->delete();
+        DB::table('crawler_config')->where('website_code', $websiteCode)->where('category_id', $selCategoryID)->delete();
         DB::table('crawler_config')->insert([
             'website_code' => $websiteCode,
             'category_id' => $selCategoryID,

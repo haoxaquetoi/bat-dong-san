@@ -14,7 +14,6 @@ class SettingCrawler {
             'end_date' => 'Ngày kết thúc đăng',
             'is_sticky' => 'Tin nổi bật',
             'is_censored' => 'Tin đảm bảo',
-            'is_sold' => 'Tin đã bán',
             'thumbnail' => 'Ảnh minh họa'
         ],
         'base' => [

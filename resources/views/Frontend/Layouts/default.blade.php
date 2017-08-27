@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale')}}">
     <head>
+        @yield('meta')
         @includeif('Frontend.partial._head')
         @includeif('Frontend.partial._angular')
     </head>

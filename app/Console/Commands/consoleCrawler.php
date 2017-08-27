@@ -109,6 +109,7 @@ class consoleCrawler extends Command {
                         $arrInsertBase[$columnCode] = NULL;
 
                         if (trim($xpath) != '') {
+
                             if ($columnCode == 'city_id') {
                                 $arrInsertBase[$columnCode] = $crawlerPost->filter($xpath)->text();
                                 if (
@@ -118,6 +119,8 @@ class consoleCrawler extends Command {
                                 } else {
                                     trigger_error('Mã tỉnh/thành phố cấu hình mapp không hợp lệ');
                                 }
+                            } elseif ($columnCode == 'district_id') {
+                                
                             } else {
                                 $arrInsertBase[$columnCode] = $crawlerPost->filter($xpath)->text();
                             }
@@ -140,6 +143,13 @@ class consoleCrawler extends Command {
                         if (trim($xpath) != '') {
                             $arrInsertOther[$columnCode] = $crawlerPost->filter($xpath)->text();
                         }
+
+
+                        if ($columnCode == 'entry_width') {
+                            $arrInsertOther[$columnCode] = (int) $arrInsertOther[$columnCode];
+                        }
+                        
+                        
                     }
                     DB::table('article_other')->insertGetId([
                         'article_id' => $postTmpID,
