@@ -1,5 +1,9 @@
 @extends('Frontend.Layouts.default')
-@section('title', 'Chi tiết chuyên mục')
+@section('meta')
+<meta name="keywords" content="{!! $dataView['articleInfo']->title !!}" />
+<meta name="description" content="<?php  echo str_limit(strip_tags(html_entity_decode($dataView['articleInfo']->content)), $limit = 250, $end = '...') ?>" />
+@endsection
+@section('title', 'Tin liên quan')
 @section('content')
 
 <link href="{{url('Frontend')}}/css/category.css" rel="stylesheet" type="text/css"/>

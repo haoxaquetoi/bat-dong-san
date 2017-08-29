@@ -1,7 +1,7 @@
 @extends('Frontend.Layouts.default')
 @section('meta')
-<meta name="description" content="{!! str_limit($dataView['arrSingleArticle']->content, $limit = 250, $end = '...') !!}" />
 <meta name="keywords" content="{!! $dataView['arrSingleArticle']->title !!}" />
+<meta name="description" content="<?php  echo str_limit(strip_tags(html_entity_decode($dataView['arrSingleArticle']->content)), $limit = 250, $end = '...') ?>" />
 @endsection
 @section('title', $dataView['arrSingleArticle']->title)
 @section('content')

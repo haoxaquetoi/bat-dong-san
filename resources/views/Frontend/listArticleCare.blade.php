@@ -1,5 +1,9 @@
 @extends('Frontend.Layouts.default')
-@section('title', 'Chi tiết chuyên mục')
+@section('meta')
+<meta name="keywords" content="Bất động sản" />
+<meta name="description" content="Danh sách tin quan tâm" />
+@endsection
+@section('title', 'Danh sách tin quan tâm')
 @section('content')
 
 <link href="{{url('Frontend')}}/css/category.css" rel="stylesheet" type="text/css"/>

@@ -1,4 +1,8 @@
 @extends('Frontend.Layouts.default')
+@section('meta')
+<meta name="keywords" content="Bất động sản" />
+<meta name="description" content="Bất động sản" />
+@endsection
 @section('title', 'Trang chủ')
 @section('content')
 
