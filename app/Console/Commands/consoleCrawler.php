@@ -91,7 +91,6 @@ class consoleCrawler extends Command {
                         'thumbnail' => $arrInsertContent['thumbnail'],
                         'is_sticky' => (int) $arrInsertContent['is_sticky'],
                         'is_censored' => (int) $arrInsertContent['is_censored'],
-                        'is_sold' => (int) $arrInsertContent['is_sold'],
                         'begin_date' => $arrInsertContent['begin_date'],
                         'end_date' => $arrInsertContent['end_date'],
                         'created_at' => date('Y-m-d H:i:s'),
@@ -120,8 +119,30 @@ class consoleCrawler extends Command {
                                     trigger_error('Mã tỉnh/thành phố cấu hình mapp không hợp lệ');
                                 }
                             } elseif ($columnCode == 'district_id') {
-                                
-                            } else {
+                                if (
+                                        isset($arrWebConfig['mappAddress']) && isset($arrWebConfig['mappAddress']['district']) && isset($arrWebConfig['mappAddress']['district']['mapp']) && isset($arrWebConfig['mappAddress']['district']['mapp']['id'])
+                                ) {
+                                    $arrInsertBase[$columnCode] = $arrWebConfig['mappAddress']['district']['mapp']['id'];
+                                } else {
+                                    trigger_error('Mã quận/huyện cấu hình mapp không hợp lệ');
+                                }
+                            } elseif ($columnCode == 'village_id') {
+                                if (
+                                        isset($arrWebConfig['mappAddress']) && isset($arrWebConfig['mappAddress']['village']) && isset($arrWebConfig['mappAddress']['village']['mapp']) && isset($arrWebConfig['mappAddress']['village']['mapp']['id'])
+                                ) {
+                                    $arrInsertBase[$columnCode] = $arrWebConfig['mappAddress']['village']['mapp']['id'];
+                                } else {
+                                    trigger_error('Mã quận/huyện cấu hình mapp không hợp lệ');
+                                }
+                            } elseif ($columnCode == 'street_id') {
+                                if (
+                                        isset($arrWebConfig['mappAddress']) && isset($arrWebConfig['mappAddress']['street']) && isset($arrWebConfig['mappAddress']['street']['mapp']) && isset($arrWebConfig['mappAddress']['street']['mapp']['id'])
+                                ) {
+                                    $arrInsertBase[$columnCode] = $arrWebConfig['mappAddress']['street']['mapp']['id'];
+                                } else {
+                                    trigger_error('Mã quận/huyện cấu hình mapp không hợp lệ');
+                                }
+                            }else {
                                 $arrInsertBase[$columnCode] = $crawlerPost->filter($xpath)->text();
                             }
                         }
@@ -143,13 +164,10 @@ class consoleCrawler extends Command {
                         if (trim($xpath) != '') {
                             $arrInsertOther[$columnCode] = $crawlerPost->filter($xpath)->text();
                         }
-
-
-                        if ($columnCode == 'entry_width') {
+                        if ($columnCode == 'facade' || $columnCode == 'entry_width' || $columnCode == 'floor_area' ||
+                                $columnCode == 'number_of_storeys' || $columnCode == 'number_of_wc' || $columnCode == 'number_of_bedrooms') {
                             $arrInsertOther[$columnCode] = (int) $arrInsertOther[$columnCode];
                         }
-                        
-                        
                     }
                     DB::table('article_other')->insertGetId([
                         'article_id' => $postTmpID,
