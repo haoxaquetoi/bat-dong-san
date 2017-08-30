@@ -169,8 +169,11 @@
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group">
-                                        <label for="">Hướng vào</label>
-                                        <input type="text" class="form-control" ng-model="articleInfo.article_other.entry_width" />
+                                        <label for="">Chiều rộng lối vào</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="articleInfo.article_other.entry_width" />
+                                            <span class="input-group-addon">m</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

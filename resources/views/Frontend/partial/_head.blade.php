@@ -1,6 +1,13 @@
-<title>@yield('title')</title>
+<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="content-language" content="vi" />
+<title>@yield('title')</title>
+<meta name="robots" content="noodp,index,follow" />
+<meta name='revisit-after' content='1 days' />
+
+
 
 <!-- Bootstrap 3.3.6 -->
 <link rel="stylesheet" href="{{url('AdminLTE')}}/bootstrap/css/bootstrap.min.css">

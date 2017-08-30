@@ -1,5 +1,9 @@
 @extends('Frontend.Layouts.default')
-@section('title', 'Chi tiết tin bài')
+@section('meta')
+<meta name="keywords" content="{!! $dataView['arrSingleArticle']->title !!}" />
+<meta name="description" content="<?php  echo str_limit(strip_tags(html_entity_decode($dataView['arrSingleArticle']->content)), $limit = 250, $end = '...') ?>" />
+@endsection
+@section('title', $dataView['arrSingleArticle']->title)
 @section('content')
 
 <link href="{{url('Frontend')}}/css/pageSingle.css" rel="stylesheet" type="text/css"/>

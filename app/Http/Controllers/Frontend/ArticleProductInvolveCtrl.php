@@ -22,7 +22,7 @@ class ArticleProductInvolveCtrl extends Controller {
         if (!isset($articleInfo->id)) {
             return view('Frontend.errors.post', ['errorCode' => 'notFound']);
         }
-
+        $data['articleInfo'] = $articleInfo;
         if ($articleInfo->type == 'Product') {
             $page = isset($request->page) ? $request->page : 1;
             $censored = isset($request->cs) ? $request->cs : '';

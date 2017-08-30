@@ -1,5 +1,9 @@
 @extends('Frontend.Layouts.default')
-@section('title', 'Chi tiết tin bài')
+@section('meta')
+<meta name="keywords" content="{!! $dataView['arrSingleArticle']->title !!}" />
+<meta name="description" content="<?php  echo str_limit(strip_tags(html_entity_decode($dataView['arrSingleArticle']->content)), $limit = 250, $end = '...') ?>" />
+@endsection
+@section('title', $dataView['arrSingleArticle']->title)
 @section('content')
 <link href="{{url('Frontend')}}/css/pageSingle.css" rel="stylesheet" type="text/css"/>
 @section('myJs')
@@ -111,7 +115,6 @@
                     <div class="col-md-12">
 
                         <div style="display:none;margin:0 auto;" class="html5gallery" data-skin="horizontal" data-width="700" data-height="400" data-resizemode="fill">
-
                             @isset($dataView['arrSingleArticle']->articleSlide->images)
                             @foreach($dataView['arrSingleArticle']->articleSlide->images as $values)
                             @if($values->type == 'images')
