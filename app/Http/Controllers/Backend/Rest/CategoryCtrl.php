@@ -91,7 +91,7 @@ class CategoryCtrl extends Controller {
         $cat->status = $request->status ? 1 : 0;
         $cat->updated_at = date('Y-m-d H:i:s');
         $cat->save();
-        $this->_reorder($cat->id, $cat->parent_id, $cat->order);
+        $this->_reorder($request->id, $request->parent_id, $request->order);
         return response()->json($cat);
     }
 
@@ -109,45 +109,71 @@ class CategoryCtrl extends Controller {
      */
     private function _reorder($id, $parent, $order) {
         $order = intval($order) > 0 ? intval($order) : 1;
-        $curMenuInfo = CategoryModel::find($id);
-        $parentMaxOrder = CategoryModel::where('parent_id', $parent)
-                        ->where('id', '<>', $id)->orderBy('order', 'desc')->first();
-        $parentMaxOrder = isset($parentMaxOrder) ? $parentMaxOrder : 0;
-        if (!isset($parentMaxOrder->order)) {
-            $order = 1;
-        } elseif ($parentMaxOrder->order <= $order) {
-            $order = $parentMaxOrder->order + 1;
-        }
 
-        $listMenuOrder = CategoryModel::where('parent_id', $parent)->orderBy('order')->get();
-        //thuc hien sap xep lai order      
-        $newOrder = 0;
-        for ($i = 0; $i < count($listMenuOrder); $i ++) {
 
-            if ($id != $listMenuOrder[$i]->id) {
-                $newOrder += 1;
-                if (intval($newOrder) == intval($order)) {
-                    $newOrder += 1;
-                }
-            } else {
-                $newOrder = $order;
-            }
-            $listMenuOrder[$i]->order = $newOrder;
-            $depth = '/' . ($listMenuOrder[$i]->order);
-            if ((int) $listMenuOrder[$i]->parent_id > 0) {
-                $parentMenuInfo = CategoryModel::find($listMenuOrder[$i]->parent_id);
+        //Sắp xếp các đối tượng có order <$order
+        $arrCatPreview = CategoryModel::where('parent_id', $parent)
+                        ->where('id', '<>', $id)->where('order', '<=', $order)->orderBy('order')->get();
+
+        for ($n = 0; $n < count($arrCatPreview); $n++) {
+            $arrCatPreview[$n]->order = $n + 1;
+            $depth = '/' . ($arrCatPreview[$n]->order);
+            if ((int) $arrCatPreview[$n]->parent_id > 0) {
+                $parentMenuInfo = CategoryModel::find($arrCatPreview[$n]->parent_id);
                 $depth = $parentMenuInfo->depth . $depth;
             }
-            $listMenuOrder[$i]->depth = $depth;
-            $listMenuOrder[$i]->save();
-            if (CategoryModel::where('parent_id', $listMenuOrder[$i]->id)->count() > 0) {
-                $this->_reorderChild($listMenuOrder[$i]->id, $listMenuOrder[$i]->depth);
+            $arrCatPreview[$n]->depth = $depth;
+            $arrCatPreview[$n]->save();
+            if (CategoryModel::where('parent_id', $arrCatPreview[$n]->id)->count() > 0) {
+                $this->_reorderChild($arrCatPreview[$n]->id, $arrCatPreview[$n]->depth);
             }
+            $arrCatPreview[$n]->save();
+        }
+        if (!isset($arrCatPreview[0]->id) || $order == 1) {
+            $order = 1;
+        } else {
+            $order = CategoryModel::where('parent_id', $parent)->where('id', '<>', $id)->where('order', '<=', $order)->orderBy('order', 'desc')->first()->order + 1;
+        }
+
+        //Update current
+        $currentCat = CategoryModel::find($id);
+        $currentCat->order = $order;
+        $depth = '/' . ($currentCat->order);
+        if ((int) $currentCat->parent_id > 0) {
+            $parentMenuInfo = CategoryModel::find($currentCat->parent_id);
+            $depth = $parentMenuInfo->depth . $depth;
+        }
+        $currentCat->depth = $depth;
+        $currentCat->save();
+        if (CategoryModel::where('parent_id', $currentCat->id)->count() > 0) {
+            $this->_reorderChild($currentCat->id, $currentCat->depth);
+        }
+        $currentCat->save();
+
+
+        //Sắp xếp các đối tượng có order >= $order
+        $arrCatNext = CategoryModel::where('parent_id', $parent)
+                        ->where('id', '<>', $id)->where('order', '>', $order)->orderBy('order')->get();
+
+        for ($n = 0; $n < count($arrCatNext); $n++) {
+            $arrCatNext[$n]->order = $order + $n + 1;
+            $depth = '/' . ($arrCatNext[$n]->order);
+            if ((int) $arrCatNext[$n]->parent_id > 0) {
+                $parentMenuInfo = CategoryModel::find($arrCatNext[$n]->parent_id);
+                $depth = $parentMenuInfo->depth . $depth;
+            }
+            $arrCatNext[$n]->depth = $depth;
+            $arrCatNext[$n]->save();
+            if (CategoryModel::where('parent_id', $arrCatNext[$n]->id)->count() > 0) {
+                $this->_reorderChild($arrCatNext[$n]->id, $arrCatNext[$n]->depth);
+            }
+            $arrCatNext[$n]->save();
         }
     }
+
     private function _reorderChild($parent, $depth) {
         if (intval($parent) > 0) {
-            $listMenuOrder = CategoryModel::where('parent_id',$parent)->orderBy('order')->get();
+            $listMenuOrder = CategoryModel::where('parent_id', $parent)->orderBy('order')->get();
             for ($i = 0; $i < count($listMenuOrder); $i ++) {
                 $listMenuOrder[$i]->order = $i + 1;
                 $listMenuOrder[$i]->depth = $depth . '/' . $listMenuOrder[$i]->order;

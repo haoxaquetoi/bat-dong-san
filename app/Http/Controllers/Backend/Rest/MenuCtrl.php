@@ -257,7 +257,7 @@ class MenuCtrl extends Controller {
      * @return type
      */
     function listMenu(Request $request, $positionId, MenuModel $menuModel) {
-        
+
         Validator::make(
                 ['positionId' => $positionId], ['positionId' => 'required|exists:menu_position,id'], [
             'positionId.required' => 'Bắt buộc phải có vị trí menu',
@@ -324,48 +324,69 @@ class MenuCtrl extends Controller {
      */
     private function _reorder($id, $parent, $order) {
         $order = intval($order) > 0 ? intval($order) : 1;
-        $curMenuInfo = MenuModel::find($id);
-        $parentMaxOrder = MenuModel::where('parent', $parent)
-                        ->where('id', '<>', $id)->orderBy('order', 'desc')->first();
-        $parentMaxOrder = isset($parentMaxOrder) ? $parentMaxOrder : 0;
-        if (!isset($parentMaxOrder->order)) {
-            $order = 1;
-        }
-        elseif($parentMaxOrder->order <= $order)
-        {
-            $order = $parentMaxOrder->order + 1;
-        }
-            
-        $listMenuOrder = MenuModel::where('parent', $parent)->orderBy('order')->get();
-        //thuc hien sap xep lai order      
-        $newOrder = 0;
-        for ($i = 0; $i < count($listMenuOrder); $i ++) {
+        //Sắp xếp các đối tượng có order <$order
+        $arrMenuPreview = MenuModel::where('parent', $parent)
+                        ->where('id', '<>', $id)->where('order', '<=', $order)->orderBy('order')->get();
 
-            if ($id != $listMenuOrder[$i]->id) {
-                $newOrder += 1;
-                if (intval($newOrder) == intval($order)) {
-                    $newOrder += 1;
-                }
-            } else {
-                $newOrder = $order;
-            }
-            $listMenuOrder[$i]->order = $newOrder;
-            $depth = '/' . ($listMenuOrder[$i]->order);
-            if ((int) $listMenuOrder[$i]->parent > 0) {
-                $parentMenuInfo = MenuModel::find($listMenuOrder[$i]->parent);
+        for ($n = 0; $n < count($arrMenuPreview); $n++) {
+            $arrMenuPreview[$n]->order = $n + 1;
+            $depth = '/' . ($arrMenuPreview[$n]->order);
+            if ((int) $arrMenuPreview[$n]->parent > 0) {
+                $parentMenuInfo = MenuModel::find($arrMenuPreview[$n]->parent);
                 $depth = $parentMenuInfo->depth . $depth;
             }
-            $listMenuOrder[$i]->depth = $depth;
-            $listMenuOrder[$i]->save();
-            if (MenuModel::where('parent',  $listMenuOrder[$i]->id)->count() > 0) {
-                $this->_reorderChild($listMenuOrder[$i]->id, $listMenuOrder[$i]->depth);
+            $arrMenuPreview[$n]->depth = $depth;
+            $arrMenuPreview[$n]->save();
+            if (MenuModel::where('parent', $arrMenuPreview[$n]->id)->count() > 0) {
+                $this->_reorderChild($arrMenuPreview[$n]->id, $arrMenuPreview[$n]->depth);
             }
+            $arrMenuPreview[$n]->save();
+        }
+        if (!isset($arrMenuPreview[0]->id) || $order == 1) {
+            $order = 1;
+        } else {
+            $order = MenuModel::where('parent', $parent)->where('id', '<>', $id)->where('order', '<', $order)->orderBy('order', 'desc')->first()->order + 1;
+        }
+
+        //Update current
+        $currentMenu = MenuModel::find($id);
+        $currentMenu->order = $order;
+        $depth = '/' . ($currentMenu->order);
+        if ((int) $currentMenu->parent > 0) {
+            $parentMenuInfo = MenuModel::find($currentMenu->parent);
+            $depth = $parentMenuInfo->depth . $depth;
+        }
+        $currentMenu->depth = $depth;
+        $currentMenu->save();
+        if (MenuModel::where('parent', $currentMenu->id)->count() > 0) {
+            $this->_reorderChild($currentMenu->id, $currentMenu->depth);
+        }
+        $currentMenu->save();
+
+
+        //Sắp xếp các đối tượng có order >= $order
+        $arrMenuNext = MenuModel::where('parent', $parent)
+                        ->where('id', '<>', $id)->where('order', '>=', $order)->orderBy('order', 'desc')->get();
+
+        for ($n = 0; $n < count($arrMenuNext); $n++) {
+            $arrMenuNext[$n]->order = $order + $n + 1;
+            $depth = '/' . ($arrMenuNext[$n]->order);
+            if ((int) $arrMenuNext[$n]->parent > 0) {
+                $parentMenuInfo = MenuModel::find($arrMenuNext[$n]->parent);
+                $depth = $parentMenuInfo->depth . $depth;
+            }
+            $arrMenuNext[$n]->depth = $depth;
+            $arrMenuNext[$n]->save();
+            if (MenuModel::where('parent', $arrMenuNext[$n]->id)->count() > 0) {
+                $this->_reorderChild($arrMenuNext[$n]->id, $arrMenuNext[$n]->depth);
+            }
+            $arrMenuNext[$n]->save();
         }
     }
 
     private function _reorderChild($parent, $depth) {
         if (intval($parent) > 0) {
-            $listMenuOrder = MenuModel::where('parent',$parent)->orderBy('order')->get();
+            $listMenuOrder = MenuModel::where('parent', $parent)->orderBy('order')->get();
             for ($i = 0; $i < count($listMenuOrder); $i ++) {
                 $listMenuOrder[$i]->order = $i + 1;
                 $listMenuOrder[$i]->depth = $depth . '/' . $listMenuOrder[$i]->order;
