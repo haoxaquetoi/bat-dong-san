@@ -154,10 +154,11 @@
     'WidgetConfig' => 'App\\Providers\\MyAppConfigProvider',
     'ThemeConfig' => 'App\\Providers\\MyAppConfigProvider',
     'DirectionConfig' => 'App\\Providers\\MyAppConfigProvider',
-    'SettingConfig' => 'App\\Providers\\MyAppConfigProvider',
     'SettingCrawler' => 'App\\Providers\\MyAppConfigProvider',
+    'SettingConfig' => 'App\\Providers\\MyAppConfigProvider',
     'BuildUrl' => 'App\\Providers\\MyAppConfigProvider',
     'ParamsSearchConfig' => 'App\\Providers\\MyAppConfigProvider',
+    'MyFunc' => 'App\\Providers\\MyAppConfigProvider',
   ),
   'when' => 
   array (

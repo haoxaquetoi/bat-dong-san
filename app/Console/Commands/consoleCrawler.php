@@ -110,39 +110,25 @@ class consoleCrawler extends Command {
                         if (trim($xpath) != '') {
 
                             if ($columnCode == 'city_id') {
-                                $arrInsertBase[$columnCode] = $crawlerPost->filter($xpath)->text();
+                                $arrInsertBase[$columnCode] = $crawlerPost->filter($xpath)->attr('data-value');
                                 if (
-                                        isset($arrWebConfig['mappAddress']) && isset($arrWebConfig['mappAddress']['city']) && isset($arrWebConfig['mappAddress']['city']['mapp']) && isset($arrWebConfig['mappAddress']['city']['mapp']['id'])
+                                        isset($arrWebConfig['mappAddress']) && isset($arrWebConfig['mappAddress']['city']) && isset($arrWebConfig['mappAddress']['city'][$arrInsertBase[$columnCode]])
                                 ) {
-                                    $arrInsertBase[$columnCode] = $arrWebConfig['mappAddress']['city']['mapp']['id'];
+                                    $arrInsertBase[$columnCode] = $arrWebConfig['mappAddress']['city'][$arrInsertBase[$columnCode]];
                                 } else {
+                                    $arrInsertBase[$columnCode] = '';
                                     trigger_error('Mã tỉnh/thành phố cấu hình mapp không hợp lệ');
                                 }
                             } elseif ($columnCode == 'district_id') {
                                 if (
-                                        isset($arrWebConfig['mappAddress']) && isset($arrWebConfig['mappAddress']['district']) && isset($arrWebConfig['mappAddress']['district']['mapp']) && isset($arrWebConfig['mappAddress']['district']['mapp']['id'])
+                                        isset($arrWebConfig['mappAddress']) && isset($arrWebConfig['mappAddress']['district']) && isset($arrWebConfig['mappAddress']['district'][$arrInsertBase[$columnCode]])
                                 ) {
-                                    $arrInsertBase[$columnCode] = $arrWebConfig['mappAddress']['district']['mapp']['id'];
+                                    $arrInsertBase[$columnCode] = $arrWebConfig['mappAddress']['district'][$arrInsertBase[$columnCode]];
                                 } else {
+                                    $arrInsertBase[$columnCode] = '';
                                     trigger_error('Mã quận/huyện cấu hình mapp không hợp lệ');
                                 }
-                            } elseif ($columnCode == 'village_id') {
-                                if (
-                                        isset($arrWebConfig['mappAddress']) && isset($arrWebConfig['mappAddress']['village']) && isset($arrWebConfig['mappAddress']['village']['mapp']) && isset($arrWebConfig['mappAddress']['village']['mapp']['id'])
-                                ) {
-                                    $arrInsertBase[$columnCode] = $arrWebConfig['mappAddress']['village']['mapp']['id'];
-                                } else {
-                                    trigger_error('Mã quận/huyện cấu hình mapp không hợp lệ');
-                                }
-                            } elseif ($columnCode == 'street_id') {
-                                if (
-                                        isset($arrWebConfig['mappAddress']) && isset($arrWebConfig['mappAddress']['street']) && isset($arrWebConfig['mappAddress']['street']['mapp']) && isset($arrWebConfig['mappAddress']['street']['mapp']['id'])
-                                ) {
-                                    $arrInsertBase[$columnCode] = $arrWebConfig['mappAddress']['street']['mapp']['id'];
-                                } else {
-                                    trigger_error('Mã quận/huyện cấu hình mapp không hợp lệ');
-                                }
-                            }else {
+                            } else {
                                 $arrInsertBase[$columnCode] = $crawlerPost->filter($xpath)->text();
                             }
                         }

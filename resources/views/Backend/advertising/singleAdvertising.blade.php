@@ -59,7 +59,7 @@
                                             </a>
                                             <input id="thumbnail" class="form-control" type="hidden" name="filepath" value="@{{data.adv.info.file_path}}" />
                                         </div>
-                                        <img id="holder" style="margin-top:15px;max-height:200px;" src="@{{action.build_thumnail(data.adv.info.file_path)}}" >
+                                        <img id="holder" style="margin-top:15px;max-height:200px;" ng-src="@{{action.build_thumnail(data.adv.info.file_path)}}" >
                                         <span class="help-block">@{{action.showError('file_path')}}</span>
                                     </div>
                                 </div>

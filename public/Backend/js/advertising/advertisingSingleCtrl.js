@@ -4,7 +4,10 @@ ngApp.controller('advertisingSingleCtrl', function ($scope, $apply, $routeParams
     $scope.data = {
         adv: {
             id: $routeParams.id,
-            info: {}
+            info: {
+                begin_date: new Date(),
+                end_date: new Date(2100, 0, 1)
+            }
         },
         getInfo: function () {
             $advService.action.info($scope.data.adv.id).then(function (resp) {
@@ -50,6 +53,7 @@ ngApp.controller('advertisingSingleCtrl', function ($scope, $apply, $routeParams
                 file_path: $('#thumbnail').val()
             };
             $advService.action.update($scope.data.adv.id, dataPost).then(function (resp) {
+                $.notify('Cập nhật thành công', 'success');
                 window.location.href = '#!/';
             }, function (errors) {
                 console.log(errors);
@@ -71,6 +75,7 @@ ngApp.controller('advertisingSingleCtrl', function ($scope, $apply, $routeParams
                 file_path: $('#thumbnail').val()
             };
             $advService.action.insert(dataPost).then(function (resp) {
+                $.notify('Thêm mới thành công', 'success');
                 window.location.href = '#!/';
             }, function (errors) {
                 console.log(errors);
@@ -90,7 +95,7 @@ ngApp.controller('advertisingSingleCtrl', function ($scope, $apply, $routeParams
         }
         , build_thumnail: function (path)
         {
-            if (path != '')
+            if (path != '' && typeof (path) != 'undefined')
                 return SiteUrl + path;
             return '';
         }
