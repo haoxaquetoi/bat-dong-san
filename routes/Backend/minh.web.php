@@ -11,11 +11,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     Route::get('/setting', 'Backend\Setting\SettingCtrl@main')->name('setting');
     Route::get('/setting/detail/{code}', 'Backend\Setting\SettingCtrl@detailSetting')->where('code', '[\w]+');
     #feedback
-    Route::get('/feedback', 'Backend\feedback\FeedbackCtrl@main')->name('feedback');
-    Route::get('/feedback/list', 'Backend\feedback\FeedbackCtrl@all');
+    Route::get('/feedback', 'Backend\Feedback\FeedbackCtrl@main')->name('feedback');
+    Route::get('/feedback/list', 'Backend\Feedback\FeedbackCtrl@all');
     #setting feedback
-    Route::get('/settingFeedback', 'Backend\settingFeedback\settingFeedbackCtrl@main')->name('settingFeedback');
-    Route::get('/settingFeedback/list', 'Backend\settingFeedback\settingFeedbackCtrl@all');
+    Route::get('/settingFeedback', 'Backend\SettingFeedback\settingFeedbackCtrl@main')->name('settingFeedback');
+    Route::get('/settingFeedback/list', 'Backend\SettingFeedback\settingFeedbackCtrl@all');
     #quang cao
     Route::get('/menu', 'Backend\Menu\MenuCtrl@main')->name('menu');
     Route::get('/menu/list', 'Backend\Menu\MenuCtrl@all');
