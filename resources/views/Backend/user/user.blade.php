@@ -129,8 +129,8 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
-    @include('backend.user.modelSingleOu')
-    @include('backend.user.modalEditUser')
+    @include('Backend.user.modelSingleOu')
+    @include('Backend.user.modalEditUser')
     
     <chosse-permit-modal dom="chossePermitModal" default-data="data.singleUser.permit" ret-func="actions.doChossePermit(retVal)"></chosse-permit-modal>
     <chosse-group-modal dom="chosseGroupModal" default-data="data.singleUser.group" ret-func="actions.doChosseGroup(retVal)"></chosse-group-modal>
