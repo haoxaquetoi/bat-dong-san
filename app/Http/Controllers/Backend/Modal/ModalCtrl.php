@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 class ModalCtrl extends Controller
 {
     public function index($name){
-        $view = 'backend.modal.' . $name;
+        $view = 'Backend.modal.' . $name;
         return view($view);
     }
 }
