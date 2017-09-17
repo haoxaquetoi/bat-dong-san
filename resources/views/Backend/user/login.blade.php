@@ -1,4 +1,4 @@
-@extends('backend.layouts.non')
+@extends('Backend.Layouts.non')
 @section('bodyCss', 'hold-transition login-page')
 @section('title', 'Đăng nhập')
 @section('content')

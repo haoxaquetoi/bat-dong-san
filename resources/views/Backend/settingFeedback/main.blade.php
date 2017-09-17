@@ -1,5 +1,5 @@
 
-@extends('backend.layouts.default')
+@extends('Backend.Layouts.default')
 @section('title', 'Quản lý cấu hình câu hỏi góp ý')
 @section('myJs')
 <script src="{{ URL::asset('backend/js/route/settingFeedbackRoute.js') }}"></script>

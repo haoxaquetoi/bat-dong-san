@@ -1,7 +1,7 @@
 <?php
 $request = new Illuminate\Http\Request;
 ?>
-@extends('backend.layouts.default')
+@extends('Backend.Layouts.default')
 @section('title', 'Thư viện media')
 @section('content')
 <?php

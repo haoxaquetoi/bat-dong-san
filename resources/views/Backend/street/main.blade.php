@@ -1,5 +1,5 @@
 
-@extends('backend.layouts.default')
+@extends('Backend.Layouts.default')
 @section('title', 'Quản lý Đường phố')
 @section('myJs')
 <script src="{{ URL::asset('backend/js/route/streetRoute.js') }}"></script>

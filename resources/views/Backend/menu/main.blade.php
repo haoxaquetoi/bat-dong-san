@@ -1,5 +1,5 @@
 
-@extends('backend.layouts.default')
+@extends('Backend.Layouts.default')
 @section('title', 'Quản lý menu')
 @section('myJs')
 <script>

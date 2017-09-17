@@ -1,5 +1,5 @@
 
-@extends('backend.layouts.default')
+@extends('Backend.Layouts.default')
 @section('title', 'Quản lý widget')
 @section('myCss')
 <link rel="stylesheet" href="{{url('backend')}}/css/widget.css">

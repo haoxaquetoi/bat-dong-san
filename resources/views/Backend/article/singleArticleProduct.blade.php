@@ -1,4 +1,4 @@
-@extends('backend.layouts.default')
+@extends('Backend.Layouts.default')
 @section('title', 'Chi tiết tin đăng')
 @section('myJs')
 <script>

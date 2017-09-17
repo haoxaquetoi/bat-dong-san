@@ -1,5 +1,5 @@
 
-@extends('backend.layouts.default')
+@extends('Backend.Layouts.default')
 @section('title', 'Cấu hình hệ thống')
 @section('myJs')
 <script src="{{ URL::asset('backend/js/setting/settingMainCtrl.js') }}"></script>

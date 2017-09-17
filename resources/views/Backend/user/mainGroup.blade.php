@@ -1,4 +1,4 @@
-@extends('backend.layouts.default')
+@extends('Backend.Layouts.default')
 @section('title', 'Quản lý nhóm')
 @section('myJs')
 <script src="{{ URL::asset('backend/js/route/groupRoute.js') }}"></script>
