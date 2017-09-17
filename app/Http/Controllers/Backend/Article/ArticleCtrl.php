@@ -60,7 +60,7 @@ class ArticleCtrl extends Controller {
                             });
                         })->count();
         $viewData['arrArticle'] = $artModel->getAll($request->category_id, $request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd, $request->ord_fb, FALSE);
-        return view('backend/article/listArticle', $viewData);
+        return view('Backend/article/listArticle', $viewData);
     }
 
     function listCrawler(ArticleModel $artModel, CategoryModel $catModel, Request $request) {
@@ -88,7 +88,7 @@ class ArticleCtrl extends Controller {
                     });
                 })->count();
         $viewData['arrArticle'] = $artModel->getAll($request->category_id, 'Product', $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd, $request->ord_fb, TRUE);
-        return view('backend/article/listArticleCrawler', $viewData);
+        return view('Backend/article/listArticleCrawler', $viewData);
     }
 
     function singleArticleNews(ArticleModel $artModel, CategoryModel $catModel, Request $request) {
@@ -104,7 +104,7 @@ class ArticleCtrl extends Controller {
 
         $viewData['category'] = collect($category);
 
-        return view('backend/article/singleArticleNews', $viewData);
+        return view('Backend/article/singleArticleNews', $viewData);
     }
 
     function singleArticleProduct(ArticleModel $artModel, CategoryModel $catModel, Request $request) {
@@ -120,7 +120,7 @@ class ArticleCtrl extends Controller {
         $viewData['direction'] = app('DirectionConfig')->getDirection();
         $category = $catModel->getAllCat(0, 'Product');
         $viewData['category'] = collect($category);
-        return view('backend/article/singleArticleProduct', $viewData);
+        return view('Backend/article/singleArticleProduct', $viewData);
     }
 
     function singleProductCrawler(ArticleModel $artModel, CategoryModel $catModel, Request $request) {
@@ -139,7 +139,7 @@ class ArticleCtrl extends Controller {
         $viewData['direction'] = app('DirectionConfig')->getDirection();
         $category = $catModel->getAllCat(0, 'Product');
         $viewData['category'] = collect($category);
-        return view('backend/article/singleProductCrawler', $viewData);
+        return view('Backend/article/singleProductCrawler', $viewData);
     }
 
 }

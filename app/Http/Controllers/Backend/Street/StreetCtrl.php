@@ -8,15 +8,15 @@ class StreetCtrl extends Controller {
 
     function main() {
        
-        return view('backend/street/main');
+        return view('Backend/street/main');
     }
     function all() {
        
-        return view('backend/street/listStreet');
+        return view('Backend/street/listStreet');
     }
     function single() {
        
-        return view('backend/street/singleStreet');
+        return view('Backend/street/singleStreet');
     }
 
 }

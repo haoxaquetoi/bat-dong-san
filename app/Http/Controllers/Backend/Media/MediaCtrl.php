@@ -10,7 +10,7 @@ class MediaCtrl extends Controller
 
     function index()
     {
-        return view('backend.media.main');
+        return view('Backend.media.main');
     }
 
     /**
@@ -18,7 +18,7 @@ class MediaCtrl extends Controller
      */
     function addNew()
     {
-        return view('backend.media.mediaAddNew');
+        return view('Backend.media.mediaAddNew');
     }
 
 }

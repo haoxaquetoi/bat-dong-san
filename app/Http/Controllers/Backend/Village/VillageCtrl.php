@@ -8,15 +8,15 @@ class VillageCtrl extends Controller {
 
     function main() {
        
-        return view('backend/village/main');
+        return view('Backend/village/main');
     }
     function all() {
        
-        return view('backend/village/listVillage');
+        return view('Backend/village/listVillage');
     }
     function single() {
        
-        return view('backend/village/singleVillage');
+        return view('Backend/village/singleVillage');
     }
 
 }

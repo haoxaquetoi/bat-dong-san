@@ -22,12 +22,12 @@ class FeedbackCtrl extends Controller {
                         ->select(DB::Raw('count(id) as total'))
                         ->first()->total;
    
-        return view('backend/feedback/main', $viewData);
+        return view('Backend/feedback/main', $viewData);
     }
 
     function all() {
 
-        return view('backend/feedback/listFeedback');
+        return view('Backend/feedback/listFeedback');
     }
 
 }

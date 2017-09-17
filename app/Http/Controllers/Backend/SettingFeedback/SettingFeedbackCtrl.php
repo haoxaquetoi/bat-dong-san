@@ -7,12 +7,12 @@ class SettingFeedbackCtrl extends Controller {
 
     function main() {
        
-        return view('backend/settingFeedback/main');
+        return view('Backend/settingFeedback/main');
     }
     
     function all() {
        
-        return view('backend/settingFeedback/listSettingFeedback');
+        return view('Backend/settingFeedback/listSettingFeedback');
     }
     
 

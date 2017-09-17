@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 class CategoryCtrl extends Controller {
 
     function index() {
-        return view('backend/category/main');
+        return view('Backend/category/main');
     }
 
 }

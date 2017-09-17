@@ -8,15 +8,15 @@ class DistrictCtrl extends Controller {
 
     function main() {
        
-        return view('backend/district/main');
+        return view('Backend/district/main');
     }
     function all() {
        
-        return view('backend/district/listDistrict');
+        return view('Backend/district/listDistrict');
     }
     function single() {
        
-        return view('backend/district/singleDistrict');
+        return view('Backend/district/singleDistrict');
     }
 
 }

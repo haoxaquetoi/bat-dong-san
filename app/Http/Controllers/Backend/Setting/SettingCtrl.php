@@ -7,11 +7,11 @@ class SettingCtrl extends Controller {
 
     function main() {
        
-        return view('backend/setting/main');
+        return view('Backend/setting/main');
     }
     
     function detailSetting($code) {
        
-        return view('backend/setting/detail/' . $code);
+        return view('Backend/setting/detail/' . $code);
     }
 }

@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class WidgetCtrl extends Controller
 {
     function index(){
-        return view('frontend.widget.main');
+        return view('Frontend.widget.main');
     }
     
     function typeWidget($positionCode, $type){

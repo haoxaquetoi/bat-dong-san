@@ -8,15 +8,15 @@ class AdvertisingCtrl extends Controller {
 
     function main() {
        
-        return view('backend/advertising/main');
+        return view('Backend/advertising/main');
     }
     function all() {
        
-        return view('backend/advertising/listAdvertising');
+        return view('Backend/advertising/listAdvertising');
     }
     function single() {
        
-        return view('backend/advertising/singleAdvertising');
+        return view('Backend/advertising/singleAdvertising');
     }
 
 }

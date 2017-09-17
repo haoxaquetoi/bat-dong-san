@@ -8,17 +8,17 @@ class MenuCtrl extends Controller {
 
     function main() {
         
-        return view('backend/menu/main');
+        return view('Backend/menu/main');
     }
 
     function all() {
 
-        return view('backend/menu/listMenu');
+        return view('Backend/menu/listMenu');
     }
 
     function single() {
 
-        return view('backend/menu/singleMenu');
+        return view('Backend/menu/singleMenu');
     }
 
 }

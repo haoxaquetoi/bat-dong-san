@@ -26,7 +26,7 @@ class Controller extends BaseController {
     }
 
     function test() {
-        return view('backend.test');
+        return view('Backend.test');
     }
 
     /**
