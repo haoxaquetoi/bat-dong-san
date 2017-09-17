@@ -1,4 +1,4 @@
-<script src="{{ URL::asset('Backend/js/backend.js') }}"></script>
+<script src="{{ URL::asset('backend/js/backend.js') }}"></script>
 <!--factory-->
 <script src="{{ URL::asset('js/factory/apply.js') }}"></script>
 <script src="{{ URL::asset('js/factory/myFunc.js') }}"></script>

@@ -7,8 +7,8 @@
 @section('content')
 <link href="{{url('Frontend')}}/css/pageSingle.css" rel="stylesheet" type="text/css"/>
 @section('myJs')
-<script src="{{ URL::asset('Frontend/js/ctrl/singlePostProductCtrl.js') }}"></script>
-<script src="{{ URL::asset('Frontend/js/factory/services/articleService.js') }}"></script>
+<script src="{{ URL::asset('frontend/js/ctrl/singlePostProductCtrl.js') }}"></script>
+<script src="{{ URL::asset('frontend/js/factory/services/articleService.js') }}"></script>
 @endsection
 <script>
     ngApp.value('$artID', <?php echo $dataView['arrSingleArticle']->id ?>);

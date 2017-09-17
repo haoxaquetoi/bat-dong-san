@@ -4,7 +4,7 @@
 <script src="{{ URL::asset('js/angularjs/paging.js') }}"></script>
 
 <!--ngapp-->
-<script src="{{ URL::asset('Frontend/js/frontendAngular.js') }}"></script>
+<script src="{{ URL::asset('frontend/js/frontendAngular.js') }}"></script>
 
 <!--factory-->
 <script src="{{ URL::asset('js/factory/apply.js') }}"></script>
@@ -12,14 +12,14 @@
 <!--directive-->
 <script src="{{ URL::asset('js/directives/index.php') }}"></script>
 <!--service-->
-<script src="{{ URL::asset('Frontend/js/factory/services/widgetService.js') }}"></script>
-<script src="{{ URL::asset('Frontend/js/factory/services/searchService.js') }}"></script>
+<script src="{{ URL::asset('frontend/js/factory/services/widgetService.js') }}"></script>
+<script src="{{ URL::asset('frontend/js/factory/services/searchService.js') }}"></script>
 
 <!--directive-->
-<script src="{{ URL::asset('Frontend/js/directive/widget.js') }}"></script>
-<script src="{{ URL::asset('Frontend/js/directive/menuWidget.js') }}"></script>
-<script src="{{ URL::asset('Frontend/js/directive/freeTextWidget.js') }}"></script>
-<script src="{{ URL::asset('Frontend/js/directive/webInfoWidget.js') }}"></script>
-<script src="{{ URL::asset('Frontend/js/directive/analyticsWidget.js') }}"></script>
-<script src="{{ URL::asset('Frontend/js/directive/imageWidget.js') }}"></script>
-<script src="{{ URL::asset('Frontend/js/directive/advWidget.js') }}"></script>
+<script src="{{ URL::asset('frontend/js/directive/widget.js') }}"></script>
+<script src="{{ URL::asset('frontend/js/directive/menuWidget.js') }}"></script>
+<script src="{{ URL::asset('frontend/js/directive/freeTextWidget.js') }}"></script>
+<script src="{{ URL::asset('frontend/js/directive/webInfoWidget.js') }}"></script>
+<script src="{{ URL::asset('frontend/js/directive/analyticsWidget.js') }}"></script>
+<script src="{{ URL::asset('frontend/js/directive/imageWidget.js') }}"></script>
+<script src="{{ URL::asset('frontend/js/directive/advWidget.js') }}"></script>
