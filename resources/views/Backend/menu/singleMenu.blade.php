@@ -120,5 +120,5 @@
         </form>
     </section>
     <!-- /.content -->
-    @include('backend.menu.modalArticle')
+    @include('Backend.menu.modalArticle')
 </angular>

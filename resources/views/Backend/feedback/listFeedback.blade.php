@@ -100,6 +100,6 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
-    @include('backend.feedback.modalFeedback')
+    @include('Backend.feedback.modalFeedback')
 </angular>
 

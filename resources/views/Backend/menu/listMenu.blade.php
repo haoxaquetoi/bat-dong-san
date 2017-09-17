@@ -94,6 +94,6 @@
             <!-- /.row (main row) -->
         </form>
     </section>
-    @include('backend.menu.modalPositionsMenu')
+    @include('Backend.menu.modalPositionsMenu')
 </angular>
 

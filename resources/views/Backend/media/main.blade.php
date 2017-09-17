@@ -82,7 +82,7 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
-    @include('backend.crawler.modalSingleCrawler')
+    @include('Backend.crawler.modalSingleCrawler')
 </angular>
 @endsection
 

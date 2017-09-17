@@ -89,7 +89,7 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
-    @include('backend.category.modalCategory')
+    @include('Backend.category.modalCategory')
 </angular>
 @endsection
 
