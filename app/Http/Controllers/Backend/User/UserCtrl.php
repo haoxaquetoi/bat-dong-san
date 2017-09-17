@@ -10,6 +10,6 @@ class UserCtrl extends Controller
 {
     public function index()
     {
-        return view('backend/user/user');
+        return view('Backend/user/user');
     }
 }

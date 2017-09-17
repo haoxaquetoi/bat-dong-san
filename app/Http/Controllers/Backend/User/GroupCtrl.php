@@ -8,15 +8,15 @@ use App\Http\Controllers\Controller;
 class GroupCtrl extends Controller {
 
     public function index() {
-        return view('backend.user.mainGroup');
+        return view('Backend.user.mainGroup');
     }
 
     public function all() {
-        return view('backend.user.group');
+        return view('Backend.user.group');
     }
     
     public function single() {
-        return view('backend.user.singleGroup');
+        return view('Backend.user.singleGroup');
     }
 
 }

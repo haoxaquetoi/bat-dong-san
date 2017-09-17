@@ -30,7 +30,7 @@ class LoginCtrl extends Controller {
     
     public function showLoginForm()
     {
-        return view('backend.user.login');
+        return view('Backend.user.login');
     }
     
     /**
