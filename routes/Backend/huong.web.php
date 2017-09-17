@@ -30,7 +30,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth']], function ()
     
     
     #article crawler
-    Route::get('/articleCrawler', 'Backend\Article\articleCtrl@listCrawler')->name('articleCrawler');
+    Route::get('/articleCrawler', 'Backend\Article\ArticleCtrl@listCrawler')->name('articleCrawler');
     Route::get('/articleCrawler/singleProductCrawler/{id}', 'Backend\Article\ArticleCtrl@singleProductCrawler')->where('id', '[\d]+');
 });
 
