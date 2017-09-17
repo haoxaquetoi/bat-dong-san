@@ -2,8 +2,8 @@
 @section('title', 'Tìm kiếm')
 @section('content')
 
-<link href="{{url('Frontend')}}/css/category.css" rel="stylesheet" type="text/css"/>
-<script src="{{url('Frontend')}}/js/ctrl/searchProductCtrl.js"></script>
+<link href="{{url('frontend')}}/css/category.css" rel="stylesheet" type="text/css"/>
+<script src="{{url('frontend')}}/js/ctrl/searchProductCtrl.js"></script>
 <script>
     $(document).ready(function () {
         $('.tow-column').click(function () {
@@ -60,7 +60,7 @@
                                                 @if (isset($values->thumbnail))
                                                 <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
                                                 @else
-                                                <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                <img src="{{url('frontend')}}/images/default.png" class="pull-right" alt=""/>
                                                 @endif
                                             </a>
                                         </div>
@@ -110,7 +110,7 @@
                                             </p>
                                             <div class="text-right view-details">
                                                 @if ((int) $values->is_censored > 0)
-                                                <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-left" alt=""/>
+                                                <img src="{{url('frontend')}}/images/dam_bao.png" class="pull-left" alt=""/>
                                                 @endif
                                                 <a  href="{{app('BuildUrl')->buildArticleDetail( $values->category[0]->slug,$values->category[0]->category_id, $values->slug , $values->id)}}" class="btn btn-default btn-xs btn-more-category" href="">Xem chi tiết <i class="fa fa-angle-right"></i></a>
                                             </div>

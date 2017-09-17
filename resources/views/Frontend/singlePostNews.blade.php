@@ -6,7 +6,7 @@
 @section('title', $dataView['arrSingleArticle']->title)
 @section('content')
 
-<link href="{{url('Frontend')}}/css/pageSingle.css" rel="stylesheet" type="text/css"/>
+<link href="{{url('frontend')}}/css/pageSingle.css" rel="stylesheet" type="text/css"/>
 <script>
     $(document).ready(function () {
         $(document).ready(function () {
@@ -72,7 +72,7 @@
                                                     @if (isset($values->thumbnail))
                                                     <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
                                                     @else
-                                                    <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                    <img src="{{url('frontend')}}/images/default.png" class="pull-right" alt=""/>
                                                     @endif
                                                 </a>
                                             </div>

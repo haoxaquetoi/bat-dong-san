@@ -7,7 +7,7 @@
                     <div class="row">
                         <div class="col-md-5 col-sm-6 col-xs-12">
                             <div class="padding-bottom-10">
-                                <img src="{{url('Frontend')}}/images/logo2.png" class="img-responsive" alt=""/>
+                                <img src="{{url('frontend')}}/images/logo2.png" class="img-responsive" alt=""/>
                             </div>
                             <div>
                                 <p>Lorem Ipsum is simply dummy test of the printing and typesetting industry.<br/>

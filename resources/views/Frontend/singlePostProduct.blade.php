@@ -5,7 +5,7 @@
 @endsection
 @section('title', $dataView['arrSingleArticle']->title)
 @section('content')
-<link href="{{url('Frontend')}}/css/pageSingle.css" rel="stylesheet" type="text/css"/>
+<link href="{{url('frontend')}}/css/pageSingle.css" rel="stylesheet" type="text/css"/>
 @section('myJs')
 <script src="{{ URL::asset('frontend/js/ctrl/singlePostProductCtrl.js') }}"></script>
 <script src="{{ URL::asset('frontend/js/factory/services/articleService.js') }}"></script>
@@ -130,11 +130,11 @@
                             <li data-thumb="{{$values->path}}"> 
                                 @if($values->type == 'video')
                                 <a href="{{$values->path}}">
-                                    <img src="{{url('Frontend')}}/images/video.png" alt="">
+                                    <img src="{{url('frontend')}}/images/video.png" alt="">
                                 </a>
                                 @elseif($values->type == 'youtube')
                                 <a href="{{$values->path}}">
-                                    <img src="{{url('Frontend')}}/images/youtube.png" alt="Youtube Video">
+                                    <img src="{{url('frontend')}}/images/youtube.png" alt="Youtube Video">
                                 </a>
 
                                 @endif
@@ -289,7 +289,7 @@
                                             <div class="article-left-relative">
                                                 <a href="{{url('')}}/@{{article.slug + '/' + article.category[0].category_id + '/' + article.slug + '/' +   article.id}}">
                                                     <img ng-if="article.thumbnail" src="{{url('')}}  @{{article.thumbnail}}" class="pull-right" alt=""/>
-                                                    <img ng-if="!article.thumbnail" src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                    <img ng-if="!article.thumbnail" src="{{url('frontend')}}/images/default.png" class="pull-right" alt=""/>
                                                 </a>
                                                 <div class="article-rectangle"></div>
                                                 <div class="article-action">
@@ -307,7 +307,7 @@
                                                 </h2>
                                                 <div class="article-time">
                                                     <span>Cập nhật: <time>@{{article.begin_date}}</time></span>
-                                                    <img ng-if="article.is_censored > 0" src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
+                                                    <img ng-if="article.is_censored > 0" src="{{url('frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
                                                 </div>
                                             </header>
                                             <section>
@@ -360,7 +360,7 @@
                                                     @if (isset($values->thumbnail))
                                                     <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
                                                     @else
-                                                    <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                    <img src="{{url('frontend')}}/images/default.png" class="pull-right" alt=""/>
                                                     @endif
                                                 </a>
                                             </div>
@@ -377,7 +377,7 @@
                                                 <div class="article-time">
                                                     <span>Cập nhật: <time>{{ Carbon\Carbon::parse($values->begin_date)->format('d-m-Y') }}</time></span>
                                                     @if ((int) $values->is_censored > 0)
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
+                                                    <img src="{{url('frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
                                                     @endif
                                                 </div>
                                             </header>

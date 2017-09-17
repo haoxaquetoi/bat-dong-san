@@ -1,4 +1,4 @@
-<script src="{{url('Frontend')}}/js/ctrl/rightSidebarSingleCtrl.js"></script>
+<script src="{{url('frontend')}}/js/ctrl/rightSidebarSingleCtrl.js"></script>
 <!--.content-right-->
 <div class="col-md-4 col-sm-12  col-xs-12 content-right" ng-controller="rightSidebarSingleCtrl">
     <div class="row content-right-single-page">
@@ -8,7 +8,7 @@
                     @if (isset($dataView['arrSingleArticle']->thumbnail))
                     <img src="{{url('') . $dataView['arrSingleArticle']->thumbnail}}" class="img-responsive" alt=""/>
                     @else
-                    <img src="{{url('Frontend')}}/images/default.png" class="img-responsive" alt=""/>
+                    <img src="{{url('frontend')}}/images/default.png" class="img-responsive" alt=""/>
                     @endif
                 </div>
                 <div class="box-info-authors">
@@ -76,14 +76,14 @@
 <!--            <div class="col-md-12 col-sm-6 col-xs-6">
                 <aside>
                     <div class="margin-bottom-15 content-right-img">
-                        <img src="{{url('Frontend')}}/images/article-right1.png" class="img-responsive" alt=""/>
+                        <img src="{{url('frontend')}}/images/article-right1.png" class="img-responsive" alt=""/>
                     </div>
                 </aside>
             </div>
             <div class="col-md-12 col-sm-6 col-xs-6">
                 <aside>
                     <div class="margin-bottom-15 content-right-img">
-                        <img src="{{url('Frontend')}}/images/article-right1.png" class="img-responsive" alt=""/>
+                        <img src="{{url('frontend')}}/images/article-right1.png" class="img-responsive" alt=""/>
                     </div>
                 </aside>
             </div>-->

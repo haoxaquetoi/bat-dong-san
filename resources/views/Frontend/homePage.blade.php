@@ -39,7 +39,7 @@
                                                     @if (isset($values->thumbnail))
                                                     <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
                                                     @else
-                                                    <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                    <img src="{{url('frontend')}}/images/default.png" class="pull-right" alt=""/>
                                                     @endif
                                                 </a>
                                             </div>
@@ -54,7 +54,7 @@
                                                 <div class="article-time">
                                                     <span>Cập nhật: <time>{{ Carbon\Carbon::parse($values->begin_date)->format('d-m-Y') }}</time></span>
                                                     @if ((int) $values->is_censored > 0)
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
+                                                    <img src="{{url('frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
                                                     @endif
                                                 </div>
                                             </header>
@@ -112,7 +112,7 @@
                                                     @if (isset($values->thumbnail))
                                                     <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
                                                     @else
-                                                    <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                    <img src="{{url('frontend')}}/images/default.png" class="pull-right" alt=""/>
                                                     @endif
                                                 </a>
                                             </div>
@@ -127,7 +127,7 @@
                                                 <div class="article-time">
                                                     <span>Cập nhật: <time>{{ Carbon\Carbon::parse($values->begin_date)->format('d-m-Y') }}</time></span>
                                                     @if ((int) $values->is_censored > 0)
-                                                    <img src="{{url('Frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
+                                                    <img src="{{url('frontend')}}/images/dam_bao.png" class="pull-right" alt=""/>
                                                     @endif
                                                 </div>
                                             </header>
@@ -217,7 +217,7 @@
                                                         @if (isset($dataView['arrArticleSticky'][$j]->thumbnail))
                                                         <img src="{{url('') . $dataView['arrArticleSticky'][$j]->thumbnail}}" class="pull-right" alt=""/>
                                                         @else
-                                                        <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                        <img src="{{url('frontend')}}/images/default.png" class="pull-right" alt=""/>
                                                         @endif
                                                     </a>
                                                     <div class="sale-off">

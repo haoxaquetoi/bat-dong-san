@@ -35,7 +35,7 @@
                     </button>
                     <span class="helper"></span>
                     <a class="navbar-brand" href="{{ url('')}}">
-                        <img src="{{url('Frontend')}}/images/logo2.png" class="img-responsive" alt="" alt="logo"/> 
+                        <img src="{{url('frontend')}}/images/logo2.png" class="img-responsive" alt="" alt="logo"/> 
                     </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse" aria-expanded="false">
@@ -54,12 +54,12 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
-                            <img src="{{url('Frontend')}}/images/banner.png" class="img-responsive" alt="banner"/>
+                            <img src="{{url('frontend')}}/images/banner.png" class="img-responsive" alt="banner"/>
                         </div>
                     </div>
                 </div>
                 <div class=" text-uppercase banner-contact">
-                    <img src="{{url('Frontend')}}/images/check.png" alt=""/>
+                    <img src="{{url('frontend')}}/images/check.png" alt=""/>
                     Liên hệ thẳng, giao dịch thật
                 </div>
                 <div class="banner-search ">

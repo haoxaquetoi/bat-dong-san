@@ -6,7 +6,7 @@
 @section('title', $dataView['catInfo']->name)
 @section('content')
 
-<link href="{{url('Frontend')}}/css/category.css" rel="stylesheet" type="text/css"/>
+<link href="{{url('frontend')}}/css/category.css" rel="stylesheet" type="text/css"/>
 <!--.content-->
 <section class="content" id="singleCategory">
     <div class="container">
@@ -40,7 +40,7 @@
                                                 @if (isset($values->thumbnail))
                                                 <img src="{{url('') . $values->thumbnail}}" class="pull-right" alt=""/>
                                                 @else
-                                                <img src="{{url('Frontend')}}/images/default.png" class="pull-right" alt=""/>
+                                                <img src="{{url('frontend')}}/images/default.png" class="pull-right" alt=""/>
                                                 @endif
                                             </a>
                                         </div>
