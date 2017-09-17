@@ -107,6 +107,6 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
-    @include('Backend.settingFeedback.modalSettingFeedback')
+    @include('Backend.SettingFeedback.modalSettingFeedback')
 </angular>
 
