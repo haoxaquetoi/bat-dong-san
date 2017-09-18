@@ -16,7 +16,7 @@ class WidgetCtrl extends Controller {
     }
     
     function widgetItem($type){
-        $view = 'backend/widget/type/' . $type;
+        $view = 'Backend/widget/type/' . $type;
         return view($view);
     }
 }
