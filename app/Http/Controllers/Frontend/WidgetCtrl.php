@@ -13,8 +13,8 @@ class WidgetCtrl extends Controller
     }
     
     function typeWidget($positionCode, $type){
-        $defaultView = 'frontend.widget.' . $type . 'Widget';
-        $positionView = 'frontend.widget.' . $positionCode . '.' . $type . 'Widget';
+        $defaultView = 'Frontend.widget.' . $type . 'Widget';
+        $positionView = 'Frontend.widget.' . $positionCode . '.' . $type . 'Widget';
         if(View::exists($positionView)){
             $view = $positionView;
         }
