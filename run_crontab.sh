@@ -1,0 +1,1 @@
+/usr/bin/php -f php artisan make:command crawler

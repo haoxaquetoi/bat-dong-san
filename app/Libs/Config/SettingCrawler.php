@@ -1622,7 +1622,7 @@ class SettingCrawler {
                 ]
             ]
         ],
-        'bds3' => ['name' => 'NGuồn 3',
+        'bds2' => ['name' => 'Nguồi 2',
             'url' => 'http://batdongsan.com.vn',
             'status' => true
         ]

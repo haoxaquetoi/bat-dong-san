@@ -38,7 +38,6 @@ class consoleCrawler extends Command {
      * @return mixed
      */
     public function handle() {
-
         $code = 'bds1';
         $arrWebConfig = app('SettingCrawler')->arrWebsiteGetData[$code];
 

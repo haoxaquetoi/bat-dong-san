@@ -29,14 +29,17 @@ class MenuConfig{
                 break;
             case 'article':
                 $articleInfo = ArticleModel::find($data->articleID);
-                $categoryArticleInfo = CategoryArticleModel::where('article_id', $articleInfo->id)->first();
-                $categoryInfo = CategoryModel::find($categoryArticleInfo->category_id);
-                $href = route('frontendArticle', [
-                    'catSlug' => $categoryInfo->slug,
-                    'catID' => $categoryInfo->id,
-                    'artSlug' => $articleInfo->slug,
-                    'artID' => $articleInfo->id,
-                ]);
+                if(!empty($articleInfo))
+                {
+                    $categoryArticleInfo = CategoryArticleModel::where('article_id', $articleInfo->id)->first();
+                    $categoryInfo = CategoryModel::find($categoryArticleInfo->category_id);
+                    $href = route('frontendArticle', [
+                        'catSlug' => $categoryInfo->slug,
+                        'catID' => $categoryInfo->id,
+                        'artSlug' => $articleInfo->slug,
+                        'artID' => $articleInfo->id,
+                    ]);
+                }
                 break;
             case 'category':
                 $categoryInfo = CategoryModel::find($data->categoryID);
