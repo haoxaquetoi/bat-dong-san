@@ -836,8 +836,8 @@ class SettingCrawler {
                 ]
             ]
         ],
-        'bds2' => ['name' => 'https://nhadatso.com/',
-            'url' => 'https://nhadatso.com/',
+        'bds2' => ['name' => 'https://nhadatso.com',
+            'url' => 'https://nhadatso.com',
             'status' => true,
             'mappAddress' => [
                 'city' => [
@@ -1621,10 +1621,6 @@ class SettingCrawler {
                     193 => 964, //	Thành phố Cà Mau	96	Tỉnh Cà Mau
                 ]
             ]
-        ],
-        'bds2' => ['name' => 'Nguồi 2',
-            'url' => 'http://batdongsan.com.vn',
-            'status' => true
         ]
     ];
 
