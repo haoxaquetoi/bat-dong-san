@@ -116,8 +116,8 @@ class consoleCrawler extends Command {
                                 ) {
                                     $arrInsertBase[$columnCode] = $arrWebConfig['mappAddress']['city'][$arrInsertBase[$columnCode]];
                                 } else {
+                                    trigger_error("Mã tỉnh/thành phố $arrInsertBase[$columnCode] cấu hình mapp không hợp lệ");
                                     $arrInsertBase[$columnCode] = '';
-                                    trigger_error('Mã tỉnh/thành phố cấu hình mapp không hợp lệ');
                                 }
                             } elseif ($columnCode == 'district_id') {
                                 if (
