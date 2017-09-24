@@ -45,13 +45,14 @@ class SettingCtrl extends Controller {
             'key' => 'required',
             'value' => 'required',
                 ], [
-            'key.required' => 'Mã setting không được bỏ trống',
-            'value.required' => 'Giá trị setting không được bỏ trống',
+            'key.required' => 'Mã setting không được b�? trống',
+            'value.required' => 'Giá trị setting không được b�? trống',
                 ]
         )->validate();
         //kiem tra da co key chua
         $setting = MetadataModel::where('key', $request->key)->first();
-        if ((int) $setting->count() > 0) {//thuc hien update
+        
+        if (isset($setting) && (int) $setting->count() > 0) {//thuc hien update
             $setting->value = json_encode($request->value);
             $setting->save();
         } else {//thuc hien insert

@@ -83,7 +83,7 @@
             </div>
         </div>
         <div class="footer-footer">
-            <p>	&#64; 2017 <span class="text-white">dschinhchu.com.vn</span></p>
+            <p>	&#64; 2017 <span class="text-white">bdschinhchu.com.vn</span></p>
         </div>
     </div>
 </footer><!--end footer-->

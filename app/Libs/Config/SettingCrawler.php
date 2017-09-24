@@ -49,7 +49,7 @@ class SettingCrawler {
         ]
     ];
     public $arrWebsiteGetData = [
-        'bds1' => ['name' => 'batdongsan.com.vn',
+        'batdongsan.com.vn' => ['name' => 'batdongsan.com.vn',
             'url' => 'https://batdongsan.com.vn',
             'status' => true,
             'mappAddress' => [
@@ -836,7 +836,7 @@ class SettingCrawler {
                 ]
             ]
         ],
-        'bds2' => ['name' => 'https://nhadatso.com',
+        'nhadatso.com' => ['name' => 'https://nhadatso.com',
             'url' => 'https://nhadatso.com',
             'status' => true,
             'mappAddress' => [
