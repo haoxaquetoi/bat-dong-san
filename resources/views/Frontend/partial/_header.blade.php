@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href=""><i class="fa fa-phone"></i> Gọi ngay : 01230.456.789</a></li>
+                        <li><a href=""><i class="fa fa-phone"></i> Gọi ngay : 0973.901.982</a></li>
 <!--                        <li><a href=""><i class="fa fa-user"></i> Đăng nhập</a></li>
                         <li><a href=""><i class="fa fa-search"></i></a></li>-->
                     </ul>

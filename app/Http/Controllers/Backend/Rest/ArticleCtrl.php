@@ -303,38 +303,57 @@ class ArticleCtrl extends Controller {
             $message['summary.required'] = 'Nội dung tóm tắt không được bỏ trống';
         } else if ($request->type == 'Product') {
 
-            $rulesBase = [
-                'article_base.city_id' => 'required|exists:address_city,id',
-                'article_base.district_id' => 'required|exists:address_district,id',
-                'article_base.village_id' => 'required|exists:address_village,id',
-                'article_base.street_id' => 'required|exists:address_street,id',
-                'article_base.address' => 'required',
-                'article_base.price' => 'integer',
-            ];
+
+            $rulesBase = array();
+
+//            $rulesBase = [
+//                'article_base.city_id' => 'required|exists:address_city,id',
+//                'article_base.district_id' => 'required|exists:address_district,id',
+//                'article_base.village_id' => 'required|exists:address_village,id',
+//                'article_base.street_id' => 'required|exists:address_street,id',
+//                'article_base.address' => 'required',
+//                'article_base.price' => 'integer',
+//            ];
             $rules = array_merge($rules, $rulesBase);
 
             #######Base########
-            $messageBase = [
-                'article_base.city_id.required' => 'Tỉnh/thành phố không được bỏ trống',
-                'article_base.city_id.exists' => 'Tỉnh/thành phố không hợp lệ',
-                'article_base.district_id.required' => 'Quận/Huyện phố không được bỏ trống',
-                'article_base.district_id.exists' => 'Quận/Huyện không hợp lệ',
-                'article_base.village_id.required' => 'Phường/Xã không được bỏ trống',
-                'article_base.village_id.exists' => 'Phường/Xã phố không hợp lệ',
-                'article_base.street_id.required' => 'Đường/phố không được bỏ trống',
-                'article_base.street_id.exists' => 'Đường/phố không hợp lệ',
-                'article_base.address.required' => 'Không được bỏ trống',
-                'article_base.price.integer' => 'Giá tiền phải >0',
-            ];
+            
+            
+            if (isset($request->article_base['city_id']) && (int) $request->article_base['city_id'] > 0) {
+                $rulesBase['article_base.city_id'] = 'exists:address_city,id';
+                $messageBase['article_base.city_id.required'] = 'Tỉnh/thành phố không được bỏ trống';
+                $messageBase['article_base.city_id.exists'] = 'Tỉnh/thành phố không hợp lệ';
+            }
+
+            if (isset($request->article_base['district_id']) && (int) $request->article_base['district_id'] > 0) {
+                $rulesBase['article_base.district_id'] = 'exists:address_district,id';
+                $messageBase['article_base.district_id.required'] = 'Quận/Huyện không được bỏ trống';
+                $messageBase['article_base.district_id.exists'] = 'Quận/Huyện không hợp lệ';
+            }
+
+            if (isset($request->article_base['price']) && (int) $request->article_base['price'] > 0) {
+                $rulesBase['article_base.price'] = 'integer';
+                $messageBase['article_base.price.integer'] = 'Giá tiền phải >0';
+            }
+            if (isset($request->article_base['village_id']) && (int) $request->article_base['village_id'] > 0) {
+                $rulesBase['article_base.village_id'] = 'exists:address_village,id';
+                $messageBase['article_base.village_id.required'] = 'Phường/Xã không được bỏ trống';
+                $messageBase['article_base.village_id.exists'] = 'Phường/Xã không hợp lệ';
+            }
+            if (isset($request->article_base['street_id']) && (int) $request->article_base['street_id'] > 0) {
+                $rulesBase['article_base.street_id'] = 'exists:address_street,id';
+                $messageBase['article_base.street_id.required'] = 'Đường/phố không được bỏ trống';
+                $messageBase['article_base.street_id.exists'] = 'Đường/phố không hợp lệ';
+            }
             $message = array_merge($message, $messageBase);
 
             #######Contact########
             $rulesContact = [
-                'article_contact.name' => 'required',
-                'article_contact.address' => 'required',
+             //   'article_contact.name' => 'required',
+             //   'article_contact.address' => 'required',
 //                'article_contact.phone'=>'required|min:9|numeric',
-                'article_contact.mobile' => 'required|min:9|numeric',
-                'article_contact.email' => 'email'
+            //    'article_contact.mobile' => 'required|min:9|numeric',
+            //    'article_contact.email' => 'email'
             ];
             $rules = array_merge($rules, $rulesContact);
 

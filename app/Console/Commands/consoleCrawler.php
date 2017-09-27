@@ -38,8 +38,7 @@ class consoleCrawler extends Command {
      * @return mixed
      */
     public function handle() {
-
-        $code = 'bds1';
+        $code = 'batdongsan.com.vn';
         $arrWebConfig = app('SettingCrawler')->arrWebsiteGetData[$code];
 
 
@@ -62,6 +61,14 @@ class consoleCrawler extends Command {
             $crawler->filter($singlePostXpath)->each(function($node) use ($urlGetListPost, $client, $arrConfig, $arrWebConfig, $singlePostXpath) {
                 $post_url = rtrim($node->attr('href'), '/');
                 $post_url = $arrWebConfig['url'] . '/' . $post_url;
+
+
+                ///Check neu đã tồn đồng bộ rồi => bỏ qua ko đồng bộ nữa
+                $countArticleExists = DB::table('article')->where('parent_url', $post_url)->count();
+                if ($countArticleExists >= 1) {
+                    return;
+                }
+
                 //Load detail post by url $post_url
                 $crawlerPost = $client->request('GET', $post_url);
                 DB::beginTransaction();
@@ -110,7 +117,7 @@ class consoleCrawler extends Command {
                         if (trim($xpath) != '') {
 
                             if ($columnCode == 'city_id') {
-                                $arrInsertBase[$columnCode] = $crawlerPost->filter($xpath)->attr('data-value');
+                                $arrInsertBase[$columnCode] = $crawlerPost->filter($xpath)->attr('vl');
                                 if (
                                         isset($arrWebConfig['mappAddress']) && isset($arrWebConfig['mappAddress']['city']) && isset($arrWebConfig['mappAddress']['city'][$arrInsertBase[$columnCode]])
                                 ) {
@@ -120,6 +127,7 @@ class consoleCrawler extends Command {
                                     $arrInsertBase[$columnCode] = '';
                                 }
                             } elseif ($columnCode == 'district_id') {
+                                $arrInsertBase[$columnCode] = $crawlerPost->filter($xpath)->attr('vl');
                                 if (
                                         isset($arrWebConfig['mappAddress']) && isset($arrWebConfig['mappAddress']['district']) && isset($arrWebConfig['mappAddress']['district'][$arrInsertBase[$columnCode]])
                                 ) {
@@ -129,7 +137,18 @@ class consoleCrawler extends Command {
                                     trigger_error("Mã quận/huyện $arrInsertBase[$columnCode] cấu hình mapp không hợp lệ");
                                      $arrInsertBase[$columnCode] = '';
                                 }
-                            } else {
+                            } 
+                            else if ($columnCode == 'address') {
+                                $arrInsertBase[$columnCode] = ($xpath != '') ? $crawlerPost->filter($xpath)->text() : '';
+                                if (trim($arrInsertBase[$columnCode]) == '') {
+                                    $arrInsertBase['city_id']= isset($arrInsertBase['city_id']) ? $arrInsertBase['city_id'] : NULL;
+                                    $arrInsertBase['district_id']= isset($arrInsertBase['district_id']) ? $arrInsertBase['district_id'] : NULL;
+                                    $arrInsertBase['village_id']= isset($arrInsertBase['village_id']) ? $arrInsertBase['village_id'] : NULL;
+                                    $arrInsertBase['street_id']= isset($arrInsertBase['street_id']) ? $arrInsertBase['street_id'] : NULL;
+                                    $arrInsertBase[$columnCode] = "{$arrInsertBase['city_id']} - {$arrInsertBase['district_id']} - {$arrInsertBase['village_id']} - {$arrInsertBase['street_id']}"; 
+                                }
+                            }
+                            else {
                                 $arrInsertBase[$columnCode] = $crawlerPost->filter($xpath)->text();
                             }
                         }

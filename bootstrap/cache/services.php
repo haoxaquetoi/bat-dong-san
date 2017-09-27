@@ -34,6 +34,7 @@
     30 => 'Barryvdh\\Debugbar\\ServiceProvider',
     31 => 'App\\Providers\\MyAppConfigProvider',
     32 => 'Mews\\Captcha\\CaptchaServiceProvider',
+    33 => 'Spatie\\Analytics\\AnalyticsServiceProvider',
   ),
   'eager' => 
   array (
@@ -55,6 +56,7 @@
     15 => 'Unisharp\\Laravelfilemanager\\LaravelFilemanagerServiceProvider',
     16 => 'Barryvdh\\Debugbar\\ServiceProvider',
     17 => 'Mews\\Captcha\\CaptchaServiceProvider',
+    18 => 'Spatie\\Analytics\\AnalyticsServiceProvider',
   ),
   'deferred' => 
   array (

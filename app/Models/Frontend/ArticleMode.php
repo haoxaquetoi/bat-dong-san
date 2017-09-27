@@ -99,6 +99,7 @@ class ArticleMode extends Model {
         }
         return $this;
     }
+
     /**
      * Xét điều kiện tin đảm bảo
      * @param NULL||boolean $chkCensored 1 -  Tin đảm bảo <br/>0 - Tin thường <br/>Mặc định không xét
@@ -167,14 +168,23 @@ class ArticleMode extends Model {
         if (!isset($postInfo->id)) {
             return [];
         }
-        if (isset($postInfo->articleBase->city_id))
-            $postInfo->articleBase->city_name = DB::table('address_city')->find($postInfo->articleBase->city_id)->name;
-        if (isset($postInfo->articleBase->district_id))
-            $postInfo->articleBase->district_name = DB::table('address_district')->find($postInfo->articleBase->district_id)->name;
-        if (isset($postInfo->articleBase->village_id))
-            $postInfo->articleBase->village_name = DB::table('address_village')->find($postInfo->articleBase->village_id)->name;
-        if (isset($postInfo->articleBase->street_id))
-            $postInfo->articleBase->street_name = DB::table('address_street')->find($postInfo->articleBase->street_id)->name;
+        if (isset($postInfo->articleBase->city_id)) {
+            $address_city = DB::table('address_city')->find($postInfo->articleBase->city_id);
+            $postInfo->articleBase->city_name = isset($address_city) ? $address_city->name : '';
+        }
+
+        if (isset($postInfo->articleBase->district_id)) {
+            $address_district = DB::table('address_district')->find($postInfo->articleBase->district_id);
+            $postInfo->articleBase->district_name = isset($address_district) ? $address_district->name : '';
+        }
+        if (isset($postInfo->articleBase->village_id)) {
+            $address_village = DB::table('address_village')->find($postInfo->articleBase->village_id);
+            $postInfo->articleBase->village_name = isset($address_village) ? $address_village->name : '';
+        }
+        if (isset($postInfo->articleBase->street_id)) {
+            $street_name = DB::table('address_street')->find($postInfo->articleBase->street_id);
+            $postInfo->articleBase->street_name = isset($street_name) ? $street_name->name : '';
+        }
 
         $postInfo->articleSlide = new \stdClass();
 
@@ -392,8 +402,8 @@ class ArticleMode extends Model {
             $db->where('category_article.category_id', '=', $params->cg);
         }
         $allArticle = $db->selectRaw('article.*')->orderBy('begin_date', 'DESC')
-                ->paginate($pageSize, [ '*'], 'page', $page);
-       
+                ->paginate($pageSize, ['*'], 'page', $page);
+
         foreach ($allArticle as $key => $value) {
             $allArticle[$key]->category = DB::table('category')
                             ->leftJoin('category_article', 'category_article.category_id', '=', 'category.id')
@@ -403,7 +413,7 @@ class ArticleMode extends Model {
                             ->orderby('category.order')
                             ->get()->toArray();
         }
-        
+
         return $allArticle;
     }
 

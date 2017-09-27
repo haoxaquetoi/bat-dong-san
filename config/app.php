@@ -195,6 +195,8 @@ return [
         
         
         Mews\Captcha\CaptchaServiceProvider::class,
+        
+        Spatie\Analytics\AnalyticsServiceProvider::class,
     ],
 
     /*
@@ -255,6 +257,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        
+        'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
     ],
 
 ];

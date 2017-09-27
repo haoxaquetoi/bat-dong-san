@@ -71,11 +71,14 @@ class WidgetConfig{
         $title = (isset($value->title) && !empty($value->title))? $value->title: '';
         $class = (isset($value->class) && !empty($value->class))? $value->class: '';
         $info = MetadataModel::where('key', $settingConfig::WEBINFO_CODE)->first();
-        $widgetInfo->cache = json_encode([
-            'title' => $title,
-            'class' => $class,
-            'info' => json_decode($info->value),
-        ]);
+        if(!empty($info))
+        {
+            $widgetInfo->cache = json_encode([
+                'title' => $title,
+                'class' => $class,
+                'info' => json_decode($info->value),
+            ]);
+        }
         return $widgetInfo->save();
     }
     
