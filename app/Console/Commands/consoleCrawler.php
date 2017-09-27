@@ -125,8 +125,9 @@ class consoleCrawler extends Command {
                                 ) {
                                     $arrInsertBase[$columnCode] = $arrWebConfig['mappAddress']['district'][$arrInsertBase[$columnCode]];
                                 } else {
-                                    $arrInsertBase[$columnCode] = '';
-                                    trigger_error('Mã quận/huyện cấu hình mapp không hợp lệ');
+                                   
+                                    trigger_error("Mã quận/huyện $arrInsertBase[$columnCode] cấu hình mapp không hợp lệ");
+                                     $arrInsertBase[$columnCode] = '';
                                 }
                             } else {
                                 $arrInsertBase[$columnCode] = $crawlerPost->filter($xpath)->text();
