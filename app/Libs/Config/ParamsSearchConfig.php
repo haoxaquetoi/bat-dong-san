@@ -9,6 +9,7 @@
 namespace App\Libs\Config;
 use App\Models\Backend\CategoryModel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Cấu hình các tham số cho chức năng lọc tìm kiếm
