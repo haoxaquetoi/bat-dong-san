@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Frontend\ArticleMode;
+use Spatie\Analytics\Period;
+use Analytics;
 
 class FrontendCtrl extends Controller {
 
     function homePage(ArticleMode $articleModel) {
-
+$analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(7));
+dd($analyticsData);
         $data = array();
         // Tin thường
         $data['arrArticle'] = $articleModel->getAllArticle('Product','' , '', '', 0, 0, 1, 10);

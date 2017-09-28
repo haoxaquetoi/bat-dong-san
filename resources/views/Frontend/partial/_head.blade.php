@@ -25,6 +25,15 @@
 <script src="{{url('AdminLTE')}}/plugins/html5_gallery/html5gallery.js" type="text/javascript"></script>
 <script src="{{url('AdminLTE')}}/bootstrap/js/bootstrap.min.js"></script>
 <script src="{{url('frontend')}}/js/bds.js"></script>
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107191535-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-107191535-1');
+</script>
 
 <script>
 var SiteUrl = '{{url("/")}}';
