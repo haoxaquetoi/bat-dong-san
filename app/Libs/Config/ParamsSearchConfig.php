@@ -7,6 +7,7 @@
  */
 
 namespace App\Libs\Config;
+
 use App\Models\Backend\CategoryModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
@@ -28,34 +29,34 @@ class ParamsSearchConfig {
         'floorAreaMax' => [],
         'roomNumber' => [],
         'storeysNumber' => [],
-        'street'=>[]
+        'street' => []
     );
 
-    function getParamsSearch() {
-        return $this->_setParamsSearch()
+    function getParamsSearch($city_active, $district_active, $village_active) {
+        return $this->_getParamsSearch($city_active, $district_active, $village_active)
                 ->_arrParams;
     }
 
-    private function _setParamsSearch() {
-        return $this->setCategory()
-                        ->setCity()
-                        ->setDistrict()
-                        ->setVillage()
-                        ->setDirection()
-                        ->setFllorAreaMax()
-                        ->setFllorAreaMin()
-                        ->setPriceMax()
-                        ->setPriceMin()
-                        ->setRoomNumber()
-                        ->setStoreysNumber()
-                        ->setStreet();
+    private function _getParamsSearch($city_active, $district_active, $village_active) {
+        return $this->getCategory()
+                        ->getCity()
+                        ->getDistrict($city_active)
+                        ->getVillage($district_active)
+                        ->getDirection()
+                        ->getFllorAreaMax()
+                        ->getFllorAreaMin()
+                        ->getPriceMax()
+                        ->getPriceMin()
+                        ->getRoomNumber()
+                        ->getStoreysNumber()
+                        ->getStreet($village_active);
     }
 
     /**
      * Chỉ lấy danh sách chuyên mục tin bất động sản
      * @param array $category Nếu count = 0 => tự động load toàn bộ danh sách chuyên mục tin bất động sản
      */
-    function setCategory(array $category = []) {
+    function getCategory(array $category = []) {
         if (count($category) > 0) {
             $this->_arrParams['category'] = $category;
         } else {
@@ -65,46 +66,39 @@ class ParamsSearchConfig {
         return $this;
     }
 
-    function setCity(array $city = []) {
-        if (count($city) > 0) {
-            $this->_arrParams['city'] = $city;
-        } else {
-            $this->_arrParams['city'] = DB::table('address_city')
-                    ->get()
-                    ->toArray();
+    function getCity() {
+        $this->_arrParams['city'] = DB::table('address_city')
+                ->get()
+                ->toArray();
+        return $this;
+    }
+
+    function getDistrict($city_active) {
+
+        $this->_arrParams['district'] = [];
+        if (!is_null($city_active)) {
+            $this->_arrParams['district'] = DB::table('address_district')->where('city_id', $city_active)->get()->toArray();
         }
         return $this;
     }
 
-    function setDistrict(array $district = []) {
-        if (count($district) > 0) {
-            $this->_arrParams['district'] = $city;
-        } else {
-            $this->_arrParams['district'] = DB::table('address_district')->get()->toArray();
+    function getVillage($district_id) {
+        $this->_arrParams['village'] = [];
+        if (!is_null($district_id)) {
+            $this->_arrParams['village'] = DB::table('address_village')->where('district_id', $district_id)->get()->toArray();
         }
         return $this;
     }
 
-    function setVillage(array $village = []) {
-        if (count($village) > 0) {
-            $this->_arrParams['village'] = $village;
-        } else {
-            $this->_arrParams['village'] = DB::table('address_village')->get()->toArray();
+    function getStreet($village_id) {
+        $this->_arrParams['street'] = [];
+        if (!is_null($village_id)) {
+            $this->_arrParams['street'] = DB::table('address_street')->where('village_id', $village_id)->get()->toArray();
         }
         return $this;
     }
-    
-    function setStreet(array $street = []) {
-        if (count($street) > 0) {
-            $this->_arrParams['street'] = $street;
-        } else {
-            $this->_arrParams['street'] = DB::table('address_street')->get()->toArray();
-        }
-        return $this;
-    }
-    
 
-    function setDirection(array $direction = []) {
+    function getDirection(array $direction = []) {
         if (count($direction) > 0) {
             $this->_arrParams['direction'] = $direction;
         } else {
@@ -113,7 +107,7 @@ class ParamsSearchConfig {
         return $this;
     }
 
-    function setPriceMin(array $priceMin = []) {
+    function getPriceMin(array $priceMin = []) {
         if (count($priceMin) > 0) {
             $this->_arrParams['priceMin'] = $priceMin;
         } else {
@@ -129,7 +123,7 @@ class ParamsSearchConfig {
         return $this;
     }
 
-    function setPriceMax(array $priceMax = []) {
+    function getPriceMax(array $priceMax = []) {
         if (count($priceMax) > 0) {
             $this->_arrParams['priceMax'] = $priceMax;
         } else {
@@ -145,7 +139,7 @@ class ParamsSearchConfig {
         return $this;
     }
 
-    function setFllorAreaMin(array $floorAreaMin = []) {
+    function getFllorAreaMin(array $floorAreaMin = []) {
         if (count($floorAreaMin) > 0) {
             $this->_arrParams['floorAreaMin'] = $floorAreaMin;
         } else {
@@ -154,7 +148,7 @@ class ParamsSearchConfig {
         return $this;
     }
 
-    function setFllorAreaMax(array $floorAreaMax = []) {
+    function getFllorAreaMax(array $floorAreaMax = []) {
         if (count($floorAreaMax) > 0) {
             $this->_arrParams['floorAreaMax'] = $floorAreaMax;
         } else {
@@ -163,7 +157,7 @@ class ParamsSearchConfig {
         return $this;
     }
 
-    function setRoomNumber(array $roomNumber = []) {
+    function getRoomNumber(array $roomNumber = []) {
         if (count($roomNumber) > 0) {
             $this->_arrParams['roomNumber'] = $roomNumber;
         } else {
@@ -171,7 +165,8 @@ class ParamsSearchConfig {
         }
         return $this;
     }
-    function setStoreysNumber(array $roomNumber = []) {
+
+    function getStoreysNumber(array $roomNumber = []) {
         if (count($roomNumber) > 0) {
             $this->_arrParams['storeysNumber'] = $roomNumber;
         } else {
@@ -180,5 +175,4 @@ class ParamsSearchConfig {
         return $this;
     }
 
-    
 }

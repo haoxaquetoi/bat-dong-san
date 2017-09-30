@@ -31,9 +31,14 @@ ngApp.controller('headerCtrl', function ($scope, $rootScope, $apply, $widgetServ
             });
         },
         getParamsSearch: function () {
-            $searchService.action.getParamsSearch().then(function (resp) {
+            searchObject.ct = $scope.paramsUrl.ct;
+            searchObject.dt = $scope.paramsUrl.dt;
+            searchObject.vil = $scope.paramsUrl.vil;
+            var str = jQuery.param(searchObject);
+            $searchService.action.getParamsSearch(str).then(function (resp) {
                 $apply(function () {
                     $rootScope.paramsSearch = resp.data;
+                    console.log($rootScope.paramsSearch);
                 });
             }).catch(function (err) {
                 console.log(err);
@@ -54,7 +59,7 @@ ngApp.controller('headerCtrl', function ($scope, $rootScope, $apply, $widgetServ
             searchObject.fama = $scope.paramsUrl.fama;
             searchObject.rn = $scope.paramsUrl.rn;
             searchObject.cs = cs;
-            
+
             var str = jQuery.param(searchObject);
             window.location.href = SiteUrl + '/tim-kiem-tin-bat-dong-san?' + str;
         }

@@ -137,7 +137,7 @@
                 <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
                     <select class="form-control" name="dt" ng-model="paramsUrl.dt" ng-change="action.search()">
                         <option value="">Quận, huyện ...</option>
-                        <option ng-repeat="item in paramsSearch.district" value="@{{item.id}}" ng-show="(paramsUrl.ct == item.city_id)">
+                        <option ng-repeat="item in paramsSearch.district" value="@{{item.id}}" >
                             @{{item.name}}
                         </option>
                     </select>
@@ -145,7 +145,7 @@
                 <div class="col-md-15 col-sm-4 col-xs-6 padding-bottom-10 filter-hide">
                     <select class="form-control" name="vil" ng-model="paramsUrl.vil" ng-change="action.search()">
                         <option value="">Phường, xã ...</option>
-                        <option ng-repeat="item in paramsSearch.village" value="@{{item.id}}" ng-show="(paramsUrl.dt == item.district_id)">
+                        <option ng-repeat="item in paramsSearch.village" value="@{{item.id}}" >
                             @{{item.name}}
                         </option>
                     </select>

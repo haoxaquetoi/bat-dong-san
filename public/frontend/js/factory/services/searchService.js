@@ -6,10 +6,10 @@ ngApp.factory('$searchService', function ($http)
     };
 
     //action
-    service.action.getParamsSearch = function(){
-        var url = SiteUrl + '/rest/frontend/getParamsSearch';
+    service.action.getParamsSearch = function (str) {
+        var url = SiteUrl + '/rest/frontend/getParamsSearch?' + str;
         return $http.get(url);
     };
-    
+
     return service;
 });
