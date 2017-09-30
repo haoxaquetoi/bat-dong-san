@@ -220,7 +220,7 @@
                                                         <img src="{{url('frontend')}}/images/default.png" class="pull-right" alt=""/>
                                                         @endif
                                                     </a>
-                                                    <div class="sale-off">
+<!--                                                    <div class="sale-off">
                                                         <div class="btn-group">
                                                             <button class="btn btn-success btn-active-purple">
                                                                 <span class="text-uppercase">Đang sale off</span><br />
@@ -230,10 +230,10 @@
                                                                 <i class="fa fa-tag"></i>
                                                             </button>
                                                         </div>
-                                                    </div>
-                                                    <div class="check-product">
+                                                    </div>-->
+<!--                                                    <div class="check-product">
                                                         <button class="btn text-uppercase" >Còn nhà</button>
-                                                    </div>
+                                                    </div>-->
                                                 </div>
                                             </div>
                                             <div class="box-header">
