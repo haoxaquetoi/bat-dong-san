@@ -1,4 +1,4 @@
-ngApp.controller('footerCtrl', function ($scope, $apply, $widgetService)
+ngApp.controller('footerCtrl', function ($scope,$rootScope, $apply, $widgetService, $analyticsService)
 {
     $scope.positionCode = 'footer';
     $scope.widgetData = {};
@@ -8,12 +8,12 @@ ngApp.controller('footerCtrl', function ($scope, $apply, $widgetService)
             $widgetService.action.widget($scope.positionCode).then(function(resp){
                 $apply(function(){
                     $scope.widgetData = resp.data;
-                    console.log(resp.data);
                 });
             }).catch(function(err){
                 console.log(err);
             });
         }
+        
     };
     
     $scope.data.widget();

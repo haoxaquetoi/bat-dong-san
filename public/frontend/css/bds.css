@@ -546,6 +546,7 @@ button.btn.btn-success.filter {
     width: 26px;
     height: 26px;
     padding: 2px;
+    margin-left: 3px;
 }
 .statistical-table button:hover,.statistical-table button.focus{
     border: 1px solid #fff;

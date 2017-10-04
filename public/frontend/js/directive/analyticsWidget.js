@@ -1,4 +1,4 @@
-ngApp.directive('analyticsWidget', function ($apply, $widgetService) {
+ngApp.directive('analyticsWidget', function ($apply, $widgetService, $analyticsService) {
     var template = '<div ng-include="getView()"></div>';
     var restrict = 'C';
     var scope = {widgetData: '=', widgetPosition: "="};
@@ -6,21 +6,33 @@ ngApp.directive('analyticsWidget', function ($apply, $widgetService) {
         scope.info;
         scope.title;
         scope.class;
-        
-        scope.getView = function(){
-            return SiteUrl + '/frontend/widget/type/'+ scope.widgetPosition + '/analytics';
+        scope.arrVisitorsTotal;
+
+        scope.getView = function () {
+            return SiteUrl + '/frontend/widget/type/' + scope.widgetPosition + '/analytics';
         };
-        
+
         scope.data = {
-            load: function(){
-                $apply(function(){
+            load: function () {
+                $apply(function () {
                     scope.title = scope.widgetData.cache.title;
                     scope.class = scope.widgetData.cache.class;
                 });
+            }, getTotalVisitors: function () {
+                $analyticsService.action.getTotalVisitors().then(function (resp) {
+                    $apply(function () {
+                        scope.allVisitors = resp.data;
+                        var n = scope.allVisitors.visitorsTotal;
+                        scope.arrVisitorsTotal = ("" + n).split("");
+                    });
+                }).catch(function (err) {
+                    console.log(err);
+                });
             }
         }
-        scope.$watchCollection('widgetData', function(newVal, oldVal){
+        scope.$watchCollection('widgetData', function (newVal, oldVal) {
             scope.data.load();
+            scope.data.getTotalVisitors();
         });
     };
     return {

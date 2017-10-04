@@ -34,6 +34,8 @@ Route::group(['prefix' => 'rest', 'middleware' => []], function () {
     Route::post('frontend/updateListCare/{artID}', 'Frontend\Rest\ArticleCtrl@updateListCare');
     Route::get('frontend/getAllArticleCare', 'Frontend\Rest\ArticleCtrl@getAllArticleCare');
     Route::get('frontend/checkArticleCare/{artID}', 'Frontend\Rest\ArticleCtrl@checkArticleCare');
+    
+    Route::get('frontend/getTotalVisitors', 'Frontend\Rest\AnalyticsCtrl@getTotalVisitors');
 });
 
 
