@@ -7,8 +7,7 @@
 <meta name="robots" content="noodp,index,follow" />
 <meta name='revisit-after' content='1 days' />
 
-
-
+<link rel="icon" type="image/png" href="{{url('frontend')}}/images/favicon.ico" />
 <!-- Bootstrap 3.3.6 -->
 <link rel="stylesheet" href="{{url('AdminLTE')}}/bootstrap/css/bootstrap.min.css">
 <!-- Font Awesome -->
