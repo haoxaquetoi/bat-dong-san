@@ -2,7 +2,7 @@
     <h4 class="text-uppercase">@{{title}}</h4>
     <div class="row">
         <div class="col-xs-12 text-center padding-bottom-10 statistical-table">
-            <button class="btn btn-sm" ng-repeat="item in arrVisitorsTotal">@{{item}}</button>
+            <button class="btn btn-sm" ng-repeat="item in arrVisitorsTotal track by $index">@{{item}}</button>
         </div>
         <div class="col-xs-12 statistical-today">
             <p class="pull-left"><i class="fa fa-user-circle-o"></i> Hôm nay</p>
