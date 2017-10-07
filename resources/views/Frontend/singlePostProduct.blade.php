@@ -291,11 +291,11 @@
                                                     <img ng-if="article.thumbnail" src="{{url('')}}  @{{article.thumbnail}}" class="pull-right" alt=""/>
                                                     <img ng-if="!article.thumbnail" src="{{url('frontend')}}/images/default.png" class="pull-right" alt=""/>
                                                 </a>
-                                                <div class="article-rectangle"></div>
+<!--                                                <div class="article-rectangle"></div>
                                                 <div class="article-action">
                                                     <button class="btn btn-success" ><i class="fa fa-search"></i></button>
                                                     <button class="btn btn-success" ><i class="fa fa-link"></i></button>
-                                                </div>
+                                                </div>-->
                                             </div>
                                         </div>
                                         <div class="col-xs-7 article-right">
