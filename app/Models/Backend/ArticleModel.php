@@ -83,7 +83,7 @@ class ArticleModel extends Model {
         return $this->select(DB::raw("DATE_FORMAT(created_at,'%m-%Y') as post_date"))->groupBy('post_date')->orderBy('post_date', 'desc')->get()->toArray();
     }
 
-    function getAll($category_id = '', $type = '', $option = '', $freeText = '', $post_date = '', $ord_crat = '', $ord_sk = '', $ord_cd = '', $ord_fb = '', $chkCrawler = NULL) {
+    function getAll($category_id = '', $type = '', $option = '', $freeText = '', $post_date = '', $ord_crat = '', $ord_sk = '', $ord_cd = '', $ord_fb = '', $chkCrawler = NULL, $total_phone = '') {
         $arr_where = [];
         if ($type) {
             $arr_where[] = ['type', '=', $type];
@@ -99,6 +99,7 @@ class ArticleModel extends Model {
         if ($freeText) {
             $arr_where[] = ['title', 'like', "%{$freeText}%"];
         }
+
         if ($post_date) {
             $arr_where[] = [DB::raw("DATE_FORMAT(created_at,'%m-%Y')"), '=', $post_date];
         }
@@ -106,6 +107,16 @@ class ArticleModel extends Model {
         if (intval($category_id) > 0) {
             $artModel = $artModel->leftJoin('category_article', 'article.id', '=', 'category_article.article_id');
             $arr_where[] = ['category_article.category_id', '=', intval($category_id)];
+        }
+        if (intval($total_phone)) {
+            $artModel = $artModel->leftJoin('article_contact', 'article.id', '=', 'article_contact.article_id');
+            if (intval($total_phone) <= 1) {
+                $sqlRaw = "article_contact.mobile is null Or article_contact.mobile in (SELECT mobile  FROM `article_contact` GROUP BY mobile HAVING  COUNT(mobile) <= " . intval($total_phone) . ")";
+            } else {
+                $sqlRaw = "article_contact.mobile in (SELECT mobile  FROM `article_contact` GROUP BY mobile HAVING  COUNT(mobile) >= " . intval($total_phone) . ")";
+            }
+
+            $artModel->whereRaw($sqlRaw);
         }
 
         $artModel = $artModel->where($arr_where);
@@ -135,10 +146,10 @@ class ArticleModel extends Model {
                     });
                 });
             }
-        } 
+        }
         //đếm số feedback
         $artModel->select(DB::Raw('(select count(id) from feedback_article where article.id = feedback_article.article_id and readed!= 1 ) as feedBackReaded,(select count(id) from feedback_article where article.id = feedback_article.article_id) as totalFeedBack ,article.*'));
-        
+
         return $artModel->paginate()->toArray();
     }
 

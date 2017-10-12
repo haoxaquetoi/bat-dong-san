@@ -45,7 +45,12 @@ categorys
                                     <option value="" >-- Tất cả --</option>
                                     <option  ng-repeat="post_date in data.post_date" value="@{{post_date.post_date}}" >Tháng @{{post_date.post_date}}</option>
                                 </select>
-
+                                <select class="form-control input-sm" ng-model="data.filter.total_phone" >
+                                    <option value="" >-- Số lần SDT đăng --</option>
+                                    <option value="1" >Đăng 1 lần</option>
+                                    <option value="2" >Nhiều hơn hoặc bằng 2 lần</option>
+                                    <option value="5" >Nhiều hơn hoặc bằng 5 lần</option>
+                                </select>
                                 <button ng-click="actions.getAll()" type="button" class="btn btn-default btn-sm">Lọc</button>
                             </form>
                         </div> 

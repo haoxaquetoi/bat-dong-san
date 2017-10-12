@@ -13,6 +13,7 @@ ngApp.controller('singleProductCrawlerCtrl', function ($scope
         $http,
         )
 {
+    console.log(articleInfo);
     $scope.linkYoutube = '';
     $apply(function () {
         $scope.allCity = city;
@@ -22,6 +23,7 @@ ngApp.controller('singleProductCrawlerCtrl', function ($scope
         $scope.allTagsOlds = tags;
         $scope.categorys = category;
         $scope.direction = direction;
+        $scope.parent_url = articleInfo.parent_url;
         articleInfo.article_base = articleInfo.article_base || {};
         articleInfo.article_contact = articleInfo.article_contact || {};
         articleInfo.article_other = articleInfo.article_other || {};

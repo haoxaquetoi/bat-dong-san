@@ -57,6 +57,10 @@
                                 <textarea placeholder="Nội dung"  name="txtContent" id="txtContent" class="form-control my-ckeditor"></textarea>
                                 <span class="help-block">@{{actions.showError('content')}}</span>
                             </div>
+                            <div class="form-group" ng-class="actions.hasError('content') ? 'has-error' : ''">
+                                <label>Nguồn: </label> <a href="@{{parent_url}}" target="_blank"> @{{parent_url}}</a>
+                                
+                            </div>
                         </div>
 
                     </div>

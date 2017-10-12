@@ -87,7 +87,7 @@ class ArticleCtrl extends Controller {
                         $querySub->where('crawlerPublish', 0);
                     });
                 })->count();
-        $viewData['arrArticle'] = $artModel->getAll($request->category_id, 'Product', $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd, $request->ord_fb, TRUE);
+        $viewData['arrArticle'] = $artModel->getAll($request->category_id, 'Product', $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd, $request->ord_fb, TRUE, $request->total_phone);
         return view('Backend/article/listArticleCrawler', $viewData);
     }
 
