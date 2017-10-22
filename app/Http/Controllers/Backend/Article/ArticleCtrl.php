@@ -60,11 +60,12 @@ class ArticleCtrl extends Controller {
                             });
                         })->count();
         $viewData['arrArticle'] = $artModel->getAll($request->category_id, $request->type, $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd, $request->ord_fb, FALSE);
+     
         return view('Backend/article/listArticle', $viewData);
     }
 
     function listCrawler(ArticleModel $artModel, CategoryModel $catModel, Request $request) {
-
+        
         $category = $catModel->getAllCat(0);
         $viewData['category'] = collect($category);
         $viewData['post_date'] = $artModel->get_all_post_date();
@@ -88,6 +89,7 @@ class ArticleCtrl extends Controller {
                     });
                 })->count();
         $viewData['arrArticle'] = $artModel->getAll($request->category_id, 'Product', $request->option, $request->freeText, $request->post_date, $request->ord_crat, $request->ord_sk, $request->ord_cd, $request->ord_fb, TRUE, $request->total_phone);
+
         return view('Backend/article/listArticleCrawler', $viewData);
     }
 

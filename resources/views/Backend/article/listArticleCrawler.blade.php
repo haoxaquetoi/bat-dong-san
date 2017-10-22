@@ -50,7 +50,7 @@ categorys
                                     <option value="1" >Đăng 1 lần</option>
                                     <option value="2" >Ít hơn hoặc bằng 2 lần</option>
                                     <option value="5" >Ít hơn hoặc bằng 5 lần</option>
-									<option value="6" >Nhiều hơn 5 lần</option>
+                                    <option value="6" >Nhiều hơn 5 lần</option>
                                 </select>
                                 <button ng-click="actions.getAll()" type="button" class="btn btn-default btn-sm">Lọc</button>
                             </form>
@@ -81,6 +81,7 @@ categorys
                                         <col width='20%' />
                                         <col width='17%' />
                                         <col width='15%' />
+                                        <col width='15%' />
                                     </colgroup>
                                     <thead>
                                         <tr role="row">
@@ -89,6 +90,7 @@ categorys
                                             <th >Tiêu đề</th>
                                             <th ng-click="actions.sorting('ord_sk')" ng-class="!data.filter.ord_sk ? 'sorting' : data.filter.ord_sk == 'asc' ? 'sorting_asc' : 'sorting_desc'"  >Nổi bật</th>
                                             <th ng-click="actions.sorting('ord_cd')" ng-class="!data.filter.ord_cd ? 'sorting' : data.filter.ord_cd == 'asc' ? 'sorting_asc' : 'sorting_desc'" >Đảm bảo</th>
+                                            <th  >Số điện thoại</th>
                                             <th ng-click="actions.sorting('ord_crat')" ng-class="!data.filter.ord_crat ? 'sorting' : data.filter.ord_crat == 'asc' ? 'sorting_asc' : 'sorting_desc'">Ngày lấy tin</th>
                                         </tr>
                                     </thead>
@@ -118,6 +120,7 @@ categorys
                                                 <a ng-click="actions.updateCensored(article.id)"  ng-if="article.is_censored == 0" href="javascript:;"href="javascript:;"><i class="fa fa-star-o text-yellow"></i></a>
                                             </td>
                                            
+                                            <td>@{{article.mobile}}</td>
                                             <td>@{{article.created_at}}</td>
                                         </tr>
 

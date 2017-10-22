@@ -148,8 +148,8 @@ class ArticleModel extends Model {
             }
         }
         //đếm số feedback
-        $artModel->select(DB::Raw('(select count(id) from feedback_article where article.id = feedback_article.article_id and readed!= 1 ) as feedBackReaded,(select count(id) from feedback_article where article.id = feedback_article.article_id) as totalFeedBack ,article.*'));
-
+        $artModel->select(DB::Raw('(select mobile from article_contact where article.id = article_contact.article_id  ) as mobile,(select count(id) from feedback_article where article.id = feedback_article.article_id and readed!= 1 ) as feedBackReaded,(select count(id) from feedback_article where article.id = feedback_article.article_id) as totalFeedBack ,article.*'));
+       
         return $artModel->paginate()->toArray();
     }
 
