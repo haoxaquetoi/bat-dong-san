@@ -48,8 +48,9 @@ categorys
                                 <select class="form-control input-sm" ng-model="data.filter.total_phone" >
                                     <option value="" >-- Số lần SDT đăng --</option>
                                     <option value="1" >Đăng 1 lần</option>
-                                    <option value="2" >Nhiều hơn hoặc bằng 2 lần</option>
-                                    <option value="5" >Nhiều hơn hoặc bằng 5 lần</option>
+                                    <option value="2" >Ít hơn hoặc bằng 2 lần</option>
+                                    <option value="5" >Ít hơn hoặc bằng 5 lần</option>
+									<option value="6" >Nhiều hơn 5 lần</option>
                                 </select>
                                 <button ng-click="actions.getAll()" type="button" class="btn btn-default btn-sm">Lọc</button>
                             </form>

@@ -110,7 +110,7 @@ class ArticleModel extends Model {
         }
         if (intval($total_phone)) {
             $artModel = $artModel->leftJoin('article_contact', 'article.id', '=', 'article_contact.article_id');
-            if (intval($total_phone) <= 1) {
+            if (intval($total_phone) <= 5) {
                 $sqlRaw = "article_contact.mobile is null Or article_contact.mobile in (SELECT mobile  FROM `article_contact` GROUP BY mobile HAVING  COUNT(mobile) <= " . intval($total_phone) . ")";
             } else {
                 $sqlRaw = "article_contact.mobile in (SELECT mobile  FROM `article_contact` GROUP BY mobile HAVING  COUNT(mobile) >= " . intval($total_phone) . ")";
