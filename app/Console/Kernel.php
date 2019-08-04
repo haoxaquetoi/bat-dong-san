@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Console\Commands\consoleCrawler;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,6 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+//        \App\Console\Commands\ScrapeFunko::class,
+        //\App\Console\Commands\consoleCrawler::class,
     ];
 
     /**
@@ -24,8 +27,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+//         $schedule->command('inspire')
+//                  ->hourly();
+        // $schedule->command('command:crawler')->everyTenMinutes();
     }
 
     /**

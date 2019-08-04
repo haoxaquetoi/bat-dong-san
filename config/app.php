@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => env('APP_ENV', ''),
 
     /*
     |--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', FALSE),
 
     /*
     |--------------------------------------------------------------------------
@@ -177,17 +177,26 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         
-        
-        
-        
         /**
-         * My providers
+         * laravel-filemanager
          */
-        App\Modules\ModuleServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
         
         
+        #crawler
+        Weidner\Goutte\GoutteServiceProvider::class,
         
+        #Debugbar
+        Barryvdh\Debugbar\ServiceProvider::class,
+        
+        #myAppConfigProvider
+        App\Providers\MyAppConfigProvider::class,
+        
+        
+        Mews\Captcha\CaptchaServiceProvider::class,
+        
+        Spatie\Analytics\AnalyticsServiceProvider::class,
     ],
 
     /*
@@ -237,11 +246,19 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         
+        /**
+         * laravel-filemanager
+         */
+        'Image' => Intervention\Image\Facades\Image::class,
         
-        'Form'      => Collective\Html\FormFacade::class,
-        'Html'      => Collective\Html\HtmlFacade::class,
+        #crawler
+        'Goutte' => Weidner\Goutte\GoutteFacade::class,
+        #debugbar
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         
-
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        
+        'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
     ],
 
 ];

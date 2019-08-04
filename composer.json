@@ -6,9 +6,13 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "barryvdh/laravel-debugbar": "^2.4",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "^5.4"
+        "mews/captcha": "^2.1",
+        "spatie/laravel-analytics": "^3.1",
+        "unisharp/laravel-filemanager": "^1.8",
+        "weidner/goutte": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -20,8 +24,7 @@
             "database"
         ],
         "psr-4": {
-            "App\\": "app/",
-            "App\\Modules\\":"app/Modules/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
