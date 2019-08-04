@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
 //        \App\Console\Commands\ScrapeFunko::class,
-        \App\Console\Commands\consoleCrawler::class,
+        //\App\Console\Commands\consoleCrawler::class,
     ];
 
     /**
@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
     {
 //         $schedule->command('inspire')
 //                  ->hourly();
-         $schedule->command('command:crawler')->everyTenMinutes();
+        // $schedule->command('command:crawler')->everyTenMinutes();
     }
 
     /**

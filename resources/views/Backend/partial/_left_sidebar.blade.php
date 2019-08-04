@@ -23,11 +23,7 @@
                 <i class="fa fa-user-circle"></i> <span>Tin bài</span>
             </a>
         </li>
-        <li class="{{ ($current_route_name == 'articleCrawler') ? 'active' : '' }}">
-            <a href="{{route('articleCrawler')}}">
-                <i class="fa fa-user-circle"></i> <span>Tin bài crawler</span>
-            </a>
-        </li>
+        
         <li class="{{ (in_array($current_route_name,['feedback','settingFeedback'])) ? 'active' : '' }}">
             <a href="javascript:void(0)">
                 <i class="fa fa-question-circle-o" aria-hidden="true"></i> <span>Góp ý</span>
@@ -48,11 +44,7 @@
                 </li>
             </ul>
         </li>
-        <li class="{{ ($current_route_name == 'crawler') ? 'active' : '' }}">
-            <a href="{{route('crawler')}}">
-                <i class="fa fa-user-circle"></i> <span>Cấu hình Crawler</span>
-            </a>
-        </li>
+        
         <li class="{{ ($current_route_name == 'user') ? 'active' : '' }}">
             <a href="{{route('user')}}">
                 <i class="fa fa-user-circle"></i> <span>Người dùng</span>

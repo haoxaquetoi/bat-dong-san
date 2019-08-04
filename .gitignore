@@ -2,3 +2,5 @@
 /vendor
 /.env
 /app/nbproject/private/
+.DS_Store
+/public/uploads/

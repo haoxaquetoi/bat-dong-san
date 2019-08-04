@@ -25,9 +25,6 @@ class Controller extends BaseController {
         });
     }
 
-    function test() {
-        return view('Backend.test');
-    }
 
     /**
      * Configure the validator instance.

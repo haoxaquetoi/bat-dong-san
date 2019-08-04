@@ -133,20 +133,7 @@ class ArticleModel extends Model {
         if ($ord_fb) {
             $artModel = $artModel->orderBy('feedBackReaded', $ord_fb);
         }
-        if ($chkCrawler !== NULL) {
-            if ($chkCrawler) {
-                $artModel->whereNotNull('parent_url');
-            } else {
-                $artModel->where(function($query) {
-                    $query->where(function($querySub) {
-                        $querySub->whereNull('parent_url');
-                    });
-                    $query->orWhere(function($querySub) {
-                        $querySub->where('crawlerPublish', 1);
-                    });
-                });
-            }
-        }
+
         //đếm số feedback
         $artModel->select(DB::Raw('(select mobile from article_contact where article.id = article_contact.article_id  ) as mobile,(select count(id) from feedback_article where article.id = feedback_article.article_id and readed!= 1 ) as feedBackReaded,(select count(id) from feedback_article where article.id = feedback_article.article_id) as totalFeedBack ,article.*'));
        
